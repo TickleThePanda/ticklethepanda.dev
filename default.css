@@ -1,0 +1,150 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#main-container {
+  width: 100%;
+  height: 100%;
+}
+
+#header {
+  text-align: center;
+  font-size: 130%;
+  background-color: #444;
+  padding: 1em;
+  height: 1em;
+  font-family: "Courier New", Courier, monospace;
+  color: #cda;
+}
+
+#sidebar-wrapper {
+  text-align: right;
+  font-family: "Courier New", Courier, monospace;
+
+  background-color: #cda;
+  overflow-y: auto;
+  position:absolute;
+  height: 100%;
+  width: 230px;
+  z-index: 1;
+}
+
+#sidebar {
+  padding: 10px 30px;
+  overflow-y: auto;
+}
+
+#biog {
+  font-size:68%;
+  font-weight:100;
+  color:#444;
+}
+
+#title {
+  float: left;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 700;
+}
+
+#subtitle {
+  font-size: 130%;
+  color: #444;
+  font-weight: 700;
+  font-family: "Courier New", Courier, monospace;
+  padding: 1em;
+}
+
+#content-wrapper {
+  color: #000;
+  height: 100%;
+  margin: 0px 0px 0px 230px;
+}
+
+#content {
+  text-align: left;
+  font-family: "Courier New", Courier, monospace, serif;
+  color: #444;
+  padding: 10px 40px;
+  line-height: 130%;
+  width: 700px;
+}
+
+#content-scroll-wrapper {
+  overflow:auto;
+  width:100%;
+  height:100%;
+}
+
+#header-center {
+  display: inline-block;
+}
+
+#overlay-div {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index:99;
+  opacity:0.6;
+  background-color: #fff;
+}
+
+.first-paragraph {
+  text-indent: 4em;
+}
+
+.image-holder {
+  float: left;
+  padding: 0px 2px 2px 0px;
+  margin: 0px;
+}
+
+.horizontal-line {
+  margin: 0.5em;
+  height: 1px;
+  background-color: #000;
+  float: left;
+  width: 250px;
+}
+
+.center {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center-text {
+  width: 100%;
+  text-align:center;
+}
+
+.v-bold {
+  font-weight:900;
+  color: #000;
+}
+
+.sidebar-link{
+  color:#000;
+  text-decoration:underline;
+  padding-left:10px;
+}
+
+.sidebar-line {
+  margin-top: -0.85em;
+  height: 1px;
+  background-color: #000;
+  width: 100%;
+}
+
+.sidebar-title {
+  font-weight:bold;
+}
+
+.sidebar-link:link {color:#000;}                                /* unvisited link */
+.sidebar-link:visited {color:#000;}                             /* visited link */
+.sidebar-link:hover {color:#000; text-decoration:none;}    /* mouse over link */
+.sidebar-link:active {color:#000;}                              /* selected link */
