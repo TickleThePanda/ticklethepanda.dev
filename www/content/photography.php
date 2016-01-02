@@ -17,6 +17,6 @@ if (!isset($TPL)) {
   I visited Kew Gardens with my girlfriend in June, 2013. For most of it we did lounge around; however, when we did move about, it was a perfect day for taking photographs. These are my favourite photographs from that day.
 </p>
 <?php
-  $image_location = "/images/photography/";
+  $image_location = "/images/photography/kew/";
   include "gallery.php";
 ?>

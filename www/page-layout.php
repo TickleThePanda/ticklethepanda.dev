@@ -41,8 +41,9 @@
           <p id="biog">
             <br>
             hey, i'm <span class="v-bold">panda</span>!<br><br>
-            i'm a <span class="v-bold">geek</span> studying<br>
+            i'm a <span class="v-bold">geek</span> who studied<br>
             <span class="v-bold">computer science</span><br><br>
+            i work as a software engineer at stfc<br><br>
             i love playing<br>
             with <span class="v-bold">data</span> and<br>
             presenting it in<br>

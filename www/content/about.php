@@ -12,3 +12,6 @@ if (!isset($TPL)) {
 ?>
 <h3>Meet Panda</h3>
 <p class="first-paragraph">Hi, my name is Thomas 'Panda' Attwood. TickleThePanda is a pseudonym that I use while working online. I am currently studying Computer Science (BSc) at Royal Holloway, University of London. I love writing software that presents data in unique and interesting ways and I also enjoy web design and photography.</p>
+<p><a href="https://github.com/TickleThePanda">GitHub</a></p>
+<p><a href="https://twitter.com/TickleThePanda">Twitter</a></p>
+<p><a href="https://www.facebook.com/profile.php?id=1320190799">Facebook</a></p>
