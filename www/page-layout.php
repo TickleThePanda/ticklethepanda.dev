@@ -1,8 +1,8 @@
 <?php require_once('page-template.php');?>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <link href="default.css" rel="stylesheet" type="text/css">
-    <script src="scripts/jquery-1.11.1.js"></script>
     <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -17,15 +17,25 @@
   </head>
   <body>
     <div id="main-container">
-      <div id="sidebar-wrapper">
+      <div id="infobar">
         <div id="header">
-          <div id="header-center">
-            <div id="title">
-              ticklethepanda
-            </div>
-          </div>
+          <a id="title" href="http://ticklethepanda.co.uk/">
+            ticklethepanda  
+          </a>
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+            viewBox="0 0 9 7" preserveAspectRatio="xMidYMid slice" id="nav-toggle">
+            <path
+               style="fill:none;fill-rule:evenodd;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               d="m 1.5,2 6,0"/>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               d="m 1.5,4 6,0"/>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               d="m 1.5,6 6,0"/>
+          </svg>
         </div>
-        <div id="sidebar">
+        <div id="nav">
           <p class="sidebar-title">info</p>
           <div class="sidebar-line"></div>
           <p><a class="sidebar-link" href="?action=home">home</a></p>
@@ -43,7 +53,7 @@
             hey, i'm <span class="v-bold">panda</span>!<br><br>
             i'm a <span class="v-bold">geek</span> who studied<br>
             <span class="v-bold">computer science</span><br><br>
-            i work as a software engineer at stfc<br><br>
+            i work as a <span class="v-bold">software<br>engineer</span> at stfc<br><br>
             i love playing<br>
             with <span class="v-bold">data</span> and<br>
             presenting it in<br>
@@ -55,8 +65,8 @@
         </div>
       </div>
       <div id="content-wrapper">
-        <div id="content-scroll-wrapper">
-           <div id="subtitle">
+        <div id="content-scroll-wrap">
+          <div id="subtitle">
              &gt;&nbsp;<?php if(isset($TPL->PageTitle)) { echo $TPL->PageTitle; } ?>
           </div>
           <div id="content">
@@ -65,8 +75,6 @@
         </div>
       </div>
     </div>
-	<div id="overlay-div">
-
-	</div>
+    <script src="scripts/page.js"></script>
   </body>
 </html>

@@ -1,38 +1,84 @@
 html, body {
   margin: 0;
   padding: 0;
+  
+  font-family: "Courier New", Courier, monospace, serif;
 }
 
 #main-container {
   width: 100%;
   height: 100%;
+
+  display: -webkit-flex;
+  display:         flex;
+  -webkit-flex-flow: row;
+          flex-flow: row;
+}
+
+/* -------- infobar ----------*/
+
+#infobar {
+  text-align: right;
+
+  background-color: #cda;
+
+  min-width: 230px;
+
+  -webkit-flex: 0 0 auto;
+          flex: 0 0 auto;
+  -webkit-order: 1;
+          order: 1;
 }
 
 #header {
+  display: -webkit-flex;
+  display:         flex;
+  
   text-align: center;
-  font-size: 130%;
+  vertical-align: middle;
+
+  font-weight: 700;
+  font-size: 140%;
+
   background-color: #444;
-  padding: 1em;
-  height: 1em;
-  font-family: "Courier New", Courier, monospace;
   color: #cda;
 }
 
-#sidebar-wrapper {
-  text-align: right;
-  font-family: "Courier New", Courier, monospace;
+#title {
+  -webkit-flex: 1 1 auto;
+          flex: 1 1 auto;
 
-  background-color: #cda;
-  overflow-y: auto;
-  position:absolute;
-  height: 100%;
-  width: 230px;
-  z-index: 1;
+  padding: 1em;
+  height: 1em;
+  
+  text-decoration: none;
 }
 
-#sidebar {
+#title:link {color:#cda;}                                /* unvisited link */
+#title:visited {color:#cda;}                             /* visited link */
+#title:hover {color:#deb;}    /* mouse over link */
+#title:active {color:#cda;}                              /* selected link */
+
+#nav-toggle {
+  display: none;
+  
+  stroke: #444;
+  background-color: #cda;
+  overflow: hidden;
+  
+  padding: 1em;
+  height: 1em;
+  
+  cursor: pointer;
+}
+
+#nav-toggle:hover {
+  stroke: #000;
+}
+
+#nav {
   padding: 10px 30px;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 #biog {
@@ -41,56 +87,92 @@ html, body {
   color:#444;
 }
 
-#title {
-  float: left;
-  text-align: center;
-  vertical-align: middle;
-  font-weight: 700;
-}
+/* ------- content ------- */
 
 #subtitle {
   font-size: 130%;
   color: #444;
   font-weight: 700;
-  font-family: "Courier New", Courier, monospace;
   padding: 1em;
 }
 
 #content-wrapper {
+  display: -webkit-flex;
+  display:         flex;
+  
+  -webkit-flex: 1 1 auto;
+          flex: 1 1 auto;
+  -webkit-order: 2;
+          order: 2;
+
+  margin: 0px 0px 0px 0px;
+
   color: #000;
-  height: 100%;
-  margin: 0px 0px 0px 230px;
+}
+
+#content-scroll-wrap {
+  overflow-y: auto;
+  width:100%;
 }
 
 #content {
   text-align: left;
-  font-family: "Courier New", Courier, monospace, serif;
   color: #444;
   padding: 10px 40px;
   line-height: 130%;
-  width: 700px;
+  max-width: 700px;
+  word-wrap: break-word;
 }
 
-#content-scroll-wrapper {
-  overflow:auto;
-  width:100%;
-  height:100%;
+/* Too narrow to support three columns */
+@media all and (max-width: 640px) {
+
+  #main-container {
+    -webkit-flex-flow: column;
+            flex-flow: column;
+  }
+
+  #infobar {
+    -webkit-order: 1;
+            order: 1;
+  }
+
+  #nav {
+    display: none;
+  }
+  
+  #nav.open-nav {
+    display:block;
+  }
+
+  #biog {
+    display: none;
+  }
+
+  #nav-toggle {
+    display: block;
+    -webkit-flex: 0 0 30px;
+            flex: 0 0 30px;
+  }
 }
 
-#header-center {
+.health-info {
+  max-width:100%;
+}
+
+.stats-box {
   display: inline-block;
+  width: 49%;
+  text-align: center;
 }
 
-#overlay-div {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index:99;
-  opacity:0.6;
-  background-color: #fff;
+.stats-header {
+}
+
+.stats-box-count {
+  text-align: center;
+  font-size: 10em;
+  line-height: 1em;
 }
 
 .first-paragraph {
@@ -148,3 +230,7 @@ html, body {
 .sidebar-link:visited {color:#000;}                             /* visited link */
 .sidebar-link:hover {color:#000; text-decoration:none;}    /* mouse over link */
 .sidebar-link:active {color:#000;}                              /* selected link */
+
+.github-link {
+  
+}
