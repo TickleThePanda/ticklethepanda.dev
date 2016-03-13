@@ -12,12 +12,12 @@ if (!isset($TPL)) {
 ?>
 <p>
 <h3>weight</h3>
-<p><a href="/images/data/weight-plot.png"><img src="/images/data/weight-plot.png" width="700px"></a></p>
+<p><a href="/images/data/weight-plot.png"><img src="/images/data/weight-plot.png" class="health-info"></a></p>
 
 <h3>activity</h3>
-<p><a href="/images/data/fitbit-day-plot.png"><img src="/images/data/fitbit-day-plot.png" width="700px"></a></p>
-<p><a href="/images/data/fitbit-dow-plot.png"><img src="/images/data/fitbit-dow-plot.png" width="700px"></a></p>
-<p><a href="/images/data/fitbit-months-plot.png"><img src="/images/data/fitbit-months-plot.png" width="700px"></a></p>
+<p><a href="/images/data/fitbit-day-plot.png"><img src="/images/data/fitbit-day-plot.png" class="health-info"></a></p>
+<p><a href="/images/data/fitbit-dow-plot.png"><img src="/images/data/fitbit-dow-plot.png" class="health-info"></a></p>
+<p><a href="/images/data/fitbit-months-plot.png"><img src="/images/data/fitbit-months-plot.png" class="health-info"></a></p>
 
 <h3>misc</h3>
 <div class="stats_box">
