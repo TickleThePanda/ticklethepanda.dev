@@ -47,10 +47,11 @@ html, body {
 #title {
   -webkit-flex: 1 1 auto;
           flex: 1 1 auto;
+  min-width: 14ch;
 
   padding: 1em;
   height: 1em;
-  
+
   text-decoration: none;
 }
 
@@ -70,6 +71,28 @@ html, body {
   height: 1em;
   
   cursor: pointer;
+}
+
+#nav-toggle > .animated-line {
+  stroke-dasharray: 6;
+  stroke-dashoffset: 6;
+  animation: dash 0.5s linear forwards;
+}
+
+#nav-toggle > .animated-line:nth-child(2) {
+  -webkit-animation-delay: 0.4s; /* Chrome, Safari, Opera */
+          animation-delay: 0.4s;
+}
+
+#nav-toggle > .animated-line:nth-child(3) {
+  -webkit-animation-delay: 0.7s; /* Chrome, Safari, Opera */
+          animation-delay: 0.7s;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 #nav-toggle:hover {
