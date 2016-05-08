@@ -1,7 +1,9 @@
-www/images/
+public/images/
 /_images
 
-www/hitchhikers
-www/scouts
+public/hitchhikers
+public/scouts
 
+private/vendor
+private/composer.lock
 _edits
