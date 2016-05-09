@@ -15,24 +15,30 @@
   ?>
 
   <?php
+    $count = 1;
     foreach($galleries->{'galleries'} as $gallery):
-      $thumbs_path = $galleries->{'thumbsPath'}.$gallery->{'reference'}.'/';
-      $full_path = $galleries->{'fullPath'}.$gallery->{'reference'}.'/';
-
-      $images = $gallery->{'images'};
       ?>
+      <div id="gallery<?=$count?>" class="gallery-container">
+        <?php
+        $thumbs_path = $galleries->{'thumbsPath'}.$gallery->{'reference'}.'/';
+        $full_path = $galleries->{'fullPath'}.$gallery->{'reference'}.'/';
 
-      <h3><?=$gallery->{'name'}?></h3>
-      <?= $gallery->{'description'} ?>
+        $images = $gallery->{'images'};
+        ?>
 
-      <div class="gallery">
-        <?php foreach($images as $image): ?>
-          <div class="image-holder">
-            <a href="<?= $full_path.$image->{'fileName'} ?>">
-              <img class="image_thumb" src="<?= $thumbs_path.$image->{'fileName'} ?>">
-            </a>
-          </div>
-        <?php endforeach; ?>
+        <h3><?=$gallery->{'name'}?></h3>
+        <?= $gallery->{'description'} ?>
+
+        <div class="gallery">
+          <?php foreach($images as $image): ?>
+            <div class="image-holder">
+              <a href="<?= $full_path.$image->{'fileName'} ?>">
+                <img class="image_thumb" src="<?= $thumbs_path.$image->{'fileName'} ?>">
+              </a>
+            </div>
+          <?php endforeach; ?>
+        </div>
       </div>
-    <?php endforeach; ?>
+    <?php endforeach;
+  ?>
 </p>

@@ -180,6 +180,18 @@ html, body {
   }
 }
 
+.gallery-container {
+  display: hidden;
+}
+
+.gallery-container:first-of-type {
+  display: block;
+}
+
+.gallery-nav {
+  float:right;
+}
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -252,6 +264,10 @@ html, body {
 
 .sidebar-title {
   font-weight:bold;
+}
+
+.invisible {
+  visibility: hidden;
 }
 
 .sidebar-link:link {color:#000;}                                /* unvisited link */
