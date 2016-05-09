@@ -9,13 +9,6 @@ if (!isset($TPL)) {
     include $_SERVER['DOCUMENT_ROOT'].'/../private/page-layout.php';
     exit;
 }
-?>
-<h3>
-  Wandering Kew Gardens
-</h3>
-<p class="first-paragraph">
-  I visited Kew Gardens with my girlfriend in June, 2013. For most of it we did lounge around; however, when we did move about, it was a perfect day for taking photographs. These are my favourite photographs from that day.
-</p>
-<?php
+
   include $_SERVER['DOCUMENT_ROOT']."/../private/gallery.php";
 ?>

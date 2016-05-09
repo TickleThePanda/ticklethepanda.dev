@@ -1,7 +1,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  
+
   font-family: "Courier New", Courier, monospace, serif;
 }
 
@@ -24,6 +24,8 @@ html, body {
 
   min-width: 230px;
 
+  overflow: hidden;
+
   -webkit-flex: 0 0 auto;
           flex: 0 0 auto;
   -webkit-order: 1;
@@ -33,7 +35,7 @@ html, body {
 #header {
   display: -webkit-flex;
   display:         flex;
-  
+
   text-align: center;
   vertical-align: middle;
 
@@ -62,14 +64,14 @@ html, body {
 
 #nav-toggle {
   display: none;
-  
+
   stroke: #444;
   background-color: #cda;
   overflow: hidden;
-  
+
   padding: 1em;
   height: 1em;
-  
+
   cursor: pointer;
 }
 
@@ -122,7 +124,7 @@ html, body {
 #content-wrapper {
   display: -webkit-flex;
   display:         flex;
-  
+
   -webkit-flex: 1 1 auto;
           flex: 1 1 auto;
   -webkit-order: 2;
@@ -147,7 +149,6 @@ html, body {
   word-wrap: break-word;
 }
 
-/* Too narrow to support three columns */
 @media all and (max-width: 640px) {
 
   #main-container {
@@ -163,7 +164,7 @@ html, body {
   #nav {
     display: none;
   }
-  
+
   #nav.open-nav {
     display:block;
   }
@@ -177,6 +178,11 @@ html, body {
     -webkit-flex: 0 0 30px;
             flex: 0 0 30px;
   }
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .health-info {
@@ -203,8 +209,7 @@ html, body {
 }
 
 .image-holder {
-  float: left;
-  padding: 0px 2px 2px 0px;
+  padding: 2px;
   margin: 0px;
 }
 
@@ -255,5 +260,5 @@ html, body {
 .sidebar-link:active {color:#000;}                              /* selected link */
 
 .github-link {
-  
+
 }

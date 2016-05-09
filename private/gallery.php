@@ -17,16 +17,22 @@
 
     $images = $gallery->{'galleries'}[0]->{'images'};
 
-    foreach($images as $image) {
   ?>
-    <div id="gallery">
+  <h3><?php echo $gallery->{'galleries'}[0]->{'name'}; ?></h3>
+  <?php
+    echo $gallery->{'galleries'}[0]->{'description'};
+  ?>
+  <div class="gallery">
+    <?php
+      foreach($images as $image) {
+    ?>
       <div class="image-holder">
         <a href="<?php echo $full_path.$image->{'fileName'}; ?>">
           <img class="image_thumb" src="<?php echo $thumbs_path.$image->{'fileName'}; ?>">
         </a>
       </div>
-    </div>
-  <?php
-    }
-  ?>
+    <?php
+      }
+    ?>
+  </div>
 </p>
