@@ -10,29 +10,29 @@
     ]);
     $response = $client->request('GET', 'gallery');
 
-    $gallery = json_decode($response->getBody());
-
-    $thumbs_path = $gallery->{'thumbsPath'}.$gallery->{'galleries'}[0]->{'reference'}.'/';
-    $full_path = $gallery->{'fullPath'}.$gallery->{'galleries'}[0]->{'reference'}.'/';
-
-    $images = $gallery->{'galleries'}[0]->{'images'};
+    $galleries = json_decode($response->getBody());
 
   ?>
-  <h3><?php echo $gallery->{'galleries'}[0]->{'name'}; ?></h3>
+
   <?php
-    echo $gallery->{'galleries'}[0]->{'description'};
-  ?>
-  <div class="gallery">
-    <?php
-      foreach($images as $image) {
-    ?>
-      <div class="image-holder">
-        <a href="<?php echo $full_path.$image->{'fileName'}; ?>">
-          <img class="image_thumb" src="<?php echo $thumbs_path.$image->{'fileName'}; ?>">
-        </a>
+    foreach($galleries->{'galleries'} as $gallery):
+      $thumbs_path = $galleries->{'thumbsPath'}.$gallery->{'reference'}.'/';
+      $full_path = $galleries->{'fullPath'}.$gallery->{'reference'}.'/';
+
+      $images = $gallery->{'images'};
+      ?>
+
+      <h3><?=$gallery->{'name'}?></h3>
+      <?= $gallery->{'description'} ?>
+
+      <div class="gallery">
+        <?php foreach($images as $image): ?>
+          <div class="image-holder">
+            <a href="<?= $full_path.$image->{'fileName'} ?>">
+              <img class="image_thumb" src="<?= $thumbs_path.$image->{'fileName'} ?>">
+            </a>
+          </div>
+        <?php endforeach; ?>
       </div>
-    <?php
-      }
-    ?>
-  </div>
+    <?php endforeach; ?>
 </p>
