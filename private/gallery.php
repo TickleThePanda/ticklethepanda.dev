@@ -15,6 +15,7 @@
   ?>
 
   <?php
+    $nGalleries = count($galleries->{'galleries'});
     $count = 1;
     foreach($galleries->{'galleries'} as $gallery):
       ?>
@@ -42,6 +43,8 @@
           <?php endforeach; ?>
         </div>
       </div>
-    <?php endforeach;
+    <?php
+      $count++;
+    endforeach;
   ?>
 </p>
