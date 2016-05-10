@@ -31,19 +31,18 @@
           </svg>
         </div>
         <div id="nav">
-          <p class="sidebar-title">info</p>
+          <div class="sidebar-title">info</div>
           <div class="sidebar-line"></div>
-          <p><a class="sidebar-link" href="?action=home">home</a></p>
-          <p><a class="sidebar-link" href="?action=about">about</a></p>
-          <p class="sidebar-title">projects</p>
+          <div class="sidebar-link"><a href="?action=home">home</a></div>
+          <div class="sidebar-link"><a href="?action=about">about</a></div>
+          <div class="sidebar-title">projects</div>
           <div class="sidebar-line"></div>
-          <p><a class="sidebar-link" href="?action=messages">messages book</a></p>
-          <p><a class="sidebar-link" href="?action=location">location map</a></p>
-          <p><a class="sidebar-link" href="?action=health">health tracking</a></p>
-          <p><a class="sidebar-link" href="?action=photography">photography</a></p>
-          <br>
-          <div class="sidebar-line"></div>
-          <p id="biog">
+          <div class="sidebar-link"><a href="?action=messages">messages book</a></div>
+          <div class="sidebar-link"><a href="?action=location">location map</a></div>
+          <div class="sidebar-link"><a href="?action=health">health tracking</a></div>
+          <div class="sidebar-link"><a href="?action=photography">photography</a></div>
+          <div class="sidebar-line no-title"></div>
+          <div id="biog">
             <br>
             hey, i'm <span class="v-bold">panda</span>!<br><br>
             i'm a <span class="v-bold">geek</span> who studied<br>
@@ -56,7 +55,7 @@
             i've created this<br>
             space to show my<br>
             recent <span class="v-bold">projects</span><br><br>
-          </p>
+          </div>
         </div>
       </div>
       <div id="content-wrapper">
