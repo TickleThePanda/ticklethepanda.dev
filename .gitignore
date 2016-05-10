@@ -7,3 +7,7 @@ public/scouts
 private/vendor
 private/composer.lock
 _edits
+
+/node_modules
+
+/public/default.css

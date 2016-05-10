@@ -1,0 +1,16 @@
+{
+  "name": "ticklethepanda.co.uk",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "git": "git checkout master && git pull",
+    "update-dependancies": "npm install",
+    "less": "lessc _less/style.css public/default.css",
+    "start": "npm run git && npm run update-dependancies && npm run less"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ticklethepanda/ticklethepanda.co.uk.git"
+  },
+  "author": ""
+}
