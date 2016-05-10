@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "git": "git checkout master && git pull",
+    "git": "git checkout master && git fetch && git reset origin/master --hard",
     "update-dependancies": "npm install",
     "less": "lessc _less/style.css public/default.css",
     "start": "npm run git && npm run update-dependancies && npm run less"
