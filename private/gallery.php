@@ -18,14 +18,17 @@
     $count = 1;
     foreach($galleries->{'galleries'} as $gallery):
       ?>
-      <div id="gallery<?=$count?>" class="gallery-container">
+      <div class="gallery-container">
         <?php
         $thumbs_path = $galleries->{'thumbsPath'}.$gallery->{'reference'}.'/';
         $full_path = $galleries->{'fullPath'}.$gallery->{'reference'}.'/';
 
         $images = $gallery->{'images'};
         ?>
-
+        <div class="gallery-nav">
+          <a href="#gallery=<?=$count - 1?>" class="prev<?= $count == 1 ? ' invisible' : ''?>">&lt;-- prev</a>&nbsp;
+          <a href="#gallery=<?=$count + 1?>" class="next<?= $count == $nGalleries ? ' invisible' : ''?>">next --&gt;</a>
+        </div>
         <h3><?=$gallery->{'name'}?></h3>
         <?= $gallery->{'description'} ?>
 
