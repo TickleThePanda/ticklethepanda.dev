@@ -161,6 +161,11 @@ body {
   max-width:100%;
 }
 
+#social-media-widget {
+  display:flex;
+  justify-content: flex-end;
+}
+
 @media all and (max-width: 640px) {
 
   body {
@@ -190,6 +195,10 @@ body {
     -webkit-flex: 0 0 30px;
             flex: 0 0 30px;
   }
+}
+
+.social-media-link {
+  margin: 1em;
 }
 
 .gallery-container {

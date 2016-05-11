@@ -13,5 +13,21 @@ if (!isset($TPL)) {
 <h3>Meet Panda</h3>
 <img id="my-face" src="/images/content/me.png">
 <p class="first-paragraph">Hi, my name is Thomas 'Panda' Attwood. TickleThePanda is a pseudonym that I use while working online. I am currently studying Computer Science (BSc) at Royal Holloway, University of London. I love writing software that presents data in unique and interesting ways and I also enjoy web design and photography.</p>
-<p><a class="github-link" href="https://github.com/TickleThePanda"><img src="images/social/github.png"></img>TickleThePanda on GitHub</a></p>
-<p><a href="https://twitter.com/ticklethepanda" class="twitter-follow-button" data-show-count="false">Follow @ticklethepanda</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+<div id="social-media-widget">
+  <div class="social-media-link">
+    <a href='https://twitter.com/ticklethepanda'>
+      <img src='/images/social/twitter.png'>
+    </a>
+  </div>
+  <div class="social-media-link">
+    <a href='https://github.com/ticklethepanda'>
+      <img src='/images/social/github.png'>
+    </a>
+  </div>
+  <div class="social-media-link">
+    <a href='https://facebook.com/1320190799'>
+      <img src='/images/social/facebook.png'>
+    </a>
+  </div>
+</div>
+
