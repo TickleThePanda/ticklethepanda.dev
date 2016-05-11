@@ -6,7 +6,8 @@
     "git": "git checkout master && git fetch && git reset origin/master --hard",
     "update-dependancies": "npm install",
     "less": "lessc _less/style.css public/default.css",
-    "start": "npm run git && npm run update-dependancies && npm run less"
+    "compress-images": "find ./public/images -name \"*.jpg\" -type f -exec jpegtran -copy none -optimize -outfile {} {} \\;",
+    "start": "npm run git && npm run update-dependancies && npm run compress-images && npm run less"
   },
   "repository": {
     "type": "git",
