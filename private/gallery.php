@@ -35,9 +35,9 @@
 
         <div class="gallery">
           <?php foreach($images as $image): ?>
-            <div class="image-holder">
+            <div>
               <a href="<?= $full_path.$image->{'fileName'} ?>">
-                <img class="image_thumb" src="<?= $thumbs_path.$image->{'fileName'} ?>">
+                <img src="<?= $thumbs_path.$image->{'fileName'} ?>">
               </a>
             </div>
           <?php endforeach; ?>

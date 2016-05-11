@@ -218,6 +218,22 @@ body {
   flex-wrap: wrap;
 }
 
+.gallery > div {
+  width: calc(50% - 2px);
+  padding: 2px;
+}
+
+@media all and (max-width: 640px) {
+  .gallery > div {
+    width: calc(100% - 2px);
+  }
+}
+
+.gallery > div img {
+  max-width:100%;
+  height:auto;
+}
+
 .health-info {
   max-width:100%;
 }
@@ -239,11 +255,6 @@ body {
 
 .first-paragraph {
   text-indent: 4em;
-}
-
-.image-holder {
-  padding: 2px;
-  margin: 0px;
 }
 
 .horizontal-line {
