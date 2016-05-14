@@ -4,7 +4,7 @@
     use GuzzleHttp\Client;
     $client = new Client([
         // Base URI is used with relative requests
-        'base_uri' => 'http://localhost:8080/',
+        'base_uri' => 'http://localhost:3000/',
         // You can set any number of default request options.
         'timeout'  => 2.0,
     ]);
