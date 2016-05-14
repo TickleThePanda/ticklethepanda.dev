@@ -11,11 +11,14 @@
     }
     return $action;
   }
+
   function get_page_path($action) {
-    if(file_exists("content/$action.html")) {
-      return("content/$action.html");
-    } elseif (file_exists("content/$action.php")) {
-      return("content/$action.php");
+    $content_dir = $_SERVER['DOCUMENT_ROOT'].'/../private/content/';
+
+    $page_path = $content_dir."/$action.php";
+
+    if (file_exists($page_path)) {
+      return($page_path);
     } else {
       return("error/404.html");
     }

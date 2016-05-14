@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <link href="default.css" rel="stylesheet" type="text/css">
-    <title><?php if(isset($TPL->PageTitle)) { echo $TPL->PageTitle; } ?> - ticklethepanda</title>
+    <title><?php if (isset($TPL->PageTitle)) { echo $TPL->PageTitle; } ?> - ticklethepanda</title>
   </head>
   <body>
     <div id="infobar">
