@@ -4,10 +4,15 @@
   "description": "",
   "scripts": {
     "git": "git checkout master && git fetch && git reset origin/master --hard",
+
     "update-dependancies": "npm install",
-    "less": "lessc _less/style.css public/default.css",
+
+    "less": "lessc _less/style.less public/default.css",
+    "minify-css": "cleancss -o public/default.css public/default.css",
+
     "compress-images": "find ./public/images -name \"*.jpg\" -type f -exec jpegtran -copy none -optimize -outfile {} {} \\;",
-    "start": "npm run git && npm run update-dependancies && npm run compress-images && npm run less"
+
+    "start": "npm run git && npm run update-dependancies && npm run less && npm run minify-css && npm run compress-images"
   },
   "repository": {
     "type": "git",
@@ -15,6 +20,7 @@
   },
   "author": "",
   "dependencies": {
-    "less": "^2.7.1"
+    "less": "^2.7.1",
+    "clean-css": "^3.4.12"
   }
 }
