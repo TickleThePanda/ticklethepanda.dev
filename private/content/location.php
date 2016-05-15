@@ -10,8 +10,12 @@ if (!isset($TPL)) {
     exit;
 }
 ?>
-
-<p class="first-paragraph">Since around 2012 I've had a phone that keeps track of my location whenever it's on, using Google's Location History.</p>
-<p>This GIF below shows my location history at every month since I've been tracking my location.</p>
-<img src="/images/location/locations.gif" alt="location gif"/>
-<p>To see the code for how I created this: visit <a href="https://github.com/TickleThePanda/location-history">the GitHub repository</a>.
+<p class="first-paragraph">Since around 2012 I've had a phone that keeps track of my location whenever it's on, using Google's Location History. When I first started writing this software, I wanted to see where I had visited in the UK and where I most frequently was. I decided that the best way to represent this was to use a heat-map.</p>
+<p>To see the code for how I created these gifs, visit <a href="https://github.com/TickleThePanda/location-history">the GitHub repository</a>.
+<h3 name="examples">Examples</h3>
+<h4>Cumulative Location History</h4>
+<p>The GIF below shows the cumulative location history over time.</p>
+<img src="/images/location/cumulative.gif" alt="location gif"/>
+<h4>Monthly Location History</h4>
+<p>The GIF below shows the montly location history</p>
+<img src="/images/location/monthly.gif" alt="location gif"/>
