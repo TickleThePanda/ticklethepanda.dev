@@ -12,7 +12,7 @@ if (!isset($TPL)) {
 ?>
 <h3>Meet Panda</h3>
 <img id="my-face" src="/images/content/me.png">
-<p class="first-paragraph">Hi, my name is Thomas 'Panda' Attwood. TickleThePanda is a pseudonym that I use while working online. I am currently studying Computer Science (BSc) at Royal Holloway, University of London. I love writing software that presents data in unique and interesting ways and I also enjoy web design and photography.</p>
+<p class="first-paragraph">Hi, my name is Thomas 'Panda' Attwood. TickleThePanda is a pseudonym that I use while working online. I studied Computer Science at Royal Holloway, Universty of London. I'm now working as a full stack web developer at STFC; the main technologies that I work with are Java (and JavaEE), C#, HTML5, CSS3, and JavaScript. I love writing software that presents data in unique and interesting ways and I also enjoy web design and photography.</p>
 <div id="social-media-widget">
   <div class="social-media-link">
     <a href='https://twitter.com/ticklethepanda'>
