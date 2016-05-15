@@ -11,6 +11,7 @@ if (!isset($TPL)) {
 }
 ?>
 
-<p class="first-paragraph">I wanted to look at </p>
-
+<p class="first-paragraph">Since around 2012 I've had a phone that keeps track of my location whenever it's on, using Google's Location History.</p>
+<p>This GIF below shows my location at every month since I've been tracking my location.</p>
 <img src="/images/location/locations.gif" alt="location gif"/>
+<p>To see the code for how I created this: visit <a href="https://github.com/TickleThePanda/location-history">the GitHub repository</a>.
