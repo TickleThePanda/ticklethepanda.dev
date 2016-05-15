@@ -10,7 +10,9 @@
     "less": "lessc _less/style.less public/default.css",
     "minify-css": "cleancss -o public/default.css public/default.css",
 
-    "compress-images": "find ./public/images -name \"*.jpg\" -type f -exec jpegtran -copy none -optimize -outfile {} {} \\;",
+    "compress-jpeg": "find ./public/images -name \"*.jpg\" -type f -exec jpegtran -copy none -optimize -outfile {} {} \\;",
+    "compress-gif": "find ./public/images -name \"*.gif\" -type f -exec gifsicle -O3 --careful -o {} {} \\;",
+    "compress-images": "npm run compress-jpeg && npm run compress-gif",
 
     "start": "npm run git && npm run update-dependancies && npm run less && npm run minify-css && npm run compress-images"
   },
