@@ -6,7 +6,7 @@
     <title><?php if (isset($TPL->PageTitle)) { echo $TPL->PageTitle; } ?> - ticklethepanda</title>
   </head>
   <body>
-    <div id="infobar">
+    <header id="infobar">
       <div id="header">
         <a id="title" href="https://www.ticklethepanda.co.uk/">
           ticklethepanda
@@ -52,15 +52,15 @@
           recent <span class="v-bold">projects</span><br><br>
         </div>
       </div>
-    </div>
+    </header>
     <div id="content-wrapper">
       <div id="content-scroll-wrap">
         <div id="subtitle">
             &gt;&nbsp;<?php if(isset($TPL->PageTitle)) { echo $TPL->PageTitle; } ?>
         </div>
-        <div id="content">
+        <main id="content">
           <?php if(isset($TPL->ContentBody)) { include $TPL->ContentBody; } ?>
-        </div>
+        </main>
       </div>
     </div>
     <script src="scripts/page.js"></script>
