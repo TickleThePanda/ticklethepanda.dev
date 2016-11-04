@@ -153,6 +153,12 @@ body {
   word-wrap: break-word;
 }
 
+#content::after {
+  display: block;
+  content: "";
+  height: 50vh;
+}
+
 #content > img {
   max-width: 100%;
 }
@@ -314,4 +320,32 @@ body {
 
 .github-link {
 
+}
+
+.experience + .experience {
+  margin-top: 1.5em;
+}
+
+.experience {
+  margin-top: 0.5em;
+  padding-top: 0.5em;
+
+  margin-bottom: 0.5em;
+  padding-bottom: 0.5em;
+
+  border-bottom: black solid 1px;
+  border-top: black solid 1px;
+
+  .dates {
+    float: right;
+  }
+
+  .role {
+    font-size: larger;
+    padding-bottom: 0.5em;
+  }
+
+  .place {
+    font-weight: bold;
+  }
 }
