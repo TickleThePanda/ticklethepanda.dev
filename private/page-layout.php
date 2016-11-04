@@ -30,10 +30,6 @@
         </svg>
       </div>
       <div id="nav">
-        <div class="sidebar-title">info</div>
-        <div class="sidebar-line"></div>
-        <div class="sidebar-link"><a href="?action=home">home</a></div>
-        <div class="sidebar-link"><a href="?action=about">about</a></div>
         <div class="sidebar-title">projects</div>
         <div class="sidebar-line"></div>
         <div class="sidebar-link"><a href="?action=messages">messages book</a></div>
