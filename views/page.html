@@ -1,9 +1,9 @@
-<?php require_once('page-template.php');?>
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
-    <link href="default.css" rel="stylesheet" type="text/css">
-    <title><?php if (isset($TPL->PageTitle)) { echo $TPL->PageTitle; } ?> - ticklethepanda</title>
+    <link href="/static/default.css" rel="stylesheet" type="text/css">
+    <title>{{ title }} - ticklethepanda</title>
+    <link rel="canonical" href="https://ticklethepanda.co.uk/{{ location }}" />
   </head>
   <body>
     <header id="infobar">
@@ -30,12 +30,13 @@
         </svg>
       </div>
       <div id="nav">
-        <div class="sidebar-title">projects</div>
-        <div class="sidebar-line"></div>
-        <div class="sidebar-link"><a href="?action=messages">messages book</a></div>
-        <div class="sidebar-link"><a href="?action=location">location map</a></div>
-        <div class="sidebar-link"><a href="?action=health">health tracking</a></div>
-        <div class="sidebar-link"><a href="?action=photography">photography</a></div>
+        <template repeat="{{group in nav}}">
+          <div class="sidebar-title">{{group.name}}</div>
+          <div class="sidebar-line"></div>
+          <template repeat="{{link in group.links}}">
+            <div class="sidebar-link"><a href="{{link.location}}">{{link.text}}</a></div>
+          </template>
+        </template>
         <div class="sidebar-line no-title"></div>
         <div id="biog">
           <br>
@@ -56,14 +57,14 @@
     <div id="content-wrapper">
       <div id="content-scroll-wrap">
         <div id="subtitle">
-            &gt;&nbsp;<?php if(isset($TPL->PageTitle)) { echo $TPL->PageTitle; } ?>
+            &gt;&nbsp;{{ title }}
         </div>
         <main id="content">
-          <?php if(isset($TPL->ContentBody)) { include $TPL->ContentBody; } ?>
+          <content></content>
         </main>
       </div>
     </div>
-    <script src="scripts/page.js"></script>
+    <script src="/static/scripts/page.js"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

@@ -35,12 +35,12 @@
 
 
     if(galleryParameter != undefined) {
-      galleryParameter = Math.max(Math.min(galleryParameter, nGalleries),1);
+      galleryParameter = Math.max(Math.min(galleryParameter, nGalleries - 1),0);
     } else {
-      galleryParameter = 1;
+      galleryParameter = 0;
     }
 
-    var galleryIndex = galleryParameter - 1;
+    var galleryIndex = galleryParameter;
 
     if(nGalleries > 0) {
       Array.prototype.forEach.call(galleries, function(element) {
