@@ -1,6 +1,7 @@
 var express = require('express'),
     htmling = require('htmling'),
-    request = require('request');
+    request = require('request'),
+    minifyHTML = require('express-minify-html');
 
 var app = express();
 
@@ -45,6 +46,10 @@ class ErrorPage extends Page {
   constructor(title, location) {
     super(title, location, "error");
   }
+  render(res) {
+    res.status(404);
+    super.render(res);
+  }
 }
 
 class GalleryPage extends ContentPage {
@@ -76,10 +81,20 @@ var pages = {
   "messages": new ContentPage("messages book", "messages")
 }
 
-app.engine('html', htmling.express(__dirname + '/views/', {
-  watch: true,
-  minify: true
+app.engine('html', htmling.express(__dirname + '/views/', {}));
+
+app.use(minifyHTML({
+    override:      true,
+    htmlMinifier: {
+        removeComments:            true,
+        collapseWhitespace:        true,
+        collapseBooleanAttributes: true,
+        removeAttributeQuotes:     true,
+        removeEmptyAttributes:     true,
+        minifyJS:                  true
+    }
 }));
+
 app.set('view engine', 'html');
 
 app.use('/static', express.static('public'));

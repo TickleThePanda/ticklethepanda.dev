@@ -20,6 +20,7 @@
   "dependencies": {
     "clean-css": "^3.4.12",
     "express": "^4.14.0",
+    "express-minify-html": "^0.6.0",
     "htmling": "0.0.7",
     "less": "^2.7.1",
     "request": "^2.78.0"
