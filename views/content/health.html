@@ -4,52 +4,8 @@
 
 <h3>activity</h3>
 <h4>average day</h4>
-<div id="average-day" style="width: 100%;"></div>
-
-<script src="//cdn.jsdelivr.net/d3js/latest/d3.min.js" charset="utf-8"></script>
-<script src="//cdn.jsdelivr.net/underscorejs/latest/underscore-min.js" type="text/javascript"></script>
-<script src="//cdn.jsdelivr.net/taucharts/latest/tauCharts.min.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/taucharts/latest/tauCharts.min.css">
-
-<script>
-(function() {
-    tauCharts.api.tickFormat.add('HH:mm', o => `${padTime(o.getHours())}:${padTime(o.getMinutes())}`);
-
-    var padTime = t => ('00'+t).substring(t.toString().length);
-
-    var url = "https://api.ticklethepanda.co.uk/health/activity/average/day";
-    fetch(url)
-        .then(r => {
-            console.log(r);
-            if(r.status !== 200) {
-                throw new Error("could not retrieve data");
-            }
-            return r;
-        })
-        .then(r => r.json())
-        .then(data => {
-            data.minuteActivity = data.minuteActivity.map(e => {
-                e.time = new Date(1970, 0, 1, e.time.substring(0, 2), e.time.substring(3, 5));
-                return e;
-            });
-            return data;
-        })
-        .then(data => {
-            var chart = new tauCharts.Chart({
-                type: 'line',
-                x: 'time',
-                y: 'steps',
-                data: data.minuteActivity,
-                guide: {
-                    x: { tickFormat: 'HH:mm' }
-                },
-                settings: {
-                    fitModel: 'fit-width'
-                },
-                plugins: [ tauCharts.api.plugins.get('tooltip')() ]
-            });
-            chart.renderTo('#average-day');
-        });
-})()
-</script>
-
+<img src="https://api.ticklethepanda.co.uk/health/activity/average/day?img">
+<h4>average day - by weekday</h4>
+<img src="https://api.ticklethepanda.co.uk/health/activity/average/day?img&aggregate=weekday">
+<h4>average day - by month</h4>
+<img src="https://api.ticklethepanda.co.uk/health/activity/average/day?img&aggregate=month">
