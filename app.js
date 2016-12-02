@@ -9,10 +9,10 @@ const nav = [
   {
     "name": "projects",
     "links": [
-      { "text":"messages book",   "location":"/messages" },
       { "text":"location map",    "location":"/location" },
       { "text":"health tracking", "location":"/health" },
-      { "text":"photography",     "location":"/photography" }
+      { "text":"photography",     "location":"/photography" },
+      { "text":"messages book",   "location":"/messages" }
     ]
   }
 ];
