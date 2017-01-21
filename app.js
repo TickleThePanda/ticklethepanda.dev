@@ -18,10 +18,11 @@ const nav = [
 ];
 
 class Page {
-  constructor(title, location, type) {
+  constructor(title, location, type, description) {
     this.title = title;
     this.location = location;
     this.type = type;
+    this.description = description;
   }
 
   render(res, vars) {
@@ -30,6 +31,7 @@ class Page {
     res.render('page', {
       title: this.title,
       location: this.location,
+      description: this.description,
       nav: nav,
       content: content
     });
@@ -37,14 +39,14 @@ class Page {
 }
 
 class ContentPage extends Page {
-  constructor(title, location) {
-    super(title, location, "content");
+  constructor(title, location, description) {
+    super(title, location, "content", description);
   }
 }
 
 class ErrorPage extends Page {
-  constructor(title, location) {
-    super(title, location, "error");
+  constructor(title, location, description) {
+    super(title, location, "error", description);
   }
   render(res) {
     res.status(404);
@@ -53,8 +55,8 @@ class ErrorPage extends Page {
 }
 
 class GalleryPage extends ContentPage {
-  constructor(title, location) {
-    super(title, location)
+  constructor(title, location, description) {
+    super(title, location, description)
   }
   render(res) {
     request({url:'http://localhost:3000/gallery', json:true}, (error, response, body) => {
@@ -69,16 +71,21 @@ class GalleryPage extends ContentPage {
 
 class NotFoundPage extends ErrorPage {
   constructor() {
-    super("not found", "404");
+    super("not found", "404", "The page you were looking for could not be found.");
   }
 }
 
 var pages = {
-  "home": new ContentPage("home", "home"),
-  "photography": new GalleryPage("photography", "photography"),
-  "health": new ContentPage("health tracking", "health"),
-  "location": new ContentPage("location map", "location"),
-  "messages": new ContentPage("messages book", "messages")
+  "home": new ContentPage("home", "home",
+		"A showcase of TickleThePanda's (Thomas 'Panda' Attwood) projects."),
+  "photography": new GalleryPage("photography", "photography",
+		"A gallery of photography taken with both digital and film cameras."),
+  "health": new ContentPage("health tracking", "health",
+		"An analysis of personal health data taken from my Fitbit and recorded data."),
+  "location": new ContentPage("location map", "location",
+		"An analysis of my location history from Google Location History."),
+  "messages": new ContentPage("messages book", "messages",
+		"A book created from the messaging history between my girlfriend and me.")
 }
 
 app.engine('html', htmling.express(__dirname + '/views/', {}));
