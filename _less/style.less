@@ -1,3 +1,6 @@
+@title-font-size-multiplier: 1.4;
+@sidebar-width: 250px;
+
 html, body {
   margin: 0;
   padding: 0;
@@ -8,23 +11,20 @@ html, body {
 body {
   width: 100%;
   height: 100%;
-
-  display: -webkit-flex;
-  display:         flex;
-  -webkit-flex-flow: row;
-          flex-flow: row;
-
-  overflow-x: hidden;
 }
 
 /* -------- infobar ----------*/
 
 #infobar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: @sidebar-width;
+
   text-align: right;
 
   background-color: #cda;
-
-  min-width: 230px;
 
   overflow: hidden;
 
@@ -38,7 +38,7 @@ body {
   height: 1em;
   padding: 1em;
 
-  font-size: 140%;
+  font-size: 100% * @title-font-size-multiplier;
   font-weight: bold;
 }
 
@@ -128,22 +128,7 @@ body {
 }
 
 #content-wrapper {
-  display: -webkit-flex;
-  display:         flex;
-
-  -webkit-flex: 1 1 auto;
-          flex: 1 1 auto;
-  -webkit-order: 2;
-          order: 2;
-
-  margin: 0px 0px 0px 0px;
-
-  color: #000;
-}
-
-#content-scroll-wrap {
-  overflow-y: auto;
-  width:100%;
+  margin: 0 0 0 @sidebar-width;
 }
 
 #content {
@@ -178,16 +163,11 @@ body {
   justify-content: flex-end;
 }
 
-@media all and (max-width: 640px) {
-
-  body {
-    -webkit-flex-flow: column;
-            flex-flow: column;
-  }
+@media (max-width: 640px) {
 
   #infobar {
-    -webkit-order: 1;
-            order: 1;
+    height: auto;
+    width: 100%;
   }
 
   #nav {
@@ -206,6 +186,10 @@ body {
     display: block;
     -webkit-flex: 0 0 30px;
             flex: 0 0 30px;
+  }
+  
+  #content-wrapper {
+    margin: (3em * @title-font-size-multiplier) 0 0 0;
   }
 }
 
