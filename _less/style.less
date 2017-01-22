@@ -128,7 +128,7 @@ body {
 }
 
 #content-wrapper {
-  margin: 0 0 0 @sidebar-width;
+  margin: 0 0 50vh @sidebar-width;
 }
 
 #content {
@@ -138,12 +138,8 @@ body {
   line-height: 130%;
   max-width: 700px;
   word-wrap: break-word;
-}
 
-#content::after {
-  display: block;
-  content: "";
-  height: 50vh;
+  border-right: #cda double 3px;
 }
 
 #content img {
@@ -190,6 +186,7 @@ body {
   
   #content-wrapper {
     margin: (3em * @title-font-size-multiplier) 0 0 0;
+    border: none;
   }
 }
 

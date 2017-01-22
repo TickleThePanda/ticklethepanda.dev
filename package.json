@@ -10,7 +10,8 @@
     "compress-gif": "find ./public/images -name \"*.gif\" -type f -exec gifsicle --colors 256 -O3 --careful -o {} {} \\;",
     "compress-images": "npm run compress-jpeg && npm run compress-gif",
     "start-app": "node app.js",
-    "start": "npm run less && npm run minify-css && npm run compress-images && npm run start-app"
+    "start": "npm run start-app",
+    "build": "npm run less && npm run minify-css"
   },
   "repository": {
     "type": "git",
