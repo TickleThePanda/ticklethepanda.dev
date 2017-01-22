@@ -1,0 +1,132 @@
+<form id="weight-form">
+  <h3>weight</h3>
+  <div id="inputs">
+    <input id="entry-date" name="entry-date" type="date" placeholder="date">
+    <select name="entry-period" placeholder="period">
+      <option value="AM">AM</option>
+      <option value="PM">PM</option>
+    </select>
+    <input name="entry-value" type="number" step="0.1" placeholder="weight">
+    <input name="username" type="text" placeholder="username">
+    <input name="password" type="password" placeholder="password">
+    <input type="submit" value="Submit">
+  </div>
+  <div id="results">
+    <div class="error">error: <span id="result-error"></span></div>
+    <div class="success">date: <span id="result-date"></span></div>
+    <div class="success">period: <span id="result-period"></span></div>
+    <div class="success">weight: <span id="result-value"></span></div>
+  </div>
+</form>
+
+<div id="weight-form-response"></div>
+
+<script> document.getElementById('entry-date').value = new Date().toISOString().substring(0,10); </script>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
+</script>
+
+<script>
+  $(document).ready(function() {
+    $("#weight-form").submit(function(e) {
+      e.preventDefault();
+      var form = $(this).serializeArray();
+
+      var values = form.reduce((a, b) => {
+	a[b.name] = b.value
+        return a;
+      }, {});
+      
+      var url = `https://api.ticklethepanda.co.uk/health/weight/${values["entry-date"]}/${values["entry-period"]}`;
+      var payload = { weight: values["entry-value"] };
+      
+      var headers = new Headers({
+        "Authorization": "Basic " + btoa(values["username"] + ":" + values["password"]),
+        "Content-Type": "application/json"
+      });
+
+      var init = { method: 'PUT',
+         headers: headers,
+         mode: 'cors',
+         body: JSON.stringify(payload)
+      }
+      
+      fetch(url, init)
+        .then(response => {
+          if(response.ok) {
+            return response.json();
+          } else {
+            throw Error("unable submit data: " + response.statusText);
+          }
+        })
+        .then(result => {
+          var date = result.localDate[0] + "-"
+                      + result.localDate[1] + "-"
+                      + result.localDate[2];
+          $("#result-date").text(date);
+          $("#result-period").text(result.entryPeriod);
+          $("#result-value").text(result.weight);
+
+          $("#results").removeClass("error");
+          $("#results").addClass("success");
+        })
+        .catch(error => {
+          $("#result-error").text(error.message);
+
+          $("#results").removeClass("success");
+          $("#results").addClass("error");
+        });
+
+    });
+  });
+</script>
+
+<style>
+  form#weight-form {
+    border: 1px solid black;
+  }
+
+  form#weight-form h3 {
+    margin-left: 1em;
+  }
+
+  form#weight-form > #inputs * {
+    display: block;
+    margin-left: 1em;
+    margin-bottom: 1em;
+  }
+
+  form#weight-form input[name="entry-date"], form#weight-form > select[name="entry-period"] {
+    display: inline;
+  }
+
+  #results {
+    display: none;
+    margin: 0.5em;
+    padding: 0.5em
+  }
+
+  #results .success, #results .error {
+    display: none;
+  }
+
+  #results.success, #results.error {
+    display: block;
+  }
+
+  #results.success {
+    background-color: #E6F7C4;
+  }
+
+  #results.error {
+    background-color: #F7C3CC;
+  }
+
+  #results.success > .success {
+    display: block;
+  }
+
+  #results.error > .error {
+    display: block;
+  }
+</style>

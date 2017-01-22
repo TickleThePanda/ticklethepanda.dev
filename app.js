@@ -85,7 +85,8 @@ var pages = {
   "location": new ContentPage("location map", "location",
 		"An analysis of my location history from Google Location History."),
   "messages": new ContentPage("messages book", "messages",
-		"A book created from the messaging history between my girlfriend and me.")
+		"A book created from the messaging history between my girlfriend and me."),
+  "admin": new ContentPage("admin", "admin", "Page for managing data")
 }
 
 app.engine('html', htmling.express(__dirname + '/views/', {}));
