@@ -2,7 +2,7 @@
   <h3>weight</h3>
   <div id="inputs">
     <input id="entry-date" name="entry-date" type="date" placeholder="date">
-    <select name="entry-period" placeholder="period">
+    <select id="entry-period" name="entry-period" placeholder="period">
       <option value="AM">AM</option>
       <option value="PM">PM</option>
     </select>
@@ -19,15 +19,93 @@
   </div>
 </form>
 
-<div id="weight-form-response"></div>
+<div id="weight-history">
 
-<script> document.getElementById('entry-date').value = new Date().toISOString().substring(0,10); </script>
+</div>
+
+<script>
+  (function setupTime() {
+    function getMiddayOfDate(date) {
+      var middayOnDate = new Date(date);
+      middayOnDate.setHours(12);
+      middayOnDate.setMinutes(0);
+      middayOnDate.setSeconds(0);
+      middayOnDate.setMilliseconds(0);
+
+      return middayOnDate;
+    }
+    var now = new Date();
+    var middayToday = getMiddayOfDate(now);
+    
+    document.getElementById('entry-date').value = now.toISOString().substring(0,10);
+
+    if(now < middayToday) {
+      document.getElementById("entry-period").value = "AM";
+    } else {
+      document.getElementById("entry-period").value = "PM";
+    }
+
+  })();
+</script>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
 </script>
 
 <script>
   $(document).ready(function() {
+    function loadWeightHistory() {
+      $("#weight-history").empty();
+      fetch("https://api.ticklethepanda.co.uk/health/weight")
+        .then(response => {
+          if(response.ok) {
+            return response.json();
+          } else {
+            throw Error("unable to load data: " + response.statusText);
+          }
+        })
+        .then(results => {
+
+          function cleanWeightResult(weight) {
+            if(weight) {
+              return weight.toFixed(1);
+            } else {
+              return "-";
+            }
+          }
+
+          var $table = $("<table>").append(
+            $("<thead>")
+              .append(
+                $("<tr>")
+                  .append($("<th>date</th>"))
+                  .append($("<th>am</th>"))
+                  .append($("<th>pm</th>"))
+            )
+          );
+
+          var $tableBody = $("<tbody>")
+          $table.append($tableBody);
+
+          results.reverse();
+        
+          results.forEach(result => {
+            var $row = $("<tr>");
+
+            var date = new Date(result.date[0], result.date[1], result.date[2]);
+            var dateString = date.toISOString().substring(0,10);
+
+            $row.append($(`<td>${dateString}</td>`));
+            $row.append($(`<td>${cleanWeightResult(result.weightAm)}</td>`));
+            $row.append($(`<td>${cleanWeightResult(result.weightPm)}</td>`));
+
+            $tableBody.append($row);
+          });
+          $("#weight-history").append($table);
+        });
+    }
+
+    loadWeightHistory();
+
     $("#weight-form").submit(function(e) {
       e.preventDefault();
       var form = $(this).serializeArray();
@@ -75,7 +153,8 @@
 
           $("#results").removeClass("success");
           $("#results").addClass("error");
-        });
+        })
+        .then(loadWeightHistory);
 
     });
   });
@@ -128,5 +207,22 @@
 
   #results.error > .error {
     display: block;
+  }
+
+  #weight-history table {
+    width: 100%
+  }
+
+  #weight-history thead th {
+    background-color: #E6F7C4;
+    border-bottom: #ccc solid 1px; 
+  }
+
+  #weight-history tbody tr:nth-child(even) {
+    background-color: #eee;
+  }
+
+  #weight-history th, #weight-history td {
+    padding: 1em;
   }
 </style>
