@@ -91,7 +91,7 @@
           results.forEach(result => {
             var $row = $("<tr>");
 
-            var date = new Date(result.date[0], result.date[1], result.date[2]);
+            var date = new Date(result.date[0], result.date[1] - 1, result.date[2] - 1);
             var dateString = date.toISOString().substring(0,10);
 
             $row.append($(`<td>${dateString}</td>`));
