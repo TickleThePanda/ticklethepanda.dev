@@ -91,10 +91,7 @@
           results.forEach(result => {
             var $row = $("<tr>");
 
-            var date = new Date(result.date[0], result.date[1] - 1, result.date[2] - 1);
-            var dateString = date.toISOString().substring(0,10);
-
-            $row.append($(`<td>${dateString}</td>`));
+            $row.append($(`<td>${result.date}</td>`));
             $row.append($(`<td>${cleanWeightResult(result.weightAm)}</td>`));
             $row.append($(`<td>${cleanWeightResult(result.weightPm)}</td>`));
 
