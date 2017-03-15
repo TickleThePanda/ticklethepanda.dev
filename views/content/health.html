@@ -8,15 +8,46 @@
   <img alt="chart of recent weight by time" src="https://api.ticklethepanda.co.uk/health/weight?img&recent">
 </a>
 <h3>activity</h3>
-<h4>average day</h4>
-<a href="https://api.ticklethepanda.co.uk/health/average-activity?img">
-  <img alt="chart of average number of steps by time of day" src="https://api.ticklethepanda.co.uk/health/average-activity?img">
+<h4>average</h4>
+<h5>average day</h5>
+<a href="https://api.ticklethepanda.co.uk/health/activity?average&img">
+  <img alt="chart of average number of steps by time of day" src="https://api.ticklethepanda.co.uk/health/activity?average&img">
 </a>
-<h4>average day - by weekday</h4>
-<a href="https://api.ticklethepanda.co.uk/health/average-activity?img&facet=weekday">
-  <img alt="chart of average number of steps by time of day, split by the days of the week" src="https://api.ticklethepanda.co.uk/health/average-activity?img&facet=weekday">
+<h5>average day - by weekday</h5>
+<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&facet=weekday">
+  <img alt="chart of average number of steps by time of day, split by the days of the week" src="https://api.ticklethepanda.co.uk/health/activity?average&img&facet=weekday">
 </a>
-<h4>average day - by month</h4>
-<a href="https://api.ticklethepanda.co.uk/health/average-activity?img&facet=month">
-  <img alt="chart of average number of steps by time of day, split by the months of the year" src="https://api.ticklethepanda.co.uk/health/average-activity?img&facet=month">
+<h5>average day - by month</h5>
+<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&facet=month">
+  <img alt="chart of average number of steps by time of day, split by the months of the year" src="https://api.ticklethepanda.co.uk/health/activity?average&img&facet=month">
 </a>
+
+<h4>sum of steps</h4>
+<h5>total sum of steps</h5>
+<span id="total-steps"></span>
+<h5>sum of steps - by weekday</h5>
+<a href="https://api.ticklethepanda.co.uk/health/activity?sum&img&facet=weekday">
+  <img alt="chart of sum of number of steps, split by the days of the week" src="https://api.ticklethepanda.co.uk/health/activity?sum&img&facet=weekday">
+</a>
+<h5>sum of steps - by month</h5>
+<a href="https://api.ticklethepanda.co.uk/health/activity?sum&img&facet=month">
+  <img alt="chart of sum of number of steps, split by the months of the year" src="https://api.ticklethepanda.co.uk/health/activity?sum&img&facet=month">
+</a>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
+</script>
+<script>
+  $(document).ready(function() {
+    fetch("https://api.ticklethepanda.co.uk/health/activity?sum")
+      .then(response => {
+        if(response.ok) {
+          return response.text();
+        } else {
+          throw Error("unable to load data: " + response.statusText);
+        }
+      })
+      .then(result => {
+        $("#total-steps").text(result);
+      });
+  });
+</script>
