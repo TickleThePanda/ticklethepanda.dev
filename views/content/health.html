@@ -8,30 +8,33 @@
   <img alt="chart of recent weight by time" src="https://api.ticklethepanda.co.uk/health/weight?img&recent">
 </a>
 <h3>activity</h3>
+<h4>total steps</h4>
+<span class="datum-box" id="total-steps"></span>
+
 <h4>average</h4>
 <h5>average day</h5>
-<a href="https://api.ticklethepanda.co.uk/health/activity?average&img">
-  <img alt="chart of average number of steps by time of day" src="https://api.ticklethepanda.co.uk/health/activity?average&img">
-</a>
-<h5>average day - by weekday</h5>
-<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&facet=weekday">
-  <img alt="chart of average number of steps by time of day, split by the days of the week" src="https://api.ticklethepanda.co.uk/health/activity?average&img&facet=weekday">
-</a>
-<h5>average day - by month</h5>
-<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&facet=month">
-  <img alt="chart of average number of steps by time of day, split by the months of the year" src="https://api.ticklethepanda.co.uk/health/activity?average&img&facet=month">
+<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&by=minute">
+  <img src="https://api.ticklethepanda.co.uk/health/activity?average&img&by=minute" alt="chart of average number of steps by time of day">
 </a>
 
-<h4>sum of steps</h4>
-<h5>total sum of steps</h5>
-<span id="total-steps"></span>
-<h5>sum of steps - by weekday</h5>
-<a href="https://api.ticklethepanda.co.uk/health/activity?sum&img&facet=weekday">
-  <img alt="chart of sum of number of steps, split by the days of the week" src="https://api.ticklethepanda.co.uk/health/activity?sum&img&facet=weekday">
+<h5>average steps by month</h5>
+<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&by=day&facet=month">
+  <img src="https://api.ticklethepanda.co.uk/health/activity?average&img&by=day&facet=month" alt="chart of average number of steps in a day, split by the months of the year">
 </a>
-<h5>sum of steps - by month</h5>
-<a href="https://api.ticklethepanda.co.uk/health/activity?sum&img&facet=month">
-  <img alt="chart of sum of number of steps, split by the months of the year" src="https://api.ticklethepanda.co.uk/health/activity?sum&img&facet=month">
+
+<h5>average steps by time of day by month</h5>
+<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&by=minute&facet=month">
+  <img src="https://api.ticklethepanda.co.uk/health/activity?average&img&by=minute&facet=month" alt="chart of average number of steps by time of day, split by the months of the year">
+</a>
+
+<h5>average steps by day of week</h5>
+<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&by=day&facet=weekday">
+  <img src="https://api.ticklethepanda.co.uk/health/activity?average&img&by=day&facet=weekday" alt="chart of average number of steps in a day, split by the days of the week">
+</a>
+
+<h5>average steps by time of day by day of week</h5>
+<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&by=minute&facet=weekday">
+  <img src="https://api.ticklethepanda.co.uk/health/activity?average&img&by=minute&facet=weekday" alt="chart of average number of steps by time of day, split by the days of the week">
 </a>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
@@ -47,7 +50,17 @@
         }
       })
       .then(result => {
-        $("#total-steps").text(result);
+        $("#total-steps").text(Number.parseFloat(result).toLocaleString());
       });
   });
 </script>
+
+<style>
+  .datum-box {
+    font-size: larger;
+    padding: 1em;
+    margin: 1em;
+    line-height: 2em;
+    background-color: #cda;
+  }
+</style>
