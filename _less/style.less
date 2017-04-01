@@ -1,5 +1,10 @@
 @title-font-size-multiplier: 1.4;
 @sidebar-width: 250px;
+@gallery-max-img-size: 320px;
+
+@mobile-min-breakpoint: 400px;
+@mobile-max-breakpoint: 600px;
+@desktop-min-breakpoint: 700px;
 
 html, body {
   margin: 0;
@@ -155,11 +160,11 @@ body {
 }
 
 #social-media-widget {
-  display:flex;
+  display: flex;
   justify-content: flex-end;
 }
 
-@media (max-width: 640px) {
+@media (max-width: @mobile-max-breakpoint) {
 
   #infobar {
     height: auto;
@@ -213,15 +218,31 @@ body {
 .gallery {
   display: flex;
   flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(auto, @gallery-max-img-size);
+  grid-gap: 4px;
+
+  @media (min-width: @mobile-min-breakpoint) {
+    grid-template-columns: repeat(2, minmax(auto, @gallery-max-img-size));
+  }
+  @media (min-width: @mobile-max-breakpoint) {
+    grid-template-columns: minmax(auto, @gallery-max-img-size);
+  }
+  @media (min-width: @desktop-min-breakpoint) {
+    grid-template-columns: repeat(2, minmax(auto, @gallery-max-img-size));
+  }
 }
 
-.gallery > div {
-  padding: 2px;
+.gallery a {
+  display: block;
+  max-width: @gallery-max-img-size;
 }
 
-.gallery > div img {
-  max-width:100%;
-  height:auto;
+@supports(display: grid) {
+  .gallery a img {
+    max-width:100%;
+    height:auto;
+  }
 }
 
 .health-info {

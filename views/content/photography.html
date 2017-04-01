@@ -13,11 +13,9 @@
     
     <div class="gallery">
       <template repeat="{{image in gallery.images}}">
-         <div>
-           <a href="/static{{fullPath}}{{gallery.reference}}/{{image.fileName}}">
-             <img src="/static{{thumbsPath}}{{gallery.reference}}/{{image.fileName}}">
-           </a>
-         </div>
+        <a href="/static{{fullPath}}{{gallery.reference}}/{{image.fileName}}">
+          <img src="/static{{thumbsPath}}{{gallery.reference}}/{{image.fileName}}">
+        </a>
       </template>
     </div>
   </div>
