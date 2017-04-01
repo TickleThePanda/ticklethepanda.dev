@@ -1,21 +1,27 @@
+@primary: #ccddaa;
+@white: lighten(@primary, 50%);
+@black: #444;
+
 @title-font-size-multiplier: 1.4;
 @sidebar-width: 250px;
 @gallery-max-img-size: 320px;
 
 @mobile-min-breakpoint: 400px;
 @mobile-max-breakpoint: 600px;
-@desktop-min-breakpoint: 700px;
+@desktop-min-breakpoint: 768px;
 
 html, body {
   margin: 0;
   padding: 0;
 
   font-family: "Courier New", Courier, monospace, serif;
+  font-size: 12pt;
 }
 
 body {
   width: 100%;
   height: 100%;
+  background-color: @primary;
 }
 
 /* -------- infobar ----------*/
@@ -29,7 +35,7 @@ body {
 
   text-align: right;
 
-  background-color: #cda;
+  background-color: @primary;
 
   overflow: hidden;
 
@@ -54,8 +60,8 @@ body {
   text-align: center;
   vertical-align: middle;
 
-  background-color: #444;
-  color: #cda;
+  background-color: @black;
+  color: @primary;
 }
 
 #title {
@@ -66,16 +72,16 @@ body {
   text-decoration: none;
 }
 
-#title:link {color:#cda;}                                /* unvisited link */
-#title:visited {color:#cda;}                             /* visited link */
-#title:hover {color:#deb;}    /* mouse over link */
-#title:active {color:#cda;}                              /* selected link */
+#title:link {color:@primary;}                                /* unvisited link */
+#title:visited {color:@primary;}                             /* visited link */
+#title:hover {color:lighten(@primary, 10%);}                                   /* mouse over link */
+#title:active {color:@primary;}                                  /* selected link */
 
 #nav-toggle {
   display: none;
 
-  stroke: #444;
-  background-color: #cda;
+  stroke: @black;
+  background-color: @primary;
   overflow: hidden;
 
   padding: 1em;
@@ -107,7 +113,7 @@ body {
 }
 
 #nav-toggle:hover {
-  stroke: #000;
+  stroke: @primary;
 }
 
 #nav {
@@ -121,14 +127,14 @@ body {
 #biog {
   font-size:68%;
   font-weight:100;
-  color:#444;
+  color: @black;
   padding-top: 1em;
 }
 
 /* ------- content ------- */
 
 #subtitle {
-  color: #444;
+  color: @black;
   padding: 1em;
 }
 
@@ -138,13 +144,13 @@ body {
 
 #content {
   text-align: left;
-  color: #444;
-  padding: 10px 40px;
-  line-height: 130%;
+  background-color: @white;
+  color: @black;
+  padding: 2em;
+  padding-top: 10px;
+  line-height: 150%;
   max-width: 700px;
   word-wrap: break-word;
-
-  border-right: #cda double 3px;
 }
 
 #content img {
@@ -221,12 +227,14 @@ body {
   display: grid;
   grid-template-columns: minmax(auto, @gallery-max-img-size);
   grid-gap: 4px;
+  justify-content: center;
 
   @media (min-width: @mobile-min-breakpoint) {
     grid-template-columns: repeat(2, minmax(auto, @gallery-max-img-size));
   }
   @media (min-width: @mobile-max-breakpoint) {
     grid-template-columns: minmax(auto, @gallery-max-img-size);
+    justify: stretch;
   }
   @media (min-width: @desktop-min-breakpoint) {
     grid-template-columns: repeat(2, minmax(auto, @gallery-max-img-size));
