@@ -1,5 +1,5 @@
 @primary: #ccddaa;
-@white: lighten(@primary, 50%);
+@white: #fff;
 @black: #444;
 
 @title-font-size-multiplier: 1.4;
@@ -37,6 +37,8 @@ body {
 
   background-color: @primary;
 
+  border-right: 1px solid @black;
+  
   overflow: hidden;
 
   -webkit-flex: 0 0 auto;
@@ -48,6 +50,7 @@ body {
 #header>*, #subtitle {
   height: 1em;
   padding: 1em;
+  border-bottom: 1px solid @black;
 
   font-size: 100% * @title-font-size-multiplier;
   font-weight: bold;
@@ -139,17 +142,17 @@ body {
 }
 
 #content-wrapper {
-  margin: 0 0 50vh @sidebar-width;
+  margin: 0 0 50vh (@sidebar-width + 1px);
 }
 
 #content {
   text-align: left;
   background-color: @white;
   color: @black;
-  padding: 2em;
-  padding-top: 10px;
+  padding: 3em;
+  padding-top: 1.5em;
   line-height: 150%;
-  max-width: 700px;
+  max-width: 768px;
   word-wrap: break-word;
 }
 
@@ -272,14 +275,16 @@ body {
   line-height: 1em;
 }
 
-.first-paragraph {
-  text-indent: 4em;
+#content p:first-of-type:first-letter {
+  font-size: 250%;
+  float: left;
+  margin-right: 0.02em;
 }
 
 .horizontal-line {
   margin: 0.5em;
   height: 1px;
-  background-color: #000;
+  background-color: @black;
   float: left;
   width: 250px;
 }
@@ -297,12 +302,12 @@ body {
 
 .v-bold {
   font-weight:900;
-  color: #000;
+  color: @black;
 }
 
 .sidebar-line {
   height: 1px;
-  background-color: #000;
+  background-color: @black;
   width: 100%;
 }
 
@@ -320,15 +325,15 @@ body {
 }
 
 .sidebar-link a {
-  color:#000;
+  color:@black;
   text-decoration:underline;
   padding-left:10px;
 }
 
-.sidebar-link a:link {color:#000;}                                /* unvisited link */
-.sidebar-link a:visited {color:#000;}                             /* visited link */
-.sidebar-link a:hover {color:#000; text-decoration:none;}    /* mouse over link */
-.sidebar-link a:active {color:#000;}                              /* selected link */
+.sidebar-link a:link {color:@black;}                                /* unvisited link */
+.sidebar-link a:visited {color:@black;}                             /* visited link */
+.sidebar-link a:hover {color:@black; text-decoration:none;}    /* mouse over link */
+.sidebar-link a:active {color:@black;}                              /* selected link */
 
 .invisible {
   visibility: hidden;
