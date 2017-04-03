@@ -5,7 +5,7 @@
   "": "",
   "scripts": {
     "less": "lessc _less/style.less public/default.css",
-    "minify-css": "cleancss -o public/default.css public/default.css",
+    "minify-css": "cleancss -o public/default.css public/default.css --skip-aggressive-merging",
     "compress-jpeg": "find ./public/images -name \"*.jpg\" -type f -exec jpegtran -copy none -optimize -outfile {} {} \\;",
     "compress-gif": "find ./public/images -name \"*.gif\" -type f -exec gifsicle --colors 256 -O3 --careful -o {} {} \\;",
     "compress-images": "npm run compress-jpeg && npm run compress-gif",
