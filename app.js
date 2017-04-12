@@ -7,6 +7,10 @@ var app = express();
 
 const nav = [
   {
+    "name": "about",
+    "links": [ { "text":  "meet panda", "location":"/home" } ]
+  },
+  {
     "name": "projects",
     "links": [
       { "text":"location map",    "location":"/location" },
@@ -76,7 +80,7 @@ class NotFoundPage extends ErrorPage {
 }
 
 var pages = {
-  "home": new ContentPage("home", "home",
+  "home": new ContentPage("meet panda", "home",
 		"A showcase of TickleThePanda's (Thomas 'Panda' Attwood) projects."),
   "photography": new GalleryPage("photography", "photography",
 		"A gallery of photography taken with both digital and film cameras."),

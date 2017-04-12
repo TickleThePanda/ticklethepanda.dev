@@ -1,5 +1,6 @@
 <template repeat="{{gallery,i in galleries}}">
   <div class="gallery-container">
+    <h2>{{ gallery.name }}</h2>
     <div class="gallery-nav">
       <template if="{{i != 0}}">
         <a href="#gallery={{i - 1}}" class="prev">&lt;-- prev</a>&nbsp;
@@ -8,7 +9,6 @@
         <a href="#gallery={{i + 1}}" class="next">next --&gt;</a>
       </template>
     </div>
-    <h3>{{ gallery.name }}</h3>
     <p>{{ gallery.description }}</p>
     
     <div class="gallery">

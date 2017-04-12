@@ -1,23 +1,23 @@
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#cda" >
     <meta name="description" content="{{ description }}" >
     <meta name="author" content="Thomas 'Panda' Attwood (TickleThePanda)">
-    <link href="/static/default.css" rel="stylesheet" type="text/css">
     <title>{{ title }} - ticklethepanda</title>
     <link rel="canonical" href="https://ticklethepanda.co.uk/{{ location }}">
   </head>
   <body>
     <header id="infobar">
-      <div id="header">
+      <h1>
         <a id="title" class="title" href="https://www.ticklethepanda.co.uk/">
           ticklethepanda
         </a>
         <svg
           id="nav-toggle"
           xmlns="http://www.w3.org/2000/svg" version="1.1"
-          viewBox="0 0 9 7" preserveAspectRatio="xMidYMid slice">
+          viewBox="0 0 9 7" preserveAspectRatio="xMidYMid slice"
+          width="1em" height="1em">
           <path
               class="animated-line"
               style="fill:none;fill-rule:evenodd;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -31,41 +31,44 @@
               style="fill:none;fill-rule:evenodd;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
               d="m 1.5,6 6,0"/>
         </svg>
-      </div>
-      <div id="nav">
-        <template repeat="{{group in nav}}">
-          <div class="sidebar-title">{{group.name}}</div>
-          <div class="sidebar-line"></div>
-          <template repeat="{{link in group.links}}">
-            <div class="sidebar-link"><a href="{{link.location}}">{{link.text}}</a></div>
+      </h1>
+      <div id="sidebar-content">
+        <nav>
+          <h1>main navigation</h1>
+          <template repeat="{{group in nav}}">
+            <template if="{{group.name}}">
+              <h2>{{group.name}}</h2>
+            </template>
+            <ul>
+              <template repeat="{{link in group.links}}">
+                <li><a href="{{link.location}}">{{link.text}}</a></li>
+              </template>
+            </ul>
           </template>
-        </template>
-        <div class="sidebar-line no-title"></div>
-        <div id="biog">
-          <br>
-          hey, i'm <strong>panda</strong>!<br><br>
-          i'm a <strong>geek</strong> who studied<br>
-          <strong>computer science</strong><br><br>
-          i work as a <strong>software<br>engineer</strong> at stfc<br><br>
-          i love playing<br>
-          with <strong>data</strong> and<br>
-          presenting it in<br>
-          different ways<br><br>
-          i've created this<br>
-          space to show my<br>
-          recent <strong>projects</strong><br><br>
-        </div>
+        </nav>
+        <section id="biog">
+          <h1>biography</h1>
+          <p>hey, i'm <strong>panda</strong>!</p>
+          <p>i'm a <strong>geek</strong></br> who works as a</br> <strong>software developer</strong></br> at stfc.</p>
+          <p>i studied <strong>computer</br>science</strong> at royal holloway</p>
+          <p>i love playing<br> with <strong>data</strong> and<br> presenting it in<br> different ways</p>
+          <p>i've created this<br> space to show my<br> recent <strong>projects</strong></p>
+        </section>
       </div>
     </header>
-    <div id="content-wrapper">
-      <div id="subtitle" class="title">
-        $&nbsp;{{ title }}
-      </div>
-      <main id="content">
-        <content></content>
-      </main>
-    </div>
-    <script src="/static/scripts/page.js"></script>
+    <main>
+      <article>
+        <h1 id="subtitle" class="title">
+          {{ title }}
+        </h1>
+        <div id="content">
+          <content></content>
+        </div>
+      </article>
+    </main>
+    <link href="/static/default.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">  
+    <script async src="/static/scripts/page.js"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
