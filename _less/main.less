@@ -40,30 +40,27 @@ a {
 }
 
 header {
+  display: flex;
+  flex-direction: column;
+
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
+
   width: @sidebar-width;
+  border-right: @border;
+
+  overflow: hidden;
 
   text-align: right;
 
   background-color: @primary;
-
-  border-right: @border;
-  
-  overflow: hidden;
-
-  -webkit-flex: 0 0 auto;
-          flex: 0 0 auto;
-  -webkit-order: 1;
-          order: 1;
-
-
+ 
   h1 {
-    display: -webkit-flex;
-    display:         flex;
+    display: flex;
 
+    flex: 0 0 auto;
     margin: 0;
 
     text-align: center;
@@ -89,8 +86,7 @@ h1 {
 }
 
 #title {
-  -webkit-flex: 1 1 auto;
-          flex: 1 1 auto;
+  flex: 1 1 auto;
   min-width: 14ch;
 
   text-decoration: none;
@@ -121,13 +117,11 @@ h1 {
 }
 
 #nav-toggle > .animated-line:nth-child(2) {
-  -webkit-animation-delay: 0.4s; /* Chrome, Safari, Opera */
-          animation-delay: 0.4s;
+  animation-delay: 0.4s;
 }
 
 #nav-toggle > .animated-line:nth-child(3) {
-  -webkit-animation-delay: 0.7s; /* Chrome, Safari, Opera */
-          animation-delay: 0.7s;
+  animation-delay: 0.7s;
 }
 
 @keyframes dash {
@@ -141,8 +135,9 @@ h1 {
 }
 
 #sidebar-content {
-  margin: 1em * @title-font-size-multiplier;
-  margin-bottom: 0;
+  padding: 1em * @title-font-size-multiplier;
+  padding-bottom: 0;
+  overflow-y: auto;
 }
 
 #biog {
@@ -296,7 +291,7 @@ article {
   p:first-of-type {
     white-space: pre-wrap;
 
-    &:first-letter  {
+    &::first-letter  {
       font-size: 250%;
       float: left;
       margin-right: 0.1em;
@@ -375,11 +370,11 @@ nav {
   }
 }
 
-
 @media (max-width: @mobile-max-breakpoint) {
 
   header {
     height: auto;
+    max-height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -403,8 +398,7 @@ nav {
 
   #nav-toggle {
     display: block;
-    -webkit-flex: 0 0 30px;
-            flex: 0 0 30px;
+    flex: 0 0 30px;
   }
   
   article {

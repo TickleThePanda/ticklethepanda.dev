@@ -85,7 +85,8 @@
 
           var $tableBody = $("<tbody>")
           $table.append($tableBody);
-
+          results.sort((a,b) => a.date.localeCompare(b.date));
+          results = results.filter(e => e.weightAm || e.weightPm);
           results.reverse();
         
           results.forEach(result => {
@@ -135,10 +136,7 @@
           }
         })
         .then(result => {
-          var date = result.localDate[0] + "-"
-                      + result.localDate[1] + "-"
-                      + result.localDate[2];
-          $("#result-date").text(date);
+          $("#result-date").text(result.localDate);
           $("#result-period").text(result.entryPeriod);
           $("#result-value").text(result.weight);
 
@@ -159,17 +157,16 @@
 
 <style>
   form#weight-form {
-    border: 1px solid black;
-  }
-
-  form#weight-form h3 {
-    margin-left: 1em;
+    border: 1px solid #444;
+    padding: 1em;
   }
 
   form#weight-form > #inputs * {
     display: block;
-    margin-left: 1em;
-    margin-bottom: 1em;
+    margin: 1em 0;
+    padding: 0.5em;
+    font-size: large;
+    border: 1px solid #444;
   }
 
   form#weight-form input[name="entry-date"], form#weight-form > select[name="entry-period"] {
