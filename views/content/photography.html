@@ -17,7 +17,7 @@
       <template repeat="{{image in gallery.images}}">
         <a class="{{ image.favourite ? 'favourite' : '' }}" 
             href="/static{{fullPath}}{{gallery.reference}}/{{image.fileName}}">
-          <img src="/static{{thumbsPath}}{{gallery.reference}}/{{image.fileName}}">
+          <img src="/static{{ image.favourite ? fullPath : thumbsPath}}{{gallery.reference}}/{{image.fileName}}">
         </a>
       </template>
     </div>

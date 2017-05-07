@@ -51,11 +51,17 @@
 
   @supports(display: grid) {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(@gallery-min-img-size, auto));
+    grid-template-columns: repeat(auto-fit, minmax(@gallery-min-img-size, @gallery-max-img-size));
     grid-gap: 1.5em;
+    grid-auto-flow: dense;
 
     a, img {
       margin: 0;
+    }
+
+    .favourite {
+      grid-column: ~"1 / -1";
+      max-width: 100%;
     }
   }
 
