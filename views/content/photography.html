@@ -1,23 +1,29 @@
+<p>It was while I was completing my art GCSE that I first got into photography as a hobby. These gallaries show my favourite photos from the past few years. Although I usually prefer taking shots of landscapes and plants, there are a couple of shots of people in here which I really like!</p>
+
 <template repeat="{{gallery,i in galleries}}">
-  <div class="gallery-container">
-    <h2>{{ gallery.name }}</h2>
+  <div id="gallery-{{ gallery.reference }}" class="gallery-container">
     <div class="gallery-nav">
       <template if="{{i != 0}}">
-        <a href="#gallery={{i - 1}}" class="prev">&lt;-- prev</a>&nbsp;
+        <a href="#gallery={{ galleries[i - 1].reference }}" class="prev">&lt;-- prev</a>&nbsp;
       </template>
       <template if="{{i != galleries.length - 1}}">
-        <a href="#gallery={{i + 1}}" class="next">next --&gt;</a>
+        <a href="#gallery={{ galleries[i + 1].reference }}" class="next">next --&gt;</a>
       </template>
     </div>
+    <h2>{{ gallery.name }}</h2>
     <p>{{ gallery.description }}</p>
     
     <div class="gallery">
       <template repeat="{{image in gallery.images}}">
-        <a href="/static{{fullPath}}{{gallery.reference}}/{{image.fileName}}">
+        <a class="{{ image.favourite ? 'favourite' : '' }}" 
+            href="/static{{fullPath}}{{gallery.reference}}/{{image.fileName}}">
           <img src="/static{{thumbsPath}}{{gallery.reference}}/{{image.fileName}}">
         </a>
       </template>
     </div>
   </div>
 </template>
+
+<link href="/static/style/gallery.css" rel="stylesheet" type="text/css">
+<script async src="/static/scripts/gallery.js"></script>
 

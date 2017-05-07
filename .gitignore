@@ -3,6 +3,8 @@ public/images/
 
 public/hitchhikers
 public/scouts
+public/scripts
+public/style
 
 private/vendor
 private/composer.lock

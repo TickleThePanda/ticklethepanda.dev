@@ -1,0 +1,78 @@
+@import "shared/colors.less";
+@import "shared/borders.less";
+
+form#weight-form {
+  border: @border;
+  padding: 1em;
+  
+  input, select {
+    display: block;
+    margin: 1em 0;
+    padding: 0.5em;
+    font-size: large;
+    border: @border;
+    clear: both;
+  }
+
+  #entry-date,#entry-period {
+    display: inline;
+    float: left;
+    clear: none;
+  }
+
+  #entry-period {
+    border-left: none;
+  }
+
+}
+
+#results {
+  display: none;
+  margin: 0.5em;
+  padding: 0.5em;
+
+  .success, .error {
+    display: none;
+  }
+
+  &.success, &.error {
+    display: block;
+  }
+
+  &.success {
+    background-color: @primary;
+  }
+
+  &.error {
+    background-color: @error;
+  }
+
+  &.success > .success {
+    display: block;
+  }
+
+  &.error > .error {
+    display: block;
+  }
+
+}
+
+#weight-history {
+  table {
+    width: 100%
+  }
+
+  thead th {
+    background-color: @primary;
+    border-bottom: @border-light; 
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: @grey-light;
+  }
+
+  th, td {
+    padding: 1em;
+  }
+}
+
