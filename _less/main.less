@@ -39,6 +39,17 @@ hr {
   border-bottom: @border;
 }
 
+code {
+  font-family: "Inconsolata", "Courier New", Courier, monospace, serif;
+  background-color: @grey-light;
+  color: @black;
+  text-decoration: none;
+}
+
+::selection {
+  background-color: @primary;
+}
+
 header {
   display: flex;
   flex-direction: column;
@@ -149,6 +160,7 @@ h1 {
   }
   font-size: 68%;
   padding-top: 0.5em;
+  padding-left: 20%;
   border-top: @border;
 }
 
