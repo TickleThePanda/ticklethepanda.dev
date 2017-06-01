@@ -59,21 +59,6 @@ class ErrorPage extends Page {
   }
 }
 
-class GalleryPage extends ContentPage {
-  constructor(title, location, description) {
-    super(title, location, description)
-  }
-  render(res) {
-    request({url:'http://localhost:3000/gallery', json:true}, (error, response, body) => {
-      if(!error && response.statusCode == 200) {
-        super.render(res, body);
-      } else {
-        super.render(res, "could not retrieve any galleries at this time. please try again later.");
-      }
-    });
-  }
-}
-
 class NotFoundPage extends ErrorPage {
   constructor() {
     super("not found", "404", "The page you were looking for could not be found.", 404);
@@ -89,7 +74,7 @@ class UnavailablePage extends ErrorPage {
 var pages = {
   "home": new ContentPage("meet panda", "home",
 		"A showcase of TickleThePanda's (Thomas 'Panda' Attwood) projects."),
-  "photography": new GalleryPage("photography", "photography",
+  "photography": new ContentPage("photography", "photography",
 		"A gallery of photography taken with both digital and film cameras."),
   "health": new ContentPage("health tracking", "health",
 		"An analysis of personal health data taken from my Fitbit and recorded data."),
