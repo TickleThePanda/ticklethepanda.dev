@@ -49,11 +49,12 @@ class ContentPage extends Page {
 }
 
 class ErrorPage extends Page {
-  constructor(title, location, description) {
+  constructor(title, location, description, code) {
     super(title, location, "error", description);
+    this.code = code;
   }
   render(res) {
-    res.status(404);
+    res.status(this.code);
     super.render(res);
   }
 }
@@ -75,7 +76,13 @@ class GalleryPage extends ContentPage {
 
 class NotFoundPage extends ErrorPage {
   constructor() {
-    super("not found", "404", "The page you were looking for could not be found.");
+    super("not found", "404", "The page you were looking for could not be found.", 404);
+  }
+}
+
+class UnavailablePage extends ErrorPage {
+  constructor() {
+    super("service unavailable", "unavailable", "The service is unavailble.", 200);
   }
 }
 
@@ -111,6 +118,15 @@ app.set('view engine', 'html');
 
 app.use('/static', express.static('public'));
 
+app.get('/static', function(req, res) {
+  res.status(404);
+  res.send('Not Found');
+});
+
+app.get('/sw.js', function(req, res) {
+  res.sendFile(__dirname + '/public/scripts/sw.js');
+});
+
 app.get('/:page?', function(req, res) {
   var pageName = req.params.page || req.query.action || 'home';
   
@@ -119,6 +135,10 @@ app.get('/:page?', function(req, res) {
   } else {
     new NotFoundPage().render(res);
   }
+});
+
+app.get('/error/unavailable', function(req, res) {
+  new UnavailablePage().render(res);
 });
 
 app.listen('3001', function() {

@@ -16,14 +16,14 @@
     <div class="gallery">
       <template repeat="{{image in gallery.images}}">
         <a class="{{ image.favourite ? 'favourite' : '' }}" 
-            href="/static{{fullPath}}{{gallery.reference}}/{{image.fileName}}">
-          <img src="/static{{ image.favourite ? fullPath : thumbsPath}}{{gallery.reference}}/{{image.fileName}}">
+            href="https://s.ticklethepanda.co.uk{{fullPath}}{{gallery.reference}}/{{image.fileName}}">
+          <img src="https://s.ticklethepanda.co.uk{{ image.favourite ? fullPath : thumbsPath}}{{gallery.reference}}/{{image.fileName}}">
         </a>
       </template>
     </div>
   </div>
 </template>
 
-<link href="/static/style/gallery.css" rel="stylesheet" type="text/css">
-<script async src="/static/scripts/gallery.js"></script>
+<link href="https://s.ticklethepanda.co.uk/style/gallery.css" rel="stylesheet" type="text/css">
+<script async src="https://s.ticklethepanda.co.uk/scripts/gallery.js"></script>
 
