@@ -27,7 +27,7 @@ let resolveStatic = function(event) {
       let url = new URL(request.url);
       let options = null;
       
-      if(url.hostname.endsWith("ticklethepanda.co.uk")) {
+      if(request.mode !== "navigate" && url.hostname.endsWith("ticklethepanda.co.uk")) {
         options = {
          'mode': 'cors',
          'credentials': 'omit'
