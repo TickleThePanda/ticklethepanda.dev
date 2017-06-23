@@ -24,13 +24,23 @@ let resolveStatic = function(event) {
     });
   
     return Promise.all([cachePromise, matchPromise]).then(function([cache, cacheResponse]) {
-      // Kick off the update request
-      const fetchPromise = fetch(request).then(function(fetchResponse) {
-        // Cache the updated file and then return the response
-        cache.put(request, fetchResponse.clone());
+      let url = new URL(request.url);
+      let options = null;
+      
+      if(url.hostname.endsWith("ticklethepanda.co.uk")) {
+        options = {
+         'mode': 'cors',
+         'credentials': 'omit'
+        };
+      }
+      const fetchPromise = fetch(request, options).then(function(fetchResponse) {
+        console.log("fetched", request, fetchResponse);
+        if (fetchResponse && fetchResponse.status === 200 && (fetchResponse.type === 'basic' || fetchResponse.type === 'cors')) {
+          console.log("caching", request, fetchResponse);
+          cache.put(request, fetchResponse.clone());
+	}
         return fetchResponse;
       });
-      // return the cached response if we have it, otherwise the result of the fetch.
       return cacheResponse || fetchPromise;
     }).catch(function(error) {
       if (event.request.mode === 'navigate') {

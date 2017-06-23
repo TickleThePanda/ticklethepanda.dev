@@ -1,5 +1,16 @@
+@import "shared/fonts.less";
 @import "shared/colors.less";
 @import "shared/borders.less";
+
+select:focus, input:focus {
+  position: relative;
+}
+
+select, input {
+  font-size: 14pt;
+  font-family: @font-family-main;
+  height: 2em;
+}
 
 form#weight-form {
   border: @border;
@@ -21,7 +32,7 @@ form#weight-form {
   }
 
   #entry-period {
-    border-left: none;
+    margin-left: -1px;
   }
 
 }

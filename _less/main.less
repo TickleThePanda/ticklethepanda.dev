@@ -1,30 +1,38 @@
+@import "shared/fonts.less";
 @import "shared/borders.less";
 @import "shared/colors.less";
 @import "shared/breakpoints.less";
+@import "shared/z-index.less";
 
 @title-font-size-multiplier: 1.25;
-@sidebar-width: 250px;
-@content-wrapper-margin: 251px;
+@sidebar-width: 251px;
+
+* {
+  box-sizing: border-box;
+}
 
 html, body {
   margin: 0;
   padding: 0;
 
-  font-family: "Courier New", Courier, monospace, serif;
+  font-family: @font-family-title;
   font-size: 14pt;
 
   color: @black;
-}
 
-body {
   width: 100%;
   height: 100%;
   background-color: @primary;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: @font-family-title;
+}
+
 a {
   text-decoration:underline;
-
+  text-decoration-skip: ink;
+  
   &:link, &:visited, &:hover, &:active {
     color: darken(@primary, 50%);
   }
@@ -50,11 +58,17 @@ code {
   background-color: @primary;
 }
 
+:focus {
+  outline: @primary-dark solid 2px;
+  outline-offset: 0;
+}
+
 header {
   display: flex;
   flex-direction: column;
 
   position: fixed;
+  z-index: @zHeader;
   top: 0;
   left: 0;
   height: 100%;
@@ -83,7 +97,7 @@ header {
 }
 
 h1 > *, #subtitle {
-  height: 1em;
+  height: 3em;
   line-height: 1em;
   border-bottom: @border;
   padding: 1em;
@@ -92,6 +106,10 @@ h1 > *, #subtitle {
 
 #subtitle {
   overflow: hidden;
+  position: fixed;
+  z-index: @zHeader;
+  background-color: #cda;
+  width: 100%;
 }
 
 h1 {
@@ -114,12 +132,15 @@ h1 {
 #nav-toggle {
   display: none;
 
+  flex: 0 0 auto;
+
   stroke: @black;
   background-color: @primary;
   overflow: hidden;
 
   padding: 1em;
-  height: 1em;
+  height: 3em;
+  width: 3em;
 
   cursor: pointer;
 }
@@ -178,7 +199,7 @@ h1 {
 article {
   margin: 0;
   margin-bottom: 50vh;
-  margin-left: @content-wrapper-margin;
+  margin-left: @sidebar-width;
 }
 
 nav {
@@ -224,17 +245,18 @@ nav {
   }
 }
 
-article > div {
+article #content {
   > :first-child {
     padding-top: 0;
     margin-top: 0;
   }
-  
-  font-family: "Inconsolata", "Courier New", Courier, monospace, serif;
+
+  font-family: @font-family-main;
 
   text-align: left;
   background-color: @white;
   padding: 3em;
+  padding-top: 3em * @title-font-size-multiplier + 3em;
   line-height: 150%;
   max-width: 768px;
   word-wrap: break-word;
@@ -290,15 +312,18 @@ article > div {
 
   #nav-toggle {
     display: block;
-    flex: 0 0 30px;
   }
   
+  #subtitle {
+    position: static;
+  }
+
   article {
     margin: (3em * @title-font-size-multiplier) 0 0 0;
     border: none;
   }
 
-  article > div {
+  article #content {
     padding: 10vw;
     border: none;
   }

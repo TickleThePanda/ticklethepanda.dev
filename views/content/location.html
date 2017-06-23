@@ -7,22 +7,28 @@
 </figure>
 <h4>Larger</h4>
 <figure>
-  <a href="https://api.ticklethepanda.co.uk/location?img&sum&width=1250&height=950&scale=0.0085&pixelSize=1">
-    <img src="https://api.ticklethepanda.co.uk/location?img&sum&width=1250&height=950&scale=0.0085&pixelSize=1" width="1250px" height="950px" alt="cumulative location at a higher resolution"/>
+  <a href="https://api.ticklethepanda.co.uk/location?img&sum&width=1250&height=1075&scale=0.0085&pixelSize=1">
+    <img src="https://api.ticklethepanda.co.uk/location?img&sum&width=1250&height=1075&scale=0.0085&pixelSize=1" width="1250px" height="1075px" alt="cumulative location at a higher resolution"/>
   </a>
   <figcaption>My cumulative location history at a higher resolution.</figcaption>
 </figure>
-<h3>Animated location history</h3>
-<h4>Cumulative</h4>
-<figure>
-  <img src="https://s.ticklethepanda.co.uk/images/location/cumulative.gif" width="702px" height="534px" alt="cumulative location over time"/>
-  <figcaption>Cumulative location history, by month, over time</figcaption>
-</figure>
-<h4>By month</h4>
-<figure>
-  <img src="https://s.ticklethepanda.co.uk/images/location/monthly.gif" width="702px" height="534px" alt="location over time"/>
-  <figcaption>Location history, by month, over time.</figcaption>
-</figure>
+<h3 id="animated">Animated location history</h3>
+<div id="location-by-month">
+  <div class="controller">
+    <a class="prev">&lt;-- prev</a> <a class="play">play</a> <a class="next">next --&gt;</a>
+  </div>
+  <h4>By month</h4>
+  <div class="info"></div>
+  <div class="image-container"></div>
+</div>
+<div id="location-by-weekday">
+  <div class="controller">
+    <a class="prev">&lt;-- prev</a> <a class="play">play</a> <a class="next">next --&gt;</a>
+  </div>
+  <h4>By weekday</h4>
+  <div class="info"></div>
+  <div class="image-container"></div>
+</div>
 
 <h2><a href="https://github.com/TickleThePanda/location-history">The code</a></h2>
 A quick (relatively high level) how-to on turning your data into a heatmap:
@@ -36,4 +42,8 @@ A quick (relatively high level) how-to on turning your data into a heatmap:
   <li>Create a painter for the heatmap (defines color, pixel size and writes the data to some sort of canvas)</li>
   <li>Save the image to file</li>
 </ol>
+
+<script src="https://s.ticklethepanda.co.uk/scripts/location.js"></script>
+
+<link rel="stylesheet" href="https://s.ticklethepanda.co.uk/style/location.css">
 
