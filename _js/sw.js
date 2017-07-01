@@ -7,6 +7,16 @@ var urlsToCache = [
   'https://s.ticklethepanda.co.uk/style/main.css'
 ];
 
+var hosts = {
+  cors: [
+    's.ticklethepanda.co.uk',
+    'api.ticklethepanda.co.uk'
+  ],
+  dynamic: ['api.ticklethepanda.co.uk'],
+  fixed: ['s.ticklethepanda.co.uk'],
+  page: ['ticklethepanda.co.uk']
+}
+
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -16,68 +26,68 @@ self.addEventListener('install', function(event) {
   );
 });
 
-let resolveStatic = function(event) {
-  function resolve(request) {
-    const cachePromise = caches.open(CACHE_NAME);
-    const matchPromise = cachePromise.then(function(cache) {
-      return cache.match(request);
-    });
-  
-    return Promise.all([cachePromise, matchPromise]).then(function([cache, cacheResponse]) {
-      let url = new URL(request.url);
-      let options = null;
-      
-      if(request.mode !== "navigate" && url.hostname.endsWith("ticklethepanda.co.uk")) {
-        options = {
-         'mode': 'cors',
-         'credentials': 'omit'
-        };
-      }
-      const fetchPromise = fetch(request, options).then(function(fetchResponse) {
-        console.log("fetched", request, fetchResponse);
-        if (fetchResponse && fetchResponse.status === 200 && (fetchResponse.type === 'basic' || fetchResponse.type === 'cors')) {
-          console.log("caching", request, fetchResponse);
-          cache.put(request, fetchResponse.clone());
-	}
-        return fetchResponse;
-      });
-      return cacheResponse || fetchPromise;
-    }).catch(function(error) {
-      if (event.request.mode === 'navigate') {
-        return caches.match('/error/unavailable');
-      } else {
-        throw error;
-      }
-    });
-  }
-  event.respondWith(resolve(event.request));
-};
+let resolver = {
+  fixed: event => {
 
-let resolveDynamic = function(event) {
-  if(event.request.method === 'GET') {
-    event.respondWith(fetch(event.request)
-        .then(function(response) {
-          return caches.open(CACHE_NAME).then(function(cache) {
-            cache.put(event.request, response.clone());
-            return response;
-          });
-        })
-        .catch(function(error) {
-          return caches.match(event.request);
-        })
-    );
-  } else {
-    event.respondWith(fetch(event.request));
+    function resolve(request) {
+      const cachePromise = caches.open(CACHE_NAME);
+      const matchPromise = cachePromise.then(function(cache) {
+        return cache.match(request);
+      });
+    
+      return Promise.all([cachePromise, matchPromise]).then(function([cache, cacheResponse]) {
+        let url = new URL(request.url);
+        let options = null;
+        
+        if(request.mode !== "navigate" && hosts["cors"].includes(url.hostname)) {
+          options = {
+           'mode': 'cors',
+           'credentials': 'omit'
+          };
+        }
+        const fetchPromise = fetch(request, options).then(function(fetchResponse) {
+          if (fetchResponse && fetchResponse.status === 200 && (fetchResponse.type === 'basic' || fetchResponse.type === 'cors')) {
+            cache.put(request, fetchResponse.clone());
+    }
+          return fetchResponse;
+        });
+        return cacheResponse || fetchPromise;
+      }).catch(function(error) {
+        if (event.request.mode === 'navigate') {
+          return caches.match('/error/unavailable');
+        } else {
+          throw error;
+        }
+      });
+    }
+    event.respondWith(resolve(event.request));
+  },
+  dynamic: event => {
+    if(event.request.method === 'GET') {
+      event.respondWith(fetch(event.request)
+          .then(function(response) {
+            return caches.open(CACHE_NAME).then(function(cache) {
+              cache.put(event.request, response.clone());
+              return response;
+            });
+          })
+          .catch(function(error) {
+            return caches.match(event.request);
+          })
+      );
+    } else {
+      event.respondWith(fetch(event.request));
+    }
   }
 };
 
 self.addEventListener('fetch', function(event) {
   let url = new URL(event.request.url);
   let hostname = url.hostname;
-  if(hostname.endsWith("ticklethepanda.co.uk") && !hostname.endsWith('api.ticklethepanda.co.uk')) {
-    resolveStatic(event);
-  } else if (hostname.endsWith('api.ticklethepanda.co.uk')) {
-    resolveDynamic(event);
+  if(hosts["page"].includes(hostname) || hosts["fixed"].includes(hostname)) {
+    resolver["fixed"](event);
+  } else if (hosts["dynamic"].includes(hostname)) {
+    resolver["dynamic"](event);
   } else {
     event.respondWith(fetch(event.request));
   }

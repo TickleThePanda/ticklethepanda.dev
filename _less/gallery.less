@@ -1,6 +1,6 @@
 @import "shared/borders.less";
 @import "shared/colors.less";
-@import "shared/breakpoints.less";
+@import "shared/sizes.less";
 
 @gallery-max-img-size: 320px;
 @gallery-min-img-size: 250px;
@@ -51,7 +51,7 @@
 
   @supports(display: grid) {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(@gallery-min-img-size, @gallery-max-img-size));
+    grid-template-columns: repeat(auto-fit, minmax(@gallery-min-img-size, auto));
     grid-gap: 1.5em;
     grid-auto-flow: dense;
 
@@ -65,7 +65,7 @@
     }
   }
 
-  @media (max-width: @desktop-breakpoint) {
+  @media (max-width: @mobile-breakpoint) {
     display: flex;
     flex-flow: column nowrap;
 

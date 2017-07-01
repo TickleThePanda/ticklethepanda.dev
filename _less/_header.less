@@ -1,0 +1,148 @@
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  position: fixed;
+  z-index: @zHeader;
+  top: 0;
+  left: 0;
+  height: 100%;
+
+  width: calc(~"(100% - " @content-width ~") / 2");
+  border-right: @border;
+
+  overflow: hidden;
+
+  text-align: right;
+
+  background-color: @primary;
+ 
+  h1 {
+    display: flex;
+    width: 100%;
+
+    margin: 0;
+
+    text-align: right;
+
+    vertical-align: middle;
+
+    background-color: @black;
+    color: @primary;
+  }
+}
+
+#title {
+  flex: 1 1 auto;
+  min-width: 14ch;
+
+  text-decoration: none;
+}
+
+#title:link {color:@primary;}                                /* unvisited link */
+#title:visited {color:@primary;}                             /* visited link */
+#title:hover {color:lighten(@primary, 10%);}                                   /* mouse over link */
+#title:active {color:@primary;}                                  /* selected link */
+
+nav {
+
+  h1 {
+    display: none;
+  }
+
+  h2 {
+    margin: 0;
+    padding: 0;
+    padding-bottom: 0.2em;
+    line-height: 1em;
+    font-size: 1em;
+    font-weight: bold;
+    border-bottom: @border;
+  }
+
+  ul, li {
+    display: block;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  ul {
+    padding: 0.5em 0em;
+  }
+
+  a {
+    display: block;
+
+    padding: 0.5em 0;
+
+    text-decoration:none;
+    &, &:link, &:visited {
+      color: @black;
+    }
+  
+    &:hover, &:active {
+      text-decoration: underline;
+    }
+  }
+}
+
+#nav-toggle {
+  display: none;
+
+  flex: 0 0 auto;
+
+  stroke: @black;
+  background-color: @primary;
+  overflow: hidden;
+
+  padding: 1em;
+  height: 3em;
+  width: 3em;
+
+  cursor: pointer;
+}
+
+#nav-toggle > .animated-line {
+  stroke-dasharray: 6;
+  stroke-dashoffset: 6;
+  animation: dash 0.5s linear forwards;
+}
+
+#nav-toggle > .animated-line:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+#nav-toggle > .animated-line:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+#nav-toggle:hover {
+  stroke: lighten(@black, 20%);
+}
+
+#sidebar-content {
+  padding: 1em * @title-font-size-multiplier;
+  padding-bottom: 0;
+  overflow-y: auto;
+  width: @sidebar-width;
+}
+
+#biog {
+  h1 {
+    display: none;
+  }
+  font-size: 68%;
+  padding-top: 0.5em;
+  padding-left: 20%;
+  border-top: @border;
+}
+
