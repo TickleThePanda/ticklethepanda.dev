@@ -9,14 +9,19 @@
 <a href="https://api.ticklethepanda.co.uk/health/weight?img&after=2017-01-01">
   <img alt="chart of weight by time since I started trying again" src="https://api.ticklethepanda.co.uk/health/weight?img&after=2017-01-01" width="1000px" height="500px">
 </a>
-
 <h3>recent weight</h3>
 <a href="https://api.ticklethepanda.co.uk/health/weight?img&recent">
   <img alt="chart of recent weight by time" src="https://api.ticklethepanda.co.uk/health/weight?img&recent" width="1000px" height="500px">
 </a>
+
+<h3>targets</h3>
+<div class="datum-box" id="intermediate-target-weight"></div>
+<div class="datum-box" id="target-weight"></div>
+
 <h2>activity</h2>
+
 <h3>total steps</h3>
-<span class="datum-box" id="total-steps"></span>
+<div class="datum-box" id="total-steps"></div>
 
 <h3>average</h3>
 <h4>average day</h4>
@@ -44,30 +49,7 @@
   <img src="https://api.ticklethepanda.co.uk/health/activity?average&img&by=minute&facet=weekday" alt="chart of average number of steps by time of day, split by the days of the week" width="1000px" height="1098px">
 </a>
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
-</script>
-<script>
-  $(document).ready(function() {
-    fetch("https://api.ticklethepanda.co.uk/health/activity?sum")
-      .then(response => {
-        if(response.ok) {
-          return response.text();
-        } else {
-          throw Error("unable to load data: " + response.statusText);
-        }
-      })
-      .then(result => {
-        $("#total-steps").text(Number.parseFloat(result).toLocaleString());
-      });
-  });
-</script>
+<script src="https://s.ticklethepanda.co.uk/scripts/health.js"></script>
 
-<style>
-  .datum-box {
-    font-size: larger;
-    padding: 1em;
-    margin: 1em;
-    line-height: 2em;
-    background-color: #cda;
-  }
-</style>
+<link href="https://s.ticklethepanda.co.uk/style/health.css" rel="stylesheet" type="text/css">
+

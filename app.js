@@ -1,9 +1,10 @@
 var express = require('express'),
+    session = require('express-session'),
+    bodyParser = require('body-parser'),
+    RedisStore = require('connect-redis')(session),
     htmling = require('htmling'),
     request = require('request'),
     minifyHTML = require('express-minify-html');
-
-var app = express();
 
 const nav = [
   {
@@ -21,69 +22,63 @@ const nav = [
   }
 ];
 
-class Page {
-  constructor(title, location, type, description) {
-    this.title = title;
-    this.location = location;
-    this.type = type;
-    this.description = description;
-  }
-
-  render(res, vars) {
-    vars = vars ? vars : {}
-    var content = htmling.file(`views/${this.type}/${this.location}.html`).render(vars);
-    res.render('page', {
-      title: this.title,
-      location: this.location,
-      description: this.description,
-      nav: nav,
-      content: content
-    });
+const pages = {
+  "home": {
+    title: "home",
+    location: "content/home",
+    description: "A showcase of TickleThePanda's (Thomas 'Panda' Attwood) projects."
+  },
+  "photography": {
+    title: "photography",
+    location: "content/photography",
+		description: "A gallery of photography taken with both digital and film cameras."
+  },
+  "health": {
+    title: "health tracking",
+    location: "content/health",
+		description: "An analysis of personal health data taken from my Fitbit and recorded data."
+  },
+  "location": {
+    title: "location map",
+    location: "content/location",
+		description: "An analysis of my location history from Google Location History."
+  },
+  "messages": {
+    title: "messages book",
+    location: "content/messages",
+    description: "A book created from the messaging history between my girlfriend and me."
+  },
+  "admin": {
+    title: "admin",
+    location: "content/admin",
+    description: "Page for managing data"
+  },
+  "not-found": {
+    title: "404 - not found",
+    location: "error/404",
+    description: "Page not found.",
+    status: "404"
+  },
+  "unavailable" : {
+    title: "unavailable",
+    location: "error/unavailable",
+    description: "Page unavailable."
+  },
+  "login" : {
+    title: "login",
+    location: "content/login",
+    description: "Admin login page."
   }
 }
 
-class ContentPage extends Page {
-  constructor(title, location, description) {
-    super(title, location, "content", description);
-  }
-}
+var app = express();
 
-class ErrorPage extends Page {
-  constructor(title, location, description, code) {
-    super(title, location, "error", description);
-    this.code = code;
-  }
-  render(res) {
-    res.status(this.code);
-    super.render(res);
-  }
-}
+app.use(session({
+    store: new RedisStore(),
+    secret: 'keyboard cat'
+}));
 
-class NotFoundPage extends ErrorPage {
-  constructor() {
-    super("not found", "404", "The page you were looking for could not be found.", 404);
-  }
-}
-
-class UnavailablePage extends ErrorPage {
-  constructor() {
-    super("service unavailable", "unavailable", "The service is unavailble.", 200);
-  }
-}
-
-var pages = {
-  "home": new ContentPage("meet panda", "home",
-		"A showcase of TickleThePanda's (Thomas 'Panda' Attwood) projects."),
-  "photography": new ContentPage("photography", "photography",
-		"A gallery of photography taken with both digital and film cameras."),
-  "health": new ContentPage("health tracking", "health",
-		"An analysis of personal health data taken from my Fitbit and recorded data."),
-  "location": new ContentPage("location map", "location",
-		"An analysis of my location history from Google Location History."),
-  "messages": new ContentPage("messages book", "messages",
-		"A book created from the messaging history between my girlfriend and me."),
-  "admin": new ContentPage("admin", "admin", "Page for managing data")
-}
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.engine('html', htmling.express(__dirname + '/views/', {}));
 
@@ -101,31 +96,13 @@ app.use(minifyHTML({
 
 app.set('view engine', 'html');
 
-app.use('/static', express.static('public'));
+var server = require('./page-server.js')(nav, pages);
 
-app.get('/static', function(req, res) {
-  res.status(404);
-  res.send('Not Found');
-});
-
-app.get('/sw.js', function(req, res) {
-  res.sendFile(__dirname + '/public/scripts/sw.js');
-});
-
-app.get('/:page?', function(req, res) {
-  var pageName = req.params.page || req.query.action || 'home';
-  
-  if(pages[pageName]) {
-    pages[pageName].render(res);
-  } else {
-    new NotFoundPage().render(res);
-  }
-});
-
-app.get('/error/unavailable', function(req, res) {
-  new UnavailablePage().render(res);
-});
+require('./routes/admin.js')(app, server);
+require('./routes/pages.js')(app, server);
+require('./routes/service-worker.js')(app, server);
 
 app.listen('3001', function() {
   console.log("Express server listening on port 3001");
 });
+

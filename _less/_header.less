@@ -1,4 +1,10 @@
 
+header h2 {
+  border: none;
+  margin-top: 1em;
+  padding-top: 0em;
+}
+
 header {
   display: flex;
   flex-direction: column;
@@ -16,11 +22,13 @@ header {
   overflow: hidden;
 
   text-align: right;
+  text-transform: lowercase;
 
   background-color: @primary;
  
   h1 {
     display: flex;
+    flex: 0 0 auto;
     width: 100%;
 
     margin: 0;
@@ -146,3 +154,26 @@ nav {
   border-top: @border;
 }
 
+@media (max-width: @mobile-breakpoint) {
+
+  #sidebar-content {
+    width: 100%;
+    display: none;
+  }
+
+  #sidebar-content.open-nav {
+    display: block;
+    margin: 0;
+    padding: 30px;
+    padding-bottom: 0px;
+    border-bottom: @border;
+  }
+
+  #biog {
+    display: none;
+  }
+
+  #nav-toggle {
+    display: block;
+  }
+}

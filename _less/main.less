@@ -4,8 +4,6 @@
 @import "shared/sizes.less";
 @import "shared/z-index.less";
 
-@import "_header.less";
-
 @title-font-size-multiplier: 1.25;
 
 * {
@@ -27,7 +25,42 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  margin: 1em 0 0.5em 0;
+  padding: 0;
+
+  font-size: 1rem;
   font-family: @font-family-title;
+
+  text-transform: lowercase;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+h2 {
+  margin-top: 0.7em;
+  padding-top: 0.3em;
+  border-top: @border;
+  font-size: 1.3rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+h4 {
+  font-size: 1rem;
+}
+
+h5 {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+h6 {
+  font-size: 0.8rem;
+  font-style: italic;
 }
 
 a {
@@ -53,6 +86,25 @@ code {
   background-color: @grey-light;
   color: @black;
   text-decoration: none;
+}
+
+form {
+
+  select:focus, input:focus {
+    position: relative;
+  }
+
+  select, input, button {
+    display: block;
+
+    font-size: 1.2rem;
+    font-family: @font-family-main;
+
+    height: 2em;
+    margin: 1em 0;
+    padding: 0.5em;
+    border: @border;
+  }
 }
 
 ::selection {
@@ -107,9 +159,11 @@ main {
 }
 
 article #content {
-  > :first-child {
-    padding-top: 0;
+  > :first-child { 
     margin-top: 0;
+  }
+  > :not(h2):first-child {
+    padding-top: 0;
   }
 
   font-family: @font-family-main;
@@ -145,6 +199,8 @@ article #content {
 
 }
 
+@import "_header.less";
+
 @media (max-width: @centered-content-breakpoint) {
   header {
     width: @sidebar-width;
@@ -160,6 +216,10 @@ article #content {
 }
 
 @media (max-width: @mobile-breakpoint) {
+  
+  body {
+    font-size: 12pt;
+  }
 
   header {
     h1 {
@@ -176,27 +236,6 @@ article #content {
     border-right: none;
   }
 
-  #sidebar-content {
-    width: 100%;
-    display: none;
-  }
-
-  #sidebar-content.open-nav {
-    display: block;
-    margin: 0;
-    padding: 30px;
-    padding-bottom: 0px;
-    border-bottom: @border;
-  }
-
-  #biog {
-    display: none;
-  }
-
-  #nav-toggle {
-    display: block;
-  }
-  
   #subtitle {
     position: static;
   }
@@ -212,4 +251,3 @@ article #content {
   }
   
 }
-
