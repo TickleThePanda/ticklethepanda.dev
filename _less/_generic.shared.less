@@ -1,0 +1,24 @@
+html, body {
+  font-family: @font-family-title;
+  font-size: 14pt;
+  color: @black;
+
+  background-color: @primary;
+}
+
+@media (max-width: @mobile-breakpoint) {
+  
+  html, body {
+    font-size: 12pt;
+  }
+
+}
+
+::selection {
+  background-color: @primary;
+}
+
+:focus {
+  outline: @primary-dark solid 2px;
+  outline-offset: 0;
+}

@@ -1,10 +1,12 @@
 var express = require('express'),
-    session = require('express-session'),
+    cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
-    RedisStore = require('connect-redis')(session),
     htmling = require('htmling'),
     request = require('request'),
-    minifyHTML = require('express-minify-html');
+    minifyHTML = require('express-minify-html'),
+    dotenv = require('dotenv');
+
+dotenv.config();
 
 const nav = [
   {
@@ -73,10 +75,7 @@ const pages = {
 
 var app = express();
 
-app.use(session({
-    store: new RedisStore(),
-    secret: 'keyboard cat'
-}));
+app.use(cookieParser());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -99,8 +98,8 @@ app.set('view engine', 'html');
 var server = require('./page-server.js')(nav, pages);
 
 require('./routes/admin.js')(app, server);
-require('./routes/pages.js')(app, server);
 require('./routes/service-worker.js')(app, server);
+require('./routes/pages.js')(app, server);
 
 app.listen('3001', function() {
   console.log("Express server listening on port 3001");

@@ -2,8 +2,6 @@ module.exports = function (app, server) {
 
   app.get('/:page?', function(req, res) {
     var pageName = req.params.page || req.query.action || 'home';
-    
-    console.log("recieved request for page", pageName);
 
     if(server.has(pageName)) {
       server.serve(pageName).to(res);

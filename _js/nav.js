@@ -1,30 +1,23 @@
 (function() {
-  function getNav() {
-    return document.getElementById("sidebar-content");
-  }
 
-  function closeNav(nav) {
-    nav.className = nav.className.replace(/\bopen-nav\b/,'');
-  };
-
-  document.getElementById("nav-toggle")
-      .addEventListener("click", function(event) {
-    var nav = getNav();
-    if (nav.classList.contains("open-nav")) {
-      closeNav(nav);
-    } else {
-      nav.className = nav.className + "open-nav";
-    }
+  Array.prototype.forEach.call(document.getElementsByClassName("nav-toggle"), function(toggleElement) {
+      toggleElement.addEventListener("click", function(event) {
+        Array.prototype.forEach.call(document.getElementsByClassName("sidebar-content"), function(navElement) {
+          navElement.classList.add("open-nav");
+        });
+      });
   });
 
   document.addEventListener("click", function(event) {
     let target = event.target || event.srcElement;
 
-    let navToggle = document.getElementById("nav-toggle");
-
-    if (!navToggle.isSameNode(target) 
-        && !navToggle.contains(target)) {
-      closeNav(getNav());
+    if (target.classList.contains("nav-toggle")) {
+      return;
     }
+
+    Array.prototype.forEach.call(document.getElementsByClassName("sidebar-content"), function(navElement) {
+      navElement.classList.remove("open-nav");
+    });
+
   });
 })();

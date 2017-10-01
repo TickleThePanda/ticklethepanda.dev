@@ -55,20 +55,38 @@ form#weight-form {
 
 #weight-history {
   table {
+    margin-top: 1em;
     width: 100%
   }
 
-  thead th {
-    background-color: @primary;
+  tr {
     border-bottom: @border-light; 
-  }
-
-  tbody tr:nth-child(even) {
-    background-color: @grey-light;
   }
 
   th, td {
     padding: 1em;
+  }
+
+  thead tr {
+    border: none;
+  }
+
+  thead th {
+    position: sticky;
+    top: calc(~"3rem - 1px");
+
+    font-weight: bold;
+
+    background-color: @white;
+  }
+
+  thead th::after {
+    content:'';
+    position:absolute;
+    left: 0;
+    bottom: 0;
+    width:100%;
+    border-bottom: @border;
   }
 }
 

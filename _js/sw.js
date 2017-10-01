@@ -17,6 +17,14 @@ var hosts = {
   page: ['ticklethepanda.co.uk']
 }
 
+var secure = {
+  'ticklethepanda.co.uk': [
+    "/admin.*",
+    "/login",
+    "/logout"
+  ]
+}
+
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -27,7 +35,7 @@ self.addEventListener('install', function(event) {
 });
 
 let resolver = {
-  fixed: event => {
+  'fixed': event => {
 
     function resolve(request) {
       const cachePromise = caches.open(CACHE_NAME);
@@ -48,7 +56,7 @@ let resolver = {
         const fetchPromise = fetch(request, options).then(function(fetchResponse) {
           if (fetchResponse && fetchResponse.status === 200 && (fetchResponse.type === 'basic' || fetchResponse.type === 'cors')) {
             cache.put(request, fetchResponse.clone());
-    }
+          }
           return fetchResponse;
         });
         return cacheResponse || fetchPromise;
@@ -62,7 +70,7 @@ let resolver = {
     }
     event.respondWith(resolve(event.request));
   },
-  dynamic: event => {
+  'dynamic': event => {
     if(event.request.method === 'GET') {
       event.respondWith(fetch(event.request)
           .then(function(response) {
@@ -78,13 +86,27 @@ let resolver = {
     } else {
       event.respondWith(fetch(event.request));
     }
+  },
+  'secure': event => {
+    event.respondWith(fetch(event.request));
   }
 };
+
+function isSecure(url) {
+  let secureUrls = secure[url.hostname];
+  if(secureUrls) {
+    return secureUrls.some(regex => new RegExp(regex).test(url.pathname));
+  } else {
+    return;
+  }
+}
 
 self.addEventListener('fetch', function(event) {
   let url = new URL(event.request.url);
   let hostname = url.hostname;
-  if(hosts["page"].includes(hostname) || hosts["fixed"].includes(hostname)) {
+  if (isSecure(url)) {
+    resolver["secure"](event);
+  } else if (hosts["page"].includes(hostname) || hosts["fixed"].includes(hostname)) {
     resolver["fixed"](event);
   } else if (hosts["dynamic"].includes(hostname)) {
     resolver["dynamic"](event);

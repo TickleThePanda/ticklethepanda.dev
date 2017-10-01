@@ -1,4 +1,9 @@
 $(document).ready(function() {
+  function getCookie(name) {
+    match = document.cookie.match(new RegExp(name + '=([^;]+)'));
+    if (match) return match[1];
+  };
+
   function loadWeightHistory() {
     $("#weight-history").empty();
     fetch("https://api.ticklethepanda.co.uk/health/weight")
@@ -52,22 +57,26 @@ $(document).ready(function() {
 
   $("#weight-form").submit(function(e) {
     e.preventDefault();
-    var form = $(this).serializeArray();
+    let form = $(this).serializeArray();
 
-    var values = form.reduce((a, b) => {
+    let values = form.reduce((a, b) => {
       a[b.name] = b.value
       return a;
     }, {});
     
-    var url = `https://api.ticklethepanda.co.uk/health/weight/${values["entry-date"]}/${values["entry-period"]}`;
-    var payload = { weight: values["entry-value"] };
+    let url = `https://api.ticklethepanda.co.uk/health/weight/${values["entry-date"]}/${values["entry-period"]}`;
+    let payload = { weight: values["entry-value"] };
+
+    let authHeaderValue = "Bearer " + getCookie("authToken");
     
-    var headers = new Headers({
-      "Authorization": "Basic " + btoa(values["username"] + ":" + values["password"]),
-      "Content-Type": "application/json"
+    let headers = new Headers({
+      "Content-Type": "application/json",
+      "Authorization": authHeaderValue
     });
 
-    var init = { method: 'PUT',
+    let init = {
+       credentials: 'include',
+       method: 'PUT',
        headers: headers,
        mode: 'cors',
        body: JSON.stringify(payload)

@@ -1,0 +1,97 @@
+article .header-bar {
+  width: 100%;
+
+  position: fixed;
+  z-index: @zHeader;
+
+  background-color: @primary;
+}
+
+.subtitle {
+
+  &:before {
+    content: "$ ";
+    float: left;
+    padding-right: 1ch;
+  }
+}
+
+article {
+  /* required for centering in IE11 */
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+article .content {
+  > :first-child { 
+    margin-top: 0;
+  }
+  > :not(h2):first-child {
+    padding-top: 0;
+  }
+
+  font-family: @font-family-main;
+
+  text-align: left;
+  background-color: @white;
+
+  padding: 3rem;
+  padding-top: 6rem;
+  padding-bottom: 30vh;
+
+  line-height: 1.5;
+  max-width: 700px;
+  word-wrap: break-word;
+
+  border-right: @border;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  & > p:first-of-type {
+    white-space: pre-wrap;
+
+    &::first-letter  {
+      line-height: 1;
+      font-size: 250%;
+      float: left;
+      margin-right: 0.1em;
+      padding: .1em;
+
+      background-color: @primary;
+    }
+  }
+
+}
+
+@media (max-width: @centered-content-breakpoint) {
+
+  main {
+    width: 100%;
+  }
+
+  article {
+    margin-left: @sidebar-width;
+  }
+}
+
+@media (max-width: @mobile-breakpoint) {
+  
+  article .header-bar {
+    position: static;
+  }
+
+  article {
+    margin: 0;
+    margin-top: 3rem;
+    border: none;
+  }
+
+  article .content {
+    padding: 10vw;
+    border: none;
+  }
+  
+}
