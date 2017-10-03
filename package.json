@@ -9,7 +9,8 @@
     "compress-images": "npm run compress-jpeg && npm run compress-gif",
     "start-app": "node app.js",
     "start": "npm run start-app",
-    "build": "gulp"
+    "build": "gulp",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",

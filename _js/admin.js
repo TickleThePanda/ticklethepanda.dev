@@ -6,7 +6,7 @@ $(document).ready(function() {
 
   function loadWeightHistory() {
     $("#weight-history").empty();
-    fetch("https://api.ticklethepanda.co.uk/health/weight")
+    fetch("https://api.ticklethepanda.co.uk/health/weight/log")
       .then(response => {
         if(response.ok) {
           return response.json();
@@ -64,7 +64,7 @@ $(document).ready(function() {
       return a;
     }, {});
     
-    let url = `https://api.ticklethepanda.co.uk/health/weight/${values["entry-date"]}/${values["entry-period"]}`;
+    let url = `https://api.ticklethepanda.co.uk/health/weight/log/${values["entry-date"]}/${values["entry-period"]}`;
     let payload = { weight: values["entry-value"] };
 
     let authHeaderValue = "Bearer " + getCookie("authToken");

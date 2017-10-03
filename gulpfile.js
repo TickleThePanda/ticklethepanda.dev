@@ -19,5 +19,15 @@ gulp.task('js', function() {
     .pipe(gulp.dest('public/scripts/'));
 });
 
-gulp.task('default', [ 'css', 'js' ]);
+gulp.task('vega', function() {
+  return gulp.src('_vg/*.json')
+    .pipe(gulp.dest('public/vega/'));
+});
 
+gulp.task('default', [ 'css', 'js', 'vega' ]);
+
+gulp.task('watch', function() {
+  gulp.watch('_js/*.js', ['js']);
+  gulp.watch('_less/[^_]*.less', ['less']);
+  gulp.watch('_vg/*.json', ['vega']);
+});

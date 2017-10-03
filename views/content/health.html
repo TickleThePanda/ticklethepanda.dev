@@ -2,17 +2,11 @@
 
 <h2>weight</h2>
 <h3>historic weight</h3>
-<a href="https://api.ticklethepanda.co.uk/health/weight?img">
-  <img alt="chart of weight by time" src="https://api.ticklethepanda.co.uk/health/weight?img" width="1000px" height="500px">
-</a>
+<div id="weight-chart"></div>
 <h3>trying again!</h3>
-<a href="https://api.ticklethepanda.co.uk/health/weight?img&after=2017-01-01">
-  <img alt="chart of weight by time since I started trying again" src="https://api.ticklethepanda.co.uk/health/weight?img&after=2017-01-01" width="1000px" height="500px">
-</a>
+<div id="weight-trying-again-chart"></div>
 <h3>recent weight</h3>
-<a href="https://api.ticklethepanda.co.uk/health/weight?img&recent">
-  <img alt="chart of recent weight by time" src="https://api.ticklethepanda.co.uk/health/weight?img&recent" width="1000px" height="500px">
-</a>
+<div id="weight-recent-chart"></div>
 
 <h3>targets</h3>
 <div class="datum-box" id="intermediate-target-weight"></div>
@@ -50,6 +44,8 @@
 </a>
 
 <script src="https://s.ticklethepanda.co.uk/scripts/health.js"></script>
-
 <link href="https://s.ticklethepanda.co.uk/style/health.css" rel="stylesheet" type="text/css">
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.5/vega-core.min.js"></script>
 
