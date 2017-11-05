@@ -11,9 +11,7 @@
   "data": [
     {
       "name": "source",
-      "url": "https://api.ticklethepanda.co.uk/health/weight?since=2017-01-01",
       "format": {
-        "type": "json",
         "parse": {
           "date": "date"
         }

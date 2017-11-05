@@ -18,7 +18,7 @@ article .header-bar {
 
 article {
   /* required for centering in IE11 */
-  max-width: 700px;
+  max-width: @content-width;
   margin: 0 auto;
 }
 
@@ -40,7 +40,7 @@ article .content {
   padding-bottom: 30vh;
 
   line-height: 1.5;
-  max-width: 700px;
+  max-width: @content-width;
   word-wrap: break-word;
 
   border-right: @border;
@@ -77,6 +77,19 @@ article .content {
   }
 }
 
+article nav a {
+  display: inline;
+
+  text-decoration: underline;
+
+  padding: 0;
+  margin: 0;
+}
+
+article nav a:hover {
+  text-decoration: none;
+}
+
 @media (max-width: @mobile-breakpoint) {
   
   article .header-bar {
@@ -95,3 +108,4 @@ article .content {
   }
   
 }
+

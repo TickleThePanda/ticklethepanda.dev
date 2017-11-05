@@ -1,0 +1,54 @@
+<form id="weight-form">
+  <h2>weight</h2>
+  <div id="inputs">
+    <input id="entry-date" name="entry-date" type="date" placeholder="date">
+    <select id="entry-period" name="entry-period" placeholder="period">
+      <option value="AM">AM</option>
+      <option value="PM">PM</option>
+    </select>
+    <input name="entry-value" type="number" step="0.1" placeholder="weight">
+    <input type="submit" value="Submit">
+  </div>
+  <div id="results">
+    <div class="error">error: <span id="result-error"></span></div>
+    <div class="success">date: <span id="result-date"></span></div>
+    <div class="success">period: <span id="result-period"></span></div>
+    <div class="success">weight: <span id="result-value"></span></div>
+  </div>
+</form>
+
+<div id="weight-history">
+
+</div>
+
+<script>
+  (function setupTime() {
+    function getMiddayOfDate(date) {
+      var middayOnDate = new Date(date);
+      middayOnDate.setHours(12);
+      middayOnDate.setMinutes(0);
+      middayOnDate.setSeconds(0);
+      middayOnDate.setMilliseconds(0);
+
+      return middayOnDate;
+    }
+    var now = new Date();
+    var middayToday = getMiddayOfDate(now);
+    
+    document.getElementById('entry-date').value = now.toISOString().substring(0,10);
+
+    if(now < middayToday) {
+      document.getElementById("entry-period").value = "AM";
+    } else {
+      document.getElementById("entry-period").value = "PM";
+    }
+
+  })();
+</script>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
+</script>
+
+<script src="https://s.ticklethepanda.co.uk/scripts/admin.js"></script>
+
+<link href="https://s.ticklethepanda.co.uk/style/admin.css" rel="stylesheet" type="text/css">

@@ -1,0 +1,76 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v3.0.json",
+  "width": 250,
+  "height": 125,
+  "padding": 5,
+  "autosize": {
+    "type": "fit",
+    "resize": true
+  },
+
+  "data": [
+    {
+      "name": "source",
+      "url": "https://api.ticklethepanda.co.uk/health/weight?since=2016-12-25",
+      "format": {
+        "type": "json",
+        "parse": {
+          "date": "date"
+        }
+      }
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "utc",
+      "nice": "month",
+      "domain": {"data": "source", "field": "date"},
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "weight"},
+      "range": "height"
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "orient": "bottom",
+      "title": "Date"
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "orient": "left",
+      "title": "Weight"
+    }
+  ],
+
+  "marks": [
+    {
+      "name": "marks",
+      "type": "symbol",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "date"},
+          "y": {"scale": "y", "field": "weight"},
+          "size": {"value": 20},
+          "shape": {"value": "circle"},
+          "opacity": {"value": 1},
+          "stroke": {"value": "transparent"},
+          "fill": {"value": "#AFD856"}
+        }
+      }
+    }
+  ]
+}
+

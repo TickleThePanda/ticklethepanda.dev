@@ -24,15 +24,15 @@ window.addEventListener('load', () => {
 
   let charts = [
     {
-      url: 'https://s.ticklethepanda.co.uk/vega/weight.vg.json',
+      url: 'https://s.ticklethepanda.co.uk/vega/weight/all.vg.json',
       container: '#weight-chart'
     },
     {
-      url: 'https://s.ticklethepanda.co.uk/vega/weight-recent.vg.json',
+      url: 'https://s.ticklethepanda.co.uk/vega/weight/recent.vg.json',
       container: '#weight-recent-chart'
     },
     {
-      url: 'https://s.ticklethepanda.co.uk/vega/weight-trying-again.vg.json',
+      url: 'https://s.ticklethepanda.co.uk/vega/weight/trying-again.vg.json',
       container: '#weight-trying-again-chart'
     }
   ];

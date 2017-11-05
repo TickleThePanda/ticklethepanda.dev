@@ -12,7 +12,7 @@ gulp.task('css', function() {
 });
 
 gulp.task('js', function() {
-  return gulp.src('_js/*.js')
+  return gulp.src('_js/**/*.js')
     .pipe(sourcemaps.init())
       .pipe(uglify())
     .pipe(sourcemaps.write('maps'))
@@ -20,14 +20,14 @@ gulp.task('js', function() {
 });
 
 gulp.task('vega', function() {
-  return gulp.src('_vg/*.json')
+  return gulp.src('_vg/**/*.json')
     .pipe(gulp.dest('public/vega/'));
 });
 
 gulp.task('default', [ 'css', 'js', 'vega' ]);
 
 gulp.task('watch', function() {
-  gulp.watch('_js/*.js', ['js']);
-  gulp.watch('_less/[^_]*.less', ['less']);
-  gulp.watch('_vg/*.json', ['vega']);
+  gulp.watch('_js/**/*.js', ['js']);
+  gulp.watch('_less/**/*.less', ['css']);
+  gulp.watch('_vg/**/*.json', ['vega']);
 });

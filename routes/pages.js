@@ -1,6 +1,6 @@
 module.exports = function (app, server) {
 
-  app.get('/:page?', function(req, res) {
+  app.get('/:page(*)?', function(req, res) {
     var pageName = req.params.page || req.query.action || 'home';
 
     if(server.has(pageName)) {

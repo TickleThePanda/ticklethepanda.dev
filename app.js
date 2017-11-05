@@ -55,6 +55,16 @@ const pages = {
     location: "content/admin",
     description: "Page for managing data"
   },
+  "admin/weight": {
+    title: "admin - weight log",
+    location: "content/admin-weight",
+    description: "Page for managing weight data"
+  },
+  "admin/thermometer-log": {
+    title: "admin - thermometer log",
+    location: "content/admin-thermometer-log",
+    description: "Page for managing thermometer data"
+  },
   "not-found": {
     title: "404 - not found",
     location: "error/404",
