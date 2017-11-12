@@ -22,42 +22,59 @@ window.addEventListener('load', () => {
 
     });
 
+  let aMonthAgo = new Date();
+  aMonthAgo.setDate(aMonthAgo.getDate() - 30);
+
+  let url = 'https://s.ticklethepanda.co.uk/vega/weight.vg.json';
+
   let charts = [
     {
-      url: 'https://s.ticklethepanda.co.uk/vega/weight/all.vg.json',
       container: '#weight-chart'
     },
     {
-      url: 'https://s.ticklethepanda.co.uk/vega/weight/recent.vg.json',
-      container: '#weight-recent-chart'
+      container: '#weight-recent-chart',
+      filter: (r => r.date >= aMonthAgo)
     },
     {
-      url: 'https://s.ticklethepanda.co.uk/vega/weight/trying-again.vg.json',
-      container: '#weight-trying-again-chart'
+      container: '#weight-trying-again-chart',
+      filter: (r => r.date >= Date.parse('2017-01-01'))
     }
   ];
 
   let vegaViews = [];
 
-  charts.forEach(chart => {
-    vega.loader()
-      .load(chart.url)
-      .then(data => {
-        let spec = JSON.parse(data);
-        let view = new vega.View(vega.parse(spec))
-          .renderer('svg')
-          .initialize(chart.container)
+  fetch("https://api.ticklethepanda.co.uk/health/weight")
+    .then(handleResponse)
+    .then(convertDates)
+    .then(results => {
+     
+      vega.loader()
+        .load(url)
+        .then(specData => {
 
-        let container = view.container();
+          charts.forEach(chart => {
 
-        let w = container.offsetWidth;
-    
-        resizeView(view, w);
+            let filteredResults = chart.filter ? results.filter(chart.filter) : results;
+            
+            let spec = JSON.parse(specData);
+            let view = new vega.View(vega.parse(spec))
+              .renderer('svg')
+              .insert('source', filteredResults)
+              .logLevel(vega.Warn)
+              .initialize(chart.container)
 
-        vegaViews.push(view);
+            let container = view.container();
+
+            let w = container.offsetWidth;
+        
+            resizeView(view, w);
+
+            vegaViews.push(view);
+          });
+        
       });
-    
-  });
+
+    });
 
   function handleResponse(response) {
     if(response.ok) {
@@ -65,6 +82,14 @@ window.addEventListener('load', () => {
     } else {
       throw Error("unable to load data: " + response.statusText);
     }
+  }
+
+  function convertDates(results) {
+
+    results.forEach(r => {
+      r.date = new Date(r.date);
+    });
+    return results;
   }
 
   window.addEventListener('resize', function() {

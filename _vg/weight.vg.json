@@ -8,16 +8,24 @@
     "resize": true
   },
 
+  "signals": [
+    {
+      "name": "minimumPointSize",
+      "update": "2 * PI"
+    },
+    {
+      "name": "basePointSize",
+      "update": "width / data('source').length * 2 * PI"
+    },
+    {
+      "name": "pointSize",
+      "update": "basePointSize > minimumPointSize ? basePointSize : minimumPointSize"
+    }
+  ],
+
   "data": [
     {
-      "name": "source",
-      "url": "https://api.ticklethepanda.co.uk/health/weight",
-      "format": {
-        "type": "json",
-        "parse": {
-          "date": "date"
-        }
-      }
+      "name": "source"
     }
   ],
 
@@ -25,7 +33,7 @@
     {
       "name": "x",
       "type": "utc",
-      "nice": "month",
+      "nice": true,
       "domain": {"data": "source", "field": "date"},
       "range": "width"
     },
@@ -44,13 +52,15 @@
       "scale": "x",
       "grid": true,
       "orient": "bottom",
-      "title": "Date"
+      "title": "Date",
+      "labelOverlap": true
     },
     {
       "scale": "y",
       "grid": true,
       "orient": "left",
-      "title": "Weight"
+      "title": "Weight",
+      "labelOverlap": true
     }
   ],
 
@@ -63,7 +73,7 @@
         "update": {
           "x": {"scale": "x", "field": "date"},
           "y": {"scale": "y", "field": "weight"},
-          "size": {"value": 6.28},
+          "size": {"signal": "pointSize"},
           "shape": {"value": "circle"},
           "opacity": {"value": 1},
           "stroke": {"value": "transparent"},
