@@ -1,14 +1,12 @@
-public/images/
 /_images
+site
+assets
+
 
 public/hitchhikers
 public/scouts
 public/scripts
 public/style
-
-private/vendor
-private/composer.lock
-_edits
 
 /node_modules
 

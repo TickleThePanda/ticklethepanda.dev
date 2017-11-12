@@ -1,0 +1,63 @@
+---
+layout: page
+title: Location History
+description: An analysis of my location history from Google Location History.
+permalink: /location/
+---
+<p>Since around 2012, I've had a phone that keeps track of my location whenever it's on, using Google's Location History. When I first started writing this software, I wanted to see where I had visited in the UK and where I most frequently was. I decided that the best way to represent this was to use a heat-map. I then turned this into a web service so that I can more easily update the images.</p>
+<h2>My location history</h2>
+<h3>Total</h3>
+<figure>
+  <img src="https://api.ticklethepanda.co.uk/location?img&sum" width="1000px" height="760px" alt="cumulative location"/>
+  <figcaption>My cumulative location history.</figcaption>
+</figure>
+<h4>Larger</h4>
+<figure>
+  <a href="https://api.ticklethepanda.co.uk/location?img&sum&width=1250&height=1075&scale=0.0085&pixelSize=1">
+    <img src="https://api.ticklethepanda.co.uk/location?img&sum&width=1250&height=1075&scale=0.0085&pixelSize=1" width="1250px" height="1075px" alt="cumulative location at a higher resolution"/>
+  </a>
+  <figcaption>My cumulative location history at a higher resolution.</figcaption>
+</figure>
+<h3 id="animated">Animated location history</h3>
+<div id="location-by-month">
+  <div class="controller">
+    <a class="prev">&lt;-- prev</a> <a class="play">play</a> <a class="next">next --&gt;</a>
+  </div>
+  <h4>By month</h4>
+  <div class="info"></div>
+  <div class="image-container"></div>
+</div>
+<div id="location-by-weekday">
+  <div class="controller">
+    <a class="prev">&lt;-- prev</a> <a class="play">play</a> <a class="next">next --&gt;</a>
+  </div>
+  <h4>By weekday</h4>
+  <div class="info"></div>
+  <div class="image-container"></div>
+</div>
+<div id="location-by-year-month">
+  <div class="controller">
+    <a class="prev">&lt;-- prev</a> <a class="play">play</a> <a class="next">next --&gt;</a>
+  </div>
+  <h4>By weekday</h4>
+  <div class="info"></div>
+  <div class="image-container"></div>
+</div>
+
+<h2><a href="https://github.com/TickleThePanda/location-history">The code</a></h2>
+A quick (relatively high level) how-to on turning your data into a heatmap:
+<ol>
+  <li>Retrieve your data from Google</li>
+  <li>Load the data from the file</li>
+  <li>Strip out the most inaccurate points</li>
+  <li>Convert the data to a more useable coordinate system</li>
+  <li>Convert the data to a more efficient data structure, like a Quadtree - <em>perhaps the most fun part of the process</em></li>
+  <li>Create a heatmap array (number of points within each (x,y) of the viewport) from a viewport (scale, center point, and dimensions of the projection) - <em>another fun part</em></li>
+  <li>Create a painter for the heatmap (defines color, pixel size and writes the data to some sort of canvas)</li>
+  <li>Save the image to file</li>
+</ol>
+
+<script src="https://s.ticklethepanda.co.uk/scripts/location.js"></script>
+
+<link rel="stylesheet" href="https://s.ticklethepanda.co.uk/style/location.css">
+

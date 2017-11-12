@@ -18,21 +18,11 @@
   },
   "author": "",
   "dependencies": {
-    "bcrypt": "^1.0.2",
-    "body-parser": "^1.17.2",
-    "connect-redis": "^3.3.0",
-    "cookie-parser": "^1.4.3",
-    "dotenv": "^4.0.0",
-    "express": "^4.14.0",
-    "express-minify-html": "^0.6.0",
-    "express-session": "^1.15.4",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.0.4",
     "gulp-less": "^3.3.0",
     "gulp-sourcemaps": "^2.6.0",
-    "gulp-uglify": "^2.1.2",
-    "htmling": "0.0.7",
-    "jsonwebtoken": "^7.4.1",
-    "request": "^2.78.0"
+    "gulp-uglify": "https://github.com/terinjokes/gulp-uglify",
+    "uglify-js": "github:mishoo/UglifyJS2#harmony"
   }
 }

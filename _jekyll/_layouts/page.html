@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#cda" >
+    <meta name="description" content="{{ page.description }}" > 
+    <meta name="author" content="Thomas 'Panda' Attwood (TickleThePanda)">
+    <title>{{ page.title }} - ticklethepanda</title>
+    <link rel="canonical" href="{{ site.url }}{{ page.permalink }}">
+
+    <link href="{{ site.assetsUrl }}/style/main.css" rel="stylesheet" type="text/css">
+    <link href="{{ site.assetsUrl }}/style/main-print.css" rel="stylesheet" type="text/css" media="print">
+  </head>
+  <body>
+    <header>
+      <div class="header-bar">
+        <a class="header-item title" href="{{ site.baseUrl }}/">
+          <h1>
+            ticklethepanda
+          </h1>
+        </a>
+        <svg
+          class="nav-toggle"
+          xmlns="http://www.w3.org/2000/svg" version="1.1"
+          viewBox="0 0 9 7" preserveAspectRatio="xMidYMid slice"
+          width="1em" height="1em">
+          <path
+              class="animated-line"
+              style="fill:none;fill-rule:evenodd;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+              d="m 1.5,2 6,0"/>
+          <path
+              class="animated-line"
+              style="fill:none;fill-rule:evenodd;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+              d="m 1.5,4 6,0"/>
+          <path
+              class="animated-line"
+              style="fill:none;fill-rule:evenodd;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+              d="m 1.5,6 6,0"/>
+        </svg>
+      </div>
+      <div class="sidebar-content">
+        <nav>
+          <h1>main navigation</h1>
+          {% for group in site.data.nav  %}
+            {% if group.name != null %}
+              <h2>{{ group.name }}</h2>
+            {% endif %}
+            <ul>
+              {% for link in group.links %}
+                <li><a href="{{ site.baseUrl }}{{ link.location }}">{{ link.text }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endfor %}
+        </nav>
+        <section class="biog">
+          <h1>biography</h1>
+          <p>hey, i'm <strong>panda</strong>!</p>
+          <p>i'm a <strong>geek</strong> who works as a <strong>software developer</strong> at stfc.</p>
+          <p>i studied <strong>computer science</strong> at royal holloway</p>
+          <p>i love playing with <strong>data</strong> and presenting it in different ways</p>
+          <p>i've created this space to show my recent <strong>projects</strong></p>
+        </section>
+      </div>
+    </header>
+    <main>
+      <article>
+        <div class="header-bar">
+          <h1 class="header-item subtitle">
+            {{ page.title }}
+          </h1>
+        </div>
+        <div class="content">
+          {{ content }}
+        </div>
+      </article>
+    </main>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">  
+    <script async src="{{ site.assetsUrl }}/scripts/nav.js"></script>
+    <script async src="{{ site.assetsUrl }}/scripts/main.js"></script>
+  </body>
+</html>

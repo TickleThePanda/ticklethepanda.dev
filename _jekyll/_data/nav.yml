@@ -1,0 +1,14 @@
+- name: about
+  links:
+    - text: meet panda
+      location: /
+- name: projects
+  links:
+    - text: location map
+      location: /location/
+    - text: health tracking
+      location: /health/
+    - text: photography
+      location: /photography/
+    - text: messages book
+      location: /messages/

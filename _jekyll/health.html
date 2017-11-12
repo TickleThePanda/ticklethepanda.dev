@@ -1,0 +1,58 @@
+---
+layout: page
+title: Health Tracking
+description: An analysis of personal health data taken from my Fitbit and recorded data. 
+permalink: /health/
+---
+
+<p>In an effort to keep fit and healthy, I keep track of my fitness and weight data, and do various analyses on this data. This data comes from Fitbit (a Fitbit Flex) and manually entered weight data. The code used to generate these graphs are in <a href="https://github.com/ticklethepanda/health-vis">my <code>health-vis</code> repository on GitHub</a>.</p>
+
+<h2>weight</h2>
+<h3>historic weight</h3>
+<div class="chart-container" id="weight-chart"></div>
+<h3>trying again!</h3>
+<div class="chart-container" id="weight-trying-again-chart"></div>
+<h3>recent weight</h3>
+<div class="chart-container" id="weight-recent-chart"></div>
+
+<h3>targets</h3>
+<div class="datum-box" id="intermediate-target-weight"></div>
+<div class="datum-box" id="target-weight"></div>
+
+<h2>activity</h2>
+
+<h3>total steps</h3>
+<div class="datum-box" id="total-steps"></div>
+
+<h3>average</h3>
+<h4>average day</h4>
+<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&by=minute">
+  <img src="https://api.ticklethepanda.co.uk/health/activity?average&img&by=minute" alt="chart of average number of steps by time of day" width="1000px" height="500px">
+</a>
+
+<h4>average steps by month</h4>
+<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&by=day&facet=month">
+  <img src="https://api.ticklethepanda.co.uk/health/activity?average&img&by=day&facet=month" alt="chart of average number of steps in a day, split by the months of the year" width="1000px" height="500px">
+</a>
+
+<h4>average steps by time of day by month</h4>
+<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&by=minute&facet=month">
+  <img src="https://api.ticklethepanda.co.uk/health/activity?average&img&by=minute&facet=month" alt="chart of average number of steps by time of day, split by the months of the year" width="1000px" height="1848px">
+</a>
+
+<h4>average steps by day of week</h4>
+<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&by=day&facet=weekday">
+  <img src="https://api.ticklethepanda.co.uk/health/activity?average&img&by=day&facet=weekday" alt="chart of average number of steps in a day, split by the days of the week" width="1000px" height="500px">
+</a>
+
+<h4>average steps by time of day by day of week</h4>
+<a href="https://api.ticklethepanda.co.uk/health/activity?average&img&by=minute&facet=weekday">
+  <img src="https://api.ticklethepanda.co.uk/health/activity?average&img&by=minute&facet=weekday" alt="chart of average number of steps by time of day, split by the days of the week" width="1000px" height="1098px">
+</a>
+
+<script src="https://s.ticklethepanda.co.uk/scripts/health.js"></script>
+<link href="https://s.ticklethepanda.co.uk/style/health.css" rel="stylesheet" type="text/css">
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.5/vega-core.min.js"></script>
+
