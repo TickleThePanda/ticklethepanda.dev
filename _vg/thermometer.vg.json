@@ -10,12 +10,7 @@
 
   "data": [
     {
-      "name": "source",
-      "format": {
-        "parse": {
-          "date": "date"
-        }
-      }
+      "name": "source"
     }
   ],
 
@@ -23,8 +18,8 @@
     {
       "name": "x",
       "type": "utc",
-      "nice": "month",
-      "domain": {"data": "source", "field": "date"},
+      "nice": true,
+      "domain": {"data": "source", "field": "time"},
       "range": "width"
     },
     {
@@ -32,7 +27,7 @@
       "type": "linear",
       "nice": true,
       "zero": false,
-      "domain": {"data": "source", "field": "weight"},
+      "domain": {"data": "source", "field": "averageTemperature"},
       "range": "height"
     }
   ],
@@ -48,24 +43,19 @@
       "scale": "y",
       "grid": true,
       "orient": "left",
-      "title": "Weight"
+      "title": "Temperature"
     }
   ],
 
   "marks": [
     {
-      "name": "marks",
-      "type": "symbol",
+      "type": "line",
       "from": {"data": "source"},
       "encode": {
         "update": {
-          "x": {"scale": "x", "field": "date"},
-          "y": {"scale": "y", "field": "weight"},
-          "size": {"value": 6.28},
-          "shape": {"value": "circle"},
-          "opacity": {"value": 1},
-          "stroke": {"value": "transparent"},
-          "fill": {"value": "#AFD856"}
+          "x": {"scale": "x", "field": "time"},
+          "y": {"scale": "y", "field": "averageTemperature"},
+          "stroke": {"value": "#AFD856"}
         }
       }
     }
