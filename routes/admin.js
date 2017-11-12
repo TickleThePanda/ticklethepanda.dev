@@ -24,7 +24,7 @@ module.exports = function(app, server) {
   app.use(function checkAuth(req, res, next) {
 
     jwt.verify(req.cookies.authToken, SECRET_KEY, (err, decoded) => {
-      let authed = decoded && decoded.role === 'admin';
+      let authed = decoded && decoded.roles && decoded.roles.indexOf('admin') > -1;
 
       if(!authed && req.url.startsWith('/admin')) {
         res.redirect('/login');
@@ -50,7 +50,7 @@ module.exports = function(app, server) {
     bcrypt.compare(password, ADMIN_PASSWORD_HASH)
         .then(success => {
           if (username === ADMIN_USERNAME && success) {
-            jwt.sign({ role: 'admin' }, SECRET_KEY, (err, token) => {
+            jwt.sign({ roles: ['admin'] }, SECRET_KEY, (err, token) => {
               res.cookie("authToken", token, { httpOnly: false, maxAge: COOKIE_MAX_AGE });
               res.redirect('/admin');
             });
