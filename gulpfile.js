@@ -1,8 +1,11 @@
 var gulp = require('gulp');
 var less = require('gulp-less');
 var cleanCss = require('gulp-clean-css');
-var uglify = require('gulp-uglify');
+var uglifyjs = require('uglify-es');
+var composer = require('gulp-uglify/composer');
 var sourcemaps = require('gulp-sourcemaps');
+
+var minify = composer(uglifyjs, console);
 
 gulp.task('css', function() {
   return gulp.src('_less/[^_]*.less')
@@ -14,7 +17,7 @@ gulp.task('css', function() {
 gulp.task('js', function() {
   return gulp.src('_js/**/*.js')
     .pipe(sourcemaps.init())
-      .pipe(uglify())
+      .pipe(minify())
     .pipe(sourcemaps.write('maps'))
     .pipe(gulp.dest('public/scripts/'));
 });

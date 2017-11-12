@@ -30,7 +30,8 @@
     "gulp-clean-css": "^3.0.4",
     "gulp-less": "^3.3.0",
     "gulp-sourcemaps": "^2.6.0",
-    "gulp-uglify": "^2.1.2",
+    "gulp-uglify": "https://github.com/terinjokes/gulp-uglify",
+    "uglify-js": "github:mishoo/UglifyJS2#harmony",
     "htmling": "0.0.7",
     "jsonwebtoken": "^7.4.1",
     "request": "^2.78.0"
