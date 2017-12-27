@@ -2,46 +2,46 @@
   function modulo(n, d) {
     return ((n % d) + d) % d;
   };
-  const baseUrl = "https://api.ticklethepanda.co.uk/location?img&sum";
+  const baseUrl = ENV.apiBaseUrl + '/location?img&sum';
 
   const data = [
     {
-      param: "month",
-      id: "location-by-month",
+      param: 'month',
+      id: 'location-by-month',
       items: [
-        "JANUARY",
-        "FEBRUARY",
-        "MARCH",
-        "APRIL",
-        "MAY",
-        "JUNE",
-        "JULY",
-        "AUGUST",
-        "SEPTEMBER",
-        "OCTOBER",
-        "NOVEMBER",
-        "DECEMBER"
+        'JANUARY',
+        'FEBRUARY',
+        'MARCH',
+        'APRIL',
+        'MAY',
+        'JUNE',
+        'JULY',
+        'AUGUST',
+        'SEPTEMBER',
+        'OCTOBER',
+        'NOVEMBER',
+        'DECEMBER'
       ]
     },
     {
-      param: "weekday",
-      id: "location-by-weekday",
+      param: 'weekday',
+      id: 'location-by-weekday',
       items: [
-        "MONDAY",
-        "TUESDAY",
-        "WEDNESDAY",
-        "THURSDAY",
-        "FRIDAY",
-        "SATURDAY",
-        "SUNDAY"
+        'MONDAY',
+        'TUESDAY',
+        'WEDNESDAY',
+        'THURSDAY',
+        'FRIDAY',
+        'SATURDAY',
+        'SUNDAY'
       ]
     },
     {
-      param: "yearMonth",
-      id: "location-by-year-month",
+      param: 'yearMonth',
+      id: 'location-by-year-month',
       items: (() => {
         let yearMonths = [];
-        let date = new Date("2012-06");
+        let date = new Date('2012-06');
         let twoMonthsAgo = new Date();
         twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
         
@@ -56,12 +56,12 @@
 
   function registerAnimationControllerEvents(descriptor) {
     const container = document.getElementById(descriptor.id);
-    const controller = container.getElementsByClassName("controller")[0];
-    const prevController = controller.getElementsByClassName("prev")[0];
-    const playController = controller.getElementsByClassName("play")[0];
-    const nextController = controller.getElementsByClassName("next")[0];
-    const info = container.getElementsByClassName("info")[0];
-    const imageContainer = container.getElementsByClassName("image-container")[0];
+    const controller = container.getElementsByClassName('controller')[0];
+    const prevController = controller.getElementsByClassName('prev')[0];
+    const playController = controller.getElementsByClassName('play')[0];
+    const nextController = controller.getElementsByClassName('next')[0];
+    const info = container.getElementsByClassName('info')[0];
+    const imageContainer = container.getElementsByClassName('image-container')[0];
 
     const items = descriptor.items;
     const length = items.length;
@@ -71,7 +71,7 @@
       
       function loadImage(index) {
         loadedImages[index] = new Image();
-        loadedImages[index].classList.add("selected-location");
+        loadedImages[index].classList.add('selected-location');
         loadedImages[index].onload = loadNext(index);
         loadedImages[index].src = `${baseUrl}&${descriptor.param}=${items[index]}`;
       }
@@ -109,7 +109,7 @@
     function update() {
       index = modulo(index, length);
       let newImage = images.getImage(index);
-      if (imageContainer.getElementsByClassName("selected-location").length > 0) {
+      if (imageContainer.getElementsByClassName('selected-location').length > 0) {
         imageContainer.replaceChild(newImage, currentImage);
       } else {
         imageContainer.appendChild(newImage);
@@ -118,27 +118,27 @@
       info.textContent = items[index];
     }
 
-    nextController.addEventListener("click", e => {
+    nextController.addEventListener('click', e => {
       index++;
       update();
     });
 
-    prevController.addEventListener("click", e => {
+    prevController.addEventListener('click', e => {
       index--;
       update();
     });
 
-    playController.addEventListener("click", e => {
+    playController.addEventListener('click', e => {
       if (!intervalId) {
         intervalId = setInterval(() => {
           index++;
           update();
         }, 1000);
-        playController.textContent = "stop";
+        playController.textContent = 'stop';
       } else {
         clearInterval(intervalId);
         intervalId = null;
-        playController.textContent = "play";
+        playController.textContent = 'play';
       }
     });
 

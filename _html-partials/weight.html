@@ -18,37 +18,19 @@
 </form>
 
 <div id="weight-history">
+  <table>
+    <thead>
+      <tr>
+        <th>date</th>
+        <th>am</th>
+        <th>pm</th>
+      </tr>
+    </thead>
+    <tbody id="weight-history-table-body">
 
+    </tbody>
+  </table>
 </div>
 
-<script>
-  (function setupTime() {
-    function getMiddayOfDate(date) {
-      var middayOnDate = new Date(date);
-      middayOnDate.setHours(12);
-      middayOnDate.setMinutes(0);
-      middayOnDate.setSeconds(0);
-      middayOnDate.setMilliseconds(0);
-
-      return middayOnDate;
-    }
-    var now = new Date();
-    var middayToday = getMiddayOfDate(now);
-    
-    document.getElementById('entry-date').value = now.toISOString().substring(0,10);
-
-    if(now < middayToday) {
-      document.getElementById("entry-period").value = "AM";
-    } else {
-      document.getElementById("entry-period").value = "PM";
-    }
-
-  })();
-</script>
-
-<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
-</script>
-
-<script src="https://s.ticklethepanda.co.uk/scripts/admin.js"></script>
-
 <link href="https://s.ticklethepanda.co.uk/style/admin.css" rel="stylesheet" type="text/css">
+
