@@ -4,6 +4,8 @@ var cleanCss = require('gulp-clean-css');
 var uglifyjs = require('uglify-es');
 var composer = require('gulp-uglify/composer');
 var sourcemaps = require('gulp-sourcemaps');
+var child = require('child_process');
+var gulpUtil = require('gulp-util');
 
 var minify = composer(uglifyjs, console);
 
@@ -35,11 +37,35 @@ gulp.task('images', function () {
     .pipe(gulp.dest(assetsBaseOutput + '/images/'));
 });
 
-gulp.task('default', [ 'css', 'js', 'vega', 'images' ]);
+gulp.task('jekyll', function (done) {
+  const jekyll = child.spawn('jekyll', ['build', '--incremental']);
+
+  const jekyllLogger = (buffer) => {
+    buffer.toString()
+      .split(/\n/)
+      .forEach((message) => gulpUtil.log('Jekyll: ' + message));
+  };
+
+  jekyll.stdout.on('data', jekyllLogger);
+  jekyll.stderr.on('data', jekyllLogger);
+
+  jekyll.on('close', (code) => {
+    done()
+  });
+});
+
+gulp.task('html-partials', function () {
+  gulp.src('_html-partials/**/*.html')
+    .pipe(gulp.dest(assetsBaseOutput + '/html-partials/'));
+});
+
+gulp.task('default', [ 'css', 'js', 'vega', 'images', 'jekyll', 'html-partials' ]);
 
 gulp.task('watch', function() {
   gulp.watch('_js/**/*.js', ['js']);
   gulp.watch('_less/**/*.less', ['css']);
   gulp.watch('_vg/**/*.json', ['vega']);
+  gulp.watch('_html-partials/**/*.html', ['html-partials']);
   gulp.watch('_images/**/*', ['images']);
+  gulp.watch(['_config.yml', '_jekyll/**/*'], ['jekyll']);
 });

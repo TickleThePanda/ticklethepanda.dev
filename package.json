@@ -23,6 +23,7 @@
     "gulp-less": "^3.3.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "https://github.com/terinjokes/gulp-uglify",
+    "gulp-util": "^3.0.8",
     "uglify-js": "github:mishoo/UglifyJS2#harmony"
   }
 }

@@ -8,13 +8,13 @@ permalink: /location/
 <h2>My location history</h2>
 <h3>Total</h3>
 <figure>
-  <img src="https://api.ticklethepanda.co.uk/location?img&sum" width="1000px" height="760px" alt="cumulative location"/>
+  <img src="{{ site.apiUrl }}/location?img&sum" width="1000px" height="760px" alt="cumulative location"/>
   <figcaption>My cumulative location history.</figcaption>
 </figure>
 <h4>Larger</h4>
 <figure>
-  <a href="https://api.ticklethepanda.co.uk/location?img&sum&width=1250&height=1075&scale=0.0085&pixelSize=1">
-    <img src="https://api.ticklethepanda.co.uk/location?img&sum&width=1250&height=1075&scale=0.0085&pixelSize=1" width="1250px" height="1075px" alt="cumulative location at a higher resolution"/>
+  <a href="{{ site.apiUrl }}/location?img&sum&width=1250&height=1075&scale=0.0085&pixelSize=1">
+    <img src="{{ site.apiUrl }}/location?img&sum&width=1250&height=1075&scale=0.0085&pixelSize=1" width="1250px" height="1075px" alt="cumulative location at a higher resolution"/>
   </a>
   <figcaption>My cumulative location history at a higher resolution.</figcaption>
 </figure>
@@ -57,7 +57,7 @@ A quick (relatively high level) how-to on turning your data into a heatmap:
   <li>Save the image to file</li>
 </ol>
 
-<script src="https://s.ticklethepanda.co.uk/scripts/location.js"></script>
+<script src="{{ site.assetsUrl }}/scripts/location.js"></script>
 
-<link rel="stylesheet" href="https://s.ticklethepanda.co.uk/style/location.css">
+<link rel="stylesheet" href="{{ site.assetsUrl }}/style/location.css">
 

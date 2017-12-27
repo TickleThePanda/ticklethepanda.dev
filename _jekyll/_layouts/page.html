@@ -7,11 +7,18 @@
     <meta name="theme-color" content="#cda" >
     <meta name="description" content="{{ page.description }}" > 
     <meta name="author" content="Thomas 'Panda' Attwood (TickleThePanda)">
-    <title>{{ page.title }} - ticklethepanda</title>
+    <title>{{ page.title | downcase }} - ticklethepanda</title>
     <link rel="canonical" href="{{ site.url }}{{ page.permalink }}">
 
     <link href="{{ site.assetsUrl }}/style/main.css" rel="stylesheet" type="text/css">
     <link href="{{ site.assetsUrl }}/style/main-print.css" rel="stylesheet" type="text/css" media="print">
+    
+    <script>
+      const ENV = {
+        apiBaseUrl: "{{ site.apiUrl }}",
+        assetsBaseUrl: "{{ site.assetsUrl }}"
+      };
+    </script>
   </head>
   <body>
     <header>
@@ -68,7 +75,7 @@
       <article>
         <div class="header-bar">
           <h1 class="header-item subtitle">
-            {{ page.title }}
+            {{ page.title | downcase }}
           </h1>
         </div>
         <div class="content">

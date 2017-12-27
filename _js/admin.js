@@ -1,110 +1,82 @@
-$(document).ready(function() {
-  function getCookie(name) {
-    match = document.cookie.match(new RegExp(name + '=([^;]+)'));
-    if (match) return match[1];
-  };
+import { Router } from './admin/router.js';
+import { TokenClient } from './admin/token-client.js';
+import { TokenStorage } from './admin/token-storage.js';
+import { WeightApp } from './admin/weight-app.js';
+import { ThermometerApp } from './admin/thermometer-app.js';
 
-  function loadWeightHistory() {
-    $("#weight-history").empty();
-    fetch("https://api.ticklethepanda.co.uk/health/weight/log")
-      .then(response => {
-        if(response.ok) {
-          return response.json();
-        } else {
-          throw Error("unable to load data: " + response.statusText);
-        }
-      })
-      .then(results => {
+let tokenClient = new TokenClient();
+let tokenStorage = new TokenStorage();
+let router = new Router();
 
-        function cleanWeightResult(weight) {
-          if(weight) {
-            return weight.toFixed(1);
-          } else {
-            return "-";
-          }
-        }
+let token = {};
 
-        var $table = $("<table>").append(
-          $("<thead>")
-            .append(
-              $("<tr>")
-                .append($("<th>date</th>"))
-                .append($("<th>am</th>"))
-                .append($("<th>pm</th>"))
-          )
-        );
+let contentElement = document.getElementsByClassName('admin-content')[0];
 
-        var $tableBody = $("<tbody>")
-        $table.append($tableBody);
-        results.sort((a,b) => a.date.localeCompare(b.date));
-        results = results.filter(e => e.weightAm || e.weightPm);
-        results.reverse();
-      
-        results.forEach(result => {
-          var $row = $("<tr>");
-
-          $row.append($(`<td>${result.date}</td>`));
-          $row.append($(`<td>${cleanWeightResult(result.weightAm)}</td>`));
-          $row.append($(`<td>${cleanWeightResult(result.weightPm)}</td>`));
-
-          $tableBody.append($row);
-        });
-        $("#weight-history").append($table);
-      });
+router.interceptor = (url) => {
+  if(!token || !url) {
+    return '/login';
+  } else if (token && url === '/login') {
+    return '/home';
+  } else {
+    return url;
   }
+};
 
-  loadWeightHistory();
+router.renderer = {
+  render: text => {
+    contentElement.innerHTML = text;
+  },
+  clear: () => {
+    contentElement.innerHTML = '';
+  }
+}
 
-  $("#weight-form").submit(function(e) {
-    e.preventDefault();
-    let form = $(this).serializeArray();
-
-    let values = form.reduce((a, b) => {
-      a[b.name] = b.value
-      return a;
-    }, {});
-    
-    let url = `https://api.ticklethepanda.co.uk/health/weight/log/${values["entry-date"]}/${values["entry-period"]}`;
-    let payload = { weight: values["entry-value"] };
-
-    let authHeaderValue = "Bearer " + getCookie("authToken");
-    
-    let headers = new Headers({
-      "Content-Type": "application/json",
-      "Authorization": authHeaderValue
-    });
-
-    let init = {
-       credentials: 'include',
-       method: 'PUT',
-       headers: headers,
-       mode: 'cors',
-       body: JSON.stringify(payload)
-    }
-    
-    fetch(url, init)
-      .then(response => {
-        if(response.ok) {
-          return response.json();
-        } else {
-          throw Error("unable submit data: " + response.statusText);
-        }
-      })
-      .then(result => {
-        $("#result-date").text(result.localDate);
-        $("#result-period").text(result.entryPeriod);
-        $("#result-value").text(result.weight);
-
-        $("#results").removeClass("error");
-        $("#results").addClass("success");
-      })
-      .catch(error => {
-        $("#result-error").text(error.message);
-
-        $("#results").removeClass("success");
-        $("#results").addClass("error");
-      })
-      .then(loadWeightHistory);
-
-  });
+router.register('/home', {
+  content: ENV.assetsBaseUrl + '/html-partials/home.html'
 });
+
+router.register('/login', {
+  content: ENV.assetsBaseUrl + '/html-partials/login.html',
+  logic: () => {
+    let form = document.getElementById('login');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      let username = document.getElementById('username').value;
+      let password = document.getElementById('password').value;
+
+      tokenClient.fetchToken(username, password)
+        .then(token => {
+          tokenStorage.save(token);
+        })
+        .then(() => {
+          router.redirect('/home');
+        });
+    });
+  }
+});
+
+router.register('/weight', {
+  content: ENV.assetsBaseUrl + '/html-partials/weight.html',
+  logic: () => {
+    let weightApp = new WeightApp(token);
+
+    weightApp.run();
+
+  }
+});
+
+router.register('/thermometer', {
+  content: ENV.assetsBaseUrl + '/html-partials/thermometer.html',
+  logic: () => {
+    let thermometerApp = new ThermometerApp(token);
+
+    thermometerApp.run();
+  }
+});
+
+window.addEventListener('load', () => {
+  token = tokenStorage.load();
+  router.start();
+});
+

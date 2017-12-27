@@ -1,0 +1,85 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v3.0.json",
+  "width": 250,
+  "height": 125,
+  "padding": 5,
+  "autosize": {
+    "type": "fit",
+    "resize": true
+  },
+
+  "signals": [
+    {
+      "name": "minimumPointSize",
+      "update": "2 * PI"
+    },
+    {
+      "name": "basePointSize",
+      "update": "width / data('source').length * 2 * PI"
+    },
+    {
+      "name": "pointSize",
+      "update": "basePointSize > minimumPointSize ? basePointSize : minimumPointSize"
+    }
+  ],
+
+  "data": [
+    {
+      "name": "source"
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "utc",
+      "nice": true,
+      "domain": {"data": "source", "field": "time"},
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "steps"},
+      "range": "height"
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "orient": "bottom",
+      "title": "Time",
+      "labelOverlap": true
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "orient": "left",
+      "title": "Steps",
+      "labelOverlap": true
+    }
+  ],
+
+  "marks": [
+    {
+      "name": "marks",
+      "type": "line",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "time"},
+          "y": {"scale": "y", "field": "steps"},
+          "size": {"signal": "pointSize"},
+          "shape": {"value": "circle"},
+          "opacity": {"value": 1},
+          "stroke": {"value": "#AFD856"}
+        }
+      }
+    }
+  ]
+}
+
