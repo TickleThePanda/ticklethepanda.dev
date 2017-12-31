@@ -5,14 +5,14 @@
 @gallery-max-img-size: 320px;
 @gallery-min-img-size: 250px;
 
-.gallery-container {
-  display: block;
-
-  & ~ & {
-    display: none;
+.gallery {
+  display: none;
+  
+  &.selected {
+    display: block;
   }
 
-  .gallery-nav {
+  nav {
     .prev {
       float: left;
     }
@@ -27,61 +27,76 @@
     }
   }
 
-  h2:first-of-type {
-    clear: both;
-  }
-}
+  .gallery-content {
 
-.gallery-container ~ .gallery-container {
-  display: hidden;
-}
-
-.gallery {
-  padding: 1.5em 0;
-  border-top: @border;
-  border-bottom: @border;
-
-  a, img {
-    display: block;
-  }
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  @supports(display: grid) {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(@gallery-min-img-size, auto));
-    grid-gap: 1.5em;
-    grid-auto-flow: dense;
-
-    a, img {
+    * {
+      padding: 0;
       margin: 0;
+      border: none;
     }
 
-    .favourite {
-      grid-column: ~"1 / -1";
-      max-width: 100%;
-    }
-  }
+    border-top: @border;
+    border-bottom: @border;
 
-  @media (max-width: @mobile-breakpoint) {
-    display: flex;
-    flex-flow: column nowrap;
-
-    a, img {
-      width: 320px;
-      max-width: 100%;
+    h2 {
+      clear: both;
+      padding-top: 0.3rem;
     }
 
-    a {
-      margin: auto;
-      margin-bottom: 1em;
+    p {
+      padding-top: 0.3rem;
     }
 
-    a:last-of-type {
-      margin: auto;
+    ul {
+      padding: 1.5em 0;
+      margin: 0;
+
+      li, a, img {
+        display: block;
+        width: 100%;
+      }
+
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      @supports(display: grid) {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(@gallery-min-img-size, 1fr));
+        grid-gap: 1.5em;
+        grid-auto-flow: dense;
+
+        li, a, img {
+          margin: 0;
+        }
+
+        .favourite {
+          grid-column: ~"1 / -1";
+        }
+      }
+
+      @media (max-width: @mobile-breakpoint) {
+        display: flex;
+        flex-flow: column nowrap;
+
+        li, a, img {
+          width: 320px;
+          max-width: 100%;
+        }
+
+        li {
+          margin: auto;
+          margin-bottom: 1em;
+        }
+
+        li:last-of-type {
+          margin-bottom: auto;
+        }
+      }
+
     }
+
+    
   }
 
 }

@@ -7,31 +7,35 @@ permalink: /photography/
 
 <p>It was while I was completing my art GCSE that I first got into photography as a hobby. These gallaries show my favourite photos from the past few years. Although I usually prefer taking shots of landscapes and plants, there are a couple of shots of people in here which I really like!</p>
 
-<div>
+<div class="galleries">
   {% assign galleries = site.data.gallery.galleries %}
   {% assign thumbsPath = site.data.gallery.thumbsPath %}
   {% assign fullPath = site.data.gallery.fullPath %}
 
   {% for gallery in galleries %}
-    <div id="gallery-{{ gallery.reference }}" class="gallery-container">
-      <div class="gallery-nav">
+    <div id="gallery-{{ gallery.reference }}" class="gallery">
+      <nav>
         {% assign prev_i = forloop.index0 | minus: 1 %}
         {% unless forloop.first %}
-          <a class="prev" href="#gallery={{ galleries[prev_i].reference }}">&lt;-- prev</a>
+          <a class="prev" href="?gallery={{ galleries[prev_i].reference }}">&lt;-- prev</a>
         {% endunless %}
         {% unless forloop.last %}
           {% assign next_i = forloop.index0 | plus: 1 %}
-          <a class="next" href="#gallery={{ galleries[next_i].reference }}">next --&gt;</a>  
+          <a class="next" href="?gallery={{ galleries[next_i].reference }}">next --&gt;</a>  
         {% endunless %}
-      </div>
-      <h2>{{ gallery.name }}</h2>
-      <p>{{ gallery.description }}</p>
-      <div class="gallery">
-        {% for image in gallery.images %}
-          <a href="{{ site.assetsUrl}}{{ fullPath }}{{ gallery.reference }}/{{ image.fileName }}">
-             <img src="{{ site.assetsUrl }}{{ thumbsPath }}{{ gallery.reference}}/{{ image.fileName }}"/>
-          </a>
-        {% endfor %}
+      </nav>
+      <div class="gallery-content">
+        <h2>{{ gallery.name }}</h2>
+        <p>{{ gallery.description }}</p>
+        <ul>
+          {% for image in gallery.images %}
+            <li class="{% if image.favourite %}favourite{% endif %}">
+              <a href="{{ site.assetsUrl}}{{ fullPath }}{{ gallery.reference }}/{{ image.fileName }}">
+                <img data-src="{{ site.assetsUrl }}{% if image.favourite %}{{ fullPath }}{% else %}{{ thumbsPath }}{% endif %}{{ gallery.reference}}/{{ image.fileName }}"/>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
       </div>
     </div>
   {% endfor %}
