@@ -18,7 +18,7 @@ header {
   text-align: right;
   text-transform: lowercase;
 
-  background-color: @primary;
+  background-color: @header-background-color;
 
   .header-bar {
     flex: 0 0 auto;
@@ -43,10 +43,10 @@ header {
   text-decoration: none;
 }
 
-.title:link {color:@primary;}                                /* unvisited link */
-.title:visited {color:@primary;}                             /* visited link */
-.title:hover {color:lighten(@primary, 10%);}                                   /* mouse over link */
-.title:active {color:@primary;}                                  /* selected link */
+.title:link {color:@header-background-color;}                                /* unvisited link */
+.title:visited {color:@header-background-color;}                             /* visited link */
+.title:hover {color:darken(@header-background-color, 10%);}                                   /* mouse over link */
+.title:active {color:@header-background-color;}                                  /* selected link */
 
 nav {
 
@@ -97,7 +97,7 @@ nav {
   flex: 0 0 auto;
 
   stroke: @black;
-  background-color: @primary;
+  background-color: @header-background-color;
   overflow: hidden;
 
   padding: 1em;
