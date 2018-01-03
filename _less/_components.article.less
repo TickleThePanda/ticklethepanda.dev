@@ -1,10 +1,8 @@
 article .header-bar {
   width: 100%;
-
-  position: fixed;
-  z-index: @zHeader;
-
   background-color: @header-background-color;
+
+  border-right: @border;
 }
 
 .subtitle {
@@ -36,14 +34,11 @@ article .content {
   background-color: @white;
 
   padding: 3rem;
-  padding-top: 6rem;
   padding-bottom: 30vh;
 
   line-height: 1.5;
   max-width: @content-width;
   word-wrap: break-word;
-
-  border-right: @border;
 
   img {
     max-width: 100%;
@@ -90,14 +85,9 @@ article nav a:hover {
 }
 
 @media (max-width: @mobile-breakpoint) {
-  
-  article .header-bar {
-    position: static;
-  }
 
   article {
     margin: 0;
-    margin-top: 3rem;
     border: none;
   }
 
