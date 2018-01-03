@@ -14,7 +14,17 @@ class TokenClient {
     let url = 'https://api.ticklethepanda.co.uk/authentication/tokens/users';
 
     return fetch(url, opts)
-      .then(response => response.text());
+      .then(response => {
+        if (response.ok) {
+          return response.text();
+        } else {
+          if (response.status === 401) {
+            throw new Error('Unauthorized');
+          } else {
+            throw new Error('Unexpected error occured');
+          }
+        }
+      });
 
   }
 }

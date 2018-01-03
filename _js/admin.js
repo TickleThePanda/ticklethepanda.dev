@@ -51,6 +51,10 @@ router.register('/login', {
         })
         .then(() => {
           router.redirect('/home');
+        })
+        .catch(e => {
+          document.getElementById('login').reset();
+          document.getElementById('error').textContent = e.message;
         });
     });
   }
