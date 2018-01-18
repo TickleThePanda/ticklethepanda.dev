@@ -2,8 +2,7 @@
 @import "shared/colors.less";
 @import "shared/sizes.less";
 
-@gallery-max-img-size: 320px;
-@gallery-min-img-size: 250px;
+@gallery-img-size: 320px;
 
 .gallery {
   display: none;
@@ -67,7 +66,7 @@
 
       @supports(display: grid) {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(@gallery-min-img-size, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(@gallery-img-size, min-content));
         grid-gap: 1.5em;
         grid-auto-flow: dense;
 
