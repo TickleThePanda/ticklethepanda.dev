@@ -26,7 +26,8 @@ function convertToBasicHistory(results) {
 
   return results.map(r => ({
     'date': r.start,
-    'weight': r.average
+    'weight': r.average,
+    'count': r.count
   }));
   
 }
