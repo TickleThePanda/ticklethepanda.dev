@@ -1,134 +1,133 @@
+import { HealthClient } from './health-client.js';
+import { ChartClient } from './chart-client.js';
+import { ChartSizeManager } from './chart-size-manager.js';
+
+let healthClient = new HealthClient();
+let chartClient = new ChartClient();
+let chartSizeManager = new ChartSizeManager();
+
 window.addEventListener('load', () => {
 
-  fetch(ENV.apiBaseUrl + '/health/activity?sum')
-    .then(handleResponse)
+  healthClient.fetchActivitySum()
     .then(results => {
       var totalStepsElement = document.getElementById('total-steps');
-      totalStepsElement.textContent = Number.parseFloat(results.sum).toLocaleString() + ' steps since ' + results.since;
+      totalStepsElement.innerHTML = `<strong>${Number.parseFloat(results.sum).toLocaleString()} steps</strong> recorded since ${new Date(results.since).toLocaleDateString()}`;
     });
 
-
-  fetch(ENV.apiBaseUrl + '/health/weight/prediction?since=2017-01-01')
-    .then(handleResponse)
+  healthClient.fetchWeightPrediction(new Date(2017, 0, 1))
     .then(result => {
-      let toText = t => `predicted ${t.days.toFixed(0)} days to ${t.target} kg`;
-      
-      var intermediateTargetWeightElement = document.getElementById('intermediate-target-weight');
-      intermediateTargetWeightElement.textContent = toText(result.intermediateTarget);
+      let inter = result.intermediateTarget;
+      let total = result.target;
+
+      let html = `predicted <strong>${inter.days.toFixed(0)} days to ${inter.target} kg</strong> and <strong>${total.days.toFixed(0)} days to ${total.target} kg</strong>`;
 
       var targetWeightElement = document.getElementById('target-weight');
-      targetWeightElement.textContent = toText(result.target);
+      targetWeightElement.innerHTML = html;
+
+      let heaviestDay = result.heaviest;
+      let latestDay = result.latest;
+
+      let average = (a, b) => (a && b) ? ((a + b) / 2) : (a ? a : b);
+
+      let heaviestWeight = average(heaviestDay.weightAm, heaviestDay.weightPm);
+      let latestWeight = average(latestDay.weightAm, latestDay.weightAm);
+      let lostWeight = heaviestWeight - latestWeight;
+
+      let lostWeightElement = document.getElementById('lost-weight');
+      lostWeightElement.innerHTML = `<strong>current weight is ${latestWeight.toLocaleString()}</strong> - <strong>lost ${lostWeight.toLocaleString()} kg from ${heaviestWeight.toLocaleString()} kg</strong> since ${new Date(heaviestDay.date).toLocaleDateString()}`
 
     });
 
-  let aMonthAgo = new Date();
-  aMonthAgo.setDate(aMonthAgo.getDate() - 30);
+  Promise.all([
+      healthClient.fetchWeightHistory(),
+      chartClient.fetchWeightChartSpec()
+  ]).then(r => {
+    let weightResults = r[0];
+    let chartSpec = r[1];
 
-  let url = ENV.assetsBaseUrl +  '/vega/weight.vg.json';
+    let minDate = new Date(weightResults[0].date.getTime());
+    minDate.setDate(minDate.getDate() - 1);
 
-  let weightCharts = [
-    {
-      container: '#weight-chart'
-    },
-    {
-      container: '#weight-recent-chart',
-      filter: (r => r.date >= aMonthAgo)
-    },
-    {
-      container: '#weight-trying-again-chart',
-      filter: (r => r.date >= Date.parse('2017-01-01'))
+    let view = new vega.View(vega.parse(chartSpec))
+      .renderer('svg')
+      .insert('source', weightResults)
+      .signal('minDate', minDate)
+      .logLevel(vega.Warn)
+      .initialize('#weight-chart');
+
+    function updateChart() {
+      let chartType = document.forms['weight-chart-selector']['weight-chart'].value;
+
+      let aMonthAgo = new Date();
+      aMonthAgo.setDate(aMonthAgo.getDate() - 30);
+
+      let options = {
+        "all": minDate,
+        "trying again": new Date(2017, 0, 1),
+        "recent": aMonthAgo
+      }
+
+      let option = options[chartType];
+
+      view.signal('minDate', option)
+        .run();
+
     }
-  ];
 
-  fetch(ENV.apiBaseUrl + '/health/weight')
-    .then(handleResponse)
-    .then(fixDates)
-    .then(results => {
-     
-      vega.loader()
-        .load(url)
-        .then(specData => {
+    document.querySelectorAll("#weight-chart-selector input")
+      .forEach(el => el.addEventListener('change', updateChart));
 
-          weightCharts.forEach(chart => {
+    let container = view.container();
 
-            let filteredResults = chart.filter ? results.filter(chart.filter) : results;
-            
-            let spec = JSON.parse(specData);
-            let view = new vega.View(vega.parse(spec))
-              .renderer('svg')
-              .insert('source', filteredResults)
-              .logLevel(vega.Warn)
-              .initialize(chart.container)
+    let w = container.offsetWidth;
 
-            let container = view.container();
+    chartSizeManager.add(view);
 
-            let w = container.offsetWidth;
-        
-            resizeView(view, w);
-          });
-        
-      });
-
-    });
-
-  fetch(ENV.apiBaseUrl + '/health/activity?average&by=minute')
-    .then(handleResponse)
-    .then(fixTimes)
-    .then(results => {
-      vega.loader()
-        .load(ENV.assetsBaseUrl + '/vega/activity/average-day.vg.json')
-        .then((specData) => {
-
-            let spec = JSON.parse(specData);
-            let view = new vega.View(vega.parse(spec))
-              .renderer('svg')
-              .insert('source', results)
-              .logLevel(vega.Warn)
-              .initialize('#average-day-activity-chart');
-
-            let container = view.container();
-
-            let w = container.offsetWidth;
-        
-            resizeView(view, w);
-
-        });
-    });
-
-
-  function handleResponse(response) {
-    if(response.ok) {
-      return response.json();
-    } else {
-      throw Error('unable to load data: ' + response.statusText);
-    }
-  }
-
-  function fixDates(results) {
-    results.forEach(r => {
-      r.date = new Date(r.date);
-    });
-    return results;
-  }
-
-  function fixTimes(results) {
-    results.forEach(r => {
-      r.time = new Date("1970-01-01T" + r.time + "Z");
-    });
-    return results;
-  }
-
-  window.addEventListener('resize', function() {
-    for (let container of document.querySelectorAll('.chart-container')) {
-      let w = container.offsetWidth;
-      resizeView(v, w);
-    }
   });
 
-  function resizeView(v, w) {
-    v.width(w)
-      .height(w / 1.61)
-      .run();
-  }
+  Promise.all([
+    healthClient.fetchAverageDayActivity(),
+    chartClient.fetchDayActivityChartSpec()
+  ]).then(r => {
+    let activityResults = r[0];
+    let chartSpec = r[1];
+
+    let granuality = 10; // in mins
+
+    let nBins = 24 * (60 / granuality);
+    let itemsPerBin = activityResults.length / nBins;
+
+    let aggregatedResults = [];
+
+    for (let i = 0; i < nBins; i++) {
+      let minute = activityResults[i * itemsPerBin].time;
+      let sum = 0;
+      for (let j = 0; j < itemsPerBin; j++) {
+        let index = i * itemsPerBin + j;
+        sum += activityResults[index].steps;
+      }
+      let avg = sum / itemsPerBin;
+      aggregatedResults.push({
+        time: minute,
+        steps: avg
+      });
+    }
+
+    console.log(aggregatedResults);
+    
+    let view = new vega.View(vega.parse(chartSpec))
+      .renderer('svg')
+      .insert('source', aggregatedResults)
+      .logLevel(vega.Warn)
+      .initialize('#average-day-activity-chart');
+
+    let container = view.container();
+
+    let w = container.offsetWidth;
+
+    chartSizeManager.add(view);
+
+  });
 });
+
 

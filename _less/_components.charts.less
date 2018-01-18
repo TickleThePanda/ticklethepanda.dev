@@ -5,3 +5,30 @@
     position: absolute;
   }
 }
+
+.multi-chart {
+  nav {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -2rem;
+
+    form {
+      label {
+        text-decoration: underline;
+        cursor: pointer;
+
+        text-transform: lowercase;
+      }
+
+      label:hover {
+        text-decoration: none;
+      }
+
+      input[type="radio"]:checked + label {
+        font-weight: bold;
+        text-decoration: none;
+      }
+    }
+  }
+}
+

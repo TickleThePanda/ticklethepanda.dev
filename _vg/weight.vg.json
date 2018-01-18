@@ -20,12 +20,18 @@
     {
       "name": "pointSize",
       "update": "basePointSize > minimumPointSize ? basePointSize : minimumPointSize"
+    },
+    {
+      "name": "minDate"
     }
   ],
 
   "data": [
     {
-      "name": "source"
+      "name": "source",
+      "transform": [
+        { "type": "filter", "expr": "datum.date > minDate" }
+      ]
     }
   ],
 
@@ -34,7 +40,7 @@
       "name": "x",
       "type": "utc",
       "nice": true,
-      "domain": {"data": "source", "field": "date"},
+      "domain": [{"signal": "minDate"}, {"signal": "now()"}],
       "range": "width"
     },
     {

@@ -8,21 +8,6 @@
     "resize": true
   },
 
-  "signals": [
-    {
-      "name": "minimumPointSize",
-      "update": "2 * PI"
-    },
-    {
-      "name": "basePointSize",
-      "update": "width / data('source').length * 2 * PI"
-    },
-    {
-      "name": "pointSize",
-      "update": "basePointSize > minimumPointSize ? basePointSize : minimumPointSize"
-    }
-  ],
-
   "data": [
     {
       "name": "source"
@@ -67,14 +52,14 @@
   "marks": [
     {
       "name": "marks",
-      "type": "line",
+      "type": "rect",
       "from": {"data": "source"},
       "encode": {
         "update": {
           "x": {"scale": "x", "field": "time"},
+          "width": {"scale": "x", "band": "1"},
           "y": {"scale": "y", "field": "steps"},
-          "size": {"signal": "pointSize"},
-          "shape": {"value": "circle"},
+          "y2": {"scale": "y", "value": "0"},
           "opacity": {"value": 1},
           "stroke": {"value": "#AFD856"}
         }
