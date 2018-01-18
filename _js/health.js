@@ -39,7 +39,7 @@ window.addEventListener('load', () => {
     });
 
   Promise.all([
-      healthClient.fetchWeightHistory(),
+      healthClient.fetchWeightHistoryWithPeriod(7),
       chartClient.fetchWeightChartSpec()
   ]).then(r => {
     let weightResults = r[0];
@@ -58,13 +58,13 @@ window.addEventListener('load', () => {
     function updateChart() {
       let chartType = document.forms['weight-chart-selector']['weight-chart'].value;
 
-      let aMonthAgo = new Date();
-      aMonthAgo.setDate(aMonthAgo.getDate() - 30);
+      let sixMonthsAgo = new Date();
+      sixMonthsAgo.setDate(sixMonthsAgo.getDate() - 30 * 6);
 
       let options = {
         "all": minDate,
         "trying again": new Date(2017, 0, 1),
-        "recent": aMonthAgo
+        "recent": sixMonthsAgo
       }
 
       let option = options[chartType];

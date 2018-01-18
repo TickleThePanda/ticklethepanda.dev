@@ -22,6 +22,15 @@ function fixTimes(results) {
   return results;
 }
 
+function convertToBasicHistory(results) { 
+
+  return results.map(r => ({
+    'date': r.start,
+    'weight': r.average
+  }));
+  
+}
+
 class HealthClient {
 
   fetchActivitySum() {
@@ -35,8 +44,15 @@ class HealthClient {
   }
 
   fetchWeightHistory() {
-    return fetch(ENV.apiBaseUrl + '/health/weight')
+    return fetch(ENV.apiBaseUrl + '/health/weight')  
       .then(handleResponse)
+      .then(fixDates);
+  }
+
+  fetchWeightHistoryWithPeriod(period) {
+    return fetch(ENV.apiBaseUrl + '/health/weight?period=' + period)
+      .then(handleResponse)
+      .then(convertToBasicHistory)
       .then(fixDates);
   }
 
