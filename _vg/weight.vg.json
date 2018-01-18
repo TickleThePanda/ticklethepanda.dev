@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v3.0.json",
-  "width": 250,
-  "height": 125,
+  "width": 1000,
+  "height": 600,
   "padding": 5,
   "autosize": {
     "type": "fit",
@@ -11,11 +11,11 @@
   "signals": [
     {
       "name": "minimumPointSize",
-      "update": "2 * PI"
+      "update": "2.5 * PI"
     },
     {
       "name": "basePointSize",
-      "update": "width / data('source').length * 2 * PI"
+      "update": "width / data('source').length * PI"
     },
     {
       "name": "pointSize",
@@ -23,6 +23,10 @@
     },
     {
       "name": "minDate"
+    },
+    {
+      "name": "fontSize",
+      "update": "14"
     }
   ],
 
@@ -59,14 +63,39 @@
       "grid": true,
       "orient": "bottom",
       "title": "Date",
-      "labelOverlap": true
+      "format": "%Y %b",
+      "labelOverlap": true,
+      "encode": {
+        "labels": {
+          "update": {
+            "fontSize": {"signal": "fontSize"}
+          }
+        },
+        "title": {
+          "update": {
+            "fontSize": {"signal": "fontSize"}
+          }
+        }
+      }
     },
     {
       "scale": "y",
       "grid": true,
       "orient": "left",
       "title": "Weight",
-      "labelOverlap": true
+      "labelOverlap": true,
+      "encode": {
+        "labels": {
+          "update": {
+            "fontSize": {"signal": "fontSize"}
+          }
+        },
+        "title": {
+          "update": {
+            "fontSize": {"signal": "fontSize"}
+          }
+        }
+      }
     }
   ],
 

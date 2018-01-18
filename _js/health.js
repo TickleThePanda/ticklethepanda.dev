@@ -52,7 +52,6 @@ window.addEventListener('load', () => {
       .renderer('svg')
       .insert('source', weightResults)
       .signal('minDate', minDate)
-      .logLevel(vega.Warn)
       .initialize('#weight-chart');
 
     function updateChart() {
