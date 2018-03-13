@@ -1,19 +1,55 @@
-form {
 
-  select:focus, input:focus {
-    position: relative;
+button, input, select, textarea {
+  display: block;
+  
+  height: 2em;
+  border: @border;
+  padding: 0.5em;
+
+  font-size: 1rem;
+  font-family: @font-family-main;
+}
+
+form.inline, .form.inline {
+  button, input, select, textarea {
+    display: inline;
+    height: auto;
+    border: none;
+    padding: 0;
+  }
+}
+
+select:focus, input:focus {
+  position: relative;
+}
+
+button.link {
+  display: inline;
+
+  margin: 0;
+  padding: 0;
+
+  border: none;
+
+  background-color: inherit;
+
+  cursor: pointer;
+
+  text-decoration:underline;
+  text-decoration-skip: ink;
+  
+  &:hover, &:active {
+    color: darken(@primary, 50%);
+  }
+  
+  &:hover {
+    text-decoration: none;
   }
 
-  select, input, button {
-    display: block;
-
-    font-size: 1.2rem;
-    font-family: @font-family-main;
-
-    height: 2em;
-    margin: 1em 0;
-    padding: 0.5em;
-    border: @border;
+  &:disabled {
+    color: lighten(@black, 30%);
+    text-decoration: line-through;
+    cursor: not-allowed;
   }
 }
 

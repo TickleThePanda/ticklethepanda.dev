@@ -2,30 +2,18 @@
 @import "shared/colors.less";
 @import "shared/z-index.less";
 
-.info {
-  position: relative;
-  z-index: @zUpper;
-  -webkit-text-stroke: 1px @black;
-  -webkit-text-fill-color: @primary;
-  font-size: 3em;
-  font-family: @font-family-title;
-
-  user-select: none;
-  cursor: default;
+.location-slideshow .hide {
+  display: none;
 }
 
-.image-container {
-  position: relative;
-  z-index: @zMid;
-  font-family: @font-family-title;
-  top: -2em;
+.location-slideshow ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
 }
 
-.controller {
-  float: right;
-  a {
-    user-select: none;
-    cursor: pointer;
-  }
+.location-slideshow li {
+  margin-right: 1em;
 }
+
 

@@ -1,13 +1,27 @@
 (function() {
+
   function modulo(n, d) {
     return ((n % d) + d) % d;
   };
   const baseUrl = ENV.apiBaseUrl + '/location?img&sum';
 
-  const data = [
-    {
+  function getYearMonthValues() {
+    let yearMonths = [];
+    let date = new Date('2012-06');
+    let twoMonthsAgo = new Date();
+    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+    
+    while (date < twoMonthsAgo) {
+      yearMonths.push(date.toISOString().substring(0, 7));
+      date.setMonth(date.getMonth() + 1);
+    }
+    return yearMonths;
+  }
+
+  const data = {
+    'all': {},
+    'month': {
       param: 'month',
-      id: 'location-by-month',
       items: [
         'JANUARY',
         'FEBRUARY',
@@ -23,9 +37,8 @@
         'DECEMBER'
       ]
     },
-    {
+    'weekday': {
       param: 'weekday',
-      id: 'location-by-weekday',
       items: [
         'MONDAY',
         'TUESDAY',
@@ -36,115 +49,125 @@
         'SUNDAY'
       ]
     },
-    {
+    'year-month': {
       param: 'yearMonth',
-      id: 'location-by-year-month',
-      items: (() => {
-        let yearMonths = [];
-        let date = new Date('2012-06');
-        let twoMonthsAgo = new Date();
-        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
-        
-        while (date < twoMonthsAgo) {
-          yearMonths.push(date.toISOString().substring(0, 7));
-          date.setMonth(date.getMonth() + 1);
-        }
-        return yearMonths;
-      })()
+      items: (getYearMonthValues())
     }
-  ];
+  };
 
-  function registerAnimationControllerEvents(descriptor) {
-    const container = document.getElementById(descriptor.id);
-    const controller = container.getElementsByClassName('controller')[0];
-    const prevController = controller.getElementsByClassName('prev')[0];
-    const playController = controller.getElementsByClassName('play')[0];
-    const nextController = controller.getElementsByClassName('next')[0];
-    const info = container.getElementsByClassName('info')[0];
-    const imageContainer = container.getElementsByClassName('image-container')[0];
+  const slideshowContainer = document.querySelector('#location-slideshow');
+  const imageContainer = slideshowContainer.querySelector('.image-container');
+  const slideshowController = slideshowContainer.querySelector('.controller');
 
-    const items = descriptor.items;
-    const length = items.length;
-    const images = (function () {
-      let loadedImages = [];
-      let limit = 0;
-      
-      function loadImage(index) {
-        loadedImages[index] = new Image();
-        loadedImages[index].classList.add('selected-location');
-        loadedImages[index].onload = loadNext(index);
-        loadedImages[index].src = `${baseUrl}&${descriptor.param}=${items[index]}`;
-      }
+  const playButton = slideshowController.querySelector('.play');
+  const nextButton = slideshowController.querySelector('.next');
+  const prevButton = slideshowController.querySelector('.prev');
 
-      function loadNext(index) { 
-        return function() {
-          if (index >= limit
-              || index + 1 >= length) {
-            return;
-          } else if(loadedImages[index + 1] !== undefined) {
-            loadNext(index + 1)();
-          } else {
-            loadImage(index + 1);
-          }
-        }
-      }
-
-      return {
-        getImage: function(index) {
-          limit = index + 3;
-          if(loadedImages[index] == null) {
-            loadImage(index);
-          } else {
-            loadNext(index)();
-          }
-          return loadedImages[index];
-        }
-      }
-    })();
-
-    let currentImage;
-    let index = 0;
-    let intervalId;
-    
-    function update() {
-      index = modulo(index, length);
-      let newImage = images.getImage(index);
-      if (imageContainer.getElementsByClassName('selected-location').length > 0) {
-        imageContainer.replaceChild(newImage, currentImage);
-      } else {
-        imageContainer.appendChild(newImage);
-      }
-      currentImage = newImage;
-      info.textContent = items[index];
-    }
-
-    nextController.addEventListener('click', e => {
-      index++;
-      update();
-    });
-
-    prevController.addEventListener('click', e => {
-      index--;
-      update();
-    });
-
-    playController.addEventListener('click', e => {
-      if (!intervalId) {
-        intervalId = setInterval(() => {
-          index++;
-          update();
-        }, 1000);
-        playController.textContent = 'stop';
-      } else {
-        clearInterval(intervalId);
-        intervalId = null;
-        playController.textContent = 'play';
-      }
-    });
-
-    update();
+  let state = {
+    facet: 'all',
+    index: null,
+    intervalId: null
   }
+
+  let imageCache = {};
+
+  function getUrlFromState() {
+
+    let facet = data[state.facet];
+
+    let param = facet.param;
+
+    if (param) {
+      let selectedItem = facet.items[state.index];
+      return `${baseUrl}&${param}=${selectedItem}`;
+    } else {
+      return `${baseUrl}`;
+    }
+  }
+
+  function getImageForState() {
+
+    let facet = state.facet;
+    let index = state.index;
+
+    if (imageCache[facet] && imageCache[facet][index]) {
+      return imageCache[facet][index];
+    } else {
+      let image = new Image();
+
+      image.src = getUrlFromState();
+
+      if (!imageCache[facet]) {
+        imageCache[facet] = {};
+      }
+
+      imageCache[facet][index] = image;
+
+      return image;
+      
+    }
+  }
+
+  function updateView() {
+    console.log('state', state);
+
+    let currentImage = imageContainer.querySelector('img');
+
+    let image = getImageForState();
   
-  data.forEach(i => registerAnimationControllerEvents(i));
+    if (currentImage) {
+      imageContainer.replaceChild(image, currentImage);
+    } else {
+      imageContainer.appendChild(image);
+    }
+
+    if (data[state.facet].param) {
+      slideshowController.querySelectorAll('button').forEach(button => button.removeAttribute('disabled'));
+    } else {
+      slideshowController.querySelectorAll('button').forEach(button => button.setAttribute('disabled', null));
+    }
+  }
+
+  Object.keys(data).forEach(facet => {
+    document.querySelector('#location-facet-' + facet).addEventListener('click', event => {
+      clearInterval(state.intervalId);
+
+      state.facet = facet;
+      if (data[facet].param) {
+        state.index = 0;
+      } else {
+        state.index = null;
+      }
+
+      updateView();
+
+    });
+  });
+
+  playButton.addEventListener('click', event => {
+    if (state.intervalId) {
+      clearInterval(state.intervalId);
+    } else {
+      state.intervalId = setInterval(() => {
+        state.index = modulo(++state.index, data[state.facet].items.length);
+        updateView();
+      }, 1000);
+    }
+  });
+
+  nextButton.addEventListener('click', event => {
+    state.index = modulo(++state.index, data[state.facet].items.length);
+    updateView();
+  });
+
+  prevButton.addEventListener('click', event => {
+    state.index = modulo(--state.index, data[state.facet].items.length);
+    updateView();
+  });
+
+  updateView();
+
+  document.querySelector('#location-facet-all').setAttribute('checked', null);
+
 
 })();

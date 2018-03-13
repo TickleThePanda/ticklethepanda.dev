@@ -6,40 +6,30 @@ permalink: /location/
 ---
 <p>Since around 2012, I've had a phone that keeps track of my location whenever it's on, using Google's Location History. When I first started writing this software, I wanted to see where I had visited in the UK and where I most frequently was. I decided that the best way to represent this was to use a heat-map. I then turned this into a web service so that I can more easily update the images.</p>
 <h2>My location history</h2>
-<h3>Total</h3>
-<figure>
-  <img src="{{ site.apiUrl }}/location?img&sum" width="1000px" height="760px" alt="cumulative location"/>
-  <figcaption>My cumulative location history.</figcaption>
-</figure>
-<h4>Larger</h4>
-<figure>
-  <a href="{{ site.apiUrl }}/location?img&sum&width=1250&height=1075&scale=0.0085&pixelSize=1">
-    <img src="{{ site.apiUrl }}/location?img&sum&width=1250&height=1075&scale=0.0085&pixelSize=1" width="1250px" height="1075px" alt="cumulative location at a higher resolution"/>
-  </a>
-  <figcaption>My cumulative location history at a higher resolution.</figcaption>
-</figure>
-<h3 id="animated">Animated location history</h3>
-<div id="location-by-month">
-  <div class="controller">
-    <a class="prev">&lt;-- prev</a> <a class="play">play</a> <a class="next">next --&gt;</a>
+<div id="location-slideshow" class="location-slideshow form inline">
+  <ul class="types">
+    <li>
+      <input type="radio" id="location-facet-all" name="location-facet" value="all">
+      <label for="location-facet-all">All</label>
+    </li>
+    <li>
+      <input type="radio" id="location-facet-year-month" name="location-facet" value="year-month">
+      <label for="location-facet-year-month">Year month</label>
+    </li>
+    <li>
+      <input type="radio" id="location-facet-month" name="location-facet" value="month">
+      <label for="location-facet-month">Month</label>
+    </li>
+    <li>
+      <input type="radio" id="location-facet-weekday" name="location-facet" value="weekday">
+      <label for="location-facet-weekday">Weekday</label>
+    </li>
+  </ul>
+  <div class="controller form inline">
+    <button type="button" class="link prev">&lt;-- prev</button> 
+    <button type="button" class="link play">play</button> 
+    <button type="button" class="link next">next --&gt;</button>
   </div>
-  <h4>By month</h4>
-  <div class="info"></div>
-  <div class="image-container"></div>
-</div>
-<div id="location-by-weekday">
-  <div class="controller">
-    <a class="prev">&lt;-- prev</a> <a class="play">play</a> <a class="next">next --&gt;</a>
-  </div>
-  <h4>By weekday</h4>
-  <div class="info"></div>
-  <div class="image-container"></div>
-</div>
-<div id="location-by-year-month">
-  <div class="controller">
-    <a class="prev">&lt;-- prev</a> <a class="play">play</a> <a class="next">next --&gt;</a>
-  </div>
-  <h4>By weekday</h4>
   <div class="info"></div>
   <div class="image-container"></div>
 </div>
