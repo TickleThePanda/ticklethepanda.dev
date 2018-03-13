@@ -29,12 +29,12 @@ window.addEventListener('load', () => {
 
       let average = (a, b) => (a && b) ? ((a + b) / 2) : (a ? a : b);
 
-      let heaviestWeight = average(heaviestDay.weightAm, heaviestDay.weightPm);
-      let latestWeight = average(latestDay.weightAm, latestDay.weightAm);
+      let heaviestWeight = heaviestDay.average;
+      let latestWeight = latestDay.average;
       let lostWeight = heaviestWeight - latestWeight;
 
       let lostWeightElement = document.getElementById('lost-weight');
-      lostWeightElement.innerHTML = `<strong>current weight is ${latestWeight.toLocaleString()}</strong> - <strong>lost ${lostWeight.toLocaleString()} kg from ${heaviestWeight.toLocaleString()} kg</strong> since ${new Date(heaviestDay.date).toLocaleDateString()}`
+      lostWeightElement.innerHTML = `<strong>current weight is ${latestWeight.toFixed(1)}</strong>, <strong>lost ${lostWeight.toFixed(1)} kg from ${heaviestWeight.toLocaleString()} kg</strong> since ${new Date(heaviestDay.start).toLocaleDateString()}`
 
     });
 
