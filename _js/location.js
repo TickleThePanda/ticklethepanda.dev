@@ -59,6 +59,8 @@
   const imageContainer = slideshowContainer.querySelector('.image-container');
   const slideshowController = slideshowContainer.querySelector('.controller');
 
+  const infoContainer = slideshowContainer.querySelector('.info');
+
   const playButton = slideshowController.querySelector('.play');
   const nextButton = slideshowController.querySelector('.next');
   const prevButton = slideshowController.querySelector('.prev');
@@ -123,8 +125,10 @@
 
     if (data[state.facet].param) {
       slideshowController.querySelectorAll('button').forEach(button => button.removeAttribute('disabled'));
+      infoContainer.innerHTML = `<h3>${data[state.facet].items[state.index]}</h3>`;
     } else {
       slideshowController.querySelectorAll('button').forEach(button => button.setAttribute('disabled', null));
+      infoContainer.innerHTML = "";
     }
   }
 
