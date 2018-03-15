@@ -125,11 +125,17 @@
 
     if (data[state.facet].param) {
       slideshowController.querySelectorAll('button').forEach(button => button.removeAttribute('disabled'));
-      infoContainer.innerHTML = `<h3>${data[state.facet].items[state.index]}</h3>`;
+      infoContainer.innerHTML = `${data[state.facet].items[state.index]}`;
     } else {
       slideshowController.querySelectorAll('button').forEach(button => button.setAttribute('disabled', null));
       infoContainer.innerHTML = "";
     }
+
+    document.querySelectorAll('#location-slideshow .types button').forEach(button => {
+      button.classList.remove('selected');
+    });
+
+    document.querySelector('#location-facet-' + state.facet).classList.add('selected');
   }
 
   Object.keys(data).forEach(facet => {
@@ -171,7 +177,7 @@
 
   updateView();
 
-  document.querySelector('#location-facet-all').setAttribute('checked', null);
+  document.querySelector('#location-facet-all').classList.add('selected');
 
 
 })();

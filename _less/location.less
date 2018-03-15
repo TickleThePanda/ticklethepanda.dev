@@ -1,19 +1,57 @@
 @import "shared/fonts.less";
 @import "shared/colors.less";
 @import "shared/z-index.less";
+@import "shared/borders.less";
+
+.location-slideshow {
+  display: grid;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, auto);
+
+  .types, .controller {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      margin-right: 1em;
+    }
+  }
+
+  .image-container, .info {
+
+    grid-column: 1;
+    grid-row: ~"3 / -1";
+    
+  }
+
+  .info {
+    margin: 1em;
+  }
+
+  .image-container {
+    position: relative;
+  }
+
+  .image-container::before {
+    display: block;
+    content: "";
+    padding-bottom: 100%;
+    border: @border;
+  }
+
+  .image-container img {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1em;
+  }
+}
 
 .location-slideshow .hide {
   display: none;
 }
-
-.location-slideshow ul {
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-.location-slideshow li {
-  margin-right: 1em;
-}
-
 

@@ -10,12 +10,25 @@ button, input, select, textarea {
   font-family: @font-family-main;
 }
 
+button {
+  background-color: @white;
+}
+
+button:hover {
+  background-color: @primary;
+}
+
 form.inline, .form.inline {
+  button:not(.link) {
+    border: @border;
+  }
+
   button, input, select, textarea {
-    display: inline;
-    height: auto;
-    border: none;
-    padding: 0;
+    &:not(.link) {
+      display: inline;
+      height: auto;
+      padding: 0.3em;
+    }
   }
 }
 
@@ -51,5 +64,9 @@ button.link {
     text-decoration: line-through;
     cursor: not-allowed;
   }
+}
+
+.toggle-button.selected {
+  background-color: lighten(@primary, 10%);
 }
 
