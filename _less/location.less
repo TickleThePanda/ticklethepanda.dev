@@ -1,27 +1,17 @@
 @import "shared/fonts.less";
 @import "shared/colors.less";
 @import "shared/z-index.less";
+@import "shared/sizes.less";
 @import "shared/borders.less";
 
-.location-slideshow {
-  display: grid;
+@import "_components.faceted-data.less";
 
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, auto);
-
-  .types, .controller {
-    display: flex;
-    justify-content: flex-end;
-
-    button {
-      margin-right: 1em;
-    }
-  }
+#location-slideshow {
 
   .image-container, .info {
 
     grid-column: 1;
-    grid-row: ~"3 / -1";
+    grid-row: ~"2 / -1";
     
   }
 
@@ -51,7 +41,4 @@
   }
 }
 
-.location-slideshow .hide {
-  display: none;
-}
 

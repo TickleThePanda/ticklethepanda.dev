@@ -8,6 +8,10 @@ let chartSizeManager = new ChartSizeManager();
 
 window.addEventListener('load', () => {
 
+  let state = {
+    facet: null
+  };
+
   healthClient.fetchActivitySum()
     .then(results => {
       var totalStepsElement = document.getElementById('total-steps');
@@ -54,15 +58,16 @@ window.addEventListener('load', () => {
       .signal('minDate', minDate)
       .initialize('#weight-chart');
 
-    function updateChart() {
-      let chartType = document.forms['weight-chart-selector']['weight-chart'].value;
+    function updateView() {
+
+      let chartType = state.facet;
 
       let sixMonthsAgo = new Date();
       sixMonthsAgo.setDate(sixMonthsAgo.getDate() - 30 * 6);
 
       let options = {
         "all": minDate,
-        "trying again": new Date(2017, 0, 1),
+        "trying-again": new Date(2017, 0, 1),
         "recent": sixMonthsAgo
       }
 
@@ -71,10 +76,24 @@ window.addEventListener('load', () => {
       view.signal('minDate', option)
         .run();
 
+      document.querySelectorAll('#weight-charts .facets button').forEach(button => {
+        button.classList.remove('selected');
+      });
+
+      document.querySelector('#weight-chart-' + state.facet).classList.add('selected');
+
     }
 
-    document.querySelectorAll("#weight-chart-selector input")
-      .forEach(el => el.addEventListener('change', updateChart));
+    document.querySelectorAll("#weight-charts .toggle-button")
+      .forEach(el => {
+        let facet = el.value;
+        el.addEventListener('click', event => {
+          state.facet = facet;
+
+          updateView();
+
+        });
+      });
 
     let container = view.container();
 

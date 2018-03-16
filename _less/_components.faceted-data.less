@@ -1,0 +1,51 @@
+.faceted-data-container {
+  display: grid;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, auto);
+
+  grid-gap: 0.5em;
+
+  .controls {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 0.5em;
+  }
+
+  .control-set {
+    display: flex;
+    justify-content: flex-end;
+
+    * {
+      text-transform: lowercase;
+    }
+
+    button {
+      margin: 0;
+      margin-left: 0.3em;
+      margin-right: 0.3em;
+    }
+
+    h3 {
+      margin: 0;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    button.link {
+      margin: 0;
+      padding-left: .5em;
+      padding-right: .5em;
+    }
+  }
+
+  @media (max-width: @mobile-breakpoint) {
+    .controls-set {
+      flex-wrap: wrap;
+      button:not(.link) {
+        margin: 0.3em;
+      }
+    }
+  }
+
+}

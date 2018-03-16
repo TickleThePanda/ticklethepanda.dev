@@ -57,7 +57,7 @@
 
   const slideshowContainer = document.querySelector('#location-slideshow');
   const imageContainer = slideshowContainer.querySelector('.image-container');
-  const slideshowController = slideshowContainer.querySelector('.controller');
+  const slideshowController = slideshowContainer.querySelector('.play-controls');
 
   const infoContainer = slideshowContainer.querySelector('.info');
 
@@ -131,16 +131,23 @@
       infoContainer.innerHTML = "";
     }
 
-    document.querySelectorAll('#location-slideshow .types button').forEach(button => {
+    document.querySelectorAll('#location-slideshow .facets button').forEach(button => {
       button.classList.remove('selected');
     });
 
     document.querySelector('#location-facet-' + state.facet).classList.add('selected');
+
+    if (state.intervalId !== null) {
+      playButton.innerHTML = 'Pause';
+    } else {
+      playButton.innerHTML = 'Play';
+    }
   }
 
   Object.keys(data).forEach(facet => {
     document.querySelector('#location-facet-' + facet).addEventListener('click', event => {
       clearInterval(state.intervalId);
+      state.intervalId = null;
 
       state.facet = facet;
       if (data[facet].param) {
@@ -157,11 +164,14 @@
   playButton.addEventListener('click', event => {
     if (state.intervalId) {
       clearInterval(state.intervalId);
+      state.intervalId = null;
+      updateView();
     } else {
       state.intervalId = setInterval(() => {
         state.index = modulo(++state.index, data[state.facet].items.length);
         updateView();
       }, 1000);
+      updateView();
     }
   });
 

@@ -5,18 +5,20 @@ description: An analysis of my location history from Google Location History.
 permalink: /location/
 ---
 <p>Since around 2012, I've had a phone that keeps track of my location whenever it's on, using Google's Location History. When I first started writing this software, I wanted to see where I had visited in the UK and where I most frequently was. I decided that the best way to represent this was to use a heat-map. I then turned this into a web service so that I can more easily update the images.</p>
-<h2>My location history</h2>
-<div id="location-slideshow" class="location-slideshow form inline">
-  <div class="types">
-    <button type="button" id="location-facet-all" class="toggle-button" name="location-facet" value="all">All</button>
-    <button type="button" id="location-facet-year-month" class="toggle-button" name="location-facet" value="year-month">Year month</button>
-    <button type="button" id="location-facet-month" class="toggle-button" name="location-facet" value="month">Month</button>
-    <button type="button" id="location-facet-weekday" class="toggle-button" name="location-facet" value="weekday">Weekday</button>
-  </div>
-  <div class="controller">
-    <button type="button" class="link prev">&lt;-- prev</button> 
-    <button type="button" class="link play">play</button> 
-    <button type="button" class="link next">next --&gt;</button>
+<div id="location-slideshow" class="faceted-data-container form inline">
+  <div class="controls">
+    <div class="control-set facets">
+      <h3>Data Facets:</h3>
+      <button type="button" id="location-facet-all" class="toggle-button" name="location-facet" value="all">All</button>
+      <button type="button" id="location-facet-year-month" class="toggle-button" name="location-facet" value="year-month">Month</button>
+      <button type="button" id="location-facet-month" class="toggle-button" name="location-facet" value="month">Average month</button>
+      <button type="button" id="location-facet-weekday" class="toggle-button" name="location-facet" value="weekday">Average weekday</button>
+    </div>
+    <div class="control-set play-controls">
+      <button type="button" class="link prev">&lt;-- prev</button> 
+      <button type="button" class="link play">play</button> 
+      <button type="button" class="link next">next --&gt;</button>
+    </div>
   </div>
   <h3 class="info"></h3>
   <div class="image-container"></div>
