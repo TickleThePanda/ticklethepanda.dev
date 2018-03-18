@@ -16,7 +16,24 @@
   }
 
   .info {
+    position: relative;
+    z-index: @zMid;
+
+    line-height: 1;
+
+    color: @black;
+
+    background-color: rgba(255, 255, 255, 0.8);
+
     margin: 1em;
+    padding: 0.5em;
+
+    width: fit-content;
+    height: fit-content;
+  }
+
+  .info:empty {
+    display: none;
   }
 
   .image-container {
@@ -26,18 +43,20 @@
   .image-container::before {
     display: block;
     content: "";
-    padding-bottom: 100%;
+    padding-bottom: 85%;
     border: @border;
   }
 
   .image-container img {
     position: absolute;
+    z-index: @zLow;
 
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 1em;
+    // allow for border padding
+    padding: 1px;
   }
 }
 

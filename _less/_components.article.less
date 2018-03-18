@@ -15,8 +15,6 @@ article .header-bar {
 }
 
 article {
-  /* required for centering in IE11 */
-  max-width: @content-width;
   margin: 0 auto;
 }
 
@@ -37,7 +35,6 @@ article .content {
   padding-bottom: 30vh;
 
   line-height: 1.5;
-  max-width: @content-width;
   word-wrap: break-word;
 
   img {
@@ -58,17 +55,6 @@ article .content {
     }
   }
 
-}
-
-@media (max-width: @centered-content-breakpoint) {
-
-  main {
-    width: 100%;
-  }
-
-  article {
-    margin-left: @sidebar-width;
-  }
 }
 
 article nav a {
