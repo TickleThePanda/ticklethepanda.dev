@@ -1,8 +1,13 @@
 var gulp = require('gulp');
+
 var less = require('gulp-less');
 var cleanCss = require('gulp-clean-css');
+var postCss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
+
 var uglifyjs = require('uglify-es');
 var composer = require('gulp-uglify/composer');
+
 var sourcemaps = require('gulp-sourcemaps');
 var child = require('child_process');
 var gulpUtil = require('gulp-util');
@@ -16,6 +21,7 @@ var minify = composer(uglifyjs, console);
 gulp.task('css', function() {
   return gulp.src('_less/[^_]*.less')
     .pipe(less())
+    .pipe(postCss([ autoprefixer() ]))
     .pipe(cleanCss({ skipAggressiveMerging: true }))
     .pipe(gulp.dest(assetsBaseOutput + '/style/'));
 });
