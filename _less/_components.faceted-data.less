@@ -1,12 +1,16 @@
+@import 'shared/z-index.less'
+
 .faceted-data-container {
   display: grid;
 
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, auto);
+  grid-template-columns: auto 1fr;
+  grid-template-rows: repeat(3, auto);
 
   grid-gap: .5em;
 
   .controls {
+    grid-column: ~"1 / -1";
+
     display: grid;
     grid-template-columns: 1fr;
   }
@@ -35,6 +39,19 @@
       padding-left: .3em;
       padding-right: .3em;
     }
+  }
+
+  .facet-title {
+    grid-column: 1;
+    grid-row: 2;
+
+    z-index: @zMid;
+  }
+
+  .facet-data {
+    grid-column: ~"1 / -1";
+    grid-row: ~"2 / -1";
+    z-index: @zLow;
   }
 
   @media (max-width: @mobile-breakpoint) {
