@@ -3,7 +3,7 @@ destination: site
 
 url: https://ticklethepanda.co.uk
 
-assetsUrl: https://s.ticklethepanda.co.uk
+assetsUrl: /assets
 apiUrl: https://api.ticklethepanda.co.uk
 
 
