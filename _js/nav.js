@@ -3,7 +3,7 @@
   Array.prototype.forEach.call(document.getElementsByClassName('nav-toggle'), function(toggleElement) {
       toggleElement.addEventListener('click', function(event) {
         Array.prototype.forEach.call(document.getElementsByClassName('sidebar-content'), function(navElement) {
-          navElement.classList.add('open-nav');
+          navElement.classList.toggle('open-nav');
         });
       });
   });
@@ -11,7 +11,7 @@
   document.addEventListener('click', function(event) {
     let target = event.target || event.srcElement;
 
-    if (target.classList.contains('nav-toggle')) {
+    if (hasClassInAncestry(target, 'nav-toggle')) {
       return;
     }
 
@@ -20,5 +20,16 @@
     });
 
   });
+
+  function hasClassInAncestry(element, className) {
+    do {
+      if (element.classList.contains(className)) {
+        return true;
+      }
+      element = element.parentNode;
+    } while (element);
+
+    return false;
+  }
 })();
 
