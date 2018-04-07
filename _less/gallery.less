@@ -1,3 +1,4 @@
+@import "_tools.aspect-ratio.less";
 @import "shared/borders.less";
 @import "shared/colors.less";
 @import "shared/sizes.less";
@@ -53,6 +54,7 @@
   margin: 0;
 
   .gallery-image-item {
+    .aspect-ratio(320, 213);
     border: @border;
     background-color: @black;
   }

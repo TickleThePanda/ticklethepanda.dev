@@ -1,3 +1,4 @@
+@import "_tools.aspect-ratio.less";
 @import "shared/fonts.less";
 @import "shared/colors.less";
 @import "shared/z-index.less";
@@ -27,27 +28,10 @@
   }
 
   .image-container {
-    position: relative;
-  }
+    .aspect-ratio(100, 85);
 
-  .image-container::before {
-    display: block;
-    content: "";
-    padding-bottom: 85%;
     border: @border;
   }
 
-  .image-container img {
-    position: absolute;
-    z-index: @zLow;
-
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    // allow for border padding
-    padding: 1px;
-  }
 }
-
 

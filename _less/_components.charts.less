@@ -1,9 +1,8 @@
+@import '_tools.aspect-ratio.less';
+
 //use absolute hack to stop bouncing
 .chart-container {
-  padding-bottom: 64%;
-  svg {
-    position: absolute;
-  }
+  .aspect-ratio(100, 64);
 }
 
 .multi-chart {
