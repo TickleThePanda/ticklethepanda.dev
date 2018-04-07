@@ -14,7 +14,7 @@ permalink: /photography/
 
   {% for gallery in galleries %}
     <div id="gallery-{{ gallery.reference }}" class="gallery">
-      <nav>
+      <nav class="gallery-nav">
         {% assign prev_i = forloop.index0 | minus: 1 %}
         {% unless forloop.first %}
           <a class="prev" href="?gallery={{ galleries[prev_i].reference }}">&lt;-- prev</a>
@@ -25,11 +25,11 @@ permalink: /photography/
         {% endunless %}
       </nav>
       <div class="gallery-content">
-        <h2>{{ gallery.name }}</h2>
-        <p>{{ gallery.description }}</p>
-        <ul>
+        <h2 class="gallery-title">{{ gallery.name }}</h2>
+        <p class="gallery-description">{{ gallery.description }}</p>
+        <ul class="gallery-images">
           {% for image in gallery.images %}
-            <li class="{% if image.favourite %}favourite{% endif %}">
+            <li class="gallery-image-item {% if image.favourite %}favourite{% endif %}">
               <a href="{{ site.assetsUrl}}{{ fullPath }}{{ gallery.reference }}/{{ image.fileName }}">
                 <img data-src="{{ site.assetsUrl }}{% if image.favourite %}{{ fullPath }}{% else %}{{ thumbsPath }}{% endif %}{{ gallery.reference}}/{{ image.fileName }}"/>
               </a>

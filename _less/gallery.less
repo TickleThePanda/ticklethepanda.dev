@@ -10,97 +10,85 @@
   &.selected {
     display: block;
   }
+}
 
-  nav {
-    .prev {
-      float: left;
-    }
-    .next {
-      float:right;
-    }
-
-    &::after {
-      content: "";
-      display: block;
-      clear: both;
-    }
+.gallery-nav {
+  .prev {
+    float: left;
+  }
+  .next {
+    float:right;
   }
 
-  .gallery-content {
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
 
-    * {
-      padding: 0;
-      margin: 0;
-      border: none;
+.gallery-content {
+  * {
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+
+  border-top: @border;
+  border-bottom: @border;
+  
+}
+
+.gallery-title {
+  clear: both;
+  padding-top: 0.3rem;
+}
+
+.gallery-description {
+  padding-top: 0.3rem;
+}
+
+.gallery-images {
+  padding: 1.5em 0;
+  margin: 0;
+
+  .gallery-image-item {
+    border: @border;
+    background-color: @black;
+  }
+
+  .gallery-image-item, a, img {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(@gallery-img-size, min-content));
+  grid-gap: 1.5em;
+  grid-auto-flow: dense;
+
+  .favourite {
+    grid-column: ~"1 / -1";
+  }
+
+  @media (max-width: @mobile-breakpoint) {
+    display: flex;
+    flex-flow: column nowrap;
+
+    .gallery-image-item, a, img {
+      width: 320px;
+      max-width: 100%;
     }
 
-    border-top: @border;
-    border-bottom: @border;
-
-    h2 {
-      clear: both;
-      padding-top: 0.3rem;
+    .gallery-image-item {
+      margin: auto;
+      margin-bottom: 1em;
     }
 
-    p {
-      padding-top: 0.3rem;
+    .gallery-image-item:last-of-type {
+      margin-bottom: auto;
     }
-
-    ul {
-      padding: 1.5em 0;
-      margin: 0;
-
-      li {
-        border: @border;
-        background-color: @black;
-      }
-
-      li, a, img {
-        display: block;
-        width: 100%;
-      }
-
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-
-      @supports(display: grid) {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(@gallery-img-size, min-content));
-        grid-gap: 1.5em;
-        grid-auto-flow: dense;
-
-        li, a, img {
-          margin: 0;
-        }
-
-        .favourite {
-          grid-column: ~"1 / -1";
-        }
-      }
-
-      @media (max-width: @mobile-breakpoint) {
-        display: flex;
-        flex-flow: column nowrap;
-
-        li, a, img {
-          width: 320px;
-          max-width: 100%;
-        }
-
-        li {
-          margin: auto;
-          margin-bottom: 1em;
-        }
-
-        li:last-of-type {
-          margin-bottom: auto;
-        }
-      }
-
-    }
-
-    
   }
 
 }
