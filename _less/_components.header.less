@@ -98,7 +98,7 @@ nav {
   height: 3em;
   width: 3em;
 
-  cursor: pointer;
+  user-select: none;
 }
 
 .nav-toggle > .animated-line {
@@ -122,7 +122,7 @@ nav {
 }
 
 .nav-toggle:hover {
-  stroke: lighten(@black, 20%);
+  filter: brightness(1.1);
 }
 
 .sidebar-content {
