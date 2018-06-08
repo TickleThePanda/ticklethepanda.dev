@@ -10,8 +10,16 @@
     <title>{{ page.title | downcase }} - ticklethepanda</title>
     <link rel="canonical" href="{{ site.url }}{{ page.permalink }}">
 
+    <link rel="preload" href="{{ site.assetsUrl }}/style/main.css" as="style">
+
     <link href="{{ site.assetsUrl }}/style/main.css" rel="stylesheet" type="text/css">
     <link href="{{ site.assetsUrl }}/style/main-print.css" rel="stylesheet" type="text/css" media="print">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">
+
+    <script async src="{{ site.assetsUrl }}/scripts/nav.js"></script>
     
     <script>
       const ENV = {
@@ -83,7 +91,5 @@
         </div>
       </article>
     </main>
-    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">  
-    <script async src="{{ site.assetsUrl }}/scripts/nav.js"></script>
   </body>
 </html>
