@@ -14,7 +14,7 @@ var gulpUtil = require('gulp-util');
 
 var minify = composer(uglifyjs, console);
 
-let assetsBaseOutput = 'assets';
+let assetsBaseOutput = 'site/assets';
 
 var minify = composer(uglifyjs, console);
 
