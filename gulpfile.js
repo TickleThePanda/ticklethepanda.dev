@@ -18,33 +18,6 @@ let assetsBaseOutput = 'site/assets';
 
 var minify = composer(uglifyjs, console);
 
-gulp.task('css', function() {
-  return gulp.src('_less/[^_]*.less')
-    .pipe(less())
-    .pipe(postCss([ autoprefixer() ]))
-    .pipe(cleanCss({ skipAggressiveMerging: true }))
-    .pipe(gulp.dest(assetsBaseOutput + '/style/'));
-});
-
-gulp.task('js', function() {
-  return gulp.src('_js/**/*.js')
-    .pipe(sourcemaps.init())
-      .pipe(minify())
-      .on('error', err => console.log('uglify error', err))
-    .pipe(sourcemaps.write('maps'))
-    .pipe(gulp.dest(assetsBaseOutput + '/scripts/'));
-});
-
-gulp.task('vega', function() {
-  return gulp.src('_vg/**/*.json')
-    .pipe(gulp.dest(assetsBaseOutput + '/vega/'));
-});
-
-gulp.task('images', function () {
-  gulp.src('_images/**/*')
-    .pipe(gulp.dest(assetsBaseOutput + '/images/'));
-});
-
 gulp.task('jekyll', function (done) {
   const jekyll = child.spawn('jekyll', ['build', '--incremental']);
 
@@ -62,12 +35,39 @@ gulp.task('jekyll', function (done) {
   });
 });
 
-gulp.task('html-partials', function () {
+gulp.task('css', ['jekyll'], function() {
+  return gulp.src('_less/[^_]*.less')
+    .pipe(less())
+    .pipe(postCss([ autoprefixer() ]))
+    .pipe(cleanCss({ skipAggressiveMerging: true }))
+    .pipe(gulp.dest(assetsBaseOutput + '/style/'));
+});
+
+gulp.task('js', ['jekyll'], function() {
+  return gulp.src('_js/**/*.js')
+    .pipe(sourcemaps.init())
+      .pipe(minify())
+      .on('error', err => console.log('uglify error', err))
+    .pipe(sourcemaps.write('maps'))
+    .pipe(gulp.dest(assetsBaseOutput + '/scripts/'));
+});
+
+gulp.task('vega', ['jekyll'], function() {
+  return gulp.src('_vg/**/*.json')
+    .pipe(gulp.dest(assetsBaseOutput + '/vega/'));
+});
+
+gulp.task('images', ['jekyll'], function () {
+  gulp.src('_images/**/*')
+    .pipe(gulp.dest(assetsBaseOutput + '/images/'));
+});
+
+gulp.task('html-partials', ['jekyll'], function () {
   gulp.src('_html-partials/**/*.html')
     .pipe(gulp.dest(assetsBaseOutput + '/html-partials/'));
 });
 
-gulp.task('default', [ 'css', 'js', 'vega', 'images', 'jekyll', 'html-partials' ]);
+gulp.task('default', ['jekyll', 'css', 'js', 'vega', 'images', 'html-partials']);
 
 gulp.task('watch', function() {
   gulp.watch('_js/**/*.js', ['js']);
