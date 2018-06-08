@@ -10,3 +10,6 @@ public/style
 
 /node_modules
 
+/vendor
+/.bundle
+
