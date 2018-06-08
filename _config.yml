@@ -4,6 +4,7 @@ destination: site
 url: https://ticklethepanda.co.uk
 
 assetsUrl: /assets
+imagesUrl: https://ttp-assets.s3.amazonaws.com
 apiUrl: https://api.ticklethepanda.co.uk
 
 

@@ -1,5 +1,5 @@
-thumbsPath: "/images/gallery/thumbs/"
-fullPath: "/images/gallery/full/"
+thumbsPath: "/gallery/thumbs/"
+fullPath: "/gallery/full/"
 galleries:
 - reference: 2013-06-kew
   name: Wandering Kew Gardens
