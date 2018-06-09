@@ -67,7 +67,12 @@ gulp.task('html-partials', ['jekyll'], function () {
     .pipe(gulp.dest(assetsBaseOutput + '/html-partials/'));
 });
 
-gulp.task('default', ['jekyll', 'css', 'js', 'vega', 'images', 'html-partials']);
+gulp.task('redirect-rules', ['jekyll'], function () {
+  gulp.src('_redirect')
+    .pipe(gulp.dest('site'));
+});
+
+gulp.task('default', ['jekyll', 'css', 'js', 'vega', 'images', 'html-partials', 'redirect-rules']);
 
 gulp.task('watch', function() {
   gulp.watch('_js/**/*.js', ['js']);
