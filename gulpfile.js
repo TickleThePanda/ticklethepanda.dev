@@ -72,13 +72,16 @@ gulp.task('redirect-rules', ['jekyll'], function () {
     .pipe(gulp.dest('site'));
 });
 
-gulp.task('default', ['jekyll', 'css', 'js', 'vega', 'images', 'html-partials', 'redirect-rules']);
+let all = ['jekyll', 'css', 'js', 'vega', 'images', 'html-partials', 'redirect-rules'];
+
+gulp.task('default', all);
 
 gulp.task('watch', function() {
-  gulp.watch('_js/**/*.js', ['js']);
-  gulp.watch('_less/**/*.less', ['css']);
-  gulp.watch('_vg/**/*.json', ['vega']);
-  gulp.watch('_html-partials/**/*.html', ['html-partials']);
-  gulp.watch('_images/**/*', ['images']);
-  gulp.watch(['_config.yml', '_jekyll/**/*'], ['jekyll']);
+  gulp.watch('_js/**/*.js', all);
+  gulp.watch('_less/**/*.less', all);
+  gulp.watch('_vg/**/*.json', all);
+  gulp.watch('_html-partials/**/*.html', all);
+  gulp.watch('_images/**/*', all);
+  gulp.watch(['_config.yml', '_jekyll/**/*'], all);
 });
+

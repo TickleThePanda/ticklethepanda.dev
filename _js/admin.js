@@ -6,16 +6,15 @@ import { ThermometerApp } from './admin/thermometer-app.js';
 
 let tokenClient = new TokenClient();
 let tokenStorage = new TokenStorage();
-let router = new Router();
-
-let token = {};
+let router = new Router('/admin');
 
 let contentElement = document.getElementsByClassName('admin-content')[0];
 
 router.interceptor = (url) => {
+  let token = tokenStorage.load();
   if(!token || !url) {
     return '/login';
-  } else if (token && url === '/login') {
+  } else if (token && ['/login', '/'].includes(url)) {
     return '/home';
   } else {
     return url;
@@ -63,7 +62,7 @@ router.register('/login', {
 router.register('/weight', {
   content: ENV.assetsBaseUrl + '/html-partials/weight.html',
   logic: () => {
-    let weightApp = new WeightApp(token);
+    let weightApp = new WeightApp(tokenStorage.load());
 
     weightApp.run();
 
@@ -73,14 +72,13 @@ router.register('/weight', {
 router.register('/thermometer', {
   content: ENV.assetsBaseUrl + '/html-partials/thermometer.html',
   logic: () => {
-    let thermometerApp = new ThermometerApp(token);
+    let thermometerApp = new ThermometerApp(tokenStorage.load());
 
     thermometerApp.run();
   }
 });
 
 window.addEventListener('load', () => {
-  token = tokenStorage.load();
   router.start();
 });
 
