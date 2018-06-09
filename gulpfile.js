@@ -68,7 +68,7 @@ gulp.task('html-partials', ['jekyll'], function () {
 });
 
 gulp.task('redirect-rules', ['jekyll'], function () {
-  gulp.src('_redirect')
+  gulp.src('_redirects')
     .pipe(gulp.dest('site'));
 });
 
