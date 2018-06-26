@@ -19,9 +19,9 @@
   "author": "",
   "devDependencies": {
     "autoprefixer": "^8.1.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-clean-css": "^3.0.4",
-    "gulp-less": "^3.3.0",
+    "gulp-less": "^4.0.0",
     "gulp-postcss": "^7.0.1",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "https://github.com/terinjokes/gulp-uglify",
