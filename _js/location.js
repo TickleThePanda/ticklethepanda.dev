@@ -3,7 +3,6 @@
   function modulo(n, d) {
     return ((n % d) + d) % d;
   };
-  const baseUrl = ENV.apiBaseUrl + '/location?img&sum';
 
   function getYearMonthValues() {
     let yearMonths = [];
@@ -19,40 +18,33 @@
   }
 
   const data = {
-    'all': {},
-    'month': {
-      param: 'month',
-      items: [
-        'JANUARY',
-        'FEBRUARY',
-        'MARCH',
-        'APRIL',
-        'MAY',
-        'JUNE',
-        'JULY',
-        'AUGUST',
-        'SEPTEMBER',
-        'OCTOBER',
-        'NOVEMBER',
-        'DECEMBER'
-      ]
+    'all': {
+      value: 'all'
     },
-    'weekday': {
-      param: 'weekday',
-      items: [
-        'MONDAY',
-        'TUESDAY',
-        'WEDNESDAY',
-        'THURSDAY',
-        'FRIDAY',
-        'SATURDAY',
-        'SUNDAY'
-      ]
-    },
-    'year-month': {
-      param: 'yearMonth',
-      items: (getYearMonthValues())
-    }
+    'month': [
+      'january',
+      'february',
+      'march',
+      'april',
+      'may',
+      'june',
+      'july',
+      'august',
+      'september',
+      'october',
+      'november',
+      'december'
+    ],
+    'weekday': [
+      'monday',
+      'tuesday',
+      'wednesday',
+      'thursday',
+      'friday',
+      'saturday',
+      'sunday'
+    ],
+    'year-month': (getYearMonthValues())
   };
 
   const slideshowContainer = document.querySelector('#location-slideshow');
@@ -77,13 +69,11 @@
 
     let facet = data[state.facet];
 
-    let param = facet.param;
-
-    if (param) {
-      let selectedItem = facet.items[state.index];
-      return `${baseUrl}&${param}=${selectedItem}`;
+    if (!facet.value) {
+      let selectedItem = facet[state.index];
+      return `${ENV.imagesBaseUrl}/location-history/default-${selectedItem}.png`;
     } else {
-      return `${baseUrl}`;
+      return `${ENV.imagesBaseUrl}/location-history/default-${facet.value}.png`;
     }
   }
 
@@ -123,9 +113,9 @@
       imageContainer.appendChild(image);
     }
 
-    if (data[state.facet].param) {
+    if (!data[state.facet].value) {
       slideshowController.querySelectorAll('button').forEach(button => button.removeAttribute('disabled'));
-      infoContainer.innerHTML = `${data[state.facet].items[state.index]}`;
+      infoContainer.innerHTML = `${data[state.facet][state.index]}`;
     } else {
       slideshowController.querySelectorAll('button').forEach(button => button.setAttribute('disabled', null));
       infoContainer.innerHTML = "";
@@ -150,7 +140,7 @@
       state.intervalId = null;
 
       state.facet = facet;
-      if (data[facet].param) {
+      if (!data[facet].value) {
         state.index = 0;
       } else {
         state.index = null;
@@ -168,7 +158,7 @@
       updateView();
     } else {
       state.intervalId = setInterval(() => {
-        state.index = modulo(++state.index, data[state.facet].items.length);
+        state.index = modulo(++state.index, data[state.facet].length);
         updateView();
       }, 1000);
       updateView();
@@ -176,12 +166,12 @@
   });
 
   nextButton.addEventListener('click', event => {
-    state.index = modulo(++state.index, data[state.facet].items.length);
+    state.index = modulo(++state.index, data[state.facet].length);
     updateView();
   });
 
   prevButton.addEventListener('click', event => {
-    state.index = modulo(--state.index, data[state.facet].items.length);
+    state.index = modulo(--state.index, data[state.facet].length);
     updateView();
   });
 
