@@ -3,7 +3,8 @@
 @import "shared/colors.less";
 @import "shared/sizes.less";
 
-@gallery-img-size: 320px;
+@gallery-max-img-size: 320px;
+@gallery-min-img-size: 250px;
 
 .gallery {
   display: none;
@@ -66,11 +67,11 @@
   }
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(@gallery-img-size, min-content));
+  grid-template-columns: repeat(auto-fit, minmax(@gallery-min-img-size, 1fr));
   grid-gap: 1.5em;
   grid-auto-flow: dense;
 
-  justify-content: center;
+  justify-items: center;
 
   .favourite {
     grid-column: ~"1 / -1";
@@ -81,7 +82,7 @@
     flex-flow: column nowrap;
 
     .gallery-image-item, a, img {
-      width: 320px;
+      width: @gallery-max-img-size;
       max-width: 100%;
     }
 
