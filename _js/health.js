@@ -46,7 +46,7 @@ window.addEventListener('load', () => {
       healthClient.fetchWeightHistoryWithPeriod(7),
       chartClient.fetchWeightChartSpec()
   ]).then(r => {
-    let weightResults = r[0];
+    let weightResults = r[0].filter(d => d.date >= Date.parse('2014-01-01T00:00:00'));
     let chartSpec = r[1];
 
     let minDate = new Date(weightResults[0].date.getTime());
