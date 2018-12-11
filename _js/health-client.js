@@ -35,30 +35,30 @@ function convertToBasicHistory(results) {
 class HealthClient {
 
   fetchActivitySum() {
-    return fetch(ENV.apiBaseUrl + '/health/activity?sum')
+    return fetch(ENV.apiBaseHealthUrl + '/health/activity?sum')
       .then(handleResponse);
   }
 
   fetchWeightPrediction(date) {
-    return fetch(ENV.apiBaseUrl + '/health/weight/prediction?since=' + date.toISOString().substring(0, 10))
+    return fetch(ENV.apiBaseHealthUrl + '/health/weight/prediction?since=' + date.toISOString().substring(0, 10))
       .then(handleResponse);
   }
 
   fetchWeightHistory() {
-    return fetch(ENV.apiBaseUrl + '/health/weight')  
+    return fetch(ENV.apiBaseHealthUrl + '/health/weight')  
       .then(handleResponse)
       .then(fixDates);
   }
 
   fetchWeightHistoryWithPeriod(period) {
-    return fetch(ENV.apiBaseUrl + '/health/weight?period=' + period)
+    return fetch(ENV.apiBaseHealthUrl + '/health/weight?period=' + period)
       .then(handleResponse)
       .then(convertToBasicHistory)
       .then(fixDates);
   }
 
   fetchAverageDayActivity() {
-    return fetch(ENV.apiBaseUrl + '/health/activity?average&by=minute')
+    return fetch(ENV.apiBaseHealthUrl + '/health/activity?average&by=minute')
       .then(handleResponse)
       .then(fixTimes);
   }
