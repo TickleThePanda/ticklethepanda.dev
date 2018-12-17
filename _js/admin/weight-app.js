@@ -25,7 +25,7 @@ class WeightClient {
   }
 
   fetchHistory() {
-    return fetch(ENV.apiBaseUrl + '/health/weight/log')
+    return fetch(ENV.apiBaseHealthUrl + '/health/weight/log')
       .then(response => {
         if(response.ok) {
           return response.json();
@@ -44,7 +44,7 @@ class WeightClient {
     let period = req.period;
     let weight = req.weight;
 
-    let url = `${ENV.apiBaseUrl}/health/weight/log/${date}/${period}`;
+    let url = `${ENV.apiBaseHealthUrl}/health/weight/log/${date}/${period}`;
     let payload = { weight: weight };
 
     let authHeaderValue = 'Bearer ' + this.token;
