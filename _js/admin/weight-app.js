@@ -25,7 +25,7 @@ class WeightClient {
   }
 
   fetchHistory() {
-    return fetch(ENV.apiBaseHealthUrl + '/health/weight/log')
+    return fetch(ENV.apiBaseHealthUrl + '/weight/log')
       .then(response => {
         if(response.ok) {
           return response.json();
@@ -44,7 +44,7 @@ class WeightClient {
     let period = req.period;
     let weight = req.weight;
 
-    let url = `${ENV.apiBaseHealthUrl}/health/weight/log/${date}/${period}`;
+    let url = `${ENV.apiBaseHealthUrl}/weight/log/${date}/${period}`;
     let payload = { weight: weight };
 
     let authHeaderValue = 'Bearer ' + this.token;
@@ -115,8 +115,8 @@ class WeightApp {
         weight: weight
       }).then(result => {
         console.log(result);
-        document.getElementById('result-date').textContent = result.localDate;
-        document.getElementById('result-period').textContent = result.entryPeriod;
+        document.getElementById('result-date').textContent = result.date;
+        document.getElementById('result-period').textContent = result.meridiam;
         document.getElementById('result-value').textContent = result.weight;
 
         let resultsElement = document.getElementById('results');

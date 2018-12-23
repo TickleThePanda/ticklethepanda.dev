@@ -6,5 +6,5 @@ url: https://ticklethepanda.co.uk
 assetsUrl: /assets
 imagesUrl: https://images.ticklethepanda.co.uk
 apiUrl: https://api.ticklethepanda.co.uk
-apiHealthUrl: https://ticklethepanda-health-tracking.herokuapp.com/
+apiHealthUrl: https://health-ticklethepanda.herokuapp.com
 

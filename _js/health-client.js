@@ -15,13 +15,6 @@ function fixDates(results) {
   return results;
 }
 
-function fixTimes(results) {
-  results.forEach(r => {
-    r.time = new Date("1970-01-01T" + r.time + "Z");
-  });
-  return results;
-}
-
 function convertToBasicHistory(results) { 
 
   return results.map(r => ({
@@ -34,33 +27,22 @@ function convertToBasicHistory(results) {
 
 class HealthClient {
 
-  fetchActivitySum() {
-    return fetch(ENV.apiBaseHealthUrl + '/health/activity?sum')
-      .then(handleResponse);
-  }
-
   fetchWeightPrediction(date) {
-    return fetch(ENV.apiBaseHealthUrl + '/health/weight/prediction?since=' + date.toISOString().substring(0, 10))
+    return fetch(ENV.apiBaseHealthUrl + '/weight/prediction?since=' + date.toISOString().substring(0, 10))
       .then(handleResponse);
   }
 
   fetchWeightHistory() {
-    return fetch(ENV.apiBaseHealthUrl + '/health/weight')  
+    return fetch(ENV.apiBaseHealthUrl + '/weight')  
       .then(handleResponse)
       .then(fixDates);
   }
 
   fetchWeightHistoryWithPeriod(period) {
-    return fetch(ENV.apiBaseHealthUrl + '/health/weight?period=' + period)
+    return fetch(ENV.apiBaseHealthUrl + '/weight?period=' + period)
       .then(handleResponse)
       .then(convertToBasicHistory)
       .then(fixDates);
-  }
-
-  fetchAverageDayActivity() {
-    return fetch(ENV.apiBaseHealthUrl + '/health/activity?average&by=minute')
-      .then(handleResponse)
-      .then(fixTimes);
   }
 
 }

@@ -12,11 +12,6 @@ window.addEventListener('load', () => {
     facet: null
   };
 
-  healthClient.fetchActivitySum()
-    .then(results => {
-      var totalStepsElement = document.getElementById('total-steps');
-      totalStepsElement.innerHTML = `<strong>${Number.parseFloat(results.sum).toLocaleString()} steps</strong> recorded since ${new Date(results.since).toLocaleDateString()}`;
-    });
 
   healthClient.fetchWeightPrediction(new Date(2017, 0, 1))
     .then(result => {
@@ -103,49 +98,6 @@ window.addEventListener('load', () => {
 
   });
 
-  Promise.all([
-    healthClient.fetchAverageDayActivity(),
-    chartClient.fetchDayActivityChartSpec()
-  ]).then(r => {
-    let activityResults = r[0];
-    let chartSpec = r[1];
-
-    let granuality = 10; // in mins
-
-    let nBins = 24 * (60 / granuality);
-    let itemsPerBin = activityResults.length / nBins;
-
-    let aggregatedResults = [];
-
-    for (let i = 0; i < nBins; i++) {
-      let minute = activityResults[i * itemsPerBin].time;
-      let sum = 0;
-      for (let j = 0; j < itemsPerBin; j++) {
-        let index = i * itemsPerBin + j;
-        sum += activityResults[index].steps;
-      }
-      let avg = sum / itemsPerBin;
-      aggregatedResults.push({
-        time: minute,
-        steps: avg
-      });
-    }
-
-    console.log(aggregatedResults);
-    
-    let view = new vega.View(vega.parse(chartSpec))
-      .renderer('svg')
-      .insert('source', aggregatedResults)
-      .logLevel(vega.Warn)
-      .initialize('#average-day-activity-chart');
-
-    let container = view.container();
-
-    let w = container.offsetWidth;
-
-    chartSizeManager.add(view);
-
-  });
 });
 
 
