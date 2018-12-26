@@ -12,3 +12,6 @@
       location: /photography/
     - text: messages book
       location: /messages/
+    - text: other
+      location: /other/
+
