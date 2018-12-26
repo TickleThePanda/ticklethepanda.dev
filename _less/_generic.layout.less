@@ -1,5 +1,5 @@
 body {
-  max-width: 800px;
+  max-width: @content-width;
   margin: auto;
 }
 
@@ -9,7 +9,7 @@ body {
     max-width: unset;
 
     display: grid;
-    grid-template-columns: minmax(min-content, 1fr) minmax(auto, 800px) 1fr;
+    grid-template-columns: minmax(min-content, 1fr) minmax(auto, @content-width) 1fr;
   }
 
   @media (max-width: @mobile-breakpoint) {
