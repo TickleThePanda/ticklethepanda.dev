@@ -15,7 +15,8 @@ button {
 }
 
 button:hover {
-  background-color: @primary;
+  background-color: darken(@primary, 10%, relative);
+
 }
 
 form.inline, .form.inline {
@@ -67,6 +68,6 @@ button.link {
 }
 
 .toggle-button.selected {
-  background-color: darken(@primary, 10%, relative);
+  background-color: @primary;
 }
 
