@@ -1,17 +1,17 @@
-- name: about
+- name: About
   links:
-    - text: meet panda
+    - text: Meet Panda
       location: /
-- name: projects
+- name: Projects
   links:
-    - text: location map
+    - text: Location Map
       location: /location/
-    - text: health tracking
+    - text: Health Tracking
       location: /health/
-    - text: photography
+    - text: Photography
       location: /photography/
-    - text: messages book
+    - text: Messages Book
       location: /messages/
-    - text: other
+    - text: Other
       location: /other/
 
