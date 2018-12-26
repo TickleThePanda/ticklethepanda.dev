@@ -17,11 +17,11 @@ permalink: /photography/
       <nav class="gallery-nav">
         {% assign prev_i = forloop.index0 | minus: 1 %}
         {% unless forloop.first %}
-          <a class="prev" href="?gallery={{ galleries[prev_i].reference }}">&lt;-- prev</a>
+          <a class="prev" href="?gallery={{ galleries[prev_i].reference }}">↞ Previous</a>
         {% endunless %}
         {% unless forloop.last %}
           {% assign next_i = forloop.index0 | plus: 1 %}
-          <a class="next" href="?gallery={{ galleries[next_i].reference }}">next --&gt;</a>  
+          <a class="next" href="?gallery={{ galleries[next_i].reference }}">Next ↠</a>  
         {% endunless %}
       </nav>
       <div class="gallery-content">
