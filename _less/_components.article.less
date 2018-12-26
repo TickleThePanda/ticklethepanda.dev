@@ -10,9 +10,6 @@ article {
 }
 
 article .content {
-  > :first-child { 
-    margin-top: 0;
-  }
   > :not(h2):first-child {
     padding-top: 0;
   }
@@ -33,19 +30,6 @@ article .content {
   img {
     max-width: 100%;
     height: auto;
-  }
-
-  & > p:first-of-type {
-
-    &::first-letter  {
-      line-height: 1;
-      font-size: 250%;
-      float: left;
-      margin-right: 0.1em;
-      padding: .1em;
-
-      background-color: @primary;
-    }
   }
 
 }
