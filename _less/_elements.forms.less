@@ -15,12 +15,13 @@ button {
 }
 
 button:hover {
-  background-color: lighten(@primary, 30%, relative);
+  background-color: @primary;
 }
 
 .toggle-button.selected {
   background-color: @primary;
   color: #ffffff;
+  box-shadow: 0 0 0 1px @black;
 }
 
 form.inline, .form.inline {
