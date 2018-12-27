@@ -1,4 +1,4 @@
-(function() {
+window.addEventListener('load', function initialiseNav() {
 
   Array.prototype.forEach.call(document.getElementsByClassName('nav-toggle'), function(toggleElement) {
       toggleElement.addEventListener('click', function(event) {
@@ -8,7 +8,7 @@
       });
   });
 
-  document.addEventListener('click', function(event) {
+  document.addEventListener('click', function handleNavClick(event) {
     let target = event.target || event.srcElement;
 
     if (hasClassInAncestry(target, 'nav-toggle')) {
@@ -31,5 +31,5 @@
 
     return false;
   }
-})();
+});
 
