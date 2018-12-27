@@ -3,7 +3,6 @@ export { Router };
 function handlePageChange(router) {
   let initialUrl = router.getCurrentUrl();
   let url = router.interceptor(initialUrl);
-  console.log(`${initialUrl} => ${url}`);
   if(initialUrl === url) {
     router.handle(url);
   } else {

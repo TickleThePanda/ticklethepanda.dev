@@ -114,7 +114,6 @@ class WeightApp {
         period: period,
         weight: weight
       }).then(result => {
-        console.log(result);
         document.getElementById('result-date').textContent = result.date;
         document.getElementById('result-period').textContent = result.meridiam;
         document.getElementById('result-value').textContent = result.weight;

@@ -101,7 +101,6 @@
   }
 
   function updateView() {
-    console.log('state', state);
 
     let currentImage = imageContainer.querySelector('img');
 
