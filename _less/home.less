@@ -1,3 +1,4 @@
+@import "shared/sizes.less";
 @import "shared/colors.less";
 
 #my-face {
@@ -15,7 +16,24 @@
    * This needs extra margin at the bottom
    * because of its box shadow
    */
-  margin-bottom: 1em;
+  margin-bottom: 2rem;
+  margin-top: -1rem;
+
+  width: auto;
+  max-height: calc(100vh - 7rem);
+}
+
+@media (max-width: @mobile-breakpoint) {
+
+  #my-face {
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1.5rem;
+
+    max-height: calc(100vh - 9rem);
+  }
+
 }
 
 #social-media-widget {
