@@ -1,0 +1,46 @@
+.nav-toggle {
+  display: none;
+
+  position: absolute;
+  right: 0;
+
+  stroke: #ffffff;
+  background-color: @header-background-color;
+  overflow: hidden;
+
+  padding: 1em;
+  height: 3em;
+  width: 3em;
+
+  user-select: none;
+}
+
+.nav-toggle > .animated-line {
+  stroke-dasharray: 6;
+  stroke-dashoffset: 6;
+  animation: dash 0.5s linear forwards;
+}
+
+.nav-toggle > .animated-line:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.nav-toggle > .animated-line:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.nav-toggle:hover {
+  filter: brightness(1.1);
+}
+
+@media (max-width: @mobile-breakpoint) {
+  .nav-toggle {
+    display: block;
+  }
+}
