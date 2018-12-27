@@ -55,7 +55,7 @@
         "update": {
           "x": {"scale": "x", "field": "time"},
           "y": {"scale": "y", "field": "averageTemperature"},
-          "stroke": {"value": "#AFD856"}
+          "stroke": {"value": "#008291"}
         }
       }
     }
