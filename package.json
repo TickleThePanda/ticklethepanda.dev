@@ -12,7 +12,7 @@
     "build": "gulp",
     "watch": "gulp watch",
     "ws": "ws --directory ./site --rewrite '/admin/* -> /admin/'",
-    "dev": "concurrently \"gulp watch\" \"npm run ws\""
+    "dev": "npm run build && concurrently \"gulp watch\" \"npm run ws\""
   },
   "repository": {
     "type": "git",
