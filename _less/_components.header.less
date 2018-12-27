@@ -1,3 +1,5 @@
+@header-letter-spacing: 2px;
+
 
 header {
   display: flex;
@@ -23,6 +25,8 @@ header {
   .header-item {
     background-color: @black;
     color: #ffffff;
+
+    letter-spacing: @header-letter-spacing;
   }
 
   h2 {
@@ -45,6 +49,8 @@ header {
 .title:active {color:#ffffff;}                                  /* selected link */
 
 header nav {
+
+  letter-spacing: @header-letter-spacing;
 
   font-family: @font-family-title;
 
