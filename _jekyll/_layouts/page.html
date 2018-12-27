@@ -63,7 +63,7 @@
           <h1 class="sidebar-nav__title">Main Navigation</h1>
           {% for group in site.data.nav  %}
             {% if group.name != null %}
-              <h2 class="sidebar-nav__section-title">{{ group.name }}</h2>
+              <h2 class="sidebar-nav__section-title {% if forloop.first == true %}sidebar-nav__sidebar-title--first{% endif %}">{{ group.name }}</h2>
             {% endif %}
             <ul class="sidebar-nav__list">
               {% for link in group.links %}
@@ -77,9 +77,9 @@
         <section class="sidebar__aside content">
           <h1 class="sidebar__section-title">Biography</h1>
           <p>Hey, I'm <strong>Panda</strong>!</p>
-          <p>I'm a <strong>geek</strong> who works as a <strong>Software Developer</strong> at STFC.</p>
-          <p>I love playing with <strong>data</strong> and presenting it in different ways.</p>
-          <p>I've created this space to show my recent <strong>projects.</strong></p>
+          <p>I'm a geek who works as a web developer at STFC.</p>
+          <p>I love playing with data and presenting it in different ways.</p>
+          <p>I've created this space to show my recent projects.</p>
         </section>
       </div>
     </header>
