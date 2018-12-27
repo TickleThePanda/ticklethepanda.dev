@@ -2,8 +2,8 @@ window.addEventListener('load', function initialiseNav() {
 
   Array.prototype.forEach.call(document.getElementsByClassName('nav-toggle'), function(toggleElement) {
       toggleElement.addEventListener('click', function(event) {
-        Array.prototype.forEach.call(document.getElementsByClassName('sidebar-content'), function(navElement) {
-          navElement.classList.toggle('open-nav');
+        Array.prototype.forEach.call(document.getElementsByClassName('sidebar__content'), function(navElement) {
+          navElement.classList.toggle('sidebar__content--open-nav');
         });
       });
   });
@@ -15,8 +15,8 @@ window.addEventListener('load', function initialiseNav() {
       return;
     }
 
-    Array.prototype.forEach.call(document.getElementsByClassName('sidebar-content'), function(navElement) {
-      navElement.classList.remove('open-nav');
+    Array.prototype.forEach.call(document.getElementsByClassName('sidebar__content'), function(navElement) {
+      navElement.classList.remove('sidebar__content--open-nav');
     });
 
   });

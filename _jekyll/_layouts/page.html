@@ -32,8 +32,8 @@
     </script>
   </head>
   <body>
-    <header>
-      <div class="header-bar">
+    <header class="sidebar">
+      <div class="sidebar__header header-bar">
         <a class="title" href="{{ site.baseUrl }}/">
           <h1 class="header-bar__header-item header-bar__header-item--main">
             TickleThePanda
@@ -58,22 +58,24 @@
               d="m 1.5,6 6,0"/>
         </svg>
       </div>
-      <div class="sidebar-content">
-        <nav>
-          <h1>Main Navigation</h1>
+      <div class="sidebar__content">
+        <nav class="sidebar-nav">
+          <h1 class="sidebar-nav__title">Main Navigation</h1>
           {% for group in site.data.nav  %}
             {% if group.name != null %}
-              <h2>{{ group.name }}</h2>
+              <h2 class="sidebar-nav__section-title">{{ group.name }}</h2>
             {% endif %}
-            <ul>
+            <ul class="sidebar-nav__list">
               {% for link in group.links %}
-                <li><a href="{{ site.baseUrl }}{{ link.location }}">{{ link.text }}</a></li>
+                <li class="sidebar-nav__list-item">
+                  <a class="sidebar-nav__link" href="{{ site.baseUrl }}{{ link.location }}">{{ link.text }}</a>
+                </li>
               {% endfor %}
             </ul>
           {% endfor %}
         </nav>
-        <section class="biog">
-          <h1>Biography</h1>
+        <section class="sidebar__aside">
+          <h1 class="sidebar__section-title content">Biography</h1>
           <p>Hey, I'm <strong>Panda</strong>!</p>
           <p>I'm a <strong>geek</strong> who works as a <strong>Software Developer</strong> at STFC.</p>
           <p>I love playing with <strong>data</strong> and presenting it in different ways.</p>

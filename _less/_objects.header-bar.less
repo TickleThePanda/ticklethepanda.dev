@@ -1,4 +1,8 @@
 .header-bar {
+
+  font-family: @font-family-title;
+  font-weight: 700;
+
   height: calc(~"3em + 1px");
 
   display: flex;
@@ -24,3 +28,9 @@
   right: 0;
 }
 
+@media (max-width: @mobile-breakpoint) {
+  .header-bar__header-item--main {
+    text-align: center;
+  }
+
+}

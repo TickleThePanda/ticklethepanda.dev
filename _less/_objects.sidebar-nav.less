@@ -1,0 +1,49 @@
+.sidebar-nav {
+
+  letter-spacing: @header-letter-spacing;
+
+  font-family: @font-family-title;
+
+
+}
+
+.sidebar-nav__title {
+  display: none;
+}
+
+.sidebar-nav__section-title {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 0.2em;
+  line-height: 1;
+  font-size: 1em;
+  font-weight: bold;
+  border-bottom: @border;
+  border-color: #ffffff
+}
+
+.sidebar-nav__list, .sidebar-nav__list-item {
+  display: block;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.sidebar-nav__list {
+  padding: 0.5em 0em;
+}
+
+.sidebar-nav__link {
+  display: block;
+
+  padding: 0.5em 0;
+
+  text-decoration:none;
+  &, &:link, &:visited {
+    color: #ffffff;
+  }
+
+  &:hover, &:active {
+    text-decoration: underline;
+  }
+}
