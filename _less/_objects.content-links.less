@@ -1,0 +1,15 @@
+.content {
+  a {
+    text-decoration-skip: ink;
+    text-decoration:underline;
+    
+    &:link, &:visited, &:hover, &:active {
+      color: darken(@primary, 70%, relative);
+    }
+    
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
