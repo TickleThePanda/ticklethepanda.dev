@@ -15,6 +15,9 @@
 }
 
 .gallery-nav {
+
+  margin-top: 1em;
+
   .prev {
     float: left;
   }
@@ -29,13 +32,27 @@
   }
 }
 
+.gallery-nav {
+  a {
+    text-decoration: none;
+  }
+
+  a:hover, a:active {
+    text-decoration: underline;
+  }
+}
+
 .gallery-content {
+
+  margin-top: 0.5rem;
+
   border-bottom: @border;
 }
 
 .gallery-title {
   clear: both;
   padding-top: 0.3rem;
+  margin-top: 0;
 }
 
 .gallery-description {
