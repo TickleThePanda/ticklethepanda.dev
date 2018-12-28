@@ -30,12 +30,20 @@
   list-style: none;
 }
 
-.sidebar-nav__list-item {
-  margin-top: 1em;
+.sidebar-nav__list-item { }
+
+.sidebar-nav__list-item--first {
+  margin-top: 0.5em;
 }
 
 .sidebar-nav__link {
   display: block;
+
+  /*
+   * Use padding to make link easier to click.
+   */
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 
   text-decoration:none;
   &, &:link, &:visited {

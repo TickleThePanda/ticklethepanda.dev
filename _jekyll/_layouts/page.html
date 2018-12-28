@@ -67,7 +67,7 @@
             {% endif %}
             <ul class="sidebar-nav__list">
               {% for link in group.links %}
-                <li class="sidebar-nav__list-item">
+                <li class="sidebar-nav__list-item {% if forloop.first == true %}sidebar-nav__list-item--first{% endif %}">
                   <a class="sidebar-nav__link" href="{{ site.baseUrl }}{{ link.location }}">{{ link.text }}</a>
                 </li>
               {% endfor %}
