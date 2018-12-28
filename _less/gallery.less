@@ -65,8 +65,6 @@
 
   .gallery-image-item {
     .aspect-ratio(320, 213);
-    background-color: @black;
-    box-shadow: 0 0 0 1px @black;
   }
 
   .gallery-image-item, a, img {
@@ -77,7 +75,7 @@
 
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(@gallery-min-img-size, 1fr));
-  grid-gap: 1.5em;
+  grid-gap: 2px;
   grid-auto-flow: dense;
 
   justify-items: center;
