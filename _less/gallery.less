@@ -89,7 +89,8 @@
     flex-flow: column nowrap;
 
     .gallery-image-item, a, img {
-      width: @gallery-max-img-size;
+      // allow the images to be a bit bigger on mobile
+      width: @gallery-max-img-size * 1.5;
       max-width: 100%;
     }
 
