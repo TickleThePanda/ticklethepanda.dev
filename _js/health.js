@@ -47,7 +47,11 @@ window.addEventListener('load', () => {
     let minDate = new Date(weightResults[0].date.getTime());
     minDate.setDate(minDate.getDate() - 1);
 
-    let view = new vega.View(vega.parse(chartSpec))
+    let view = new vega.View(vega.parse(chartSpec, {
+        axis: {
+          labelFont: "PT Serif"
+        }
+      }))
       .renderer('svg')
       .insert('source', weightResults)
       .signal('minDate', minDate)
