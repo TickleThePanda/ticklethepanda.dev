@@ -49,8 +49,8 @@ window.addEventListener('load', () => {
 
     let view = new vega.View(vega.parse(chartSpec, {
         axis: {
-          labelFont: "PT Serif",
-          titleFont: "PT Serif"
+          labelFont: "Alegreya Sans SC",
+          titleFont: "Alegreya Sans SC"
         }
       }))
       .renderer('svg')
