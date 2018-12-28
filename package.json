@@ -11,7 +11,7 @@
     "start": "npm run start-app",
     "build": "gulp",
     "watch": "gulp watch",
-    "ws": "ws --directory ./site --rewrite '/admin/* -> /admin/'",
+    "ws": "ws --directory ./site --rewrite '/admin/* -> /admin/' --static.maxage=0",
     "dev": "npm run build && concurrently \"gulp watch\" \"npm run ws\""
   },
   "repository": {
