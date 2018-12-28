@@ -28,6 +28,14 @@ sup {
   vertical-align: super;
 }
 
+@supports (font-variant-position: super) {
+  sup {
+    font-size: inherit;
+    vertical-align: initial;
+    font-variant-position: super;
+  }
+}
+
 ol, ul {
   margin-left: 2em;
   margin-top: 0.5em;
