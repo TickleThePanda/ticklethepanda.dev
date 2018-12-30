@@ -5,36 +5,36 @@
     <meta name="referrer" content="origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#008291" >
-    <meta name="description" content="{{ page.description }}" > 
+    <meta name="description" content="{{ description }}" > 
     <meta name="author" content="Thomas 'Panda' Attwood (TickleThePanda)">
-    <title>{{ page.title }} - TickleThePanda</title>
-    <link rel="canonical" href="{{ site.url }}{{ page.permalink }}">
+    <title>{{ title }} - TickleThePanda</title>
+    <link rel="canonical" href="{{ permalink | url }}">
 
-    <link rel="preload" href="{{ site.assetsUrl }}/style/main.css" as="style">
+    <link rel="preload" href="{{ urls.assets }}/style/main.css" as="style">
 
-    <link href="{{ site.assetsUrl }}/style/main.css" rel="stylesheet" type="text/css">
-    <link href="{{ site.assetsUrl }}/style/main-print.css" rel="stylesheet" type="text/css" media="print">
+    <link href="{{ urls.assets }}/style/main.css" rel="stylesheet" type="text/css">
+    <link href="{{ urls.assets }}/style/main-print.css" rel="stylesheet" type="text/css" media="print">
 
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link rel="preconnect" href="{{ site.imagesUrl }}/" crossorigin>
+    <link rel="preconnect" href="{{ urls.assets }}/" crossorigin>
 
     <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:500,800|Lora:400,400i,700" rel="stylesheet">
 
-    <script async src="{{ site.assetsUrl }}/scripts/nav.js"></script>
+    <script async src="{{ urls.assets }}/scripts/nav.js"></script>
     
     <script>
       const ENV = {
-        apiBaseUrl: "{{ site.apiUrl }}",
-        apiBaseHealthUrl: "{{ site.apiHealthUrl }}",
-        assetsBaseUrl: "{{ site.assetsUrl }}",
-        imagesBaseUrl: "{{ site.imagesUrl }}"
+        apiBaseUrl: "{{ urls.api }}",
+        apiBaseHealthUrl: "{{ urls.api.health }}",
+        assetsBaseUrl: "{{ urls.assets }}",
+        imagesBaseUrl: "{{ urls.images }}"
       };
     </script>
   </head>
   <body>
     <header class="sidebar">
       <div class="sidebar__header header-bar">
-        <a class="title" href="{{ site.baseUrl }}/">
+        <a class="title" href="{{ '/' | url }}">
           <h1 class="header-bar__header-item header-bar__header-item--main">
             TickleThePanda
           </h1>
@@ -61,14 +61,14 @@
       <div class="sidebar__content">
         <nav class="sidebar-nav">
           <h1 class="sidebar-nav__title">Main Navigation</h1>
-          {% for group in site.data.nav  %}
+          {% for group in nav  %}
             {% if group.name != null %}
               <h2 class="sidebar-nav__section-title {% if forloop.first == true %}sidebar-nav__sidebar-title--first{% endif %}">{{ group.name }}</h2>
             {% endif %}
             <ul class="sidebar-nav__list">
               {% for link in group.links %}
                 <li class="sidebar-nav__list-item {% if forloop.first == true %}sidebar-nav__list-item--first{% endif %}">
-                  <a class="sidebar-nav__link" href="{{ site.baseUrl }}{{ link.location }}">{{ link.text }}</a>
+                  <a class="sidebar-nav__link" href="{{ link.location | url }}">{{ link.text }}</a>
                 </li>
               {% endfor %}
             </ul>
@@ -87,7 +87,7 @@
       <article>
         <div class="header-bar header-bar--secondary">
           <h1 class="header-bar__header-item subtitle">
-            {{ page.title }}
+            {{ title }}
           </h1>
         </div>
         <div class="content">

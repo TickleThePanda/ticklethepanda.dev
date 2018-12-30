@@ -1,0 +1,36 @@
+[
+  {
+    "name": "About",
+    "links": [
+      {
+        "text": "Meet Panda",
+        "location": "/"
+      }
+    ]
+  },
+  {
+    "name": "Projects",
+    "links": [
+      {
+        "text": "Location Map",
+        "location": "/location/"
+      },
+      {
+        "text": "Health Tracking",
+        "location": "/health/"
+      },
+      {
+        "text": "Photography",
+        "location": "/photography/"
+      },
+      {
+        "text": "Messages Book",
+        "location": "/messages/"
+      },
+      {
+        "text": "Other",
+        "location": "/other/"
+      }
+    ]
+  }
+]

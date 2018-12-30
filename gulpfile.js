@@ -11,6 +11,7 @@ var composer = require('gulp-uglify/composer');
 var sourcemaps = require('gulp-sourcemaps');
 var child = require('child_process');
 var gulpUtil = require('gulp-util');
+var shell = require('gulp-shell');
 
 var minify = composer(uglifyjs, console);
 
@@ -18,25 +19,10 @@ let assetsBaseOutput = 'site/assets';
 
 var minify = composer(uglifyjs, console);
 
-gulp.task('jekyll', function (done) {
-  const jekyll = child.spawn('bundle', ['exec', 'jekyll', 'build', '--incremental']);
-
-  const jekyllLogger = (buffer) => {
-    buffer.toString()
-      .split(/\n/)
-      .forEach((message) => gulpUtil.log('Jekyll: ' + message));
-  };
-
-  jekyll.stdout.on('data', jekyllLogger);
-  jekyll.stderr.on('data', jekyllLogger);
-
-  jekyll.on('close', (code) => {
-    done()
-  });
-});
+gulp.task('site', shell.task('eleventy'));
 
 gulp.task('css', function() {
-  return gulp.src('_less/[^_]*.less')
+  return gulp.src('src/less/[^_]*.less')
     .pipe(less())
     .pipe(postCss([ autoprefixer() ]))
     .pipe(cleanCss({ skipAggressiveMerging: true }))
@@ -44,7 +30,7 @@ gulp.task('css', function() {
 });
 
 gulp.task('js', function() {
-  return gulp.src('_js/**/*.js')
+  return gulp.src('src/js/**/*.js')
     .pipe(sourcemaps.init())
       .pipe(minify())
       .on('error', err => console.log('uglify error', err))
@@ -53,35 +39,29 @@ gulp.task('js', function() {
 });
 
 gulp.task('vega', function() {
-  return gulp.src('_vg/**/*.json')
+  return gulp.src('src/vg/**/*.json')
     .pipe(gulp.dest(assetsBaseOutput + '/vega/'));
 });
 
-gulp.task('images', function () {
-  return gulp.src('_images/**/*')
-    .pipe(gulp.dest(assetsBaseOutput + '/images/'));
-});
-
 gulp.task('html-partials', function () {
-  return gulp.src('_html-partials/**/*.html')
+  return gulp.src('src/html-partials/**/*.html')
     .pipe(gulp.dest(assetsBaseOutput + '/html-partials/'));
 });
 
 gulp.task('redirect-rules', function () {
-  return gulp.src('_redirects')
+  return gulp.src('src/_redirects')
     .pipe(gulp.dest('site'));
 });
 
-let all = () => gulp.series('jekyll', gulp.parallel('css', 'js', 'vega', 'images', 'html-partials', 'redirect-rules'));
+let all = () => gulp.series('site', gulp.parallel('css', 'js', 'vega', 'html-partials', 'redirect-rules'));
 
 gulp.task('default', all());
 
 gulp.task('watch', function() {
-  gulp.watch('_js/**/*.js', all());
-  gulp.watch('_less/**/*.less', all());
-  gulp.watch('_vg/**/*.json', all());
-  gulp.watch('_html-partials/**/*.html', all());
-  gulp.watch('_images/**/*', all());
-  gulp.watch(['_config.yml', '_jekyll/**/*'], all());
+  gulp.watch('src/js/**/*.js', all());
+  gulp.watch('src/less/**/*.less', all());
+  gulp.watch('src/vg/**/*.json', all());
+  gulp.watch('src/html-patials/**/*.html', all());
+  gulp.watch(['_config.yml', 'src/eleventy/**/*'], all());
 });
 

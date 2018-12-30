@@ -8,9 +8,9 @@ permalink: /photography/
 <p>It was while I was completing my art GCSE that I first got into photography as a hobby. These gallaries show my favourite photos from the past few years. Although I usually prefer taking shots of landscapes and plants, there are a couple of shots of people in here which I really like!</p>
 
 <div class="galleries">
-  {% assign galleries = site.data.gallery.galleries %}
-  {% assign thumbsPath = site.data.gallery.thumbsPath %}
-  {% assign fullPath = site.data.gallery.fullPath %}
+  {% assign galleries = gallery.galleries %}
+  {% assign thumbsPath = gallery.thumbsPath %}
+  {% assign fullPath = gallery.fullPath %}
 
   {% for gallery in galleries %}
     <div id="gallery-{{ gallery.reference }}" class="gallery">
@@ -30,8 +30,8 @@ permalink: /photography/
         <ul class="gallery-images">
           {% for image in gallery.images %}
             <li class="gallery-image-item {% if image.favourite %}favourite{% endif %}">
-              <a href="{{ site.imagesUrl }}{{ fullPath }}{{ gallery.reference }}/{{ image.fileName }}">
-                <img data-src="{{ site.imagesUrl }}{% if image.favourite %}{{ fullPath }}{% else %}{{ thumbsPath }}{% endif %}{{ gallery.reference}}/{{ image.fileName }}"/>
+              <a href="{{ urls.images }}{{ fullPath }}{{ gallery.reference }}/{{ image.fileName }}">
+                <img data-src="{{ urls.images }}{% if image.favourite %}{{ fullPath }}{% else %}{{ thumbsPath }}{% endif %}{{ gallery.reference}}/{{ image.fileName }}"/>
               </a>
             </li>
           {% endfor %}
@@ -42,6 +42,6 @@ permalink: /photography/
 
 </div>
 
-<link href="{{ site.assetsUrl }}/style/gallery.css" rel="stylesheet" type="text/css">
-<script async src="{{ site.assetsUrl }}/scripts/gallery.js"></script>
+<link href="{{ urls.assets }}/style/gallery.css" rel="stylesheet" type="text/css">
+<script async src="{{ urls.assets }}/scripts/gallery.js"></script>
 

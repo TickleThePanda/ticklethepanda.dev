@@ -1,0 +1,6 @@
+{
+  "assets": "/assets",
+  "images": "https://images.ticklethepanda.co.uk",
+  "api": "https://api.ticklethepanda.co.uk",
+  "api.health": "https://health-ticklethepanda.herokuapp.com"
+}
