@@ -12,31 +12,6 @@ window.addEventListener('load', () => {
     facet: null
   };
 
-
-  healthClient.fetchWeightPrediction(new Date(2017, 0, 1))
-    .then(result => {
-      let inter = result.intermediateTarget;
-      let total = result.target;
-
-      let html = `predicted <strong>${inter.days.toFixed(0)} days to ${inter.target} kg</strong> and <strong>${total.days.toFixed(0)} days to ${total.target} kg</strong>`;
-
-      var targetWeightElement = document.getElementById('target-weight');
-      targetWeightElement.innerHTML = html;
-
-      let heaviestDay = result.heaviest;
-      let latestDay = result.latest;
-
-      let average = (a, b) => (a && b) ? ((a + b) / 2) : (a ? a : b);
-
-      let heaviestWeight = heaviestDay.average;
-      let latestWeight = latestDay.average;
-      let lostWeight = heaviestWeight - latestWeight;
-
-      let lostWeightElement = document.getElementById('lost-weight');
-      lostWeightElement.innerHTML = `<strong>current weight is ${latestWeight.toFixed(1)}</strong>, <strong>lost ${lostWeight.toFixed(1)} kg from ${heaviestWeight.toLocaleString()} kg</strong> since ${new Date(heaviestDay.start).toLocaleDateString()}`
-
-    });
-
   Promise.all([
       healthClient.fetchWeightHistoryWithPeriod(7),
       chartClient.fetchWeightChartSpec()

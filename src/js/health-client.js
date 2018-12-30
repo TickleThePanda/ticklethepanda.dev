@@ -27,11 +27,6 @@ function convertToBasicHistory(results) {
 
 class HealthClient {
 
-  fetchWeightPrediction(date) {
-    return fetch(ENV.apiBaseHealthUrl + '/weight/prediction?since=' + date.toISOString().substring(0, 10))
-      .then(handleResponse);
-  }
-
   fetchWeightHistory() {
     return fetch(ENV.apiBaseHealthUrl + '/weight')  
       .then(handleResponse)
