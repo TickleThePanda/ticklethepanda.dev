@@ -2,25 +2,7 @@
 @import "shared/colors.less";
 @import "shared/borders.less";
 
-form#weight-form {
-  border: @border;
-  padding: 1em;
-  
-  input, select {
-    clear: both;
-  }
-
-  #entry-date,#entry-period {
-    display: inline;
-    float: left;
-    clear: none;
-  }
-
-  #entry-period {
-    margin-left: -1px;
-  }
-
-}
+@import "_objects.submission-form.less";
 
 #results {
   display: none;
