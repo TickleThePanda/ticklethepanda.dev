@@ -61,7 +61,7 @@ gulp.task('watch', function() {
   gulp.watch('src/js/**/*.js', all());
   gulp.watch('src/less/**/*.less', all());
   gulp.watch('src/vg/**/*.json', all());
-  gulp.watch('src/html-patials/**/*.html', all());
+  gulp.watch('src/html-partials/**/*.html', all());
   gulp.watch(['_config.yml', 'src/eleventy/**/*'], all());
 });
 
