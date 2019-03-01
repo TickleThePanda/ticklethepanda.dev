@@ -1,7 +1,7 @@
-/admin/* /admin/ 200
-
-/* /404/ 404
-
 https://ticklethepanda.co.uk/* https://ticklethepanda.dev/:splat 301!
 https://www.ticklethepanda.co.uk/* https://ticklethepanda.dev/:splat 301!
 https://ticklethepanda.netlify.com/* https://ticklethepanda.dev/:splat 301!
+
+/admin/* /admin/ 200
+
+/* /404/ 404
