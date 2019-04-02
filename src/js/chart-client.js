@@ -6,7 +6,7 @@ function handleResponse(response) {
   }
 }
 
-const assetsBaseUrl = document.documentElement.urlAssets;
+const assetsBaseUrl = document.documentElement.dataset.urlAssets;
 
 export class ChartClient {
   fetchWeightChartSpec() {
