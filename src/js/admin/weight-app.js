@@ -18,6 +18,8 @@ function cleanWeightResult(weight) {
   }
 }
 
+const apiBaseHealthUrl = document.documentElement.dataset['url-api-health'];
+
 class WeightClient {
 
   constructor(token) {
@@ -25,7 +27,7 @@ class WeightClient {
   }
 
   fetchHistory() {
-    return fetch(ENV.apiBaseHealthUrl + '/weight/log')
+    return fetch(apiBaseHealthUrl + '/weight/log')
       .then(response => {
         if(response.ok) {
           return response.json();
@@ -44,7 +46,7 @@ class WeightClient {
     let period = req.period;
     let weight = req.weight;
 
-    let url = `${ENV.apiBaseHealthUrl}/weight/log/${date}/${period}`;
+    let url = `${apiBaseHealthUrl}/weight/log/${date}/${period}`;
     let payload = { weight: weight };
 
     let authHeaderValue = 'Bearer ' + this.token;

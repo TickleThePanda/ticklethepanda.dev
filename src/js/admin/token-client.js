@@ -1,5 +1,7 @@
 export { TokenClient };
 
+const authApiBase = document.documentElement.dataset['url-api-auth'];
+
 class TokenClient {
   fetchToken(username, password) {
     let headers = new Headers();
@@ -11,7 +13,7 @@ class TokenClient {
       headers: headers
     }
 
-    let url = 'https://api.ticklethepanda.co.uk/authentication/tokens/users';
+    let url = authApiBase + '/tokens/users';
 
     return fetch(url, opts)
       .then(response => {

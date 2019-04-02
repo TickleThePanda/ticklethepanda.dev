@@ -4,6 +4,8 @@ import { TokenStorage } from './admin/token-storage.js';
 import { WeightApp } from './admin/weight-app.js';
 import { ThermometerApp } from './admin/thermometer-app.js';
 
+const assetsBaseUrl = document.documentElement.dataset['url-assets'];
+
 let tokenClient = new TokenClient();
 let tokenStorage = new TokenStorage();
 let router = new Router('/admin');
@@ -31,11 +33,11 @@ router.renderer = {
 }
 
 router.register('/home', {
-  content: ENV.assetsBaseUrl + '/html-partials/home.html'
+  content: assetsBaseUrl + '/html-partials/home.html'
 });
 
 router.register('/login', {
-  content: ENV.assetsBaseUrl + '/html-partials/login.html',
+  content: assetsBaseUrl + '/html-partials/login.html',
   logic: () => {
     let form = document.getElementById('login');
     form.addEventListener('submit', e => {
@@ -60,7 +62,7 @@ router.register('/login', {
 });
 
 router.register('/weight', {
-  content: ENV.assetsBaseUrl + '/html-partials/weight.html',
+  content: assetsBaseUrl + '/html-partials/weight.html',
   logic: () => {
     let weightApp = new WeightApp(tokenStorage.load());
 
@@ -70,7 +72,7 @@ router.register('/weight', {
 });
 
 router.register('/thermometer', {
-  content: ENV.assetsBaseUrl + '/html-partials/thermometer.html',
+  content: assetsBaseUrl + '/html-partials/thermometer.html',
   logic: () => {
     let thermometerApp = new ThermometerApp(tokenStorage.load());
 

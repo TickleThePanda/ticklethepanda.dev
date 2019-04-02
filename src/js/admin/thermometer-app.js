@@ -15,6 +15,8 @@ function convertDates(results) {
   return results;
 }
 
+const apiBaseUrl = document.documentElement.dataset['url-api'];
+
 class ThermometerClient {
   constructor(token) {
     this.token = token;
@@ -29,7 +31,7 @@ class ThermometerClient {
     let yesterday = new Date(now.getTime());
     yesterday.setDate(yesterday.getDate() - 1);
 
-    let dataUrl = ENV.apiBaseUrl + '/thermometers/rooms/living-room/entries'
+    let dataUrl = apiBaseUrl + '/thermometers/rooms/living-room/entries'
           + `?start=${yesterday.toISOString()}&end=${now.toISOString()}`;
 
     let opts = {
@@ -60,7 +62,7 @@ class ThermometerApp {
 
     let view;
 
-    let chartSpecUrl = ENV.assetsBaseUrl + '/vega/thermometer.vg.json';
+    let chartSpecUrl = assetsBaseUrl + '/vega/thermometer.vg.json';
 
     let chart = {
       container: '#thermometer-chart'

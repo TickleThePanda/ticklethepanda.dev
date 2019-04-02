@@ -1,5 +1,7 @@
 (function() {
 
+  const imagesBaseUrl = document.documentElement.dataset['url-images'];
+
   function modulo(n, d) {
     return ((n % d) + d) % d;
   };
@@ -71,9 +73,9 @@
 
     if (!facet.value) {
       let selectedItem = facet[state.index];
-      return `${ENV.imagesBaseUrl}/location-history/default-${selectedItem}.png`;
+      return `${imagesBaseUrl}/location-history/default-${selectedItem}.png`;
     } else {
-      return `${ENV.imagesBaseUrl}/location-history/default-${facet.value}.png`;
+      return `${imagesBaseUrl}/location-history/default-${facet.value}.png`;
     }
   }
 

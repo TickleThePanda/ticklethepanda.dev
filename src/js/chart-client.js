@@ -6,14 +6,16 @@ function handleResponse(response) {
   }
 }
 
+const assetsBaseUrl = document.documentElement['url-assets'];
+
 export class ChartClient {
   fetchWeightChartSpec() {
-    return fetch(ENV.assetsBaseUrl + '/vega/weight.vg.json')
+    return fetch(assetsBaseUrl + '/vega/weight.vg.json')
       .then(handleResponse);
   }
 
   fetchDayActivityChartSpec() {
-    return fetch(ENV.assetsBaseUrl + '/vega/activity/average-day.vg.json')
+    return fetch(assetsBaseUrl + '/vega/activity/average-day.vg.json')
       .then(handleResponse);
   }
 }

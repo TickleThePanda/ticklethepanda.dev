@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html ilang="en-GB"
+  data-url-api="{{ urls.api }}"
+  data-url-api-health="{{ urls.apis.health }}"
+  data-url-api-auth="{{ urls.apis.auth }}"
+  data-url-assets="{{ urls.assets }}"
+  data-url-images="{{ urls.images }}">
   <head>
     <meta charset="utf-8">
     <meta name="referrer" content="origin-when-cross-origin">
@@ -22,14 +27,6 @@
 
     <script async src="{{ urls.assets }}/scripts/nav.js"></script>
     
-    <script>
-      const ENV = {
-        apiBaseUrl: "{{ urls.api }}",
-        apiBaseHealthUrl: "{{ urls.apis.health }}",
-        assetsBaseUrl: "{{ urls.assets }}",
-        imagesBaseUrl: "{{ urls.images }}"
-      };
-    </script>
   </head>
   <body>
     <header class="sidebar">

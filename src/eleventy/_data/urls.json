@@ -3,6 +3,7 @@
   "images": "https://images.ticklethepanda.co.uk",
   "api": "https://api.ticklethepanda.co.uk",
   "apis": {
-    "health": "https://health-ticklethepanda.herokuapp.com"
+    "health": "https://health-ticklethepanda.herokuapp.com",
+    "auth": "https://auth.api.ticklethepanda.dev"
   }
 }

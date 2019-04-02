@@ -1,5 +1,7 @@
 export { HealthClient };
 
+const baseUrl = document.documentElement.dataset["url-api-health"];
+
 function handleResponse(response) {
   if(response.ok) {
     return response.json();
@@ -28,13 +30,13 @@ function convertToBasicHistory(results) {
 class HealthClient {
 
   fetchWeightHistory() {
-    return fetch(ENV.apiBaseHealthUrl + '/weight')  
+    return fetch(baseUrl + '/weight')  
       .then(handleResponse)
       .then(fixDates);
   }
 
   fetchWeightHistoryWithPeriod(period) {
-    return fetch(ENV.apiBaseHealthUrl + '/weight?period=' + period)
+    return fetch(baseUrl + '/weight?period=' + period)
       .then(handleResponse)
       .then(convertToBasicHistory)
       .then(fixDates);
