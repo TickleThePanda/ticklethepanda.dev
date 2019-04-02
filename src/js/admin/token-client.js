@@ -1,6 +1,6 @@
 export { TokenClient };
 
-const authApiBase = document.documentElement.dataset['url-api-auth'];
+const authApiBase = document.documentElement.dataset.urlApiAuth;
 
 class TokenClient {
   fetchToken(username, password) {

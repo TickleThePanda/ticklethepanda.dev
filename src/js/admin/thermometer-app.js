@@ -15,7 +15,7 @@ function convertDates(results) {
   return results;
 }
 
-const apiBaseUrl = document.documentElement.dataset['url-api'];
+const apiBaseUrl = document.documentElement.dataset.urlApi;
 
 class ThermometerClient {
   constructor(token) {

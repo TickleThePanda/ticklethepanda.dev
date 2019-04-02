@@ -4,7 +4,7 @@ import { TokenStorage } from './admin/token-storage.js';
 import { WeightApp } from './admin/weight-app.js';
 import { ThermometerApp } from './admin/thermometer-app.js';
 
-const assetsBaseUrl = document.documentElement.dataset['url-assets'];
+const assetsBaseUrl = document.documentElement.dataset.urlAssets;
 
 let tokenClient = new TokenClient();
 let tokenStorage = new TokenStorage();

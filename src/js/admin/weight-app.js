@@ -18,7 +18,7 @@ function cleanWeightResult(weight) {
   }
 }
 
-const apiBaseHealthUrl = document.documentElement.dataset['url-api-health'];
+const apiBaseHealthUrl = document.documentElement.dataset.urlApiHealth;
 
 class WeightClient {
 

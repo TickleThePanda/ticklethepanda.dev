@@ -1,6 +1,6 @@
 export { HealthClient };
 
-const baseUrl = document.documentElement.dataset["url-api-health"];
+const baseUrl = document.documentElement.dataset.urlApiHealth;
 
 function handleResponse(response) {
   if(response.ok) {

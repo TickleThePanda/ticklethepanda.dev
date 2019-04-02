@@ -1,6 +1,6 @@
 (function() {
 
-  const imagesBaseUrl = document.documentElement.dataset['url-images'];
+  const imagesBaseUrl = document.documentElement.dataset.urlImages;
 
   function modulo(n, d) {
     return ((n % d) + d) % d;
