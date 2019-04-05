@@ -1,23 +1,20 @@
-var gulp = require('gulp');
+const gulp = require('gulp');
 
-var less = require('gulp-less');
-var cleanCss = require('gulp-clean-css');
-var postCss = require('gulp-postcss');
-var autoprefixer = require('autoprefixer');
+const less = require('gulp-less');
+const cleanCss = require('gulp-clean-css');
+const postCss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
 
-var uglifyjs = require('uglify-es');
-var composer = require('gulp-uglify/composer');
+const uglifyjs = require('uglify-es');
+const composer = require('gulp-uglify/composer');
 
-var sourcemaps = require('gulp-sourcemaps');
-var child = require('child_process');
-var gulpUtil = require('gulp-util');
-var shell = require('gulp-shell');
+const sourcemaps = require('gulp-sourcemaps');
+const gulpUtil = require('gulp-util');
+const shell = require('gulp-shell');
 
-var minify = composer(uglifyjs, console);
+const minify = composer(uglifyjs, console);
 
-let assetsBaseOutput = 'site/assets';
-
-var minify = composer(uglifyjs, console);
+const assetsBaseOutput = 'site/assets';
 
 gulp.task('site', shell.task('eleventy'));
 
