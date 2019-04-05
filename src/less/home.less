@@ -2,15 +2,18 @@
 @import "shared/colors.less";
 
 #my-face {
+
+  @border-chunk-size: 0.65em;
+
   border-radius: 50%;
   display:block;
   margin-left:auto;
   margin-right:auto;
-  border: 2px @black solid;
-  background-color: @black;
-  box-shadow: 0 0 0 0.5em @primary;
+  box-shadow: 0 0 0 @border-chunk-size @primary;
+  border: @border-chunk-size @secondary solid;
 
-  padding: 0.5rem;
+  padding: 1px;
+  background-color: @secondary;
 
   /*
    * This needs extra margin at the bottom
