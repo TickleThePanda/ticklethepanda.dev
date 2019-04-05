@@ -55,10 +55,10 @@ let all = () => gulp.series('site', gulp.parallel('css', 'js', 'vega', 'html-par
 gulp.task('default', all());
 
 gulp.task('watch', function() {
-  gulp.watch('src/js/**/*.js', all());
-  gulp.watch('src/less/**/*.less', all());
-  gulp.watch('src/vg/**/*.json', all());
-  gulp.watch('src/html-partials/**/*.html', all());
-  gulp.watch(['_config.yml', 'src/eleventy/**/*'], all());
+  gulp.watch('src/js/**/*.js', gulp.parallel('js'));
+  gulp.watch('src/less/**/*.less', gulp.parallel('css'));
+  gulp.watch('src/vg/**/*.json', gulp.parallel('vega'));
+  gulp.watch('src/html-partials/**/*.html', gulp.parallel('html-partials'));
+  gulp.watch('src/eleventy/**/*', gulp.parallel('site'));
 });
 
