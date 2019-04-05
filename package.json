@@ -20,19 +20,19 @@
   },
   "author": "",
   "devDependencies": {
-    "local-web-server": "^2.6.1",
-    "concurrently": "^3.6.0"
+    "concurrently": "^3.6.1",
+    "local-web-server": "^2.6.1"
   },
   "dependencies": {
-    "@11ty/eleventy": "^0.6.0",
-    "autoprefixer": "^8.1.0",
+    "@11ty/eleventy": "^0.8.0",
+    "autoprefixer": "^8.6.5",
     "gulp": "^4.0.0",
-    "gulp-clean-css": "^3.0.4",
-    "gulp-less": "^4.0.0",
+    "gulp-clean-css": "^3.10.0",
+    "gulp-less": "^4.0.1",
     "gulp-postcss": "^7.0.1",
-    "gulp-shell": "^0.6.5",
-    "gulp-sourcemaps": "^2.6.0",
-    "gulp-uglify": "https://github.com/terinjokes/gulp-uglify",
+    "gulp-shell": "^0.7.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "git+https://github.com/terinjokes/gulp-uglify.git",
     "gulp-util": "^3.0.8",
     "uglify-es": "^3.3.9"
   }
