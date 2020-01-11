@@ -1,6 +1,9 @@
 @import "shared/sizes.less";
 @import "shared/colors.less";
 
+@originX: 54%;
+@originY: 50%;
+
 .my-face-wrapper-1 {
   width: fit-content;
   margin: auto;
@@ -8,14 +11,14 @@
   background-color: @palette-secondary-background;
 
   clip-path: polygon(
-    12.34% 23.26%,
-    21.52% 4.55%,
-    68.39% 3.81%,
-    81.51% 21.81%,
-    79.59% 68.69%,
-    65.59% 90.68%,
-    51.86% 97.31%,
-    23.24% 71.56%
+    (@originX + 33%) (@originY - 22%),
+    (@originX + 24%) (@originY - 40%),
+    (@originX - 22%) (@originY - 41%),
+    (@originX - 37%) (@originY - 23%),
+    (@originX - 34%) (@originY + 23%),
+    (@originX - 21%) (@originY + 46%),
+    (@originX -  6%) (@originY + 50%),
+    (@originX + 22%) (@originY + 26%)
   );
 }
 
@@ -26,13 +29,13 @@
   background-color: @palette-tertiary-background;
 
   clip-path: polygon(
-    16.81% 22.95%,
-    26.69% 8.27%,
-    65.26% 7.64%,
-    76.8% 24.78%,
-    75.21% 67.26%,
-    62.74% 89.31%,
-    25.49% 68.93%
+    (@originX + 29%) (@originY - 22%),
+    (@originX + 19%) (@originY - 37%),
+    (@originX - 22%) (@originY - 36%),
+    (@originX - 31%) (@originY - 25%),
+    (@originX - 30%) (@originY + 22%),
+    (@originX - 15%) (@originY + 44%),
+    (@originX + 20%) (@originY + 23%)
   );
 }
 
@@ -46,13 +49,13 @@
   max-height: calc(100vh - 7rem);
 
   clip-path: polygon(
-    20.86% 22.63%,
-    31.1% 10.9%,
-    63.59% 11.82%,
-    73.19% 24.69%,
-    71.46% 68.07%,
-    61.5% 83.84%,
-    28.98% 65.45%
+    (@originX + 24%) (@originY - 22%),
+    (@originX + 14%) (@originY - 33%),
+    (@originX - 19%) (@originY - 34%),
+    (@originX - 28%) (@originY - 22%),
+    (@originX - 26%) (@originY + 23%),
+    (@originX - 16%) (@originY + 38%),
+    (@originX + 18%) (@originY + 20%)
   );
 
   margin-top: -1.5rem;
