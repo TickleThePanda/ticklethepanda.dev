@@ -4,9 +4,27 @@
 @originX: 54%;
 @originY: 50%;
 
+.my-face-outer-wrapper {
+  width: 60%;
+  max-width: 100%;
+  height: auto;
+  
+  margin-left: -3em;
+  margin-top: -2em !important;
+  margin-bottom: 1em;
+  
+  float: left;
+  
+  shape-outside: polygon(
+    (@originX + 28%) (@originY - 50%),
+    (@originX + 40%) (@originY - 31%),
+    (@originX + 32%) (@originY +  3%),
+    (@originX + 26%) (@originY + 27%),
+    (@originX - 10%) (@originY + 50%)
+  );
+}
+
 .my-face-wrapper-1 {
-  width: fit-content;
-  margin: auto;
 
   background-color: @palette-secondary-background;
 
@@ -46,7 +64,6 @@
   margin-right:auto;
 
   width: auto;
-  max-height: calc(100vh - 7rem);
 
   clip-path: polygon(
     (@originX + 24%) (@originY - 22%),
@@ -57,8 +74,6 @@
     (@originX - 16%) (@originY + 38%),
     (@originX + 18%) (@originY + 20%)
   );
-
-  margin-top: -1.5rem;
 
   background-color: unset;
   border: unset;
