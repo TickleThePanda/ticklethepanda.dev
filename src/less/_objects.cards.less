@@ -7,6 +7,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
   grid-gap: 1em;
+
+  filter: drop-shadow(@high-contrast-shadow);
 }
 
 .card {
@@ -17,7 +19,7 @@
 .card__link {
   display: block;
   padding: 1em;
-  background-color: @palette-secondary-background;
+  background-color: @palette-primary-inverted-background;
 }
 
 @supports(background-image: paint(randomBorder)) {
@@ -26,14 +28,14 @@
    */
   .card {
 
-    --random-border--background-color: @palette-secondary-background;
+    --random-border--background-color: @palette-primary-inverted-background;
     --random-border--safe-padding: 1.5em;
 
     background-image: paint(randomBorder);
   }
 
   .card:hover, .card:active {
-    --random-border--background-color: @palette-primary-inverted-background;
+    --random-border--background-color: @palette-secondary-background;
   }
 
   .card__link {

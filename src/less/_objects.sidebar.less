@@ -15,6 +15,11 @@
   align-self: stretch;
 }
 
+.sidebar__header-wrapper {
+  filter: drop-shadow(@high-contrast-shadow);
+  align-self: stretch;
+}
+
 .sidebar__section-title {
   display: none;
 }
@@ -43,7 +48,7 @@
 
 .sidebar__aside {
 
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 
   font-weight: @font-weight__title-normal;
 
@@ -54,9 +59,10 @@
 
   p {
     margin-top: 0.5rem;
-    transform: rotate(5deg);
+    transform: rotate(-5deg);
     transform-origin: right;
   }
+
 }
 
 @media (max-width: @mobile-breakpoint) {
