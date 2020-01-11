@@ -2,13 +2,12 @@ a {
 
   text-decoration: none;
   font-weight: @font-weight__body-bold;
-  
-  &:link, &:visited, &:hover, &:active {
-    color: darken(@primary, 25%, relative);
+
+  &:link, &:visited {
+    color: @palette-primary-stroke-increased-contrast;
   }
-  
+
   &:hover {
-    color: darken(@primary, 75%, relative);
+    color: @palette-primary-stroke-reduced-contrast;
   }
 }
-

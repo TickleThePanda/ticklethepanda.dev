@@ -4,15 +4,23 @@
   position: absolute;
   right: 0;
 
-  stroke: #ffffff;
-  background-color: @header-background-color;
+  stroke: @palette-secondary-stroke;
+  background-color: @palette-secondary-background;
   overflow: hidden;
 
-  padding: 1em;
-  height: 3em;
-  width: 3em;
+  padding: 1.5em;
+  height: 4em;
+  width: 4em;
 
   user-select: none;
+
+  clip-path: polygon(
+    7% 30%,
+    30% 5%,
+    100% 0%,
+    100% 100%,
+    17% 100%
+  );
 }
 
 .nav-toggle__animated-line {

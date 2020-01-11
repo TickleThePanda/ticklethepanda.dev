@@ -5,7 +5,8 @@
 
 html, body {
   font-family: @font-family-main;
-  color: @black;
+  color: @palette-primary-stroke;
+  background-color: @palette-primary-background;
 }
 
 body {
@@ -13,10 +14,7 @@ body {
 }
 
 ::selection {
-  background-color: @primary;
+  color: @palette-secondary-stroke;
+  background-color: @palette-secondary-background;
 }
 
-:focus {
-  outline: @primary-dark solid 2px;
-  outline-offset: 0;
-}

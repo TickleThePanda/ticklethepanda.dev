@@ -7,10 +7,6 @@
 
   text-align: right;
 
-  color: #ffffff;
-
-  background-color: @header-background-color;
-
   font-family: @font-family-title;
   font-weight: @font-weight__title-normal;
 }
@@ -24,8 +20,25 @@
 }
 
 .sidebar__content {
-  padding: 1rem;
+  padding: 1.5rem;
   width: @sidebar-width;
+
+  // used for more colour for clip path at bottom
+  padding-bottom: 5em;
+
+  color: @palette-secondary-stroke;
+  background-color: @palette-secondary-background;
+
+  clip-path: polygon(
+    0.7em 2.9em,
+    1.8em 1em,
+    calc(100% - 1em) 0.4em,
+    calc(100% - 0.2em) 2.8em,
+    calc(100% - 0.5em) calc(100% - 4em),
+    calc(100% - 3rem) calc(100% - 1em),
+    4.4em calc(100% - 1.5em),
+    2em calc(100% - 3.6em)
+  );
 }
 
 .sidebar__aside {
@@ -41,6 +54,8 @@
 
   p {
     margin-top: 0.5rem;
+    transform: rotate(5deg);
+    transform-origin: right;
   }
 }
 
@@ -65,9 +80,9 @@
     display: block;
     margin: 0;
     padding: 2em;
-    padding-bottom: 1.5em;
+    padding-bottom: 3em;
   }
-  
+
   .sidebar__aside {
     display: none;
   }

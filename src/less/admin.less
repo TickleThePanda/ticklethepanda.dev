@@ -18,7 +18,7 @@
   }
 
   &.error {
-    background-color: @error;
+    background-color: @palette-error;
   }
 
   &.success > .success {
@@ -38,7 +38,7 @@
   }
 
   tr {
-    border-bottom: @border-light; 
+    border-bottom: @border-light;
   }
 
   th, td {
@@ -55,7 +55,8 @@
 
     font-weight: bold;
 
-    background-color: @white;
+    background-color: @palette-secondary-background;
+    color: @palette-secondary-stroke;
   }
 
   thead th::after {
@@ -67,4 +68,3 @@
     border-bottom: @border;
   }
 }
-

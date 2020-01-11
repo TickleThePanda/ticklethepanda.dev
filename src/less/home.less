@@ -1,29 +1,61 @@
 @import "shared/sizes.less";
 @import "shared/colors.less";
 
-#my-face {
+.my-face-wrapper-1 {
+  width: fit-content;
+  margin: auto;
 
-  @border-chunk-size: 0.65em;
+  background-color: @palette-secondary-background;
 
-  border-radius: 50%;
+  clip-path: polygon(
+    12.34% 23.26%,
+    21.52% 4.55%,
+    68.39% 3.81%,
+    81.51% 21.81%,
+    79.59% 68.69%,
+    65.59% 90.68%,
+    51.86% 97.31%,
+    23.24% 71.56%
+  );
+}
+
+.my-face-wrapper-2 {
+  width: fit-content;
+  margin: auto;
+
+  background-color: @palette-tertiary-background;
+
+  clip-path: polygon(
+    16.81% 22.95%,
+    26.69% 8.27%,
+    65.26% 7.64%,
+    76.8% 24.78%,
+    75.21% 67.26%,
+    62.74% 89.31%,
+    25.49% 68.93%
+  );
+}
+
+.my-face {
+
   display:block;
   margin-left:auto;
   margin-right:auto;
-  box-shadow: 0 0 0 @border-chunk-size @primary;
-  border: @border-chunk-size @secondary solid;
-
-  padding: 1px;
-  background-color: @secondary;
-
-  /*
-   * This needs extra margin at the bottom
-   * because of its box shadow
-   */
-  margin-bottom: 2rem;
-  margin-top: -1rem;
 
   width: auto;
   max-height: calc(100vh - 7rem);
+
+  clip-path: polygon(
+    20.86% 22.63%,
+    31.1% 10.9%,
+    63.59% 11.82%,
+    73.19% 24.69%,
+    71.46% 68.07%,
+    61.5% 83.84%,
+    28.98% 65.45%
+  );
+
+  margin-top: -1.5rem;
 }
 
 @media (max-width: @mobile-breakpoint) {
@@ -47,4 +79,3 @@
 .social-media-link {
   margin: 1em;
 }
-

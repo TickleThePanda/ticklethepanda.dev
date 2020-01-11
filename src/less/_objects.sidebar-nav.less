@@ -1,5 +1,6 @@
 .sidebar-nav {
   letter-spacing: @header-letter-spacing;
+  padding-top:0.75rem;
 }
 
 .sidebar-nav__title {
@@ -8,9 +9,8 @@
 
 .sidebar-nav__section-title {
   margin: 0;
-  margin-top: 1.5rem;
+  margin-top: 2.5rem;
   padding: 0;
-  padding-bottom: 0.2em;
   line-height: 1;
   font-size: 1em;
   font-weight: @font-weight__title-bold;
@@ -20,8 +20,8 @@
    */
   border-top: none;
 
-  border-bottom: @border;
-  border-color: #ffffff;
+  transform: rotate(5deg);
+  transform-origin: right;
 }
 
 .sidebar-nav__sidebar-title--first {
@@ -38,7 +38,7 @@
 .sidebar-nav__list-item { }
 
 .sidebar-nav__list-item--first {
-  margin-top: 0.5em;
+  padding-top: 0;
 }
 
 .sidebar-nav__link {
@@ -47,14 +47,17 @@
   /*
    * Use padding to make link easier to click.
    */
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
 
   font-weight: @font-weight__title-normal;
 
+  transform: rotate(-5deg);
+  transform-origin: right;
+
   text-decoration:none;
   &, &:link, &:visited {
-    color: #ffffff;
+    color: inherit;
   }
 
   &:hover, &:active {

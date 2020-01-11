@@ -1,16 +1,18 @@
-@primary: #008291;
-@primary-dark: darken(@primary, 30%, relative);
+@palette-primary-stroke:lighten(#b8c1ec, 10%, relative);
+@palette-primary-stroke-increased-contrast: lighten(@palette-primary-stroke, 10%, relative);
+@palette-primary-stroke-reduced-contrast: darken(@palette-primary-stroke, 10%, relative);
+@palette-primary-stroke-extra-reduced-contrast: darken(@palette-primary-stroke, 25%, relative);
+@palette-primary-background: #232946;
 
-@secondary: #ffc915;
-@secondary-pale: #faefca;
 
-@header-background-color: @primary;
+@palette-primary-inverted-stroke: #232946;
+@palette-primary-inverted-stroke-reduced-contrast: lighten(@palette-primary-stroke, 20%, relative);
+@palette-primary-inverted-background: darken(@palette-primary-stroke, 10%, relative);
 
-@error: #F7C3CC;
+@palette-secondary-stroke: @palette-primary-background;
+@palette-secondary-background: #eebbc3;
+@palette-tertiary-stroke: @palette-primary-background;
+@palette-tertiary-background: #fffffe;
+@palette-background-low-contrast: @palette-tertiary-background;
 
-@white: #fff;
-@black: #444;
-
-@grey: #ccc;
-@grey-light: #eee;
-
+@palette-error: #d73733;

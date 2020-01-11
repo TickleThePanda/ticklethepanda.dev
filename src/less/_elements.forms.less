@@ -1,7 +1,7 @@
 
 button, input, select, textarea {
   display: block;
-  
+
   border: none;
   padding: 0.5em;
 
@@ -15,18 +15,18 @@ input, select, textarea {
 }
 
 button {
-  background-color: @secondary-pale;
+  background-color: @palette-tertiary-background;
 }
 
 button:hover {
-  background-color: @primary;
-  color: #ffffff;
+  background-color: @palette-secondary-background;
+  color: @palette-secondary-stroke;
 }
 
 .toggle-button.selected {
-  background-color: @primary;
-  color: #ffffff;
-  box-shadow: 0 0 0 1px @black;
+  background-color: @palette-secondary-background;
+  color: @palette-secondary-stroke;
+  box-shadow: 0 0 0 1px @palette-primary-stroke;
 }
 
 form.inline, .form.inline {
@@ -49,7 +49,7 @@ select:focus, input:focus {
 
 input:focus, select:focus {
   outline: none;
-  box-shadow: 0 4px 0 0 @secondary;
+  box-shadow: 0 4px 0 0 @palette-tertiary-stroke;
 }
 
 button.link {
@@ -60,26 +60,25 @@ button.link {
 
   border: none;
 
-  background-color: inherit;
+  background-color: @palette-primary-background;
+  color: @palette-primary-stroke;
 
   cursor: pointer;
 
   text-decoration:underline;
   text-decoration-skip: ink;
-  
+
   &:hover, &:active {
-    color: darken(@primary, 50%);
+    color: @palette-primary-stroke-reduced-contrast;
   }
-  
+
   &:hover {
     text-decoration: none;
   }
 
   &:disabled {
-    color: lighten(@black, 30%);
+    color: @palette-primary-stroke-extra-reduced-contrast;
     text-decoration: line-through;
     cursor: not-allowed;
   }
 }
-
-

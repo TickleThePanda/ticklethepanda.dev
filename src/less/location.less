@@ -15,9 +15,9 @@
 
     line-height: 1;
 
-    color: @black;
+    color: lighten(@palette-primary-stroke, 20%, relative);
 
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: fade(@palette-primary-background, 80%);
 
     margin: 1em;
     padding: 0.5em;
@@ -30,12 +30,13 @@
   .image-container {
     .aspect-ratio(100, 85);
 
-    background-color: @secondary-pale;
+    background-color: @palette-secondary-background;
 
     img {
       padding: 1rem;
+
+      filter: hue-rotate(hue(@palette-primary-background) * 1deg) brightness(1.5);
     }
   }
 
 }
-
