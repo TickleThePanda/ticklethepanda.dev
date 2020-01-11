@@ -8,37 +8,16 @@ permalink: /other/
 <p>Here are some other personal projects that I've worked on.
 
 <ul class="cards">
-  <li class="card">
-    <a class="card__link card__link--variant-1" href="https://hitchikers.ticklethepanda.co.uk">
-      <h3 class="card__header">The Hitchhiker's Guide to the Galaxy</h3>
-      <p>
-        A little app that I made as part of an Arthur Dent fancy dress costume.
-      </p>
-    </a>
-  </li>
-  <li class="card">
-    <a class="card__link" href="https://tartan-ify.ticklethepanda.co.uk">
-      <h3 class="card__header">Tartan-ify</h3>
-      <p>
-        A tool to analyse patterns within a single piece of music. Most of the
-        patterns end up looking like tartan, hence the name.
-      </p>
-    </a>
-  </li>
-  <li class="card">
-    <a class="card__link" href="https://dm.dnd.ticklethepanda.co.uk">
-      <h3 class="card__header">When I'm a Dungeon Master</h3>
-      <p>
-        My Dungeons and Dragons adventures that I run as a dungeon master.
-      </p>
-    </a>
-  </li>
-  <li class="card">
-    <a class="card__link" href="https://dnd.ticklethepanda.co.uk">
-      <h3 class="card__header">When I'm a Player</h3>
-      <p>
-        My Dungeons and Dragons characters that I've played.
-      </p>
-    </a>
-  </li>
+  {% for project in other-projects %}
+    <li class="card">
+      <a class="card__link card__link--variant-1" href="{{ project.url }}">
+        <h3 class="card__header">{{ project.name }}</h3>
+        <p>{{ project.description }}</p>
+        <div class="card__footer">
+          <div class="card__url">{{ project.url }}</div>
+          <div class="card__arrow">→</div>
+        </div>
+      </a>
+    </li>
+  {% endfor %}
 </ul>

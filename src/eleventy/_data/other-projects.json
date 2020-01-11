@@ -1,0 +1,23 @@
+[
+  {
+    "name": "The Hitchhiker's Guide to the Galaxy",
+    "description": "A little app that I made as part of an Arthur Dent fancy-dress costume.",
+    "url": "https://hitchikers.ticklethepanda.co.uk/"
+  },
+  {
+    "name": "Tartan-ify",
+    "description": "A tool to analyse patterns within a piece of musc. Most of the patters end up looking like tartan which is where it gets its name!",
+    "url": "https://tartan-ify.ticklethepanda.co.uk/"
+  },
+  {
+    "name": "When I'm a Dungeon Master",
+    "description": "My Dungeons and Dragons adventures that I run as a dungeon master",
+    "url": "https://dm.dnd.ticklethepanda.co.uk"
+  },
+  {
+    "name": "When I'm a Player",
+    "description": "My Dungeons and Dragons characters that I've played.",
+    "url": "https://dnd.ticklethepanda.co.uk"
+  }
+]
+
