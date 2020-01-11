@@ -6,10 +6,9 @@ permalink: /photography/
 ---
 
 <p>
-I've been an amateur photographer since I was 15. These gallaries show my
-favourite photos from the past few years. Although I usually prefer taking
-shots of landscapes and plants, there are a couple of shots of people in here
-which I really like!
+I like taking photos and these gallaries show my favourite photos from the
+past few years. Although I usually prefer taking shots of landscapes and
+plants, there are a couple of shots of people in here which I really like!
 </p>
 
 <div class="galleries">
@@ -17,7 +16,9 @@ which I really like!
   {% assign thumbsPath = gallery.thumbsPath %}
   {% assign fullPath = gallery.fullPath %}
 
-  {% for gallery in galleries %}
+  {% assign reverseGalleries = galleries | reverse %}
+
+  {% for gallery in reverseGalleries %}
     <div id="gallery-{{ gallery.reference }}" class="gallery">
       <nav class="gallery-nav">
         {% assign prev_i = forloop.index0 | minus: 1 %}
