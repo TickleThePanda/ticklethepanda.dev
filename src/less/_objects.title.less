@@ -7,7 +7,10 @@
   background-color: @palette-primary-inverted-background;
 }
 
-.title:link {color: @palette-primary-inverted-stroke;}                                /* unvisited link */
-.title:visited {color:@palette-primary-inverted-stroke;}                             /* visited link */
-.title:hover {color:@palette-secondary-stroke;}                                   /* mouse over link */
-.title:active {color:@palette-primary-inverted-stroke;}                                  /* selected link */
+.title:link, .title:visited {
+  color: @palette-primary-inverted-stroke;
+}
+.title:hover, .title:active {
+  background-color: @palette-secondary-background;
+  color: @palette-secondary-stroke;
+}
