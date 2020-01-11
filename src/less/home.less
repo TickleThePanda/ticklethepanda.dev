@@ -86,10 +86,12 @@
   margin: 0.5em;
   padding: 1em;
 
-  --random-border--background-color: @palette-secondary-background;
-  --random-border--safe-padding: 0.5em;
+  @supports (background-image: paint(randomBorder)) {
+    --random-border--background-color: @palette-secondary-background;
+    --random-border--safe-padding: 0.5em;
 
-  background-image: paint(randomBorder);
+    background-image: paint(randomBorder);
+  }
 
   a {
     display: block;
