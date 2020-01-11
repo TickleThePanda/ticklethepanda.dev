@@ -28,9 +28,9 @@
     0.9em 0.6em,
     0.2em 2.4em,
     1.9em calc(100% - 0.4em),
-    calc(100% - 3em) calc(100% - 1.5em),
-    calc(100% - 1.9em) calc(100% - 2.3em),
-    calc(100% - 3.7em) 0.5em
+    calc(100% - 2em) calc(100% - 1em),
+    calc(100% - 0.9em) calc(100% - 2.3em),
+    calc(100% - 2.7em) 0.5em
   );
 
 }
@@ -40,6 +40,7 @@
   color: @palette-secondary-stroke;
   background-color: @palette-secondary-background;
 }
+
 
 .header-bar__header-item {
   margin: 0;
@@ -57,6 +58,10 @@
 
 .header-bar__header-item--secondary {
   transform: rotate(3deg);
+
+  @media (max-width: @mobile-breakpoint) {
+    margin: auto;
+  }
 }
 
 .header-bar__header-item--aside {
