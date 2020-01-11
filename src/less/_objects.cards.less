@@ -1,0 +1,52 @@
+.cards {
+  margin: 0;
+  margin-top: 1em;
+  padding: 0;
+  border: unset;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+  grid-gap: 1em;
+}
+
+.card {
+  margin: 0;
+  padding: 0;
+}
+
+.card__link {
+  display: block;
+  padding: 1em;
+  background-color: @palette-secondary-background;
+}
+
+@supports(background-image: paint(randomBorder)) {
+  /*
+   * Background image didn't work on a link.
+   */
+  .card {
+
+    --random-border--background-color: @palette-secondary-background;
+    --random-border--safe-padding: 1.5em;
+
+    background-image: paint(randomBorder);
+  }
+
+  .card:hover, .card:active {
+    --random-border--background-color: @palette-primary-inverted-background;
+  }
+
+  .card__link {
+    background-color: unset;
+
+    padding: 2em;
+  }
+}
+
+.card__link:link, .card__link:visited {
+  color: @palette-secondary-stroke;
+}
+
+.card__header {
+  margin-top: 0;
+}

@@ -83,5 +83,20 @@
 }
 
 .social-media-link {
-  margin: 1em;
+  margin: 0.5em;
+  padding: 1em;
+
+  --random-border--background-color: @palette-secondary-background;
+  --random-border--safe-padding: 0.5em;
+
+  background-image: paint(randomBorder);
+
+  a {
+    display: block;
+  }
+
+  img {
+    background-color: unset;
+    border: unset;
+  }
 }
