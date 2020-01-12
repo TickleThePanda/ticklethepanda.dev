@@ -53,11 +53,18 @@
 .header-bar__header-item--main {
   flex: 1 0 auto;
 
-  transform: rotate(-2deg);
+  transform: rotate(2deg) translateY(0.2rem);
+  transform-origin: right;
+  @media (max-width: @mobile-breakpoint) {
+    margin: auto;
+    transform: rotate(1.4deg);
+    transform-origin: unset;
+  }
 }
 
 .header-bar__header-item--secondary {
-  transform: rotate(3deg);
+  transform: rotate(-1.2deg);
+  padding-left: 2rem;
 
   @media (max-width: @mobile-breakpoint) {
     margin: auto;
