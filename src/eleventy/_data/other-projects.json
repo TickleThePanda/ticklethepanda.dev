@@ -1,13 +1,18 @@
 [
   {
-    "name": "The Hitchhiker's Guide to the Galaxy",
-    "description": "A little app that I made as part of an Arthur Dent fancy-dress costume.",
+    "name": "Star Realms Score Tracker",
+    "description": "A star realms authority tracker with history tracking for up to six players.",
     "url": "https://hitchikers.ticklethepanda.co.uk/"
   },
   {
     "name": "Tartan-ify",
     "description": "A tool to analyse patterns within a piece of musc. Most of the patters end up looking like tartan which is where it gets its name!",
     "url": "https://tartan-ify.ticklethepanda.co.uk/"
+  },
+  {
+    "name": "The Hitchhiker's Guide to the Galaxy",
+    "description": "A little app that I made as part of an Arthur Dent fancy-dress costume.",
+    "url": "https://hitchikers.ticklethepanda.co.uk/"
   },
   {
     "name": "When I'm a Dungeon Master",
