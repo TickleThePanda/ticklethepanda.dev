@@ -1,9 +1,10 @@
+@import "_settings.fonts.less";
+@import "_settings.colors.less";
+@import "_settings.z-index.less";
+@import "_settings.sizes.less";
+@import "_settings.borders.less";
+
 @import "_tools.aspect-ratio.less";
-@import "shared/fonts.less";
-@import "shared/colors.less";
-@import "shared/z-index.less";
-@import "shared/sizes.less";
-@import "shared/borders.less";
 
 @import "_components.faceted-data.less";
 
@@ -19,7 +20,7 @@
 
     background-color: fade(@palette-primary-background, 80%);
 
-    margin: 1em;
+    margin: 2em;
     padding: 0.5em;
   }
 
@@ -28,12 +29,15 @@
   }
 
   .image-container {
+
+    --random-border--safe-padding: 1.5rem;
+
     .aspect-ratio(100, 85);
 
     background-color: @palette-secondary-background;
 
     img {
-      padding: 1rem;
+      padding: 2rem;
 
       filter: hue-rotate(hue(@palette-primary-background) * 1deg) brightness(1.5);
 
