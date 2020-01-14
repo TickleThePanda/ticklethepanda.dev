@@ -77,9 +77,7 @@
   transform: rotate(var(--rotation));
   transform-origin: right;
 
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in;
-  transition-property: background-color, color;
+  transition: @button-high-contrast-hover-transition;
 
   text-decoration:none;
   &, &:link, &:visited {
