@@ -38,7 +38,9 @@
   transition: @button-low-contrast-hover-transition;
 }
 
-.card__link:hover, .card__link:active {
+.card__link:hover, .card__link:active,
+.card:focus-within .card__link:link,
+.card:focus-within .card__link:visited {
   background-color: @palette-secondary-background;
   color: @palette-secondary-stroke;
 }
