@@ -12,37 +12,27 @@
 }
 
 .card {
-  --random-border--safe-padding: 1em;
-  --random-border--animation-duration-ms: 200;
-
   margin: 0;
   padding: 0;
 
   height: 100%;
+
+  --random-border--safe-padding: 1em;
+  --random-border--animation-duration-ms: 200;
+
+  --random-border--inner-padding: 2em;
 }
 
-.card__link:link, .card__link:visited {
+.card__link {
+
+  padding: 2em;
 
   display: grid;
 
   height: 100%;
 
-  // extra padding because of random clip path above
-  padding: 2em;
-
-  background-color: @palette-primary-inverted-background;
-  color: @palette-secondary-stroke;
-
   grid-template-rows: auto 1fr auto;
 
-  transition: @button-low-contrast-hover-transition;
-}
-
-.card__link:hover, .card__link:active,
-.card:focus-within .card__link:link,
-.card:focus-within .card__link:visited {
-  background-color: @palette-secondary-background;
-  color: @palette-secondary-stroke;
 }
 
 .card__header {

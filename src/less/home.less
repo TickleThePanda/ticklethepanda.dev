@@ -99,21 +99,25 @@
 
 .social-media-link {
   margin: 0.5em;
-  padding: 1em;
-
-  @supports (background-image: paint(randomBorder)) {
-    --random-border--background-color: @palette-secondary-background;
-    --random-border--safe-padding: 0.5em;
-
-    background-image: paint(randomBorder);
-  }
+  --random-border--safe-padding: 0.5em;
+  --random-border--animation-duration-ms: 200;
 
   a {
     display: block;
+    padding: 1em;
+
+    width: 3.8em;
+    height: 3.8em;
+
+    transition-property: background-image 1s ease-in;
   }
 
   img {
-    background-color: unset;
-    border: unset;
+    max-width: 1.9em;
+    max-height: 1.9em;
+    background-color: white;
+    padding: 0.2em;
+    border-radius: 100%;
+    border: none;
   }
 }

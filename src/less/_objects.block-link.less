@@ -1,0 +1,26 @@
+.block-link {
+}
+
+.block-link--random-border {
+}
+.block-link__wrapper {}
+
+.block-link__link:link, .block-link__link:visited {
+  background-color: @palette-primary-inverted-background;
+  color: @palette-secondary-stroke;
+
+  transition: @button-low-contrast-hover-transition;
+
+  text-decoration: none;
+}
+
+.block-link__link:hover, .block-link__link:active {
+  background-color: @palette-secondary-background;
+  color: @palette-secondary-stroke;
+}
+
+.block-link__wrapper:focus-within .block-link__link:link,
+.block-link__wrapper:focus-within .block-link__link:visited {
+  background-color: @palette-secondary-background;
+  color: @palette-secondary-stroke;
+}
