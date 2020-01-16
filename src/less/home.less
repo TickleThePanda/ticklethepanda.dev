@@ -1,5 +1,6 @@
 @import "_settings.sizes.less";
 @import "_settings.colors.less";
+@import "_settings.fonts.less";
 
 @originX: 54%;
 @originY: 50%;
@@ -11,15 +12,15 @@
 
   margin-left: -10%;
   margin-top: -7% !important;
-  margin-bottom: 5%;
+  margin-bottom: 2%;
 
   float: left;
 
   shape-outside: polygon(
     (@originX + 22%) (@originY - 60%),
     (@originX + 38%) (@originY - 33%),
-    (@originX + 26%) (@originY + 17%),
-    (@originX - 17%) (@originY + 50%)
+    (@originX + 26%) (@originY + 20%),
+    (@originX - 16%) (@originY + 52%)
   );
 }
 
@@ -78,17 +79,17 @@
   border: unset;
 }
 
-@media (max-width: @mobile-breakpoint) {
+.home-heading {
+  font-size: 1.5em;
+  line-height: 0.7;
+  font-weight: 300;
+  margin: 0;
 
-  #my-face {
-    margin: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 1.5rem;
+  font-family: @font-family-main;
 
-    max-height: calc(100vh - 9rem);
+  strong {
+    font-weight: 500;
   }
-
 }
 
 #social-media-widget {
