@@ -11,7 +11,7 @@
     let date = new Date('2012-06');
     let twoMonthsAgo = new Date();
     twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
-    
+
     while (date < twoMonthsAgo) {
       yearMonths.push(date.toISOString().substring(0, 7));
       date.setMonth(date.getMonth() + 1);
@@ -98,7 +98,7 @@
       imageCache[facet][index] = image;
 
       return image;
-      
+
     }
   }
 
@@ -107,7 +107,7 @@
     let currentImage = imageContainer.querySelector('img');
 
     let image = getImageForState();
-  
+
     if (currentImage) {
       imageContainer.replaceChild(image, currentImage);
     } else {
@@ -123,10 +123,10 @@
     }
 
     document.querySelectorAll('#location-slideshow .facets button').forEach(button => {
-      button.classList.remove('selected');
+      button.classList.remove('button--selected');
     });
 
-    document.querySelector('#location-facet-' + state.facet).classList.add('selected');
+    document.querySelector('#location-facet-' + state.facet).classList.add('button--selected');
 
     if (state.intervalId !== null) {
       playButton.innerHTML = 'Pause';

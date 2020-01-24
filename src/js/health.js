@@ -54,14 +54,14 @@ window.addEventListener('load', () => {
         .run();
 
       document.querySelectorAll('#weight-charts .facets button').forEach(button => {
-        button.classList.remove('selected');
+        button.classList.remove('button--selected');
       });
 
-      document.querySelector('#weight-chart-' + state.facet).classList.add('selected');
+      document.querySelector('#weight-chart-' + state.facet).classList.add('button--selected');
 
     }
 
-    document.querySelectorAll("#weight-charts .toggle-button")
+    document.querySelectorAll("#weight-charts button")
       .forEach(el => {
         let facet = el.value;
         el.addEventListener('click', event => {
@@ -81,5 +81,3 @@ window.addEventListener('load', () => {
   });
 
 });
-
-

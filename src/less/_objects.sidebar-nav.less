@@ -59,35 +59,10 @@
 }
 
 .sidebar-nav__link {
-  display: block;
-
-  /*
-   * Use padding to make link easier to click.
-   */
-  padding: 0.35rem;
-
-  background-color: @palette-primary-inverted-background;
-  margin-top: 0.5rem;
-  margin-left: auto;
-  max-width: fit-content;
-  border-radius: 0.2rem;
-
-  font-weight: @font-weight__title-normal;
 
   transform: rotate(var(--rotation));
   transform-origin: right;
 
   transition: @button-high-contrast-hover-transition;
-
-  text-decoration:none;
-  &, &:link, &:visited {
-    color: inherit;
-    box-shadow: @low-contrast-shadow;
-  }
-
-  &:hover, &:active {
-    background-color: @palette-primary-background;
-    color: @palette-primary-stroke;
-  }
 
 }
