@@ -2,6 +2,7 @@ window.addEventListener('load', function () {
 
   function generateRandomCssPolygonForElement(randomBorderElement) {
       const safeZone = getComputedStyle(randomBorderElement).getPropertyValue('--random-border--safe-padding');
+      const cornerStyle = getComputedStyle(randomBorderElement).getPropertyValue('--random-border--corner-style');
 
       /*
       * We're going to generate points around each of the corners.
@@ -77,7 +78,7 @@ window.addEventListener('load', function () {
 
       for (let corner of cornerGenerationPoints) {
 
-        if (Math.random() > 0.6) {
+        if (Math.random() > 0.6 && cornerStyle !== 'single') {
 
           allPoints.push(`
             calc(${corner.x} + ${corner.d1.x} * ${safeZone} + ${Math.random() * corner.d.x} * ${safeZone})
