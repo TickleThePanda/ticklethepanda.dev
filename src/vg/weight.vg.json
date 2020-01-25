@@ -61,7 +61,7 @@
     {
       "scale": "x",
       "grid": true,
-      "gridColor": "#fffffe",
+      "gridColor": "#b8c1ec",
       "tickColor": "#232946",
       "labelColor": "#232946",
       "titleColor": "#232946",
@@ -85,7 +85,7 @@
     {
       "scale": "y",
       "grid": true,
-      "gridColor": "#fffffe",
+      "gridColor": "#b8c1ec",
       "tickColor": "#232946",
       "labelColor": "#232946",
       "titleColor": "#232946",
@@ -120,7 +120,7 @@
           "shape": {"value": "circle"},
           "opacity": {"value": 1},
           "stroke": {"value": "transparent"},
-          "fill": {"value": "#b8c1ec"}
+          "fill": {"value": "#232946"}
         }
       }
     }
