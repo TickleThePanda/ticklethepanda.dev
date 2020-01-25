@@ -1,5 +1,5 @@
 {
-  "$schema": "https://vega.github.io/schema/vega/v3.0.json",
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 1000,
   "height": 600,
   "padding": 5,
@@ -61,6 +61,10 @@
     {
       "scale": "x",
       "grid": true,
+      "gridColor": "#232946",
+      "tickColor": "#232946",
+      "labelColor": "#232946",
+      "titleColor": "#232946",
       "orient": "bottom",
       "title": "Date",
       "format": "%Y %b",
@@ -81,6 +85,10 @@
     {
       "scale": "y",
       "grid": true,
+      "gridColor": "#232946",
+      "tickColor": "#232946",
+      "labelColor": "#232946",
+      "titleColor": "#232946",
       "orient": "left",
       "title": "Weight",
       "labelOverlap": true,
@@ -112,10 +120,9 @@
           "shape": {"value": "circle"},
           "opacity": {"value": 1},
           "stroke": {"value": "transparent"},
-          "fill": {"value": "#232946"}
+          "fill": {"value": "#b5beeb"}
         }
       }
     }
   ]
 }
-
