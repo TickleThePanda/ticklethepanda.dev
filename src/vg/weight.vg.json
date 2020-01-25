@@ -61,7 +61,7 @@
     {
       "scale": "x",
       "grid": true,
-      "gridColor": "#b8c1ec",
+      "gridColor": "#fce6e9",
       "tickColor": "#232946",
       "labelColor": "#232946",
       "titleColor": "#232946",
@@ -85,7 +85,7 @@
     {
       "scale": "y",
       "grid": true,
-      "gridColor": "#b8c1ec",
+      "gridColor": "#fce6e9",
       "tickColor": "#232946",
       "labelColor": "#232946",
       "titleColor": "#232946",
