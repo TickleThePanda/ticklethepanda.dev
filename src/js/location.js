@@ -61,44 +61,71 @@
 
   let state = {
     facet: 'all',
-    index: null,
+    index: 0,
     intervalId: null
   }
 
   let imageCache = {};
 
-  function getUrlFromState() {
+  function getImageForState() {
 
-    let facet = data[state.facet];
+    let facetName = state.facet;
+    let facetIndex = state.index;
 
-    if (!facet.value) {
-      let selectedItem = facet[state.index];
-      return `${imagesBaseUrl}/location-history/default-${selectedItem}.png`;
-    } else {
-      return `${imagesBaseUrl}/location-history/default-${facet.value}.png`;
+    return getImage(facetName, facetIndex);
+
+  }
+
+  function cacheImagesForState() {
+
+    for (let facet of Object.keys(data)) {
+      getImage(facet, 0);
+    }
+
+    const currentFacet = state.facet;
+    const currentIndex = state.index
+
+    if (!data[currentFacet].value) {
+      const currentFacetLength = data[currentFacet].length;
+      getImage(currentFacet, (currentIndex - 1) % currentFacetLength);
+      getImage(currentFacet, (currentIndex + 1) % currentFacetLength);
     }
   }
 
-  function getImageForState() {
+  function getImage(facetName, facetIndex) {
+    let facet = data[facetName];
+    let item = facet[facetIndex];
 
-    let facet = state.facet;
-    let index = state.index;
-
-    if (imageCache[facet] && imageCache[facet][index]) {
-      return imageCache[facet][index];
+    if (imageCache[facetName] && imageCache[facetName][facetIndex]) {
+      return imageCache[facetName][facetIndex];
     } else {
-      let image = new Image();
 
-      image.src = getUrlFromState();
+      const image = buildImage(facet, item);
 
-      if (!imageCache[facet]) {
-        imageCache[facet] = {};
+      if (!imageCache[facetName]) {
+        imageCache[facetName] = {};
       }
 
-      imageCache[facet][index] = image;
+      imageCache[facetName][facetIndex] = image;
 
       return image;
+    }
 
+  }
+
+  function buildImage(facet, item) {
+    const image = new Image();
+
+    image.src = buildImageUrl(facet, item);
+
+    return image;
+  }
+
+  function buildImageUrl(facet, item) {
+    if (!facet.value) {
+      return `${imagesBaseUrl}/location-history/default-${item}.png`;
+    } else {
+      return `${imagesBaseUrl}/location-history/default-${facet.value}.png`;
     }
   }
 
@@ -107,6 +134,8 @@
     let currentImage = imageContainer.querySelector('img');
 
     let image = getImageForState();
+
+    cacheImagesForState();
 
     if (currentImage) {
       imageContainer.replaceChild(image, currentImage);
@@ -141,11 +170,7 @@
       state.intervalId = null;
 
       state.facet = facet;
-      if (!data[facet].value) {
-        state.index = 0;
-      } else {
-        state.index = null;
-      }
+      state.index = 0;
 
       updateView();
 
