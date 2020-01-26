@@ -119,8 +119,8 @@
           "size": {"signal": "pointSize"},
           "shape": {"value": "circle"},
           "opacity": {"value": 1},
-          "stroke": {"value": "transparent"},
-          "fill": {"value": "#232946"}
+          "stroke": {"value": "#232946"},
+          "fill": {"value": "#b5beeb"}
         }
       }
     }
