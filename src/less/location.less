@@ -41,6 +41,14 @@
 
       background-color: unset;
       border: unset;
+
+      @outline-contrast: 15%;
+
+      filter:
+        drop-shadow( 1px  1px 0 fade(@palette-primary-background, @outline-contrast))
+        drop-shadow( 1px -1px 0 fade(@palette-primary-background, @outline-contrast))
+        drop-shadow(-1px  1px 0 fade(@palette-primary-background, @outline-contrast))
+        drop-shadow(-1px -1px 0 fade(@palette-primary-background, @outline-contrast));
     }
   }
 
