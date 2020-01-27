@@ -21,7 +21,7 @@ window.addEventListener('load', () => {
     let weightResults30 = r[0].filter(d => d.date >= Date.parse('2014-01-01T00:00:00'));
     let chartSpec = r[1];
 
-    let minDate = new Date(weightResults[0].date.getTime());
+    let minDate = new Date(weightResults7[0].date.getTime());
     minDate.setDate(minDate.getDate() - 1);
 
     let view = new vega.View(vega.parse(chartSpec, {
