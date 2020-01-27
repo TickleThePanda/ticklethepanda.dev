@@ -53,7 +53,7 @@ window.addEventListener('load', async () => {
     }))
     .renderer('svg')
 
-  updateVegaChart(view, options[state.facet].date)
+  updateVegaChart(view, options[state.facet].date, options[state.facet].data)
     .initialize('#weight-chart');
 
   document.querySelectorAll("#weight-charts button")
