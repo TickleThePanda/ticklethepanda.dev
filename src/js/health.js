@@ -6,89 +6,92 @@ let healthClient = new HealthClient();
 let chartClient = new ChartClient();
 let chartSizeManager = new ChartSizeManager();
 
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
 
-  let state = {
-    facet: null
+  const state = {
+    facet: document.querySelector('#weight-charts .facets .button--selected').value
   };
 
-  Promise.all([
+  const earliestDate = Date.parse('2014-01-01T00:00:00');
+
+  const [weightResults7, weightResults30, chartSpec] = await Promise.all([
       healthClient.fetchWeightHistoryWithPeriod(7),
       healthClient.fetchWeightHistoryWithPeriod(30),
       chartClient.fetchWeightChartSpec()
-  ]).then(([weightResults7, weightResults30, chartSpec]) => {
-    let weight7 = weightResults7.filter(d => d.date >= Date.parse('2014-01-01T00:00:00'));
-    let weight30 = weightResults30.filter(d => d.date >= Date.parse('2014-01-01T00:00:00'));
+  ]);
 
-    let minDate = new Date(weight7[0].date.getTime());
-    minDate.setDate(minDate.getDate() - 1);
+  const weight7 = weightResults7.filter(d => d.date >= earliestDate);
+  const weight30 = weightResults30.filter(d => d.date >= earliestDate);
 
-    let view = new vega.View(vega.parse(chartSpec, {
-        axis: {
-          labelFont: "Alegreya Sans SC",
-          labelFontSize: 12,
-          titleFont: "Alegreya Sans SC",
-          titleFontSize: 16
-        }
-      }))
-      .renderer('svg')
-      .data('source', weight30)
-      .signal('minDate', minDate)
-      .initialize('#weight-chart');
+  const dataMinDate = new Date(weight7[0].date.getTime());
+  dataMinDate.setDate(dataMinDate.getDate() - 1);
+  const sixMonthsAgo = new Date();
+  sixMonthsAgo.setDate(sixMonthsAgo.getDate() - 30 * 6);
 
-    function updateView() {
-
-      let chartType = state.facet;
-
-      let sixMonthsAgo = new Date();
-      sixMonthsAgo.setDate(sixMonthsAgo.getDate() - 30 * 6);
-
-      let options = {
-        "all": {
-          date: minDate,
-          data: weight30
-        },
-        "trying-again": {
-          date: new Date(2017, 0, 1),
-          data: weight30
-        },
-        "recent": {
-          date: sixMonthsAgo,
-          data: weight7
-        }
-      }
-
-      let option = options[chartType];
-
-      view.signal('minDate', option.date)
-        .data('source', option.data)
-        .run();
-
-      document.querySelectorAll('#weight-charts .facets button').forEach(button => {
-        button.classList.remove('button--selected');
-      });
-
-      document.querySelector('#weight-chart-' + state.facet).classList.add('button--selected');
-
+  const options = {
+    "all": {
+      date: dataMinDate,
+      data: weight30
+    },
+    "trying-again": {
+      date: new Date(2017, 0, 1),
+      data: weight30
+    },
+    "recent": {
+      date: sixMonthsAgo,
+      data: weight7
     }
+  }
 
-    document.querySelectorAll("#weight-charts button")
-      .forEach(el => {
-        let facet = el.value;
-        el.addEventListener('click', event => {
-          state.facet = facet;
+  const view = new vega.View(vega.parse(chartSpec, {
+      axis: {
+        labelFont: "Alegreya Sans SC",
+        labelFontSize: 12,
+        titleFont: "Alegreya Sans SC",
+        titleFontSize: 16
+      }
+    }))
+    .renderer('svg')
 
-          updateView();
+  updateVegaChart(view, options[state.facet].date)
+    .initialize('#weight-chart');
 
-        });
+  document.querySelectorAll("#weight-charts button")
+    .forEach(el => {
+      let facet = el.value;
+      el.addEventListener('click', event => {
+        state.facet = facet;
+
+        updateViewToState();
+
       });
+    });
 
-    let container = view.container();
+  chartSizeManager.add(view);
 
-    let w = container.offsetWidth;
+  function updateViewToState() {
+    let chartType = state.facet;
+    updateViewTo(chartType);
 
-    chartSizeManager.add(view);
+  }
 
-  });
+  function updateViewTo(chartType) {
+    let option = options[chartType];
+
+    updateVegaChart(view, option.date, option.data)
+      .run();
+
+    document.querySelectorAll('#weight-charts .facets button').forEach(button => {
+      button.classList.remove('button--selected');
+    });
+
+    document.querySelector('#weight-chart-' + state.facet).classList.add('button--selected');
+  }
+
+  function updateVegaChart(chart, date, data) {
+    return chart.signal('minDate', date)
+      .data('source', data);
+  }
+
 
 });
