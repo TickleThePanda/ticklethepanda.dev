@@ -32,7 +32,7 @@ window.addEventListener('load', () => {
         }
       }))
       .renderer('svg')
-      .insert('source', weight30)
+      .data('source', weight30)
       .signal('minDate', minDate)
       .initialize('#weight-chart');
 
@@ -61,7 +61,7 @@ window.addEventListener('load', () => {
       let option = options[chartType];
 
       view.signal('minDate', option.date)
-        .change('source', option.data)
+        .data('source', option.data)
         .run();
 
       document.querySelectorAll('#weight-charts .facets button').forEach(button => {
