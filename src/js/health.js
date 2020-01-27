@@ -61,7 +61,7 @@ window.addEventListener('load', () => {
       let option = options[chartType];
 
       view.signal('minDate', option.date)
-        .insert('source', option.data)
+        .change('source', option.data)
         .run();
 
       document.querySelectorAll('#weight-charts .facets button').forEach(button => {
