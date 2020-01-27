@@ -16,12 +16,11 @@ window.addEventListener('load', () => {
       healthClient.fetchWeightHistoryWithPeriod(7),
       healthClient.fetchWeightHistoryWithPeriod(30),
       chartClient.fetchWeightChartSpec()
-  ]).then(r => {
-    let weightResults7 = r[0].filter(d => d.date >= Date.parse('2014-01-01T00:00:00'));
-    let weightResults30 = r[0].filter(d => d.date >= Date.parse('2014-01-01T00:00:00'));
-    let chartSpec = r[1];
+  ]).then(([weightResults7, weightResults30, chartSpec]) => {
+    let weight7 = weightResults7.filter(d => d.date >= Date.parse('2014-01-01T00:00:00'));
+    let weight30 = weightResults30.filter(d => d.date >= Date.parse('2014-01-01T00:00:00'));
 
-    let minDate = new Date(weightResults7[0].date.getTime());
+    let minDate = new Date(weight7[0].date.getTime());
     minDate.setDate(minDate.getDate() - 1);
 
     let view = new vega.View(vega.parse(chartSpec, {
@@ -33,7 +32,7 @@ window.addEventListener('load', () => {
         }
       }))
       .renderer('svg')
-      .insert('source', weightResults30)
+      .insert('source', weight30)
       .signal('minDate', minDate)
       .initialize('#weight-chart');
 
@@ -47,15 +46,15 @@ window.addEventListener('load', () => {
       let options = {
         "all": {
           date: minDate,
-          data: weightResults30
+          data: weight30
         },
         "trying-again": {
           date: new Date(2017, 0, 1),
-          data: weightResults30
+          data: weight30
         },
         "recent": {
           date: sixMonthsAgo,
-          data: weightResults7
+          data: weight7
         }
       }
 
