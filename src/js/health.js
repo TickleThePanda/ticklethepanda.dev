@@ -34,8 +34,8 @@ window.addEventListener('load', async () => {
       data: weight30
     },
     "trying-again": {
-      date: new Date(2017, 0, 1),
-      data: weight30
+      date: new Date(2019, 0, 1),
+      data: weight7
     },
     "recent": {
       date: sixMonthsAgo,
