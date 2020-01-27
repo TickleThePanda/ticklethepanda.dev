@@ -14,9 +14,11 @@ window.addEventListener('load', () => {
 
   Promise.all([
       healthClient.fetchWeightHistoryWithPeriod(7),
+      healthClient.fetchWeightHistoryWithPeriod(30),
       chartClient.fetchWeightChartSpec()
   ]).then(r => {
-    let weightResults = r[0].filter(d => d.date >= Date.parse('2014-01-01T00:00:00'));
+    let weightResults7 = r[0].filter(d => d.date >= Date.parse('2014-01-01T00:00:00'));
+    let weightResults30 = r[0].filter(d => d.date >= Date.parse('2014-01-01T00:00:00'));
     let chartSpec = r[1];
 
     let minDate = new Date(weightResults[0].date.getTime());
@@ -31,7 +33,7 @@ window.addEventListener('load', () => {
         }
       }))
       .renderer('svg')
-      .insert('source', weightResults)
+      .insert('source', weightResults30)
       .signal('minDate', minDate)
       .initialize('#weight-chart');
 
@@ -43,14 +45,24 @@ window.addEventListener('load', () => {
       sixMonthsAgo.setDate(sixMonthsAgo.getDate() - 30 * 6);
 
       let options = {
-        "all": minDate,
-        "trying-again": new Date(2017, 0, 1),
-        "recent": sixMonthsAgo
+        "all": {
+          date: minDate,
+          data: weightResults30
+        },
+        "trying-again": {
+          date: new Date(2017, 0, 1),
+          data: weightResults30
+        },
+        "recent": {
+          date: sixMonthsAgo,
+          data: weightResults7
+        }
       }
 
       let option = options[chartType];
 
-      view.signal('minDate', option)
+      view.signal('minDate', option.date)
+        .insert('source', option.data)
         .run();
 
       document.querySelectorAll('#weight-charts .facets button').forEach(button => {
