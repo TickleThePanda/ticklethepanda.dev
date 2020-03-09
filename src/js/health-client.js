@@ -17,14 +17,23 @@ function fixDates(results) {
   return results;
 }
 
-function convertToBasicHistory(results) { 
+function convertToBasicHistory(results) {
 
-  return results.map(r => ({
-    'date': r.start,
-    'weight': r.average,
-    'count': r.count
+  const am = results.map(r => ({
+    date: r.start,
+    weight: r.averageAm,
+    period: "AM"
   }));
   
+  const pm = results.map(r => ({
+    date: r.start,
+    weight: r.averagePm,
+    period: "PM"
+  }));
+
+  return am.concat(pm)
+      .filter(r => r.weight !== null);
+
 }
 
 class HealthClient {
@@ -32,6 +41,7 @@ class HealthClient {
   fetchWeightHistory() {
     return fetch(baseUrl + '/weight')  
       .then(handleResponse)
+      .then(convertToBasicHistory)
       .then(fixDates);
   }
 

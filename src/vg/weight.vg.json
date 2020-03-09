@@ -1,13 +1,9 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "width": 1000,
-  "height": 600,
-  "padding": 5,
   "autosize": {
     "type": "fit",
-    "resize": true
+    "contains": "padding"
   },
-
   "signals": [
     {
       "name": "minimumPointSize",
@@ -52,8 +48,15 @@
       "type": "linear",
       "nice": true,
       "zero": false,
-      "domain": {"data": "source", "field": "weight"},
+      "domain": {"data": "source", "field": "weight", "sort": true},
+      "clamp": true,
       "range": "height"
+    },
+    {
+      "name": "shape",
+      "type": "ordinal",
+      "range": ["triangle-down", "triangle-up"],
+      "domain": { "data": "source", "field": "period" }
     }
   ],
 
@@ -106,7 +109,20 @@
       }
     }
   ],
-
+  "legends": [
+    {
+      "title": "Period",
+      "type": "symbol",
+      "shape": "shape",
+      "symbolStrokeColor": "#232946",
+      "symbolFillColor": "#b5beeb",
+      "fillColor": "#ffffff88",
+      "padding": 10,
+      "offset": 10,
+      "orient": "top-left",
+      "direction": "horizontal"
+    }
+  ],
   "marks": [
     {
       "name": "marks",
@@ -117,7 +133,7 @@
           "x": {"scale": "x", "field": "date"},
           "y": {"scale": "y", "field": "weight"},
           "size": {"signal": "pointSize"},
-          "shape": {"value": "circle"},
+          "shape": { "scale": "shape", "field": "period" },
           "opacity": {"value": 1},
           "stroke": {"value": "#232946"},
           "fill": {"value": "#b5beeb"}

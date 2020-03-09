@@ -55,6 +55,10 @@ window.addEventListener('load', async () => {
 
   updateVegaChart(view, options[state.facet].date, options[state.facet].data)
     .initialize('#weight-chart');
+  
+  chartSizeManager.add(view);
+
+  view.run();
 
   document.querySelectorAll("#weight-charts button")
     .forEach(el => {
@@ -63,11 +67,9 @@ window.addEventListener('load', async () => {
         state.facet = facet;
 
         updateViewToState();
-
       });
     });
-
-  chartSizeManager.add(view);
+  
 
   function updateViewToState() {
     let chartType = state.facet;
