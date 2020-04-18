@@ -12,22 +12,20 @@ plants, there are a couple of shots of people in here which I really like!
 </p>
 
 <div class="galleries">
-  {% assign galleries = gallery.galleries %}
-  {% assign thumbsPath = gallery.thumbsPath %}
-  {% assign fullPath = gallery.fullPath %}
+  {% assign galleries = galleries.galleries %}
 
   {% assign reverseGalleries = galleries | reverse %}
 
   {% for gallery in reverseGalleries %}
-    <div id="gallery-{{ gallery.reference }}" class="gallery">
+    <div id="gallery-{{ gallery.ref }}" class="gallery">
       <nav class="gallery-nav">
         {% assign prev_i = forloop.index0 | minus: 1 %}
         {% unless forloop.first %}
-          <a class="prev" href="?gallery={{ galleries[prev_i].reference }}">↞ Previous</a>
+          <a class="prev" href="?gallery={{ galleries[prev_i].ref }}">↞ Previous</a>
         {% endunless %}
         {% unless forloop.last %}
           {% assign next_i = forloop.index0 | plus: 1 %}
-          <a class="next" href="?gallery={{ galleries[next_i].reference }}">Next ↠</a>  
+          <a class="next" href="?gallery={{ galleries[next_i].ref }}">Next ↠</a>
         {% endunless %}
       </nav>
       <div class="gallery-content">
@@ -35,9 +33,17 @@ plants, there are a couple of shots of people in here which I really like!
         <p class="gallery-description">{{ gallery.description }}</p>
         <ul class="gallery-images">
           {% for image in gallery.images %}
-            <li class="gallery-image-item {% if image.favourite %}favourite{% endif %}">
-              <a href="{{ urls.images }}{{ fullPath }}{{ gallery.reference }}/{{ image.fileName }}">
-                <img data-src="{{ urls.images }}{% if image.favourite %}{{ fullPath }}{% else %}{{ thumbsPath }}{% endif %}{{ gallery.reference}}/{{ image.fileName }}"/>
+            <li class="gallery-image-item">
+              {% assign largest_size = image.sizes | last %}
+              <a href="{{ urls.galleries }}/{{ largest_size.url }}" title="{{ image.name }}">
+                <img src="{{ largest_size.url }}"
+                    width="{{largest_size.x}}"
+                    height="{{largest_image.y}}"
+                    srcset="{% for size in image.sizes %}{{ urls.galleries}}/{{ size.url }} {{ size.x }}w{% if forloop.last != true %},{% endif %} {% endfor %}"
+                    loading="lazy"
+                    title="{{ image.name }}"
+                    alt="{{ image.alt }}"
+                />
               </a>
             </li>
           {% endfor %}
@@ -50,4 +56,3 @@ plants, there are a couple of shots of people in here which I really like!
 
 <link href="{{ urls.assets }}/style/gallery.css" rel="stylesheet" type="text/css">
 <script async src="{{ urls.assets }}/scripts/gallery.js"></script>
-
