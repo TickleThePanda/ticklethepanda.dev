@@ -4,8 +4,9 @@
 @import "_settings.sizes.less";
 @import "_settings.fonts.less";
 
-@gallery-max-img-size: 320px;
-@gallery-min-img-size: 250px;
+@gallery-min-img-size: 12rem;
+
+@gallery-padding: 0.5rem;
 
 .gallery {
   display: none;
@@ -62,15 +63,12 @@
 }
 
 .gallery-images {
-  padding: 0.5rem;
+  padding: @gallery-padding;
+  padding-bottom: 0;
   margin: 0;
   margin-top: 1em;
 
   background-color: @palette-background-low-contrast;
-
-  .gallery-image-item {
-    .aspect-ratio(320, 213);
-  }
 
   .gallery-image-item, a, img {
     display: block;
@@ -81,35 +79,21 @@
     border: unset;
   }
 
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(@gallery-min-img-size, 1fr));
-  grid-gap: 0.5rem;
-  grid-auto-flow: dense;
+  .gallery-image-item {
+    break-inside: avoid;
+    padding-bottom: @gallery-padding;
+  }
+
+  column-gap: @gallery-padding;
+
+  display: block;
+
+  column-width: @gallery-min-img-size;
 
   justify-items: center;
 
   .favourite {
     grid-column: ~"1 / -1";
-  }
-
-  @media (max-width: @mobile-breakpoint) {
-    display: flex;
-    flex-flow: column nowrap;
-
-    .gallery-image-item, a, img {
-      // allow the images to be a bit bigger on mobile
-      width: @gallery-max-img-size * 1.5;
-      max-width: 100%;
-    }
-
-    .gallery-image-item {
-      margin: auto;
-      margin-top: 0.25rem;
-    }
-
-    .gallery-image-item:first-of-type {
-      margin-top: auto;
-    }
   }
 
 }
