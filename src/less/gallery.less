@@ -8,15 +8,22 @@
 
 @gallery-padding: 0.5rem;
 
+.galleries {
+  display: contents;
+}
+
 .gallery {
   display: none;
 
   &.selected {
-    display: block;
+    display: contents;
   }
 }
 
+
 .gallery-nav {
+
+  max-width: @content-max-width;
 
   margin-top: 1em;
 
@@ -47,6 +54,10 @@
 
 .gallery-content {
 
+  & > * {
+    max-width: @content-max-width;
+  }
+
   margin-top: 0.5rem;
 
   border-bottom: @border;
@@ -67,6 +78,8 @@
   padding-bottom: 0;
   margin: 0;
   margin-top: 1em;
+
+  max-width: unset;
 
   background-color: @palette-background-low-contrast;
 

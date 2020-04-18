@@ -1,8 +1,17 @@
+main {
+  grid-column: m;
+}
+
 article {
   margin: 0 auto;
 }
 
 article .content {
+
+  & > * {
+    max-width: @content-max-width;
+  }
+
   & > :first-child {
     margin-top: 0;
   }
@@ -18,8 +27,8 @@ article .content {
   text-align: left;
 
   padding-top: 1.5rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: @content-padding-left;
+  padding-right: @content-padding-right;
   padding-bottom: 30vh;
 
   line-height: @line-height;
