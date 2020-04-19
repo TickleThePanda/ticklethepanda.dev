@@ -9,8 +9,6 @@ module.exports = function (config) {
   });
 
   config.addLiquidFilter("where", function(array, p, v) {
-    console.log(array, p, v);
-
     return array.filter(i => i[p] === v);
   });
 
