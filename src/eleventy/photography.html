@@ -46,6 +46,10 @@ plants, there are a couple of shots of people in here which I really like!
                 />
               </a>
             </li>
+            {% assign hash = image.name | hash %}
+            {% if hash > 0.4 and forloop.last != true %}
+              <div class="gallery-image-item gallery-image-item--empty" role="presentation"></div>
+            {% endif %}
           {% endfor %}
         </ul>
       </div>
