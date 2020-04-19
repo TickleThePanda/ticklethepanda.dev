@@ -23,6 +23,7 @@ plants, there are a couple of shots of people in here which I really like!
         {% unless forloop.first %}
           <a class="prev" href="?gallery={{ galleries[prev_i].ref }}">↞ Previous</a>
         {% endunless %}
+        <span class="index">{{ forloop.index }} of {{ forloop.length }} galleries</span>
         {% unless forloop.last %}
           {% assign next_i = forloop.index0 | plus: 1 %}
           <a class="next" href="?gallery={{ galleries[next_i].ref }}">Next ↠</a>
