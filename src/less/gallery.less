@@ -4,8 +4,6 @@
 @import "_settings.sizes.less";
 @import "_settings.fonts.less";
 
-@gallery-min-img-size: 12rem;
-
 @gallery-padding: 0.5rem;
 
 .galleries {
@@ -111,11 +109,11 @@
 
   .gallery-image-item {
     background-color: @palette-tertiary-background;
-    box-shadow: 0 0 0 0.5em @palette-tertiary-background;
+    box-shadow: 0 0 0 @gallery-padding @palette-tertiary-background;
 
     flex: 1 1 ~"max("30vmin, 5em~")";
 
-    margin: 0.25em;
+    margin: @gallery-padding / 2;
   }
 
   .gallery-image-item:nth-child(2n-1) {
@@ -129,7 +127,6 @@
   .gallery-image-item--empty {
     background-color: unset;
     box-shadow: unset;
-
   }
 
   display: flex;
