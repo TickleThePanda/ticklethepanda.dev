@@ -59,6 +59,7 @@ gulp.task('watch', function() {
   gulp.watch('src/less/**/*.less', gulp.parallel('css'));
   gulp.watch('src/vg/**/*.json', gulp.parallel('vega'));
   gulp.watch('src/html-partials/**/*.html', gulp.parallel('html-partials'));
+  gulp.watch('.eleventy', gulp.parallel('site'));
   gulp.watch('src/eleventy/**/*', gulp.parallel('site'));
 });
 

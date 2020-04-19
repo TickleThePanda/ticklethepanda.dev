@@ -39,16 +39,20 @@ plants, there are a couple of shots of people in here which I really like!
           {% endif %}
           {% for image in gallery.images %}
             <li class="gallery-image-item">
-              {% assign largest_size = image.sizes | last %}
+              {% assign largest_size = image.sizes | where: "type", "jpeg" | last %}
               <a href="{{ urls.galleries }}/{{ largest_size.url }}" title="{{ image.name }}">
-                <img src="{{ largest_size.url }}"
-                    width="{{largest_size.x}}"
-                    height="{{largest_image.y}}"
-                    srcset="{% for size in image.sizes %}{{ urls.galleries}}/{{ size.url }} {{ size.x }}w{% if forloop.last != true %},{% endif %} {% endfor %}"
-                    loading="lazy"
-                    title="{{ image.name }}"
-                    alt="{{ image.alt }}"
-                />
+                <picture>
+                  {% assign webps = image.sizes | where: "type", "webp" %}
+                  <source type="image/webp"
+                    srcset="{% for size in webps %}{{ urls.galleries}}/{{ size.url }} {{ size.x }}w{% if forloop.last != true %},{% endif %} {% endfor %}"
+                  />
+                  {% assign jpegs = image.sizes | where: "type", "webp" %}
+                  <source type="image/jpeg"
+                    srcset="{% for size in jpegs %}{{ urls.galleries}}/{{ size.url }} {{ size.x }}w{% if forloop.last != true %},{% endif %} {% endfor %}"
+                  />
+                  <img src="{{ largest_size.url }}" loading="lazy" width="{{ largest_size.x }}" height="{{ largest_size.y }}" title="{{ image.name }}" alt="{{ image.alt }}">
+
+                </picture>
               </a>
             </li>
 

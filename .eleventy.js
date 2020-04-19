@@ -2,11 +2,16 @@ const Random = require('seedrandom');
 
 module.exports = function (config) {
 
-  config.addLiquidFilter("hash", function(value) {
-
-    const random = new Random(value);
+  config.addLiquidFilter("hash", function(value, index) {
+    const random = new Random(value + index);
 
     return random();
+  });
+
+  config.addLiquidFilter("where", function(array, p, v) {
+    console.log(array, p, v);
+
+    return array.filter(i => i[p] === v);
   });
 
   config.addLayoutAlias('page', 'page.html');
