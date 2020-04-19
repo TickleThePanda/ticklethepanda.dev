@@ -33,6 +33,10 @@ plants, there are a couple of shots of people in here which I really like!
         <h2 class="gallery-title">{{ gallery.name }}</h2>
         <p class="gallery-description">{{ gallery.description }}</p>
         <ul class="gallery-images">
+          {% assign hashGallery = gallery.name %}
+          {% if hashGallery > 0.6 %}
+            <div class="gallery-image-item gallery-image-item--empty" role="presentation"></div>
+          {% endif %}
           {% for image in gallery.images %}
             <li class="gallery-image-item">
               {% assign largest_size = image.sizes | last %}
@@ -47,8 +51,9 @@ plants, there are a couple of shots of people in here which I really like!
                 />
               </a>
             </li>
-            {% assign hash = image.name | hash %}
-            {% if hash > 0.4 and forloop.last != true %}
+
+            {% assign hashImage = image.name | hash %}
+            {% if hashImage > 0.6 %}
               <div class="gallery-image-item gallery-image-item--empty" role="presentation"></div>
             {% endif %}
           {% endfor %}
