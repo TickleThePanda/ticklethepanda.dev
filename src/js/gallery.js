@@ -11,10 +11,8 @@
   registerDomLoadedEvent(makeGalleryLinksPushState);
   registerDomLoadedEvent(showSelectedGallery);
 
-  window.addEventListener('load', loadImages);  
-
   window.addEventListener('popstate', showSelectedGallery);
-  
+
   function getSelectedGalleryId() {
     let params = new URLSearchParams(document.location.search.substring(1));
     return 'gallery-' + params.get('gallery');
@@ -51,13 +49,6 @@
       }, true);
     });
 
-  }
-
-  function loadImages() {
-    document.querySelectorAll('img[data-src]').forEach(img => {
-      img.setAttribute('src', img.getAttribute('data-src'));
-      img.addEventListener('load', () => { img.removeAttribute('data-src') });
-    });
   }
 
 })();
