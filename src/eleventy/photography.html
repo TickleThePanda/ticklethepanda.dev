@@ -33,8 +33,8 @@ plants, there are a couple of shots of people in here which I really like!
         <h2 class="gallery-title">{{ gallery.name }}</h2>
         <p class="gallery-description">{{ gallery.description }}</p>
         <ul class="gallery-images">
-          {% assign hashGallery = gallery.name %}
-          {% if hashGallery > 0.6 %}
+          {% assign hashGallery = gallery.name | hash %}
+          {% if hashGallery > 0.5 %}
             <div class="gallery-image-item gallery-image-item--empty" role="presentation"></div>
           {% endif %}
           {% for image in gallery.images %}
