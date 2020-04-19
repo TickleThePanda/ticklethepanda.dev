@@ -111,9 +111,18 @@
     background-color: @palette-tertiary-background;
     box-shadow: 0 0 0 @gallery-padding @palette-tertiary-background;
 
-    flex: 1 1 ~"max("30vmin, 5em~")";
-
+    flex: 1 1 auto;
+    width: ~"max("30vmin, 5em~")";
     margin: @gallery-padding / 2;
+
+    &--empty {
+      background-color: unset;
+      box-shadow: unset;
+
+      margin: 0;
+
+      width: ~"max(30vmin +" @gallery-padding ~", 5em + " @gallery-padding~")";
+    }
   }
 
   .gallery-image-item:nth-child(2n-1) {
@@ -122,11 +131,6 @@
 
   .gallery-image-item:nth-child(3n+1) {
     align-self: flex-start;
-  }
-
-  .gallery-image-item--empty {
-    background-color: unset;
-    box-shadow: unset;
   }
 
   display: flex;
