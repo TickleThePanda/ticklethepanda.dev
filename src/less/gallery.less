@@ -105,9 +105,15 @@
 
     width: auto;
     max-height: 80vh;
+
+    @media (max-width: @mobile-breakpoint) {
+      max-height: unset;
+    }
   }
 
   .gallery-image-item {
+
+    display: flex;
 
     flex: 1 1 auto;
     width: ~"max("30vmin, 5em~")";
