@@ -90,8 +90,6 @@
 
   a {
     display: block;
-    height: auto;
-    width: 100%;
     margin: 0;
     background-color: unset;
     border: unset;
@@ -99,20 +97,23 @@
 
   img {
     display: block;
-    height: auto;
-    width: 100%;
     margin: 0;
+
+    background-color: @palette-tertiary-background;
+    box-shadow: 0 0 0 @gallery-padding @palette-tertiary-background;
+
+    width: auto;
+    max-height: 80vh;
 
     background-color: unset;
     border: unset;
   }
 
   .gallery-image-item {
-    background-color: @palette-tertiary-background;
-    box-shadow: 0 0 0 @gallery-padding @palette-tertiary-background;
 
     flex: 1 1 auto;
     width: ~"max("30vmin, 5em~")";
+
     margin: @gallery-padding / 2;
 
     &--empty {
