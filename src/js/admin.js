@@ -3,6 +3,7 @@ import { TokenClient } from './admin/token-client.js';
 import { TokenStorage } from './admin/token-storage.js';
 import { WeightApp } from './admin/weight-app.js';
 import { ThermometerApp } from './admin/thermometer-app.js';
+import { TokenManagerApp } from './admin/token-manager-app.js';
 
 const assetsBaseUrl = document.documentElement.dataset.urlAssets;
 
@@ -77,6 +78,15 @@ router.register('/thermometer', {
     let thermometerApp = new ThermometerApp(tokenStorage.load());
 
     thermometerApp.run();
+  }
+});
+
+router.register('/token-manager', {
+  content: assetsBaseUrl + '/html-partials/token-manager.html',
+  logic: () => {
+    let tokenManager = new TokenManagerApp(tokenStorage.load());
+
+    tokenManager.run();
   }
 });
 
