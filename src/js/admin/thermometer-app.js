@@ -26,21 +26,34 @@ class ThermometerClient {
   async fetchLastDay() {
 
     let now = new Date();
+    let yesterday = new Date(now.getTime());
+    yesterday.setDate(yesterday.getDate() - 1);
 
-    let authHeaderValue = 'Bearer ' + this.token;
+    let dates = [yesterday, now];
 
-    let dataUrl = apiBaseUrl + '/rooms/living-room/log/'
-          + `${now.toISOString().substring(0, 10)}`;
+    let allData = [];
 
-    let opts = {
-      headers: new Headers({
-        'Authorization': authHeaderValue
-      })
-    };
+    for (let date of dates) {
 
-    const response = await fetch(dataUrl, opts);
-    const data = await handleResponse(response);
-    return convertDates(data)
+      let authHeaderValue = 'Bearer ' + this.token;
+
+      let dataUrl = apiBaseUrl + '/rooms/living-room/log/'
+            + `${date.toISOString().substring(0, 10)}`;
+
+      let opts = {
+        headers: new Headers({
+          'Authorization': authHeaderValue
+        })
+      };
+
+      const response = await fetch(dataUrl, opts);
+      const data = await handleResponse(response);
+      convertDates(data);
+
+      allData = allData.concat(data);
+    }
+
+    return allData.filter(e => (yesterday < e.time && e.time < now));
   }
 }
 
