@@ -6,6 +6,6 @@
   "apis": {
     "health": "https://health-ticklethepanda.herokuapp.com",
     "auth": "https://auth.api.ticklethepanda.dev",
-    "thermometer": "http://thermometer.ticklethepanda.dev"
+    "thermometer": "https://thermometer.ticklethepanda.dev"
   }
 }
