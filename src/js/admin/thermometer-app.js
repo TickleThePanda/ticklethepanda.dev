@@ -15,24 +15,22 @@ function convertDates(results) {
   return results;
 }
 
-const apiBaseUrl = document.documentElement.dataset.urlApi;
+const apiBaseUrl = document.documentElement.dataset.urlApiThermometer;
+const assetsBaseUrl = document.documentElement.dataset.urlAssets;
 
 class ThermometerClient {
   constructor(token) {
     this.token = token;
   }
 
-  fetchLastDay() {
-    
-    let authHeaderValue = 'Bearer ' + this.token;
+  async fetchLastDay() {
 
     let now = new Date();
 
-    let yesterday = new Date(now.getTime());
-    yesterday.setDate(yesterday.getDate() - 1);
+    let authHeaderValue = 'Bearer ' + this.token;
 
-    let dataUrl = apiBaseUrl + '/thermometers/rooms/living-room/entries'
-          + `?start=${yesterday.toISOString()}&end=${now.toISOString()}`;
+    let dataUrl = apiBaseUrl + '/rooms/living-room/log/'
+          + `${now.toISOString().substring(0, 10)}`;
 
     let opts = {
       headers: new Headers({
@@ -40,9 +38,9 @@ class ThermometerClient {
       })
     };
 
-    return fetch(dataUrl, opts)
-      .then(handleResponse)
-      .then(convertDates);
+    const response = await fetch(dataUrl, opts);
+    const data = await handleResponse(response);
+    return convertDates(data)
   }
 }
 
@@ -73,7 +71,7 @@ class ThermometerApp {
         vega.loader()
           .load(chartSpecUrl)
           .then(specData => {
-              
+
             let spec = JSON.parse(specData);
             view = new vega.View(vega.parse(spec))
               .renderer('svg')
@@ -86,7 +84,7 @@ class ThermometerApp {
             let w = container.offsetWidth;
 
             resizeView(view, w);
-          
+
         });
 
       });
@@ -101,5 +99,3 @@ class ThermometerApp {
       });
   }
 }
-
-

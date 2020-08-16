@@ -1,13 +1,12 @@
 {
-  "$schema": "https://vega.github.io/schema/vega/v3.0.json",
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 250,
   "height": 125,
   "padding": 5,
   "autosize": {
     "type": "fit",
-    "resize": true
+    "contains": "padding"
   },
-
   "data": [
     {
       "name": "source"
@@ -27,7 +26,7 @@
       "type": "linear",
       "nice": true,
       "zero": false,
-      "domain": {"data": "source", "field": "averageTemperature"},
+      "domain": {"data": "source", "field": "temperature"},
       "range": "height"
     }
   ],
@@ -37,13 +36,21 @@
       "scale": "x",
       "grid": true,
       "orient": "bottom",
-      "title": "Date"
+      "title": "Date",
+      "gridColor": "#fce6e9",
+      "tickColor": "#232946",
+      "labelColor": "#232946",
+      "titleColor": "#232946"
     },
     {
       "scale": "y",
       "grid": true,
       "orient": "left",
-      "title": "Temperature"
+      "title": "Temperature",
+      "gridColor": "#fce6e9",
+      "tickColor": "#232946",
+      "labelColor": "#232946",
+      "titleColor": "#232946"
     }
   ],
 
@@ -54,11 +61,10 @@
       "encode": {
         "update": {
           "x": {"scale": "x", "field": "time"},
-          "y": {"scale": "y", "field": "averageTemperature"},
-          "stroke": {"value": "#008291"}
+          "y": {"scale": "y", "field": "temperature"},
+          "stroke": {"value": "#232946"}
         }
       }
     }
   ]
 }
-

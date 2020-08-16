@@ -5,6 +5,7 @@
   "api": "https://api.ticklethepanda.co.uk",
   "apis": {
     "health": "https://health-ticklethepanda.herokuapp.com",
-    "auth": "https://auth.api.ticklethepanda.dev"
+    "auth": "https://auth.api.ticklethepanda.dev",
+    "thermometer": "http://localhost:3000"
   }
 }

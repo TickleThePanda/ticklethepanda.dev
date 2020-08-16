@@ -1,0 +1,48 @@
+export { TokenManagerApp }
+
+class TokenManagerApp {
+
+  constructor(token) {
+    this.token = token;
+  }
+
+  run() {
+    const form = document.getElementById('token-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const clientName = form['client-name'].value;
+      const tokenBody = form['token-body'].value;
+
+      const tokenBaseUrl = document.documentElement.dataset.urlApiAuth;
+
+      let url = `${tokenBaseUrl}/tokens/clients/${clientName}`;
+
+      let authHeaderValue = 'Bearer ' + this.token;
+
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': authHeaderValue
+      });
+
+      let init = {
+        credentials: 'include',
+        method: 'POST',
+        headers: headers,
+        mode: 'cors',
+        body: tokenBody
+      };
+
+      const response = await fetch(url, init);
+
+      if (!response.ok) {
+        throw new Error("Unable to create new token");
+      }
+
+      const token = await response.text();
+
+      document.getElementById('token-result').innerHTML = token;
+
+    })
+  }
+}

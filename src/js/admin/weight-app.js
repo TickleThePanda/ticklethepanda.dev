@@ -50,7 +50,7 @@ class WeightClient {
     let payload = { weight: weight };
 
     let authHeaderValue = 'Bearer ' + this.token;
-    
+
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': authHeaderValue
@@ -63,7 +63,7 @@ class WeightClient {
        mode: 'cors',
        body: JSON.stringify(payload)
     }
-    
+
     return fetch(url, init)
       .then(response => {
         if(response.ok) {
@@ -139,7 +139,7 @@ class WeightApp {
     });
 
   }
-  
+
   loadWeightHistory() {
     document.getElementById('weight-history-table-body').innerHTML = '';
 
@@ -167,5 +167,3 @@ class WeightApp {
     this.loadWeightHistory();
   }
 }
-
-
