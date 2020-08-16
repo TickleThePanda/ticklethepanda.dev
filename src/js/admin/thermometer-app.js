@@ -38,7 +38,7 @@ class ThermometerClient {
       let authHeaderValue = 'Bearer ' + this.token;
 
       let dataUrl = apiBaseUrl + '/rooms/living-room/log/'
-            + `${date.toISOString().substring(0, 10)}`;
+            + `${date.toISOString().substring(0, 10)}?period=1800`;
 
       let opts = {
         headers: new Headers({

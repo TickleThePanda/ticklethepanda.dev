@@ -26,6 +26,7 @@
       "type": "linear",
       "nice": true,
       "zero": false,
+      "clamp": true,
       "domain": {"data": "source", "field": "temperature"},
       "range": "height"
     }
