@@ -18,7 +18,7 @@
       "name": "x",
       "type": "utc",
       "nice": true,
-      "domain": {"data": "source", "field": "time"},
+      "domain": [{"signal": "timeOffset('date', now(), -1)"}, {"signal": "now()"}],
       "range": "width"
     },
     {
@@ -64,6 +64,18 @@
           "x": {"scale": "x", "field": "time"},
           "y": {"scale": "y", "field": "temperature"},
           "stroke": {"value": "#232946"}
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "time"},
+          "y": {"scale": "y", "field": "temperature"},
+          "size": {"value": 20},
+          "fill": {"value": "#232946"}
         }
       }
     }
