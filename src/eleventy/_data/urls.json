@@ -7,5 +7,8 @@
     "health": "https://health-ticklethepanda.herokuapp.com",
     "auth": "https://auth.api.ticklethepanda.dev",
     "thermometer": "https://thermometer.ticklethepanda.dev"
+  },
+  "cdn": {
+    "vega": "https://cdn.jsdelivr.net/npm/vega@5"
   }
 }
