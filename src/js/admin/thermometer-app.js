@@ -23,7 +23,7 @@ class ThermometerClient {
     this.token = token;
   }
 
-  async fetchLastDay() {
+  async fetchLastDay(period) {
 
     let now = new Date();
     let yesterday = new Date(now.getTime());
@@ -38,7 +38,7 @@ class ThermometerClient {
       let authHeaderValue = 'Bearer ' + this.token;
 
       let dataUrl = apiBaseUrl + '/rooms/living-room/log/'
-            + `${date.toISOString().substring(0, 10)}?period=1800`;
+            + `${date.toISOString().substring(0, 10)}?period=${period}`;
 
       let opts = {
         headers: new Headers({
@@ -79,7 +79,12 @@ class ThermometerApp {
       container: '#thermometer-chart'
     }
 
-    this.client.fetchLastDay()
+    const params = new URLSearchParams(window.location.search)
+    const periodParam = Number.parseFloat(params.get('period'));
+
+    const period = !Number.isNaN(periodParam) ? periodParam : 1800;
+
+    this.client.fetchLastDay(period)
       .then(results => {
         vega.loader()
           .load(chartSpecUrl)
