@@ -43,8 +43,7 @@ class ThermometerClient {
   async fetchLastDay(period) {
 
     const now = new Date();
-    const yesterday = new Date(now.getTime());
-    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterday = addDays(now, -1);
 
     const dates = [yesterday, now];
     const fetchPromises = dates.map(d => this.fetchForDate(d, period));
@@ -58,6 +57,34 @@ function resizeView(v, w) {
   v.width(w)
     .height(w / 1.61)
     .run();
+}
+
+function addDays(date, n) {
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + n);
+
+  return newDate;
+}
+
+function calculateChartBounds(dateMode, date) {
+  if (dateMode === "LAST_24") {
+    let now = Date.now();
+
+    let yesterday = addDays(now, -1);
+
+    return {
+      minDate: yesterday,
+      maxDate: now
+    };
+
+  } else {
+
+    return {
+      minDate: date,
+      maxDate: addDays(date, 1)
+    };
+
+  }
 }
 
 class ThermometerApp {
@@ -78,19 +105,34 @@ class ThermometerApp {
 
     const params = new URLSearchParams(window.location.search)
     const periodParam = Number.parseFloat(params.get('period'));
+    const dateParam = Date.parse(params.get('date'));
 
     const period = !Number.isNaN(periodParam) ? periodParam : 1800;
+    const date = !Number.isNaN(dateParam) ? new Date(dateParam) : undefined;
 
-    const results = await this.client.fetchLastDay(period)
+    const dateMode = !Number.isNaN(dateParam) ? "WHOLE_DAY" : "LAST_24";
+
+    console.log(dateMode, dateParam);
+
+    let results;
+    if (dateMode === 'LAST_24') {
+      results = await this.client.fetchLastDay(period);
+    } else {
+      results = await this.client.fetchForDate(date, period);
+    }
 
     const specData = await (vega.loader().load(chartSpecUrl));
-    
+
+    const chartBounds = calculateChartBounds(dateMode, date)
+
     let spec = JSON.parse(specData);
     view = new vega.View(vega.parse(spec))
       .renderer('svg')
       .insert('source', results)
       .logLevel(vega.Warn)
-      .initialize(chart.container)
+      .signal('minDate', chartBounds.minDate)
+      .signal('maxDate', chartBounds.maxDate)
+      .initialize(chart.container);
 
     let container = view.container();
 

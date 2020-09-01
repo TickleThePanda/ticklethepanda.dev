@@ -7,6 +7,14 @@
     "type": "fit",
     "contains": "padding"
   },
+  "signals": [
+    {
+      "name": "minDate"
+    },
+    {
+      "name": "maxDate"
+    }
+  ],
   "data": [
     {
       "name": "source"
@@ -18,7 +26,7 @@
       "name": "x",
       "type": "utc",
       "nice": true,
-      "domain": [{"signal": "timeOffset('date', now(), -1)"}, {"signal": "now()"}],
+      "domain": [{"signal": "minDate"}, {"signal": "maxDate"}],
       "range": "width"
     },
     {
