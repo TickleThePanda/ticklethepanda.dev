@@ -1,10 +1,10 @@
 export { Router };
 
-function handlePageChange(router) {
+async function handlePageChange(router) {
   let initialUrl = router.getCurrentUrl();
   let url = router.interceptor(initialUrl);
   if(initialUrl === url) {
-    router.handle(url);
+    await router.handle(url);
   } else {
     router.redirect(url);
   }
@@ -32,19 +32,18 @@ class Router {
     this.routes[url] = cb;
   }
 
-  handle(url) {
+  async handle(url) {
     this.renderer.clear();
 
     let action = this.routes[url];
 
-    fetch(action.content, { mode: 'cors' })
-      .then(response => response.text())
-      .then(this.renderer.render)
-      .then(() => { 
-        if (action.logic) {
-          action.logic();
-        }
-      });
+    const response = await fetch(action.content, { mode: 'cors' });
+    const text = await response.text();
+    await this.renderer.render(text);
+    
+    if (action.logic) {
+      await action.logic();
+    }
   }
   
   start() {

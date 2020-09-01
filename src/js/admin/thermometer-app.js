@@ -66,7 +66,7 @@ class ThermometerApp {
     this.client = new ThermometerClient(token);
   }
 
-  run() {
+  async run() {
 
     let view;
 
@@ -81,36 +81,30 @@ class ThermometerApp {
 
     const period = !Number.isNaN(periodParam) ? periodParam : 1800;
 
-    this.client.fetchLastDay(period)
-      .then(results => {
-        vega.loader()
-          .load(chartSpecUrl)
-          .then(specData => {
+    const results = await this.client.fetchLastDay(period)
 
-            let spec = JSON.parse(specData);
-            view = new vega.View(vega.parse(spec))
-              .renderer('svg')
-              .insert('source', results)
-              .logLevel(vega.Warn)
-              .initialize(chart.container)
+    const specData = await (vega.loader().load(chartSpecUrl));
+    
+    let spec = JSON.parse(specData);
+    view = new vega.View(vega.parse(spec))
+      .renderer('svg')
+      .insert('source', results)
+      .logLevel(vega.Warn)
+      .initialize(chart.container)
 
-            let container = view.container();
+    let container = view.container();
 
-            let w = container.offsetWidth;
+    let w = container.offsetWidth;
 
-            resizeView(view, w);
+    resizeView(view, w);
 
-        });
+    window.addEventListener('resize', function() {
 
-      });
-
-      window.addEventListener('resize', function() {
-
-        if(view) {
-          let container = view.container();
-          let w = container.offsetWidth;
-          resizeView(view, w);
-        }
-      });
+      if(view) {
+        let container = view.container();
+        let w = container.offsetWidth;
+        resizeView(view, w);
+      }
+    });
   }
 }

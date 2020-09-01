@@ -74,7 +74,7 @@ router.register('/weight', {
 
 router.register('/thermometer', {
   content: assetsBaseUrl + '/html-partials/thermometer.html',
-  logic: () => {
+  logic: async () => {
     let thermometerApp = new ThermometerApp(tokenStorage.load());
 
     thermometerApp.run();
