@@ -23,35 +23,32 @@ class ThermometerClient {
     this.token = token;
   }
 
+  async fetchForDate(date, period) {
+    let authHeaderValue = 'Bearer ' + this.token;
+
+    let dataUrl = apiBaseUrl + '/rooms/living-room/log/'
+          + `${date.toISOString().substring(0, 10)}?period=${period}`;
+
+    let opts = {
+      headers: new Headers({
+        'Authorization': authHeaderValue
+      })
+    };
+
+    const response = await fetch(dataUrl, opts);
+    const data = await handleResponse(response);
+    return convertDates(data);
+  }
+
   async fetchLastDay(period) {
 
-    let now = new Date();
-    let yesterday = new Date(now.getTime());
+    const now = new Date();
+    const yesterday = new Date(now.getTime());
     yesterday.setDate(yesterday.getDate() - 1);
 
-    let dates = [yesterday, now];
-
-    let allData = [];
-
-    for (let date of dates) {
-
-      let authHeaderValue = 'Bearer ' + this.token;
-
-      let dataUrl = apiBaseUrl + '/rooms/living-room/log/'
-            + `${date.toISOString().substring(0, 10)}?period=${period}`;
-
-      let opts = {
-        headers: new Headers({
-          'Authorization': authHeaderValue
-        })
-      };
-
-      const response = await fetch(dataUrl, opts);
-      const data = await handleResponse(response);
-      convertDates(data);
-
-      allData = allData.concat(data);
-    }
+    const dates = [yesterday, now];
+    const fetchPromises = dates.map(d => this.fetchForDate(d, period));
+    const allData = (await Promise.all(fetchPromises)).flat();
 
     return allData.filter(e => (yesterday < e.time && e.time < now));
   }
