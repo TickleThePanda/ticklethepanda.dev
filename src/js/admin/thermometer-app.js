@@ -23,11 +23,10 @@ class ThermometerClient {
     this.token = token;
   }
 
-  async fetchForDate(date, period) {
+  async fetchForDate(room, date, period) {
     let authHeaderValue = 'Bearer ' + this.token;
 
-    let dataUrl = apiBaseUrl + '/rooms/living-room/log/'
-          + `${date.toISOString().substring(0, 10)}?period=${period}`;
+    let dataUrl = apiBaseUrl + `/rooms/${room}/log/${date.toISOString().substring(0, 10)}?period=${period}`;
 
     let opts = {
       headers: new Headers({
@@ -40,13 +39,13 @@ class ThermometerClient {
     return convertDates(data);
   }
 
-  async fetchLastDay(period) {
+  async fetchLastDay(room, period) {
 
     const now = new Date();
     const yesterday = addDays(now, -1);
 
     const dates = [yesterday, now];
-    const fetchPromises = dates.map(d => this.fetchForDate(d, period));
+    const fetchPromises = dates.map(d => this.fetchForDate(room, d, period));
     const allData = (await Promise.all(fetchPromises)).flat();
 
     return allData.filter(e => (yesterday < e.time && e.time < now));
@@ -106,6 +105,9 @@ class ThermometerApp {
     const params = new URLSearchParams(window.location.search)
     const periodParam = Number.parseFloat(params.get('period'));
     const dateParam = Date.parse(params.get('date'));
+    const roomParam = params.get('room');
+
+    const room = roomParam !== null ? roomParam : 'living-room';
 
     const period = !Number.isNaN(periodParam) ? periodParam : 1800;
     const date = !Number.isNaN(dateParam) ? new Date(dateParam) : undefined;
@@ -116,9 +118,9 @@ class ThermometerApp {
 
     let results;
     if (dateMode === 'LAST_24') {
-      results = await this.client.fetchLastDay(period);
+      results = await this.client.fetchLastDay(room, period);
     } else {
-      results = await this.client.fetchForDate(date, period);
+      results = await this.client.fetchForDate(room, date, period);
     }
 
     const specData = await (vega.loader().load(chartSpecUrl));
