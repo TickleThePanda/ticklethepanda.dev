@@ -94,61 +94,85 @@ class ThermometerApp {
 
   async run() {
 
-    let view;
+    const rooms = ['living-room', 'office'];
+
+    let views = [];
 
     let chartSpecUrl = assetsBaseUrl + '/vega/thermometer.vg.json';
-
-    let chart = {
-      container: '#thermometer-chart'
-    }
 
     const params = new URLSearchParams(window.location.search)
     const periodParam = Number.parseFloat(params.get('period'));
     const dateParam = Date.parse(params.get('date'));
     const roomParam = params.get('room');
 
-    const room = roomParam !== null ? roomParam : 'living-room';
+    if (roomParam !== null) {
+      rooms.push(roomParam);
+    }
 
     const period = !Number.isNaN(periodParam) ? periodParam : 1800;
     const date = !Number.isNaN(dateParam) ? new Date(dateParam) : undefined;
 
     const dateMode = !Number.isNaN(dateParam) ? "WHOLE_DAY" : "LAST_24";
 
-    console.log(dateMode, dateParam);
 
-    let results;
-    if (dateMode === 'LAST_24') {
-      results = await this.client.fetchLastDay(room, period);
-    } else {
-      results = await this.client.fetchForDate(room, date, period);
+    for (let room of rooms) {
+    
+      const html = `
+<h3>${room}</h3>
+<div class="faceted-data-container">
+  <div class="facet-data" id="thermometer-chart--${room}"></div>
+</div>
+`;
+
+      document.getElementById('thermometer-charts').innerHTML += html;
+
     }
 
-    const specData = await (vega.loader().load(chartSpecUrl));
+    const that = this;
 
-    const chartBounds = calculateChartBounds(dateMode, date)
+    async function makeRoomChart(room) {
+      console.log(dateMode, dateParam);
 
-    let spec = JSON.parse(specData);
-    view = new vega.View(vega.parse(spec))
-      .renderer('svg')
-      .insert('source', results)
-      .logLevel(vega.Warn)
-      .signal('minDate', chartBounds.minDate)
-      .signal('maxDate', chartBounds.maxDate)
-      .initialize(chart.container);
-
-    let container = view.container();
-
-    let w = container.offsetWidth;
-
-    resizeView(view, w);
-
-    window.addEventListener('resize', function() {
-
-      if(view) {
-        let container = view.container();
-        let w = container.offsetWidth;
-        resizeView(view, w);
+      let results;
+      if (dateMode === 'LAST_24') {
+        results = await that.client.fetchLastDay(room, period);
+      } else {
+        results = await that.client.fetchForDate(room, date, period);
       }
-    });
+
+      const specData = await (vega.loader().load(chartSpecUrl));
+
+      const chartBounds = calculateChartBounds(dateMode, date)
+
+      let spec = JSON.parse(specData);
+      const view = new vega.View(vega.parse(spec))
+          .renderer('svg')
+          .insert('source', results)
+          .logLevel(vega.Warn)
+          .signal('minDate', chartBounds.minDate)
+          .signal('maxDate', chartBounds.maxDate)
+          .initialize(`#thermometer-chart--${room}`);
+
+      views.push(view);
+
+      let container = view.container();
+
+      let w = container.offsetWidth;
+
+      resizeView(view, w);
+
+      window.addEventListener('resize', function() {
+
+        if(view) {
+          let container = view.container();
+          let w = container.offsetWidth;
+          resizeView(view, w);
+        }
+      });
+
+    }
+
+    Promise.all(rooms.map(r => makeRoomChart(r)));
+
   }
 }
