@@ -116,9 +116,13 @@ class ThermometerApp {
 
 
     for (let room of rooms) {
+
+      const roomTitleLowercase = room.replaceAll('-', ' ');
+
+      const roomTitle = roomTitleLowercase.charAt(0).toUpperCase() + roomTitleLowercase.slice(1);
     
       const html = `
-<h3>${room}</h3>
+<h3>${roomTitle}</h3>
 <div class="faceted-data-container">
   <div class="facet-data" id="thermometer-chart--${room}"></div>
 </div>
