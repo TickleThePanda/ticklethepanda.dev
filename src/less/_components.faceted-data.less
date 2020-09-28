@@ -8,6 +8,10 @@
 
   margin-top: 1em;
 
+  h3 + & {
+    margin-top: 0.5rem;
+  }
+
   .controls {
     grid-column: ~"1 / -1";
 
@@ -50,6 +54,12 @@
     z-index: @zLow;
 
     background-color: @palette-secondary-background;
+  }
+
+  .facet-data--no-controls {
+    grid-column: ~"1 / -1";
+    grid-row: ~"1 / -1";
+
   }
 
   @media (max-width: @mobile-breakpoint) {
