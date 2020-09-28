@@ -13,12 +13,6 @@
     },
     {
       "name": "maxDate"
-    },
-    {
-      "name": "minTemp"
-    },
-    {
-      "name": "maxTemp"
     }
   ],
   "data": [
@@ -26,7 +20,6 @@
       "name": "source"
     }
   ],
-
   "scales": [
     {
       "name": "x",
@@ -41,8 +34,16 @@
       "nice": true,
       "zero": false,
       "clamp": true,
-      "domain": [{"signal": "minTemp"}, {"signal": "maxTemp"}],
+      "domain": {"data": "source", "field": "temperature"},
       "range": "height"
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "range": {
+        "scheme": "set2"
+      },
+      "domain": {"data": "source", "field": "room"}
     }
   ],
 
@@ -69,29 +70,63 @@
     }
   ],
 
+  "legends": [
+    {
+      "stroke": "color",
+      "title": "Rooms",
+      "orient": "top-right",
+      "encode": {
+        "symbols": {
+          "name": "legendSymbol",
+          "update": {
+            "fill": {"value": "transparent"},
+            "strokeWidth": {"value": 2},
+            "size": {"value": 64}
+          }
+        },
+        "labels": {
+          "name": "legendLabel"
+        }
+      }
+    }
+  ],
+
   "marks": [
     {
-      "type": "line",
-      "from": {"data": "source"},
-      "encode": {
-        "update": {
-          "x": {"scale": "x", "field": "time"},
-          "y": {"scale": "y", "field": "temperature"},
-          "stroke": {"value": "#232946"}
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "series",
+          "data": "source",
+          "groupby": "room"
         }
-      }
-    },
-    {
-      "type": "symbol",
-      "from": {"data": "source"},
-      "encode": {
-        "update": {
-          "x": {"scale": "x", "field": "time"},
-          "y": {"scale": "y", "field": "temperature"},
-          "size": {"value": 20},
-          "fill": {"value": "#232946"}
+      },
+      "marks": [
+        {
+          "type": "line",
+          "from": {"data": "series"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "time"},
+              "y": {"scale": "y", "field": "temperature"},
+              "stroke": {"scale": "color", "field": "room"}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {"data": "series"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "time"},
+              "y": {"scale": "y", "field": "temperature"},
+              "stroke": {"scale": "color", "field": "room"},
+              "size": {"value": 20},
+              "fill": {"value": "#232946"}
+            }
+          }
         }
-      }
+      ]
     }
   ]
 }

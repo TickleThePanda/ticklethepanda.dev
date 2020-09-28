@@ -100,36 +100,20 @@ class ThermometerApp {
 
     const roomData = await this.fetchRoomData(rooms, chartParams);
 
-    const bounds = this.getBounds(roomData);
+    const combined = this.combineData(roomData);
 
-    /*
-     * We need to do this before we generate the charts to
-     * prevent the charts from being lost by changing the HTML.
-     */
-    for (let { room } of roomData) {
-      this.prepHtml(room);
-    }
-
-    for (let { room, data } of roomData) {
-      this.generateChart(room, data, chartParams, bounds);
-    }
-
+    this.generateChart(combined, chartParams);
 
   }
 
-  async prepHtml(room) {
-
-    const roomTitleLowercase = room.replaceAll('-', ' ');
-    const roomTitle = roomTitleLowercase.charAt(0).toUpperCase() + roomTitleLowercase.slice(1);
-
-    const html = `
-<h3>${roomTitle}</h3>
-<div class="faceted-data-container">
-<div class="facet-data facet-data--no-controls" id="thermometer-chart--${room}"></div>
-</div>
-`;
-
-    document.getElementById('thermometer-charts').innerHTML += html;
+  combineData(roomData) {
+    let combined = [];
+    for (let { room, data } of roomData)  {
+      for (let entry of data) {
+        combined.push(Object.assign({ room }, entry));
+      }
+    }
+    return combined;
   }
 
   getChartingParams() {
@@ -155,7 +139,7 @@ class ThermometerApp {
 
   }
 
-  async generateChart(room, data, {period, date, dateMode}, bounds) {
+  async generateChart(data, {date, dateMode}) {
 
     const spec = JSON.parse(await (vega.loader().load(chartSpecUrl)));
 
@@ -167,10 +151,7 @@ class ThermometerApp {
         .logLevel(vega.Warn)
         .signal('minDate', chartBounds.minDate)
         .signal('maxDate', chartBounds.maxDate)
-        .signal('minTemp', bounds.min)
-        .signal('maxTemp', bounds.max)
-        .initialize(`#thermometer-chart--${room}`);
-
+        .initialize(`#thermometer-chart`);
 
     let container = view.container();
 
@@ -188,13 +169,11 @@ class ThermometerApp {
     });
 
     return {
-      room,
       view: view,
       data
     };
 
   }
-
 
   async fetchRoomData(rooms, {period, date, dateMode}) {
 
@@ -215,17 +194,4 @@ class ThermometerApp {
 
   }
 
-  getBounds(roomData) {
-    let max = Number.MIN_VALUE;
-    let min = Number.MAX_VALUE;
-
-    for (let { data } of roomData) {
-      for (let { temperature } of data) {
-
-        max = Math.max(temperature, max);
-        min = Math.min(temperature, min);
-      }
-    }
-    return { max, min }
-  }
 }
