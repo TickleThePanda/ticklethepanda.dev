@@ -13,6 +13,12 @@
     },
     {
       "name": "maxDate"
+    },
+    {
+      "name": "minTemp"
+    },
+    {
+      "name": "maxTemp"
     }
   ],
   "data": [
@@ -35,7 +41,7 @@
       "nice": true,
       "zero": false,
       "clamp": true,
-      "domain": {"data": "source", "field": "temperature"},
+      "domain": [{"signal": "minTemp"}, {"signal": "maxTemp"}],
       "range": "height"
     }
   ],

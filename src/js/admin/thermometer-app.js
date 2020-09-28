@@ -100,6 +100,8 @@ class ThermometerApp {
 
     const roomData = await this.fetchRoomData(rooms, chartParams);
 
+    const bounds = this.getBounds(roomData);
+
     /*
      * We need to do this before we generate the charts to
      * prevent the charts from being lost by changing the HTML.
@@ -109,7 +111,7 @@ class ThermometerApp {
     }
 
     for (let { room, data } of roomData) {
-      this.generateChart(room, data, chartParams);
+      this.generateChart(room, data, chartParams, bounds);
     }
 
 
@@ -153,7 +155,7 @@ class ThermometerApp {
 
   }
 
-  async generateChart(room, data , {period, date, dateMode}) {
+  async generateChart(room, data, {period, date, dateMode}, bounds) {
 
     const spec = JSON.parse(await (vega.loader().load(chartSpecUrl)));
 
@@ -165,6 +167,8 @@ class ThermometerApp {
         .logLevel(vega.Warn)
         .signal('minDate', chartBounds.minDate)
         .signal('maxDate', chartBounds.maxDate)
+        .signal('minTemp', bounds.min)
+        .signal('maxTemp', bounds.max)
         .initialize(`#thermometer-chart--${room}`);
 
 
@@ -209,5 +213,19 @@ class ThermometerApp {
 
     }));
 
+  }
+
+  getBounds(roomData) {
+    let max = Number.MIN_VALUE;
+    let min = Number.MAX_VALUE;
+
+    for (let { data } of roomData) {
+      for (let { temperature } of data) {
+
+        max = Math.max(temperature, max);
+        min = Math.min(temperature, min);
+      }
+    }
+    return { max, min }
   }
 }
