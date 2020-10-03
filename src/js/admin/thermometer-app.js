@@ -91,6 +91,7 @@ class ThermometerApp {
   constructor(token) {
     this.token = token;
     this.client = new ThermometerClient(token);
+    this.view = null;
   }
 
   async run() {
@@ -102,7 +103,20 @@ class ThermometerApp {
 
     const combined = this.combineData(roomData);
 
-    this.generateChart(combined, chartParams);
+    await this.generateChart(combined, chartParams);
+
+    document.querySelector('.js-updated-time').innerHTML = new Date().toLocaleString();
+
+    setInterval(
+      () => this.updateChart(rooms, chartParams),
+      60 * 1000
+    );
+
+    window.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        this.updateChart(rooms, chartParams);
+      }
+    });
 
   }
 
@@ -145,7 +159,7 @@ class ThermometerApp {
 
     const chartBounds = calculateChartBounds(dateMode, date);
 
-    const view = new vega.View(vega.parse(spec))
+    this.view = new vega.View(vega.parse(spec))
         .renderer('svg')
         .insert('source', data)
         .logLevel(vega.Warn)
@@ -153,26 +167,46 @@ class ThermometerApp {
         .signal('maxDate', chartBounds.maxDate)
         .initialize(`#thermometer-chart`);
 
-    let container = view.container();
+    let container = this.view.container();
 
     let w = container.offsetWidth;
 
-    resizeView(view, w);
+    resizeView(this.view, w);
 
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', () => {
 
-      if(view) {
-        let container = view.container();
+      if(this.view) {
+        let container = this.view.container();
         let w = container.offsetWidth;
-        resizeView(view, w);
+        resizeView(this.view, w);
       }
     });
 
     return {
-      view: view,
+      view: this.view,
       data
     };
 
+  }
+
+  async updateChart(rooms, chartParams) {
+    if (chartParams.dateMode === 'LAST_24') {
+      const data = await this.fetchRoomData(rooms, chartParams);
+
+      const chartBounds = calculateChartBounds(
+        chartParams.dateMode,
+        chartParams.date
+      );
+
+      const combined = this.combineData(data);
+
+      this.view.data('source', combined)
+        .signal('minDate', chartBounds.minDate)
+        .signal('maxDate', chartBounds.maxDate)
+        .run();
+
+      document.querySelector('.js-updated-time').innerHTML = new Date().toLocaleString();
+    }
   }
 
   async fetchRoomData(rooms, {period, date, dateMode}) {
