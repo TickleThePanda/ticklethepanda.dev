@@ -74,7 +74,6 @@
     {
       "stroke": "color",
       "title": "Rooms",
-      "orient": "top-right",
       "encode": {
         "symbols": {
           "name": "legendSymbol",
