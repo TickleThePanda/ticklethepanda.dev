@@ -107,7 +107,7 @@ class ThermometerApp {
 
     await this.generateChart(combined, chartParams);
 
-    document.querySelector('.js-updated-time').innerHTML = new Date().toLocaleString();
+    this.markUpdatedTime();
 
     setInterval(
       () => this.updateChart(rooms, chartParams),
@@ -207,7 +207,7 @@ class ThermometerApp {
         .signal('maxDate', chartBounds.maxDate)
         .run();
 
-      document.querySelector('.js-updated-time').innerHTML = new Date().toLocaleString();
+      this.markUpdatedTime();
     }
   }
 
@@ -230,4 +230,15 @@ class ThermometerApp {
 
   }
 
+  markUpdatedTime() {
+    document.querySelector('.js-updated-time').innerHTML = new Date().toLocaleString(undefined, {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    });
+  }
 }
