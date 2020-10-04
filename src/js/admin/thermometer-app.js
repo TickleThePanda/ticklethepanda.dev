@@ -19,6 +19,8 @@ const apiBaseUrl = document.documentElement.dataset.urlApiThermometer;
 const assetsBaseUrl = document.documentElement.dataset.urlAssets;
 const chartSpecUrl = assetsBaseUrl + '/vega/thermometer.vg.json';
 
+const ROOMS = ['living-room', 'office', 'bedroom'];
+
 class ThermometerClient {
   constructor(token) {
     this.token = token;
@@ -117,7 +119,7 @@ class ThermometerApp {
   }
 
   getChartingParams() {
-    const rooms = ['living-room', 'office'];
+    const rooms = ROOMS;
 
     const params = new URLSearchParams(window.location.search)
     const periodParam = Number.parseFloat(params.get('period'));
