@@ -16,7 +16,7 @@ module.exports = function (config) {
 
   return {
     dir: {
-      input: 'src/eleventy',
+      input: 'src/views',
       output: 'site',
       layouts: '_layouts',
       includes: '_includes'

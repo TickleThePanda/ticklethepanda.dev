@@ -19,7 +19,7 @@ const assetsBaseOutput = 'site/assets';
 gulp.task('site', shell.task('eleventy'));
 
 gulp.task('css', function() {
-  return gulp.src('src/less/[^_]*.less')
+  return gulp.src('src/css/[^_]*.less')
     .pipe(less())
     .pipe(postCss([ autoprefixer() ]))
     .pipe(cleanCss({ skipAggressiveMerging: true }))
@@ -56,10 +56,10 @@ gulp.task('default', all());
 
 gulp.task('watch', function() {
   gulp.watch('src/js/**/*.js', gulp.parallel('js'));
-  gulp.watch('src/less/**/*.less', gulp.parallel('css'));
+  gulp.watch('src/css/**/*.less', gulp.parallel('css'));
   gulp.watch('src/vg/**/*.json', gulp.parallel('vega'));
   gulp.watch('src/html-partials/**/*.html', gulp.parallel('html-partials'));
   gulp.watch('.eleventy', gulp.parallel('site'));
-  gulp.watch('src/eleventy/**/*', gulp.parallel('site'));
+  gulp.watch('src/views/**/*', gulp.parallel('site'));
 });
 
