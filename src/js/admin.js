@@ -11,7 +11,7 @@ let tokenClient = new TokenClient();
 let tokenStorage = new TokenStorage();
 let router = new Router('/admin');
 
-let contentElement = document.getElementsByClassName('admin-content')[0];
+let contentElement = document.querySelector('.admin-content');
 
 router.interceptor = (url) => {
   let token = tokenStorage.load();

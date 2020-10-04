@@ -68,3 +68,24 @@
     border-bottom: @border;
   }
 }
+
+.admin-content {
+  display: contents;
+  &>* {
+    max-width: 33em;
+  }
+
+  :first-child {
+    margin-top: 0;
+  }
+}
+
+.thermometer-content.thermometer-content {
+  max-width: unset;
+}
+
+.last-updated-time.last-updated-time {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.8rem;
+}
