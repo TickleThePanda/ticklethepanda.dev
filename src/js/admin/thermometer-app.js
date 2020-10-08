@@ -120,6 +120,21 @@ class ThermometerApp {
       }
     });
 
+    this.updateControls(chartParams);
+
+    document.querySelector('.js-thermometer-prev').addEventListener('click', async () => {
+      this.updateChartingParams(chartParams, -1);
+      this.updateControls(chartParams);
+      this.emptyChart();
+      this.updateChart(rooms, chartParams, true);
+    });
+
+    document.querySelector('.js-thermometer-next').addEventListener('click', async () => {
+      this.updateChartingParams(chartParams, 1);
+      this.updateControls(chartParams);
+      this.emptyChart();
+      this.updateChart(rooms, chartParams, true);
+    });
   }
 
   combineData(roomData) {
@@ -151,6 +166,22 @@ class ThermometerApp {
 
     return {
       rooms, period, date, dateMode
+    }
+
+  }
+
+  updateChartingParams(params, direction) {
+    params.dateMode = "WHOLE_DAY";
+    if (params.date === undefined) {
+      params.date = new Date();
+
+      params.date.setUTCHours(0,0,0,0);
+    }
+    params.date.setDate(params.date.getDate() + direction);
+
+    if (isToday(params.date)) {
+      params.dateMode = "LAST_24";
+      params.date = undefined;
     }
 
   }
@@ -191,8 +222,8 @@ class ThermometerApp {
 
   }
 
-  async updateChart(rooms, chartParams) {
-    if (chartParams.dateMode === 'LAST_24') {
+  async updateChart(rooms, chartParams, forced) {
+    if (chartParams.dateMode === 'LAST_24' || forced) {
       const data = await this.fetchRoomData(rooms, chartParams);
 
       const chartBounds = calculateChartBounds(
@@ -209,6 +240,10 @@ class ThermometerApp {
 
       this.markUpdatedTime();
     }
+  }
+
+  async emptyChart() {
+    this.view.data('source', null).run();
   }
 
   async fetchRoomData(rooms, {period, date, dateMode}) {
@@ -230,8 +265,40 @@ class ThermometerApp {
 
   }
 
+  updateControls(chartParams) {
+    document.querySelector('.js-thermometer-prev').disabled = false;
+    if (chartParams.dateMode === 'LAST_24') {
+      document.querySelector('.js-thermometer-next').disabled = true;
+      document.querySelector('.js-thermometer-current-date').innerHTML = "Last 24 hours";
+
+      const url = new URL(window.location.href);
+      url.searchParams.delete('date');
+      history.replaceState(null, null, url);
+    } else {
+      document.querySelector('.js-thermometer-next').disabled = false;
+
+      const url = new URL(window.location.href);
+      url.searchParams.set('date', chartParams.date.toISOString().slice(0, 10));
+      history.replaceState(null, null, url);
+
+      document.querySelector('.js-thermometer-current-date').innerHTML = formatDate(chartParams.date);
+    }
+  }
+
   markUpdatedTime() {
-    document.querySelector('.js-updated-time').innerHTML = new Date().toLocaleString(undefined, {
+    document.querySelector('.js-updated-time').innerHTML = formatDateTime(new Date());
+  }
+}
+
+function isToday(someDate) {
+  const today = new Date()
+  return someDate.getDate() == today.getDate() &&
+    someDate.getMonth() == today.getMonth() &&
+    someDate.getFullYear() == today.getFullYear()
+}
+
+function formatDateTime(date) {
+  return date.toLocaleString(undefined, {
       weekday: 'long',
       month: 'long',
       day: 'numeric',
@@ -240,5 +307,15 @@ class ThermometerApp {
       minute: 'numeric',
       second: 'numeric'
     });
-  }
+
+}
+
+function formatDate(date) {
+
+  return date.toLocaleString(undefined, {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
 }
