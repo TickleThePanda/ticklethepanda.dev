@@ -1,18 +1,21 @@
 ---
 layout: page
-title: Other
-description: Some of my other projects.
-permalink: /other/
+title: Projects
+description: My personal projects
+permalink: /projects/
 ---
 
-<p>Here are some other personal projects that I've worked on.
+<p>Here are some personal projects that I've worked on.
 
 <ul class="cards">
-  {% for project in other-projects %}
+
+  {% assign projects = collections.project | concat: other-projects %}
+
+  {% for project in projects %}
     <li class="card block-link block-link--random-border block-link__wrapper js-random-border js-random-border-hover">
       <a class="card__link block-link__link" href="{{ project.url }}">
-        <h3 class="card__header">{{ project.name }}</h3>
-        <p>{{ project.description }}</p>
+        <h3 class="card__header">{{ project.data.title }}</h3>
+        <p>{{ project.data.description }}</p>
         <div class="card__footer">
           <div class="card__url">{{ project.url }}</div>
           <div class="card__arrow">→</div>
@@ -20,4 +23,5 @@ permalink: /other/
       </a>
     </li>
   {% endfor %}
+
 </ul>

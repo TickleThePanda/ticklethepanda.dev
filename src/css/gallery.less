@@ -74,10 +74,12 @@
   clear: both;
   padding-top: 0.3rem;
   margin-top: 0;
+  border-top: @border;
 }
 
 .gallery-description {
   padding-top: 0.3rem;
+  margin-top: 0;
 }
 
 .gallery-images {
@@ -116,7 +118,7 @@
     display: flex;
 
     flex: 1 1 auto;
-    width: ~"max("30vmin, 5em~")";
+    width: ~"max("30vmin, 10em~")";
 
     margin: @gallery-padding / 2;
 
@@ -126,7 +128,7 @@
 
       margin: 0;
 
-      width: ~"max(30vmin +" @gallery-padding ~", 5em + " @gallery-padding~")";
+      width: ~"max(30vmin +" @gallery-padding ~", 10em + " @gallery-padding~")";
     }
   }
 

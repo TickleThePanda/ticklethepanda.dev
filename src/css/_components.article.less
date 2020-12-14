@@ -1,24 +1,24 @@
 main {
-  grid-column: m;
+  grid-area: c;
 }
 
 article {
   margin: 0 auto;
 }
 
-article .header-bar {
-  max-width: @content-max-width + @content-padding-left + @content-padding-right;
-}
-
-article .content {
-
-  & > * {
+@supports not selector(:where(.content > *)) {
+  .content > * {
     max-width: @content-max-width;
   }
+}
 
-  & > :first-child {
-    margin-top: 0;
+@supports selector(:where(.content > *)) {
+  :where(.content > *) {
+    max-width: @content-max-width;
   }
+}
+
+.content {
 
   .top-item {
     margin-top: 0;
@@ -30,7 +30,7 @@ article .content {
 
   text-align: left;
 
-  padding-top: 1.5rem;
+  padding-top: 0;
   padding-left: @content-padding-left;
   padding-right: @content-padding-right;
   padding-bottom: 30vh;
@@ -40,7 +40,7 @@ article .content {
 
 }
 
-article nav a {
+.content nav a {
   display: inline;
 
   text-decoration: underline;
@@ -49,7 +49,7 @@ article nav a {
   margin: 0;
 }
 
-article nav a:hover {
+.content nav a:hover {
   text-decoration: none;
 }
 
@@ -59,8 +59,9 @@ article nav a:hover {
     margin: 0;
   }
 
-  article .content {
+  .content {
     padding: 6vmin;
+    padding-top: 0;
   }
 
 }

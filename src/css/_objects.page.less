@@ -1,0 +1,27 @@
+.page {
+  padding: 1em;
+
+  max-width: @content-width;
+  margin: auto;
+}
+
+@supports (display: grid) {
+
+  .page {
+    max-width: unset;
+
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content min-content 1fr;
+    grid-template-areas: "h c"
+                         "n c"
+                         "n c";
+  }
+
+  @media (max-width: @mobile-breakpoint) {
+    .page {
+      display: block;
+    }
+  }
+
+}

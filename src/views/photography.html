@@ -3,6 +3,8 @@ layout: page
 title: Photography
 description: A gallery of photography taken with both digital and film cameras.
 permalink: /photography/
+
+tags: project
 ---
 
 <p>
@@ -30,7 +32,7 @@ plants, there are a couple of shots of people in here which I really like!
         {% endunless %}
       </nav>
       <div class="gallery-content">
-        <h2 class="gallery-title">{{ gallery.name }}</h2>
+        <h3 class="gallery-title">{{ gallery.name }}</h3>
         <p class="gallery-description">{{ gallery.description }}</p>
         <ul class="gallery-images">
           {% assign hashGallery = gallery.name | hash %}

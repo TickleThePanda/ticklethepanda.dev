@@ -3,9 +3,9 @@ layout: page
 title: Messages Book
 description: An analysis of my location history from Google Location History.
 permalink: /messages/
----
 
-<h2>The book</h2>
+tags: project
+---
 
 <p>As an anniversary present to my partner, I created physical book from the messages that we sent to each other over various digital messenging services, like Facebook, Skype, and WhatsApp.</p>
 
@@ -21,7 +21,7 @@ permalink: /messages/
   <figcaption>Some of the pages within the book.</figcaption>
 </figure>
 
-<h2>The code</h2>
+<h3>The code</h3>
 <p>You can find the code in its repository on GitHub, <a href="https://github.com/TickleThePanda/messages-book"><code>message-book</code></a>.
 <p>To create the book, I had to first compile all of the messages across the different formats into a single sorted data structure - a sorted list. The input formats ranged from HTML for Facebook Messenger to SQLite for Skype. Additional problems cropped up, like the Skype messages appeared multiple times (since I had multiple databases) and so I had to find a way to remove the duplicates - thankfully there was a unique ID for the messages hanging about!</p>
 <p>
@@ -34,7 +34,7 @@ permalink: /messages/
 </p>
 
 <style>
-sup { 
+sup {
   font-size: small;
 }
 </style>

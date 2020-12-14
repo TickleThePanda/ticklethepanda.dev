@@ -21,7 +21,6 @@ gulp.task('site', shell.task('eleventy'));
 gulp.task('css', function() {
   return gulp.src('src/css/[^_]*.less')
     .pipe(less())
-    .pipe(postCss([ autoprefixer() ]))
     .pipe(cleanCss({ skipAggressiveMerging: true }))
     .pipe(gulp.dest(assetsBaseOutput + '/style/'));
 });
@@ -62,4 +61,3 @@ gulp.task('watch', function() {
   gulp.watch('.eleventy', gulp.parallel('site'));
   gulp.watch('src/views/**/*', gulp.parallel('site'));
 });
-
