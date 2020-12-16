@@ -2,35 +2,45 @@
   {
     "data": {
       "title": "Star Realms Score Tracker",
-      "description": "A star realms authority tracker with history tracking for up to six players."
+      "description": "A star realms authority tracker with history tracking for up to six players.",
+      "created": "2019-08-27",
+      "updated": "2019-08-27"
     },
     "url": "https://star-realms.ticklethepanda.co.uk/"
   },
   {
     "data": {
       "title": "Tartan-ify",
-      "description": "A tool to analyse patterns within a piece of musc. Most of the patters end up looking like tartan which is where it gets its title!"
+      "description": "A tool to analyse patterns within a piece of musc. Most of the patters end up looking like tartan which is where it gets its title!",
+      "created": "2018-10-13",
+      "updated": "2020-11-12"
     },
     "url": "https://tartan-ify.ticklethepanda.co.uk/"
   },
   {
     "data": {
       "title": "The Hitchhiker's Guide to the Galaxy",
-      "description": "A little app that I made as part of an Arthur Dent fancy-dress costume."
+      "description": "A little app that I made as part of an Arthur Dent fancy-dress costume.",
+      "created": "2016-01-01",
+      "updated": "2018-12-31"
     },
     "url": "https://hitchhikers.ticklethepanda.co.uk/"
   },
   {
     "data": {
-      "title": "When I'm a Dungeon Master",
-      "description": "My Dungeons and Dragons adventures that I run as a dungeon master"
+      "title": "Carpe DM",
+      "description": "Dungeons and Dragons adventures that I have written.",
+      "created": "2018-09-09",
+      "updated": "2020-07-20"
     },
     "url": "https://dm.dnd.ticklethepanda.co.uk"
   },
   {
     "data": {
       "title": "When I'm a Player",
-      "description": "My Dungeons and Dragons characters that I've played."
+      "description": "My Dungeons and Dragons characters that I've played.",
+      "created": "2018-06-15",
+      "updated": "2018-06-15"
     },
     "url": "https://dnd.ticklethepanda.co.uk"
   }

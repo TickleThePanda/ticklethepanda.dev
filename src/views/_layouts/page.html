@@ -1,68 +1,13 @@
-<!DOCTYPE html>
-<html lang="en-GB"
-  data-url-api="{{ urls.api }}"
-  data-url-api-health="{{ urls.apis.health }}"
-  data-url-api-auth="{{ urls.apis.auth }}"
-  data-url-api-thermometer="{{ urls.apis.thermometer }}"
-  data-url-assets="{{ urls.assets }}"
-  data-url-images="{{ urls.images }}">
-  <head>
-    <meta charset="utf-8">
-    <meta name="referrer" content="origin-when-cross-origin">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#008291" >
-    <meta name="description" content="{{ description }}" >
-    <meta name="author" content="Thomas 'Panda' Attwood (TickleThePanda)">
-    <title>{{ title }} - TickleThePanda</title>
-    <link rel="canonical" href="{{ permalink | url }}">
+---
+layout: default
+---
 
-    <link rel="preload" href="{{ urls.assets }}/style/main.css" as="style">
+<header class="article__header">
+  <h2 class="article__title">
+    {{ title }}
+  </h2>
+</header>
 
-    <link href="{{ urls.assets }}/style/main.css" rel="stylesheet" type="text/css">
-    <link href="{{ urls.assets }}/style/main-print.css" rel="stylesheet" type="text/css" media="print">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link rel="preconnect" href="{{ urls.assets }}/" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@500;800&family=Alegreya+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-
-    <script async src="{{ urls.assets }}/scripts/random-border-elements.js"></script>
-    <script async src="{{ urls.assets }}/scripts/nav.js"></script>
-
-  </head>
-  <body class="page">
-    <header class="header">
-      <div class="header__header-wrapper">
-        <div class="header__header header__bar block-link block-link__wrapper">
-          <a class="block-link__link" href="{{ '/' | url }}">
-            <h1 class="header__header-item header__header-item--main">
-              TickleThePanda
-            </h1>
-          </a>
-        </div>
-      </div>
-      <div class="header-nav__wrapper">
-        <nav class="header-nav">
-          <h1 class="header-nav__title">Main Navigation</h1>
-          <ul class="header-nav__list">
-            {% for link in nav  %}
-              <li class="header-nav__list-item">
-                <a class="header-nav__link button button--inverted" href="{{ link.location | url }}">{{ link.text }}</a>
-              </li>
-            {% endfor %}
-          </ul>
-        </nav>
-      </div>
-    </header>
-    <main>
-      <article>
-        <div class="content">
-          <h2 class="title">
-            {{ title }}
-          </h2>
-          {{ content }}
-        </div>
-      </article>
-    </main>
-  </body>
-</html>
+<div class="article__content">
+  {{ content }}
+</div>

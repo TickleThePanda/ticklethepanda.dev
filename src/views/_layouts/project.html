@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+<header class="article__header">
+  <h2 class="article__title">
+    {{ title }}
+  </h2>
+  <div class="article__date">
+    {% if project.data.created == project.data.updated %}
+      Created {{ created | date: "%b %Y"}}, last updated {{ updated | date: "%b %Y" }}
+    {% else %}
+      Created {{ created | date: "%b %Y"}}
+    {% endif %}
+  </div>
+</header>
+
+<div class="article__content">
+  {{ content }}
+</div>

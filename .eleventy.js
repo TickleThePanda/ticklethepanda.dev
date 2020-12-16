@@ -1,5 +1,9 @@
 const Random = require('seedrandom');
 
+function coerceToDate(date) {
+  return typeof date === "string" ? Date.parse(date) : date;
+}
+
 module.exports = function (config) {
 
   config.addLiquidFilter("hash", function(value, index) {
@@ -10,6 +14,12 @@ module.exports = function (config) {
 
   config.addLiquidFilter("where", function(array, p, v) {
     return array.filter(i => i[p] === v);
+  });
+
+  config.addLiquidFilter("sortByUpdated", function(array) {
+    return array
+      .slice()
+      .sort((a, b) => coerceToDate(b.data.updated) - coerceToDate(a.data.updated));
   });
 
   config.addLayoutAlias('page', 'page.html');

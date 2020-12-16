@@ -35,6 +35,8 @@
 
   grid-template-rows: auto 1fr auto;
 
+  font-weight: 400;
+
 }
 
 .card__header {
@@ -43,18 +45,34 @@
 
 .card__footer {
   display: flex;
+  flex-direction: column;
   align-items: baseline;
   justify-content: flex-end;
 
-  justify-self: end;
-
   padding-top: 0.5em;
+
+  font-weight: 400;
 }
 
 .card__url {
   font-size: 0.6em;
+
+  align-self: flex-end;
+
+  line-height: 1;
+
+  margin-top: 0.5rem;
+  text-align: end;
+
+  &::after {
+    content: "→";
+    display: inline;
+    font-size: 1rem;
+    line-height: 0.6;
+  }
 }
 
-.card__arrow {
-  justify-self: end;
+.card__date {
+  font-size: 0.75em;
+  margin-top: 0.1rem;
 }

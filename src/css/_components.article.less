@@ -6,21 +6,45 @@ article {
   margin: 0 auto;
 }
 
-@supports not selector(:where(.content > *)) {
-  .content > * {
+.article__header {
+  font-size: 0.8rem;
+
+  padding-left: @content-padding-left;
+  padding-right: @content-padding-right;
+}
+
+.article__title {
+
+  margin-top: 0.2em;
+
+  border-top: unset;
+  font-size: calc(1em + 6vmin);
+  letter-spacing: 0.08em;
+  color: @palette-secondary-background;
+
+  line-height: 1;
+
+  @media (max-width: @mobile-breakpoint) {
+    margin-top: 0.5rem;
+  }
+
+}
+
+@supports not selector(:where(.article__content > *)) {
+  .article__content > * {
     max-width: @content-max-width;
   }
 }
 
-@supports selector(:where(.content > *)) {
-  :where(.content > *) {
+@supports selector(:where(.article__content > *)) {
+  :where(.article__content > *) {
     max-width: @content-max-width;
   }
 }
 
-.content {
+.article__content {
 
-  .top-item {
+  & > *:first-child {
     margin-top: 0;
   }
 
@@ -29,6 +53,8 @@ article {
   font-weight: @font-weight__body-normal;
 
   text-align: left;
+
+  margin-top: 1em;
 
   padding-top: 0;
   padding-left: @content-padding-left;
