@@ -1,17 +1,22 @@
-@palette-primary-stroke:lighten(#b8c1ec, 10%, relative);
+
+@color-1: #00040D;
+@color-2: lighten(#A66F3F, 20%, relative);
+@color-3: lighten(saturate(#731B14, -20%, relative), 43%);
+
+@palette-primary-stroke: @color-3;
 @palette-primary-stroke-increased-contrast: lighten(@palette-primary-stroke, 10%, relative);
 @palette-primary-stroke-reduced-contrast: darken(@palette-primary-stroke, 10%, relative);
 @palette-primary-stroke-extra-reduced-contrast: darken(@palette-primary-stroke, 25%, relative);
-@palette-primary-background: #232946;
+@palette-primary-background: @color-1;
 
 
-@palette-primary-inverted-stroke: #232946;
+@palette-primary-inverted-stroke: @color-1;
 @palette-primary-inverted-stroke-reduced-contrast: lighten(@palette-primary-stroke, 20%, relative);
 @palette-primary-inverted-background: darken(@palette-primary-stroke, 10%, relative);
 
 @palette-secondary-stroke: @palette-primary-background;
 @palette-secondary-stroke-reduced-contrast: lighten(@palette-secondary-stroke, 50%, relative);
-@palette-secondary-background: #eebbc3;
+@palette-secondary-background: @color-2;
 @palette-tertiary-stroke: @palette-primary-background;
 @palette-tertiary-background: #fffffe;
 @palette-background-low-contrast: @palette-tertiary-background;
