@@ -11,6 +11,11 @@ article {
 
   padding-left: @content-padding-left;
   padding-right: @content-padding-right;
+
+  @media (max-width: @mobile-breakpoint) {
+    padding-left: 2.5vw;
+    padding-right: 2.5vw;
+  }
 }
 
 .article__title {
@@ -63,6 +68,13 @@ article {
 
   line-height: @line-height;
   word-wrap: break-word;
+
+
+  @media (max-width: @mobile-breakpoint) {
+    padding-left: 2.5vw;
+    padding-right: 2.5vw;
+
+  }
 
 }
 
