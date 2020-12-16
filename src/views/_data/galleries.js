@@ -8,7 +8,14 @@ module.exports = async function() {
     }
   });
 
-  console.log(JSON.stringify(galleries.data, null, 2));
+  printGalleryInfo(galleries.data);
 
   return galleries.data;
+}
+
+function printGalleryInfo(galleries) {
+  console.log("Galleries fetched:")
+  for (let gallery of galleries.galleries) {
+    console.log(` - ${gallery.name} (${gallery.ref}) | ${gallery.images.map(i => i.name).join(', ')}`);
+  }
 }
