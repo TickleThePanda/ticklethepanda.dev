@@ -1,3 +1,5 @@
+@card-padding: 1em;
+
 .cards {
   margin: 0;
   margin-top: 1em;
@@ -6,7 +8,7 @@
 
   display: grid;
   grid-template-columns: ~"repeat(auto-fit, minmax(min(100%, 15em), 1fr))";
-  grid-gap: 1em;
+  grid-gap: 0.75em;
 
   filter: drop-shadow(@high-contrast-shadow);
 
@@ -19,28 +21,58 @@
 
   height: 100%;
 
-  --random-border--safe-padding: 1em;
+  --random-border--safe-padding: 0.5em;
   --random-border--animation-duration-ms: 200;
 
-  --random-border--inner-padding: 2em;
+  --random-border--inner-padding: 1em;
+
 }
 
 .card__link {
-
-  padding: 2em;
 
   display: grid;
 
   height: 100%;
 
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
 
   font-weight: 400;
 
+  &:hover .card__image {
+
+    filter: unset;
+  }
+
+}
+
+.card__image {
+  width: 100%;
+  border: unset;
+  max-height: 30vh;
+  object-fit: cover;
+
+  filter: contrast(0.5) grayscale(0.25);
+  transition-property: filter;
+  transition: 175ms ease-in-out;
+}
+
+.card__main {
+  margin-top: 0.25em;
+  padding-left: @card-padding;
+  padding-right: @card-padding;
+
+  line-height: 1.2;
+
+  & :first-child {
+    margin-top: 0;
+  }
 }
 
 .card__header {
-  margin-top: 0;
+  margin-top: 1em;
+
+  padding-left: @card-padding;
+  padding-right: @card-padding;
 }
 
 .card__footer {
@@ -49,9 +81,17 @@
   align-items: baseline;
   justify-content: flex-end;
 
-  padding-top: 0.5em;
+  margin-top: 0.4rem;
 
   font-weight: 400;
+
+  padding-left: @card-padding;
+  padding-right: @card-padding;
+  padding-bottom: @card-padding;
+
+  line-height: 1;
+
+  color: @palette-secondary-stroke-reduced-contrast;
 }
 
 .card__url {
@@ -59,10 +99,11 @@
 
   align-self: flex-end;
 
-  line-height: 1;
-
   margin-top: 0.5rem;
   text-align: end;
+
+
+  word-break: break-all;
 
   &::after {
     content: "→";

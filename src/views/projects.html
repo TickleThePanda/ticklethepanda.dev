@@ -14,14 +14,16 @@ permalink: /projects/
   {% for project in projects %}
     <li class="card block-link block-link--random-border block-link__wrapper js-random-border js-random-border-hover">
       <a class="card__link block-link__link" href="{{ project.url }}">
+        <img class="card__image" src="{{ project.data.previewImage }}">
         <h3 class="card__header">{{ project.data.title }}</h3>
-        <p>{{ project.data.description }}</p>
+        <div class="card__main">
+          <p>{{ project.data.description }}</p>
+        </div>
         <div class="card__footer">
           {% if project.data.created == project.data.updated %}
             <div class="card__date">Created {{ project.data.created | date: "%b %Y" }}</div>
           {% else %}
-            <div class="card__date">Last updated {{ project.data.updated | date: "%b %Y" }}</div>
-            <div class="card__date">Created {{ project.data.created | date: "%b %Y" }}</div>
+            <div class="card__date">Last updated {{ project.data.updated | date: "%b %Y" }} | Created {{ project.data.created | date: "%b %Y" }}</div>
           {% endif %}
           <div class="card__url">{{ project.url }}</div>
         </div>
