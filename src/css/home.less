@@ -1,12 +1,18 @@
 @import "_settings.sizes.less";
 @import "_settings.colors.less";
 @import "_settings.typography.less";
+@import "_settings.shadows.less";
 
 @originX: 54%;
 @originY: 50%;
 
+.my-face-wrapper {
+  filter: drop-shadow(@low-contrast-shadow);
+  width: 100%;
+}
+
 .my-face-outer-wrapper {
-  width: ~"min("0.5 * @content-max-width, 100%, 40vw~")";
+  width: ~"min("100%, 70vw, 75vh~")";
   max-width: 100%;
   height: auto;
 
@@ -22,12 +28,12 @@
     (@originX + 26%) (@originY + 20%),
     (@originX - 16%) (@originY + 52%)
   );
+
 }
 
 .my-face-wrapper-1 {
 
   background-color: @palette-secondary-background;
-  width: 100%;
 
   clip-path: polygon(
     (@originX + 33%) (@originY - 22%),
@@ -44,7 +50,6 @@
 .my-face-wrapper-2 {
 
   background-color: @palette-primary-inverted-background;
-  width: 100%;
 
   clip-path: polygon(
     (@originX + 29%) (@originY - 22%),
@@ -60,7 +65,6 @@
 .my-face-wrapper-3 {
 
   background-color: @palette-tertiary-background;
-  width: 100%;
 
   clip-path: polygon(
     (@originX + 25%) (@originY - 22.3%),
