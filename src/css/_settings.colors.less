@@ -1,6 +1,6 @@
-@color-1: hsl(130, 47%, 13%);
-@color-2: hsl(hue(@color-1), 38%, 70%);
-@color-3: hsl(hue(@color-1) - 120, 75%, 68%);
+@color-1: hsl(200, 20%, 30%);
+@color-3: hsl(18, 70%, 68%);
+@color-2: hsl(hue(@color-1), 41%, 92%);
 @white: hsl(hue(@color-3), 100%, 98%);
 
 @palette-primary-stroke: @color-2;
@@ -11,13 +11,14 @@
 @palette-primary-stroke-extra-reduced-contrast: darken(@palette-primary-stroke, 25%, relative);
 @palette-primary-background: @color-1;
 
-@palette-primary-inverted-stroke: @color-1;
-@palette-primary-inverted-stroke-reduced-contrast: saturate(lighten(@palette-primary-inverted-stroke, 5%), -20%);
+@palette-primary-inverted-stroke: darken(@color-1, 15%);
+@palette-primary-inverted-stroke--bold-correction: lighten(@palette-primary-inverted-stroke, 4%);
+@palette-primary-inverted-stroke-reduced-contrast: lighten(@palette-primary-inverted-stroke, 7.5%);
 @palette-primary-inverted-background: @color-3;
 @palette-primary-inverted-background-highlight: @color-2;
 
-@palette-secondary-stroke: @color-1;
-@palette-secondary-stroke-reduced-contrast: lighten(@palette-secondary-stroke, 50%, relative);
+@palette-secondary-stroke: darken(@color-1, 15%);
+@palette-secondary-stroke-reduced-contrast: darken(@palette-secondary-stroke, 5%);
 @palette-secondary-background: @color-2;
 
 @palette-tertiary-stroke: @palette-primary-background;
