@@ -6,7 +6,7 @@
 @originY: 50%;
 
 .my-face-outer-wrapper {
-  width: ~"min("0.6 * @content-max-width, 100%~")";
+  width: ~"min("0.5 * @content-max-width, 100%, 40vw~")";
   max-width: 100%;
   height: auto;
 
@@ -27,6 +27,7 @@
 .my-face-wrapper-1 {
 
   background-color: @palette-secondary-background;
+  width: 100%;
 
   clip-path: polygon(
     (@originX + 33%) (@originY - 22%),
@@ -41,10 +42,9 @@
 }
 
 .my-face-wrapper-2 {
-  width: fit-content;
-  margin: auto;
 
   background-color: @palette-primary-inverted-background;
+  width: 100%;
 
   clip-path: polygon(
     (@originX + 29%) (@originY - 22%),
@@ -58,10 +58,9 @@
 }
 
 .my-face-wrapper-3 {
-  width: fit-content;
-  margin: auto;
 
   background-color: @palette-tertiary-background;
+  width: 100%;
 
   clip-path: polygon(
     (@originX + 25%) (@originY - 22.3%),
@@ -80,7 +79,7 @@
   margin-left:auto;
   margin-right:auto;
 
-  width: auto;
+  width: 100%;
 
   clip-path: polygon(
     (@originX + 24%) (@originY - 22%),
@@ -99,14 +98,13 @@
 .home-heading {
   font-size: 1.5em;
   line-height: 1;
-  font-weight: 300;
+  font-weight: @font-weight__body-normal;
   margin: 0;
 
   font-family: @font-family-main;
 
   strong {
-    font-weight: 400;
-    color: @palette-primary-stroke-highlight;
+    font-weight: @font-weight__body-bold;
   }
 }
 
@@ -138,5 +136,6 @@
     padding: 0.2em;
     border-radius: 100%;
     border: none;
+    width: 100%;
   }
 }

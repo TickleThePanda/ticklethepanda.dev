@@ -23,8 +23,9 @@ article {
   margin-top: 0.2em;
 
   border-top: unset;
-  font-size: calc(1em + 6vmin);
-  letter-spacing: 0.08em;
+  font-size: calc(1.5em + 6vw);
+  font-weight: @font-weight__title-bold;
+  letter-spacing: 0.05em;
   color: @palette-primary-stroke-highlight;
 
   line-height: 1;
@@ -32,6 +33,8 @@ article {
   @media (max-width: @mobile-breakpoint) {
     margin-top: 0.5rem;
   }
+
+  filter: drop-shadow(0.1em 0.1em 0.1em rgba(0, 0, 0, .2));
 
 }
 
@@ -76,6 +79,10 @@ article {
 
   }
 
+}
+
+.article__date {
+  margin-top: 1em;
 }
 
 .content nav a {
