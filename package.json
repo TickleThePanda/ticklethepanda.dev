@@ -11,8 +11,10 @@
     "start": "npm run start-app",
     "build": "gulp",
     "watch": "gulp watch",
-    "ws": "ws --directory ./site --rewrite '/admin/* -> /admin/' --static.maxage=0",
-    "dev": "npm run build && concurrently \"gulp watch\" \"npm run ws\""
+    "ws": "live-server ./site --port=8000 --mount='/admin/*':'/admin/' --no-browser --no-css-inject --wait=300 --middleware=../../src/dev/middleware/no-cache.js",
+    "tunnel": "ngrok http 8000 --log 'stdout' --log-format 'logfmt' --region 'eu'",
+    "dev": "npm run build; concurrently \"gulp watch\" \"npm run ws\"",
+    "dev-tunnel": "npm run build; concurrently \"gulp watch\" \"npm run ws\" \"npm run tunnel\""
   },
   "repository": {
     "type": "git",
@@ -21,7 +23,9 @@
   "author": "",
   "devDependencies": {
     "concurrently": "^3.6.1",
-    "local-web-server": "^2.6.1"
+    "live-server": "^1.2.1",
+    "local-web-server": "^2.6.1",
+    "ngrok": "^3.3.0"
   },
   "dependencies": {
     "@11ty/eleventy": "^0.10.0",
