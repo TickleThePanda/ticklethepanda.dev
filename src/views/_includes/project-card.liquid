@@ -1,0 +1,20 @@
+<li class="card block-link block-link--random-border block-link__wrapper js-random-border js-random-border-hover">
+  <a class="card__link block-link__link" href="{{ project.url }}">
+    <img class="card__image" src="{{ project.data.previewImage }}">
+    <h4 class="card__header">{{ project.data.title }}</h4>
+    <div class="card__main">
+      <p>{{ project.data.description }}</p>
+      {% unless project.data.favouriteReason == blank %}
+        <p class="card__extra-description">{{ project.data.favouriteReason }}</p>
+      {% endunless %}
+    </div>
+    <div class="card__footer">
+      {% if project.data.created == project.data.updated %}
+        <div class="card__date">Created {{ project.data.created | date: "%b %Y" }}</div>
+      {% else %}
+        <div class="card__date">Last updated {{ project.data.updated | date: "%b %Y" }} | Created {{ project.data.created | date: "%b %Y" }}</div>
+      {% endif %}
+      <div class="card__url">{{ project.url }}</div>
+    </div>
+  </a>
+</li>

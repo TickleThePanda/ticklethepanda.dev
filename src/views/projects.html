@@ -5,30 +5,35 @@ description: My personal projects
 permalink: /projects/
 ---
 
-<p>Here are some personal projects that I've worked on.
+<p>In my free time, I like to spend my time on projects. They cover
+  a few different areas which range from collecting and visualising
+  data to sharing my photography. Sometimes I use these projects to
+  learn new skills, like design and the latest web technologies, but
+  most of the time they are for fun. These are the ones that I want to
+  share with you as a way of expressing myself: while they might not
+  be clean and polished, I am very proud of them.
+
+{% assign projects = collections.project | concat: other-projects | sortByUpdated %}
+{% assign favProjects = projects | whereData: "favourite", "yes", %}
+{% assign notFavProjects = projects | whereData: "favourite", "yes", "!" %}
+
+<h3>Favourites</h3>
+
+<p>These are my favourite projects: the ones that I am most proud of.
 
 <ul class="cards">
-
-  {% assign projects = collections.project | concat: other-projects | sortByUpdated %}
-
-  {% for project in projects %}
-    <li class="card block-link block-link--random-border block-link__wrapper js-random-border js-random-border-hover">
-      <a class="card__link block-link__link" href="{{ project.url }}">
-        <img class="card__image" src="{{ project.data.previewImage }}">
-        <h3 class="card__header">{{ project.data.title }}</h3>
-        <div class="card__main">
-          <p>{{ project.data.description }}</p>
-        </div>
-        <div class="card__footer">
-          {% if project.data.created == project.data.updated %}
-            <div class="card__date">Created {{ project.data.created | date: "%b %Y" }}</div>
-          {% else %}
-            <div class="card__date">Last updated {{ project.data.updated | date: "%b %Y" }} | Created {{ project.data.created | date: "%b %Y" }}</div>
-          {% endif %}
-          <div class="card__url">{{ project.url }}</div>
-        </div>
-      </a>
-    </li>
+  {% for project in favProjects %}
+    {% include project-card project=project %}
   {% endfor %}
+</ul>
 
+<h3>The rest</h3>
+<p>While the other projects are my highlights, these are the ones that
+  don't stand out, others that are not my best, or just older ones that
+  I am less interested in now. They often show my learning and journey.
+
+<ul class="cards">
+  {% for project in notFavProjects %}
+    {% include project-card project=project %}
+  {% endfor %}
 </ul>

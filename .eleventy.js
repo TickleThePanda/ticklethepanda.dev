@@ -16,6 +16,14 @@ module.exports = function (config) {
     return array.filter(i => i[p] === v);
   });
 
+  config.addLiquidFilter("whereData", function(array, p, v, t) {
+    if (t === '!') {
+      return array.filter(i => i.data[p] !== v);
+    } else {
+      return array.filter(i => i.data[p] === v);
+    }
+  });
+
   config.addLiquidFilter("sortByUpdated", function(array) {
     return array
       .slice()

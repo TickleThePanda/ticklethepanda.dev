@@ -12,9 +12,11 @@
   {
     "data": {
       "title": "Tartan-ify",
-      "description": "A tool to analyse patterns within a piece of musc. Most of the patters end up looking like tartan which is where it gets its title!",
+      "description": "Visualisations of the difference in sound within a piece of music. It's named after the tartan look of its visualisations!",
       "created": "2018-10-13",
       "updated": "2020-11-12",
+      "favourite": "yes",
+      "favouriteReason": "I love this for its pretty visualisations.",
       "previewImage": "https://images.ticklethepanda.co.uk/images/project-images/project-tartanify.jpg"
     },
     "url": "https://tartan-ify.ticklethepanda.co.uk/"
@@ -35,6 +37,8 @@
       "description": "Dungeons and Dragons adventures that I have written.",
       "created": "2018-09-09",
       "updated": "2020-07-20",
+      "favourite": "yes",
+      "favouriteReason": "I'm proud of the design of the site.",
       "previewImage": "https://images.ticklethepanda.co.uk/images/project-images/project-carpe-dm.jpg"
     },
     "url": "https://dm.dnd.ticklethepanda.co.uk"
