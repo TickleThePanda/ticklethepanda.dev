@@ -52,5 +52,14 @@
       "previewImage": "https://images.ticklethepanda.co.uk/images/project-images/project-dnd.jpg"
     },
     "url": "https://dnd.ticklethepanda.co.uk"
+  },
+  {
+    "data": {
+      "title": "Our plants",
+      "description": "Instructions on how to look after the plants in our house.",
+      "created": "2021-01-25",
+      "updated": "2021-01-28"
+    },
+    "url": "https://our-plants.ticklethepanda.dev/"
   }
 ]
