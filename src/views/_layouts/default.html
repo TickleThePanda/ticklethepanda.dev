@@ -34,6 +34,15 @@
   </head>
   <body class="page">
     <header class="header">
+      <div class="header__header-wrapper">
+        <div class="header__header header__bar block-link block-link__wrapper">
+          <a class="block-link__link" href="{{ '/' | url }}">
+            <h1 class="header__header-item header__header-item--main">
+              Tickle&shy;The&shy;Panda
+            </h1>
+          </a>
+        </div>
+      </div>
       <div class="header-nav__wrapper">
         <nav class="header-nav">
           <h1 class="header-nav__title">Main Navigation</h1>
@@ -45,15 +54,6 @@
             {% endfor %}
           </ul>
         </nav>
-      </div>
-      <div class="header__header-wrapper">
-        <div class="header__header header__bar block-link block-link__wrapper">
-          <a class="block-link__link" href="{{ '/' | url }}">
-            <h1 class="header__header-item header__header-item--main">
-              Tickle&shy;The&shy;Panda
-            </h1>
-          </a>
-        </div>
       </div>
     </header>
     <main>

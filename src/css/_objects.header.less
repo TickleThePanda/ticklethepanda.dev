@@ -8,6 +8,9 @@
 
 .header__header {
   max-width: max-content;
+  @media (max-width: @mobile-breakpoint) {
+    margin: auto;
+  }
 }
 
 .header__header-wrapper {
@@ -15,6 +18,7 @@
   filter: drop-shadow(@high-contrast-shadow);
   align-self: end;
   justify-self: end;
+
 }
 
 .header__section-title {
