@@ -12,11 +12,10 @@
     margin: auto;
 
     display: grid;
-    grid-template-columns: min-content 1fr;
-    grid-template-rows: min-content min-content 1fr;
-    grid-template-areas: "h c"
-                         "n c"
-                         "n c";
+    grid-template-columns: 1fr min-content auto;
+    grid-template-rows: min-content 1fr;
+    grid-template-areas: "x n h"
+                         "c c c";
   }
 
   @media (max-width: @mobile-breakpoint) {

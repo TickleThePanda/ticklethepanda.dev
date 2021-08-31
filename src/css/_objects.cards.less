@@ -1,4 +1,4 @@
-@card-padding: 2rem;
+@card-padding: 1.2rem;
 
 .cards {
   margin: 0;
@@ -7,7 +7,7 @@
   border: unset;
 
   display: grid;
-  grid-template-columns: ~"repeat(auto-fit, minmax(min(100%, 20em), 1fr))";
+  grid-template-columns: ~"repeat(auto-fit, minmax(min(100%, 15em), 1fr))";
   grid-gap: 1em;
 
   filter: drop-shadow(@high-contrast-shadow);
@@ -21,10 +21,10 @@
 
   height: 100%;
 
-  --random-border--safe-padding: 1em;
+  --random-border--safe-padding: 0.5em;
   --random-border--animation-duration-ms: 200;
 
-  --random-border--inner-padding: 2em;
+  --random-border--inner-padding: 1em;
 
 }
 
@@ -60,6 +60,7 @@
   margin-top: 0.25em;
   padding-left: @card-padding;
   padding-right: @card-padding;
+  font-size: 0.7rem;
 
   line-height: 1.2;
 
@@ -74,7 +75,7 @@
 
 .card__header {
   margin-top: 1.5em;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
 
   padding-left: @card-padding;
   padding-right: @card-padding;
