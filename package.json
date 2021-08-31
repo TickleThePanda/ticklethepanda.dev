@@ -2,7 +2,6 @@
   "name": "ticklethepanda.co.uk",
   "version": "1.0.0",
   "description": "",
-  "": "",
   "scripts": {
     "compress-jpeg": "find ./public/images -name \"*.jpg\" -type f -exec jpegtran -copy none -optimize -outfile {} {} \\;",
     "compress-gif": "find ./public/images -name \"*.gif\" -type f -exec gifsicle --colors 256 -O3 --careful -o {} {} \\;",
@@ -28,8 +27,8 @@
     "ngrok": "^3.3.0"
   },
   "dependencies": {
-    "@11ty/eleventy": "^0.10.0",
-    "axios": "^0.19.2",
+    "@11ty/eleventy": "^0.12.1",
+    "axios": "^0.21.1",
     "gulp": "^4.0.0",
     "gulp-clean-css": "^3.10.0",
     "gulp-less": "^4.0.1",
@@ -37,6 +36,7 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "git+https://github.com/terinjokes/gulp-uglify.git",
     "gulp-util": "^3.0.8",
+    "hyphen": "^1.6.4",
     "seedrandom": "^3.0.5",
     "uglify-es": "^3.3.9"
   }

@@ -1,4 +1,5 @@
 const Random = require('seedrandom');
+const { hyphenateHTML } = require('hyphen/en-gb')
 
 function coerceToDate(date) {
   return typeof date === "string" ? Date.parse(date) : date;
@@ -31,6 +32,10 @@ module.exports = function (config) {
   });
 
   config.addLayoutAlias('page', 'page.html');
+
+  config.addTransform('hyphenate', async function(content, _) {
+    return await hyphenateHTML(content);
+  })
 
   return {
     dir: {
