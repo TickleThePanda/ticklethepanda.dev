@@ -7,7 +7,7 @@
   "signals": [
     {
       "name": "minimumPointSize",
-      "update": "2.5 * PI"
+      "update": "15 * PI"
     },
     {
       "name": "basePointSize",
@@ -115,7 +115,7 @@
       "type": "symbol",
       "shape": "shape",
       "symbolStrokeColor": "#232946",
-      "symbolFillColor": "#b5beeb",
+      "symbolFillColor": "#f39bab",
       "fillColor": "#ffffff88",
       "padding": 10,
       "offset": 10,
@@ -136,7 +136,7 @@
           "shape": { "scale": "shape", "field": "period" },
           "opacity": {"value": 1},
           "stroke": {"value": "#232946"},
-          "fill": {"value": "#b5beeb"}
+          "fill": {"value": "#f39bab"}
         }
       }
     }
