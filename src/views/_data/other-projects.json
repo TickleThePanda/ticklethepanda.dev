@@ -61,5 +61,14 @@
       "updated": "2021-01-28"
     },
     "url": "https://our-plants.ticklethepanda.dev/"
+  },
+  {
+    "data": {
+      "title": "Dancer",
+      "description": "Uses your phone movements to generate sounds.",
+      "created": "2021-07-31",
+      "updated": "2021-08-15"
+    },
+    "url": "https://dancer.ticklethepanda.dev/"
   }
 ]
