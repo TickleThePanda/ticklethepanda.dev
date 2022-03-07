@@ -9,23 +9,16 @@ updated: 2018-12-28
 previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-health-tracking.jpg
 ---
 
-<p>In an effort to keep fit and healthy, I keep track of my fitness and weight data, and do various analyses on this data. This data comes from Fitbit (a Fitbit Flex) and manually entered weight data. The code used to generate these graphs are in <a href="https://github.com/ticklethepanda/health-vis">my <code>health-vis</code> repository on GitHub</a>.</p>
-
-<p>The charts in the section below show my average weekly weight over time.</p>
-<div id="weight-charts" class="faceted-data-container form inline">
-  <div class="controls">
-    <div class="control-set facets">
-      <h3>Data Facets:</h3>
-      <button type="button" id="weight-chart-all" class="button" name="weight-facet" value="all">All</button>
-      <button type="button" id="weight-chart-trying-again" class="button button--selected" name="weight-facet" value="trying-again">Trying again!</button>
-      <button type="button" id="weight-chart-recent" class="button" name="weight-facet" value="recent">Recent</button>
-    </div>
-  </div>
-  <div class="facet-data chart-container" id="weight-chart"></div>
-</div>
-
-<script src="{{ urls.assets }}/scripts/health.js" type="module"></script>
-<link href="{{ urls.assets }}/style/health.css" rel="stylesheet" type="text/css">
-<link href="{{ urls.assets }}/style/charts.css" rel="stylesheet" type="text/css">
-
-<script src="{{ urls.cdn.vega }}"></script>
+<p>
+  In an effort to keep fit and healthy, I keep track and analyse my fitness
+  data. I have created a simple web service to keep track of my weight. See
+  <a href="https://github.com/ticklethepanda/health-vis"
+    >my <code>health-vis</code> repository on GitHub</a
+  >.
+</p>
+<h3>Collection methodology</h3>
+<p>
+  This web service consists of endpoints to get and store data for weight. This
+  data is stored in a Postgres database. This service and database is deployed
+  to Heroku.
+</p>
