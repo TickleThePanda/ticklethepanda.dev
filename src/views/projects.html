@@ -23,7 +23,7 @@ permalink: /projects/
 
 <ul class="cards">
   {% for project in favProjects %}
-    {% include project-card project=project %}
+    {% include 'project-card', project: project %}
   {% endfor %}
 </ul>
 
@@ -34,6 +34,6 @@ permalink: /projects/
 
 <ul class="cards">
   {% for project in notFavProjects %}
-    {% include project-card project=project %}
+    {% include 'project-card', project: project %}
   {% endfor %}
 </ul>
