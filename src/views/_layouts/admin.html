@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<header class="article__header">
+  <h2 class="article__title">{{ title }}</h2>
+  <nav class="article__nav">
+    <a href="/admin/home/">Return to <em>admin home</em></a>
+  </nav>
+</header>
+
+<div class="article__content">{{ content }}</div>
+
+<link
+  href="{{ urls.assets }}/style/admin.css"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{{ urls.assets }}/style/charts.css"
+  rel="stylesheet"
+  type="text/css"
+/>
+
+<script type="module" src="{{ urls.assets }}/scripts/admin.js"></script>

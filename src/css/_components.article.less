@@ -19,7 +19,6 @@ article {
 }
 
 .article__title {
-
   margin-top: 0.2em;
 
   border-top: unset;
@@ -35,8 +34,7 @@ article {
     margin-top: 5vw;
   }
 
-  filter: drop-shadow(0.1em 0.1em 0.1em rgba(0, 0, 0, .15));
-
+  filter: drop-shadow(0.1em 0.1em 0.1em rgba(0, 0, 0, 0.15));
 }
 
 @supports not selector(:where(.article__content > *)) {
@@ -52,7 +50,6 @@ article {
 }
 
 .article__content {
-
   & > *:first-child {
     margin-top: 0;
   }
@@ -73,17 +70,18 @@ article {
   line-height: @line-height;
   word-wrap: break-word;
 
-
   @media (max-width: @mobile-breakpoint) {
     padding-left: 2.5vw;
     padding-right: 2.5vw;
-
   }
-
 }
 
 .article__date {
   margin-top: 0.5em;
+}
+
+.article__nav {
+  margin-top: 1em;
 }
 
 .content nav a {
@@ -100,7 +98,6 @@ article {
 }
 
 @media (max-width: @mobile-breakpoint) {
-
   article {
     margin: 0;
   }
@@ -109,5 +106,4 @@ article {
     padding: 6vmin;
     padding-top: 0;
   }
-
 }

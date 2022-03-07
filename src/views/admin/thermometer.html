@@ -1,0 +1,31 @@
+---
+title: Thermometer
+permalink: /admin/thermometer/
+---
+
+<div class="thermometer-content">
+  <h3>Thermometers</h3>
+  <div class="faceted-data-container">
+    <div class="controls">
+      <div class="control-set play-controls">
+        <button type="button" class="js-thermometer-prev button prev" disabled>
+          ↞ Previous day
+        </button>
+        <button type="button" class="js-thermometer-next button next" disabled>
+          Next day ↠
+        </button>
+      </div>
+      <div class="state js-thermometer-current-date">Unknown</div>
+    </div>
+    <div class="facet-data chart-container" id="thermometer-chart"></div>
+  </div>
+  <div class="last-updated-time">
+    <p>Last updated: <date class="js-updated-time">never</date></p>
+  </div>
+</div>
+<script src="{{ urls.cdn.vega }}"></script>
+
+<script
+  type="module"
+  src="{{ urls.assets }}/scripts/admin--thermometer-app.js"
+></script>
