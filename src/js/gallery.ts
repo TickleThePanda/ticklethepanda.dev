@@ -1,4 +1,4 @@
-function registerDomLoadedEvent(cb) {
+function registerDomLoadedEvent(cb: () => void) {
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", cb);
   } else {

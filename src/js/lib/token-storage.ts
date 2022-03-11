@@ -1,11 +1,11 @@
 export { TokenStorage };
 
 class TokenStorage {
-  save(token) {
+  save(token: string) {
     window.localStorage.setItem("token", token);
   }
 
-  load() {
+  load(): string {
     return window.localStorage.getItem("token");
   }
 }

@@ -1,4 +1,6 @@
-function resize(v) {
+import type { View } from "vega-typings";
+
+function resize(v: View) {
   const container = v.container();
   let w = container.offsetWidth;
   let h = container.offsetHeight;
@@ -6,7 +8,7 @@ function resize(v) {
 }
 
 export class ChartSizeManager {
-  views: any[];
+  views: View[];
   constructor() {
     this.views = [];
     window.addEventListener("resize", () => {
@@ -16,12 +18,12 @@ export class ChartSizeManager {
     });
   }
 
-  add(view) {
+  add(view: View) {
     this.views.push(view);
     resize(view);
   }
 
-  resize(view) {
+  resize(view: View) {
     resize(view);
   }
 }

@@ -1,5 +1,7 @@
 window.addEventListener("load", function () {
-  function generateRandomCssPolygonForElement(randomBorderElement) {
+  function generateRandomCssPolygonForElement(
+    randomBorderElement: HTMLElement
+  ) {
     const safeZone = getComputedStyle(randomBorderElement).getPropertyValue(
       "--random-border--safe-padding"
     );
@@ -122,7 +124,7 @@ window.addEventListener("load", function () {
       randomBorderElement.style.clipPath = originalClipPath;
 
       if (randomBorderElement.classList.contains("js-random-border-hover")) {
-        let animation = undefined;
+        let animation: Animation = undefined;
 
         randomBorderElement.addEventListener("mouseenter", function () {
           const animationTime =

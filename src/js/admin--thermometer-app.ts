@@ -1,6 +1,7 @@
+import type { View } from "vega-typings/types";
 import { TokenStorage } from "./lib/token-storage.js";
 
-function handleResponse(response) {
+function handleResponse(response: Response) {
   if (response.ok) {
     return response.json();
   } else {
@@ -8,11 +9,16 @@ function handleResponse(response) {
   }
 }
 
-function convertDates(results) {
+function convertDates(results: ThermometerEntry[]): ThermometerEntry[] {
   results.forEach((r) => {
     r.time = new Date(r.time);
   });
   return results;
+}
+
+interface ThermometerEntry {
+  time: string | Date;
+  room: string;
 }
 
 const apiBaseUrl = document.documentElement.dataset.urlApiThermometer;
@@ -27,7 +33,7 @@ class ChartingParams {
   date: any;
   dateMode: any;
 
-  static fromUrl() {
+  static fromUrl(): ChartingParams {
     const rooms = ROOMS;
 
     const params = new URLSearchParams(window.location.search);
@@ -52,7 +58,17 @@ class ChartingParams {
     });
   }
 
-  constructor({ rooms, period, date, dateMode }) {
+  constructor({
+    rooms,
+    period,
+    date,
+    dateMode,
+  }: {
+    rooms: Array<string>;
+    period: number;
+    date: Date;
+    dateMode: string;
+  }) {
     this.rooms = rooms;
     this.period = period;
     this.date = date;
@@ -67,7 +83,7 @@ class ChartingParams {
     this.addDays(-1);
   }
 
-  addDays(direction) {
+  addDays(direction: number) {
     this.dateMode = "WHOLE_DAY";
     if (this.date === undefined) {
       this.date = new Date();
@@ -85,11 +101,15 @@ class ChartingParams {
 
 class ThermometerClient {
   token: any;
-  constructor(token) {
+  constructor(token: string) {
     this.token = token;
   }
 
-  async fetchForDate(room, date, period) {
+  async fetchForDate(
+    room: string,
+    date: Date,
+    period: number
+  ): Promise<ThermometerEntry[]> {
     let authHeaderValue = "Bearer " + this.token;
 
     let dataUrl =
@@ -109,7 +129,7 @@ class ThermometerClient {
     return convertDates(data);
   }
 
-  async fetchLastDay(room, period) {
+  async fetchLastDay(room: string, period: number) {
     const now = new Date();
     const yesterday = addDays(now, -1);
 
@@ -121,22 +141,22 @@ class ThermometerClient {
   }
 }
 
-function resizeView(v, w) {
+function resizeView(v: View, w: number) {
   v.width(w)
     .height(w / 1.61)
     .run();
 }
 
-function addDays(date, n) {
-  const newDate = new Date(date);
+function addDays(epochInMs: Date, n: number) {
+  const newDate = new Date(epochInMs);
   newDate.setDate(newDate.getDate() + n);
 
   return newDate;
 }
 
-function calculateChartBounds(dateMode, date) {
+function calculateChartBounds(dateMode: string, date: Date) {
   if (dateMode === "LAST_24") {
-    let now = Date.now();
+    let now = new Date();
 
     let yesterday = addDays(now, -1);
 
@@ -153,11 +173,11 @@ function calculateChartBounds(dateMode, date) {
 }
 
 class ThermometerApp {
-  token: any;
+  token: string;
   client: ThermometerClient;
-  view: any;
-  chartParams: any;
-  constructor(token) {
+  view: View;
+  chartParams: ChartingParams;
+  constructor(token: string) {
     this.token = token;
     this.client = new ThermometerClient(token);
     this.view = null;
@@ -206,7 +226,7 @@ class ThermometerApp {
       });
   }
 
-  combineData(roomData) {
+  combineData(roomData: any) {
     let combined = [];
     for (let { room, data } of roomData) {
       for (let entry of data) {
@@ -216,7 +236,7 @@ class ThermometerApp {
     return combined;
   }
 
-  async generateChart(data) {
+  async generateChart(data: any) {
     const spec = JSON.parse(await vega.loader().load(chartSpecUrl));
 
     const chartBounds = calculateChartBounds(
@@ -252,7 +272,7 @@ class ThermometerApp {
     };
   }
 
-  async updateChart(rooms, forced) {
+  async updateChart(rooms: string[], forced: boolean) {
     if (this.chartParams.dateMode === "LAST_24" || forced) {
       const data = await this.fetchRoomData(rooms);
 
@@ -277,7 +297,7 @@ class ThermometerApp {
     this.view.data("source", null).run();
   }
 
-  async fetchRoomData(rooms) {
+  async fetchRoomData(rooms: string[]) {
     const period = this.chartParams.period;
     const date = this.chartParams.date;
     const dateMode = this.chartParams.dateMode;
@@ -337,7 +357,7 @@ class ThermometerApp {
   }
 }
 
-function isToday(someDate) {
+function isToday(someDate: Date) {
   const today = new Date();
   return (
     someDate.getDate() == today.getDate() &&
@@ -346,7 +366,7 @@ function isToday(someDate) {
   );
 }
 
-function formatDateTime(date) {
+function formatDateTime(date: Date) {
   return date.toLocaleString(undefined, {
     weekday: "long",
     month: "long",
@@ -358,7 +378,7 @@ function formatDateTime(date) {
   });
 }
 
-function formatDate(date) {
+function formatDate(date: Date) {
   return date.toLocaleString(undefined, {
     weekday: "long",
     month: "long",

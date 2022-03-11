@@ -1,6 +1,7 @@
 import { HealthClient } from "./lib/health-client.js";
 import { ChartClient } from "./lib/chart-client.js";
 import { ChartSizeManager } from "./lib/chart-size-manager.js";
+import type { View } from "vega-typings/types";
 
 let healthClient = new HealthClient();
 let chartClient = new ChartClient();
@@ -27,7 +28,7 @@ window.addEventListener("load", async () => {
   const sixMonthsAgo = new Date();
   sixMonthsAgo.setDate(sixMonthsAgo.getDate() - 30 * 6);
 
-  const options = {
+  const options: Record<string, any> = {
     all: {
       date: dataMinDate,
       data: weight30,
@@ -81,7 +82,7 @@ window.addEventListener("load", async () => {
     updateViewTo(chartType);
   }
 
-  function updateViewTo(chartType) {
+  function updateViewTo(chartType: string) {
     let option = options[chartType];
 
     updateVegaChart(view, option.date, option.data).run();
@@ -97,7 +98,7 @@ window.addEventListener("load", async () => {
       .classList.add("button--selected");
   }
 
-  function updateVegaChart(chart, date, data) {
+  function updateVegaChart(chart: View, date: Date, data: any) {
     return chart.signal("minDate", date).data("source", data);
   }
 });

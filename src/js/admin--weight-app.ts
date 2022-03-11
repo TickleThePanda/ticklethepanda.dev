@@ -1,6 +1,6 @@
 import { TokenStorage } from "./lib/token-storage.js";
 
-function getMiddayOfDate(date) {
+function getMiddayOfDate(date: Date) {
   var middayOnDate = new Date(date);
   middayOnDate.setHours(12);
   middayOnDate.setMinutes(0);
@@ -10,7 +10,7 @@ function getMiddayOfDate(date) {
   return middayOnDate;
 }
 
-function cleanWeightResult(weight) {
+function cleanWeightResult(weight: number) {
   if (weight) {
     return weight.toFixed(1);
   } else {
@@ -21,21 +21,21 @@ function cleanWeightResult(weight) {
 const apiBaseHealthUrl = document.documentElement.dataset.urlApiHealth;
 
 class WeightClient {
-  token: any;
-  constructor(token) {
+  token: string;
+  constructor(token: string) {
     this.token = token;
   }
 
   async fetchHistory() {
     const response = await fetch(apiBaseHealthUrl + "/weight/log");
 
-    const results = await response.json();
+    const results = <DayEntry[]>await response.json();
 
     results.sort((b, a) => a.date.localeCompare(b.date));
     return results.filter((e) => e.weightAm || e.weightPm);
   }
 
-  async updateDay(req): Promise<DayResult> {
+  async updateDay(req: UpdateEntryRequest): Promise<UpdateEntryResult> {
     let date = req.date;
     let period = req.period;
     let weight = req.weight;
@@ -67,16 +67,28 @@ class WeightClient {
   }
 }
 
-interface DayResult {
+interface UpdateEntryRequest {
+  date: string;
+  period: string;
+  weight: string;
+}
+
+interface UpdateEntryResult {
   date: string;
   meridiam: string;
   weight: string;
 }
 
+interface DayEntry {
+  date: string;
+  weightAm: number;
+  weightPm: number;
+}
+
 class WeightApp {
-  token: any;
+  token: string;
   client: WeightClient;
-  constructor(token) {
+  constructor(token: string) {
     this.token = token;
     this.client = new WeightClient(token);
   }
@@ -97,7 +109,7 @@ class WeightApp {
   }
 
   setupFormEvents() {
-    let weightForm = document.getElementById("weight-form");
+    let weightForm = <HTMLFormElement>document.getElementById("weight-form");
 
     weightForm.addEventListener("submit", async (e) => {
       e.preventDefault();

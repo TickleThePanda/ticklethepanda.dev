@@ -1,6 +1,6 @@
 const imagesBaseUrl = document.documentElement.dataset.urlImages;
 
-function modulo(n, d) {
+function modulo(n: number, d: number) {
   return ((n % d) + d) % d;
 }
 
@@ -17,7 +17,7 @@ function getYearMonthValues() {
   return yearMonths;
 }
 
-const data = {
+const data: Record<string, any> = {
   all: {
     value: "all",
   },
@@ -57,13 +57,17 @@ const playButton = slideshowController.querySelector(".play");
 const nextButton = slideshowController.querySelector(".next");
 const prevButton = slideshowController.querySelector(".prev");
 
-let state = {
+let state: {
+  facet: string;
+  index: number;
+  intervalId: number | null;
+} = {
   facet: "all",
   index: 0,
   intervalId: null,
 };
 
-let imageCache = {};
+let imageCache: Record<string, any> = {};
 
 function getImageForState() {
   let facetName = state.facet;
@@ -87,7 +91,7 @@ function cacheImagesForState() {
   }
 }
 
-function getImage(facetName, facetIndex) {
+function getImage(facetName: string, facetIndex: number) {
   let facet = data[facetName];
   let item = facet[facetIndex];
 
@@ -106,7 +110,7 @@ function getImage(facetName, facetIndex) {
   }
 }
 
-function buildImage(facet, item) {
+function buildImage(facet: any, item: string) {
   const image = new Image();
 
   image.src = buildImageUrl(facet, item);
@@ -114,7 +118,7 @@ function buildImage(facet, item) {
   return image;
 }
 
-function buildImageUrl(facet, item) {
+function buildImageUrl(facet: any, item: string) {
   if (!facet.value) {
     return `${imagesBaseUrl}/location-history/default-${item}.png`;
   } else {

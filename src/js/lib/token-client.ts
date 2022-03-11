@@ -3,7 +3,7 @@ export { TokenClient };
 const authApiBase = document.documentElement.dataset.urlApiAuth;
 
 class TokenClient {
-  async fetchToken(username, password) {
+  async fetchToken(username: string, password: string) {
     let headers = new Headers();
     headers.append("Authorization", "Basic " + btoa(username + ":" + password));
 

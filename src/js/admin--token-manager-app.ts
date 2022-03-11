@@ -1,13 +1,13 @@
 import { TokenStorage } from "./lib/token-storage.js";
 
 class TokenManagerApp {
-  token: any;
-  constructor(token) {
+  token: string;
+  constructor(token: string) {
     this.token = token;
   }
 
   run() {
-    const form = document.getElementById("token-form");
+    const form = <HTMLFormElement>document.getElementById("token-form");
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
