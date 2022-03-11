@@ -1,11 +1,11 @@
-import { HealthClient } from "./lib/health-client.js";
+import { BasicHistory, HealthClient } from "./lib/health-client.js";
 import { ChartClient } from "./lib/chart-client.js";
 import { ChartSizeManager } from "./lib/chart-size-manager.js";
 import type { View } from "vega-typings/types";
 
-let healthClient = new HealthClient();
-let chartClient = new ChartClient();
-let chartSizeManager = new ChartSizeManager();
+const healthClient = new HealthClient();
+const chartClient = new ChartClient();
+const chartSizeManager = new ChartSizeManager();
 
 window.addEventListener("load", async () => {
   const state = {
@@ -28,7 +28,7 @@ window.addEventListener("load", async () => {
   const sixMonthsAgo = new Date();
   sixMonthsAgo.setDate(sixMonthsAgo.getDate() - 30 * 6);
 
-  const options: Record<string, any> = {
+  const options: Record<string, { date: Date; data: BasicHistory[] }> = {
     all: {
       date: dataMinDate,
       data: weight30,
@@ -69,8 +69,8 @@ window.addEventListener("load", async () => {
   ) as Array<HTMLButtonElement>;
 
   for (const el of weightChartButtons) {
-    let facet = el.value;
-    el.addEventListener("click", (event) => {
+    const facet = el.value;
+    el.addEventListener("click", () => {
       state.facet = facet;
 
       updateViewToState();
@@ -78,12 +78,12 @@ window.addEventListener("load", async () => {
   }
 
   function updateViewToState() {
-    let chartType = state.facet;
+    const chartType = state.facet;
     updateViewTo(chartType);
   }
 
   function updateViewTo(chartType: string) {
-    let option = options[chartType];
+    const option = options[chartType];
 
     updateVegaChart(view, option.date, option.data).run();
 
@@ -99,7 +99,7 @@ window.addEventListener("load", async () => {
     weightChartElement.classList.add("button--selected");
   }
 
-  function updateVegaChart(chart: View, date: Date, data: any) {
+  function updateVegaChart(chart: View, date: Date, data: BasicHistory[]) {
     return chart.signal("minDate", date).data("source", data);
   }
 });

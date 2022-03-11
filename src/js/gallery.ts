@@ -12,22 +12,22 @@ registerDomLoadedEvent(showSelectedGallery);
 window.addEventListener("popstate", showSelectedGallery);
 
 function getSelectedGalleryId() {
-  let params = new URLSearchParams(document.location.search.substring(1));
+  const params = new URLSearchParams(document.location.search.substring(1));
   return "gallery-" + params.get("gallery");
 }
 
 function showSelectedGallery() {
-  let selectedGalleryId = getSelectedGalleryId();
+  const selectedGalleryId = getSelectedGalleryId();
 
-  let galleryElements = document.querySelectorAll(".gallery");
-  let galleryElementIds = Array.from(galleryElements).map((el) => el.id);
+  const galleryElements = document.querySelectorAll(".gallery");
+  const galleryElementIds = Array.from(galleryElements).map((el) => el.id);
 
   galleryElements.forEach((el) => {
     el.classList.remove("selected");
   });
 
   if (selectedGalleryId && galleryElementIds.includes(selectedGalleryId)) {
-    let selectedGalleryElement = <HTMLElement>(
+    const selectedGalleryElement = <HTMLElement>(
       document.getElementById(selectedGalleryId)
     );
 
@@ -38,7 +38,7 @@ function showSelectedGallery() {
 }
 
 function makeGalleryLinksPushState() {
-  let galleryNavLinkElements = Array.from(
+  const galleryNavLinkElements = Array.from(
     document.querySelectorAll(".gallery nav a")
   ) as Array<HTMLLinkElement>;
 

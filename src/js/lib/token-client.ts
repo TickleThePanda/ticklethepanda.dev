@@ -3,17 +3,17 @@ export { TokenClient };
 const authApiBase = document.documentElement.dataset.urlApiAuth;
 
 class TokenClient {
-  async fetchToken(username: string, password: string) {
-    let headers = new Headers();
+  async fetchToken(username: string, password: string): Promise<string> {
+    const headers = new Headers();
     headers.append("Authorization", "Basic " + btoa(username + ":" + password));
 
-    let opts: RequestInit = {
+    const opts: RequestInit = {
       method: "POST",
       mode: "cors",
       headers: headers,
     };
 
-    let url = authApiBase + "/tokens/users";
+    const url = authApiBase + "/tokens/users";
 
     const response = await fetch(url, opts);
 

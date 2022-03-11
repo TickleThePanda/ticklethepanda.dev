@@ -4,24 +4,112 @@ function modulo(n: number, d: number) {
   return ((n % d) + d) % d;
 }
 
-function getYearMonthValues() {
-  let yearMonths = [];
-  let date = new Date("2012-06");
-  let twoMonthsAgo = new Date();
+function getYearMonthValues(): FacetView {
+  const yearMonths = [];
+  const date = new Date("2012-06");
+  const twoMonthsAgo = new Date();
   twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
 
   while (date < twoMonthsAgo) {
     yearMonths.push(date.toISOString().substring(0, 7));
     date.setMonth(date.getMonth() + 1);
   }
-  return yearMonths;
+  return new MultiView("year-month", yearMonths);
 }
 
-const data: Record<string, any> = {
-  all: {
-    value: "all",
-  },
-  month: [
+interface ImageDescriptor {
+  name: string;
+  url: string;
+  cachePattern: string;
+}
+
+interface FacetView {
+  getItems(): string | string[];
+  getCurrentItem(): ImageDescriptor;
+  seekItem(diff: number): ImageDescriptor;
+  iterateNext(): void;
+  iteratePrev(): void;
+  setIndex(index: number): void;
+  getName(): string;
+}
+
+class SingleView implements FacetView {
+  #name: string;
+  constructor(name: string) {
+    this.#name = name;
+  }
+  getCurrentItem(): ImageDescriptor {
+    return {
+      name: this.#name,
+      url: `${imagesBaseUrl}/location-history/default-${this.#name}.png`,
+      cachePattern: this.#name,
+    };
+  }
+
+  seekItem(): ImageDescriptor {
+    return this.getCurrentItem();
+  }
+
+  getItems(): string | string[] {
+    return this.#name;
+  }
+  iterateNext(): void {
+    /* no op */
+  }
+  iteratePrev(): void {
+    /* no op */
+  }
+  setIndex(): void {
+    /* no op */
+  }
+  getName(): string {
+    return this.#name;
+  }
+}
+
+class MultiView implements FacetView {
+  #name: string;
+  #index: number;
+  #items: string[];
+  constructor(name: string, items: string[]) {
+    this.#name = name;
+    this.#items = items;
+    this.#index = 0;
+  }
+
+  getCurrentItem(): ImageDescriptor {
+    return this.seekItem(0);
+  }
+
+  seekItem(diff: number): ImageDescriptor {
+    const item = this.#items[modulo(this.#index + diff, this.#items.length)];
+    return {
+      name: item,
+      url: `${imagesBaseUrl}/location-history/default-${item}.png`,
+      cachePattern: `${this.#name}-${item}`,
+    };
+  }
+
+  getItems(): string | string[] {
+    return this.#items;
+  }
+  iterateNext(): void {
+    this.#index = modulo(this.#index + 1, this.#items.length);
+  }
+  iteratePrev(): void {
+    this.#index = modulo(this.#index - 1, this.#items.length);
+  }
+  setIndex(index: number): void {
+    this.#index = index;
+  }
+  getName(): string {
+    return this.#name;
+  }
+}
+
+const data: Record<string, FacetView> = {
+  all: new SingleView("all"),
+  month: new MultiView("month", [
     "january",
     "february",
     "march",
@@ -34,8 +122,8 @@ const data: Record<string, any> = {
     "october",
     "november",
     "december",
-  ],
-  weekday: [
+  ]),
+  weekday: new MultiView("weekday", [
     "monday",
     "tuesday",
     "wednesday",
@@ -43,7 +131,7 @@ const data: Record<string, any> = {
     "friday",
     "saturday",
     "sunday",
-  ],
+  ]),
   "year-month": getYearMonthValues(),
 };
 
@@ -63,79 +151,51 @@ const playButton = <HTMLElement>slideshowController.querySelector(".play");
 const nextButton = <HTMLElement>slideshowController.querySelector(".next");
 const prevButton = <HTMLElement>slideshowController.querySelector(".prev");
 
-let state: {
-  facet: string;
-  index: number;
+const state: {
+  facet: FacetView;
   intervalId: number | null;
 } = {
-  facet: "all",
-  index: 0,
+  facet: data["all"],
   intervalId: null,
 };
 
-let imageCache: Record<string, any> = {};
-
-function getImageForState() {
-  let facetName = state.facet;
-  let facetIndex = state.index;
-
-  return getImage(facetName, facetIndex);
-}
+const imageCache: Record<string, HTMLImageElement> = {};
 
 function cacheImagesForState() {
-  for (let facet of Object.keys(data)) {
-    getImage(facet, 0);
+  for (const facet of Object.values(data)) {
+    getImage(facet.getCurrentItem());
   }
 
-  const currentFacet = state.facet;
-  const currentIndex = state.index;
-
-  if (!data[currentFacet].value) {
-    const currentFacetLength = data[currentFacet].length;
-    getImage(currentFacet, (currentIndex - 1) % currentFacetLength);
-    getImage(currentFacet, (currentIndex + 1) % currentFacetLength);
-  }
+  getImage(state.facet.seekItem(-1));
+  getImage(state.facet.seekItem(1));
 }
 
-function getImage(facetName: string, facetIndex: number) {
-  let facet = data[facetName];
-  let item = facet[facetIndex];
+function getImage(descriptor: ImageDescriptor) {
+  const { cachePattern } = descriptor;
 
-  if (imageCache[facetName] && imageCache[facetName][facetIndex]) {
-    return imageCache[facetName][facetIndex];
+  if (imageCache[cachePattern]) {
+    return imageCache[cachePattern];
   } else {
-    const image = buildImage(facet, item);
+    const image = buildImage(descriptor);
 
-    if (!imageCache[facetName]) {
-      imageCache[facetName] = {};
-    }
-
-    imageCache[facetName][facetIndex] = image;
+    imageCache[cachePattern] = image;
 
     return image;
   }
 }
 
-function buildImage(facet: any, item: string) {
+function buildImage(descriptor: ImageDescriptor) {
   const image = new Image();
 
-  image.src = buildImageUrl(facet, item);
+  image.src = descriptor.url;
 
   return image;
 }
 
-function buildImageUrl(facet: any, item: string) {
-  if (!facet.value) {
-    return `${imagesBaseUrl}/location-history/default-${item}.png`;
-  } else {
-    return `${imagesBaseUrl}/location-history/default-${facet.value}.png`;
-  }
-}
-
 function updateView() {
-  let currentImage = imageContainer.querySelector("img");
+  const currentImage = imageContainer.querySelector("img");
 
-  let image = getImageForState();
+  const image = getImage(state.facet.getCurrentItem());
 
   cacheImagesForState();
 
@@ -145,26 +205,28 @@ function updateView() {
     imageContainer.appendChild(image);
   }
 
-  if (!data[state.facet].value) {
-    slideshowController
-      .querySelectorAll("button")
-      .forEach((button) => button.removeAttribute("disabled"));
-    infoContainer.innerHTML = `${data[state.facet][state.index]}`;
+  const items = state.facet.getItems();
+  console.log(items);
+  const buttons = slideshowController.querySelectorAll("button");
+
+  if (Array.isArray(items)) {
+    buttons.forEach((button) => button.removeAttribute("disabled"));
+    infoContainer.innerHTML = `${state.facet.getCurrentItem().name}`;
   } else {
-    slideshowController
-      .querySelectorAll("button")
-      .forEach((button) => button.setAttribute("disabled", ""));
+    buttons.forEach((button) => button.setAttribute("disabled", ""));
     infoContainer.innerHTML = "";
   }
 
-  document
-    .querySelectorAll("#location-slideshow .facets button")
-    .forEach((button) => {
-      button.classList.remove("button--selected");
-    });
+  const facetButtons = document.querySelectorAll(
+    "#location-slideshow .facets button"
+  );
+
+  facetButtons.forEach((button) => {
+    button.classList.remove("button--selected");
+  });
 
   const locationFacet = <HTMLElement>(
-    document.querySelector("#location-facet-" + state.facet)
+    document.querySelector("#location-facet-" + state.facet.getName())
   );
 
   locationFacet.classList.add("button--selected");
@@ -180,40 +242,52 @@ Object.keys(data).forEach((facet) => {
   const locationFacetButton = <HTMLElement>(
     document.querySelector("#location-facet-" + facet)
   );
-  locationFacetButton.addEventListener("click", (event) => {
+  locationFacetButton.addEventListener("click", () => {
     if (state.intervalId !== null) {
       clearInterval(state.intervalId);
     }
     state.intervalId = null;
 
-    state.facet = facet;
-    state.index = 0;
+    state.facet = data[facet];
+    state.facet.setIndex(0);
 
     updateView();
   });
 });
 
-playButton.addEventListener("click", (event) => {
+playButton.addEventListener("click", () => {
+  const items = state.facet.getItems();
+  if (!Array.isArray(items)) {
+    throw new Error("Cannot play for a facet without items");
+  }
   if (state.intervalId) {
     clearInterval(state.intervalId);
     state.intervalId = null;
     updateView();
   } else {
     state.intervalId = setInterval(() => {
-      state.index = modulo(++state.index, data[state.facet].length);
+      state.facet.iterateNext();
       updateView();
     }, 1000);
     updateView();
   }
 });
 
-nextButton.addEventListener("click", (event) => {
-  state.index = modulo(++state.index, data[state.facet].length);
+nextButton.addEventListener("click", () => {
+  const items = state.facet.getItems();
+  if (!Array.isArray(items)) {
+    throw new Error("Cannot play for a facet without items");
+  }
+  state.facet.iterateNext();
   updateView();
 });
 
-prevButton.addEventListener("click", (event) => {
-  state.index = modulo(--state.index, data[state.facet].length);
+prevButton.addEventListener("click", () => {
+  const items = state.facet.getItems();
+  if (!Array.isArray(items)) {
+    throw new Error("Cannot play for a facet without items");
+  }
+  state.facet.iteratePrev();
   updateView();
 });
 

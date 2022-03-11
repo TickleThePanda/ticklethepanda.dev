@@ -21,6 +21,17 @@ interface ThermometerEntry {
   room: string;
 }
 
+interface RoomData {
+  room: string;
+  data: ThermometerEntry[];
+}
+
+type ChartableThermometerEntries =
+  | ThermometerApp
+  | {
+      room: string;
+    };
+
 const apiBaseUrl = document.documentElement.dataset.urlApiThermometer;
 const assetsBaseUrl = document.documentElement.dataset.urlAssets;
 const chartSpecUrl = assetsBaseUrl + "/vega/thermometer.vg.json";
@@ -28,10 +39,10 @@ const chartSpecUrl = assetsBaseUrl + "/vega/thermometer.vg.json";
 const ROOMS = ["living-room", "office", "bedroom"];
 
 class ChartingParams {
-  rooms: any;
-  period: any;
-  date: any;
-  dateMode: any;
+  rooms: string[];
+  period: number;
+  date: Date | undefined;
+  dateMode: string;
 
   static fromUrl(): ChartingParams {
     const rooms = ROOMS;
@@ -101,7 +112,7 @@ class ChartingParams {
 }
 
 class ThermometerClient {
-  token: any;
+  token: string;
   constructor(token: string) {
     this.token = token;
   }
@@ -111,15 +122,15 @@ class ThermometerClient {
     date: Date,
     period: number
   ): Promise<ThermometerEntry[]> {
-    let authHeaderValue = "Bearer " + this.token;
+    const authHeaderValue = "Bearer " + this.token;
 
-    let dataUrl =
+    const dataUrl =
       apiBaseUrl +
       `/rooms/${room}/log/${date
         .toISOString()
         .substring(0, 10)}?period=${period}`;
 
-    let opts = {
+    const opts = {
       headers: new Headers({
         Authorization: authHeaderValue,
       }),
@@ -155,21 +166,23 @@ function addDays(epochInMs: Date, n: number) {
   return newDate;
 }
 
-function calculateChartBounds(dateMode: string, date: Date) {
+function calculateChartBounds(dateMode: string, date: Date | undefined) {
   if (dateMode === "LAST_24") {
-    let now = new Date();
+    const now = new Date();
 
-    let yesterday = addDays(now, -1);
+    const yesterday = addDays(now, -1);
 
     return {
       minDate: yesterday,
       maxDate: now,
     };
-  } else {
+  } else if (date !== undefined) {
     return {
       minDate: date,
       maxDate: addDays(date, 1),
     };
+  } else {
+    throw Error("No date available");
   }
 }
 
@@ -195,23 +208,23 @@ class ThermometerApp {
       throw new Error("Failed to initialise view");
     }
 
-    let container = view.container();
+    const container = view.container();
 
     if (container === null) {
       throw new Error("Unable to find container");
     }
 
-    let w = container.offsetWidth;
+    const w = container.offsetWidth;
 
     resizeView(view, w);
 
     window.addEventListener("resize", () => {
       if (view) {
-        let container = view.container();
+        const container = view.container();
         if (container === null) {
           throw new Error("Unable to find container");
         }
-        let w = container.offsetWidth;
+        const w = container.offsetWidth;
         resizeView(view, w);
       }
     });
@@ -286,17 +299,17 @@ class ThermometerApp {
     });
   }
 
-  combineData(roomData: any) {
-    let combined = [];
-    for (let { room, data } of roomData) {
-      for (let entry of data) {
+  combineData(roomData: RoomData[]): ChartableThermometerEntries[] {
+    const combined = [];
+    for (const { room, data } of roomData) {
+      for (const entry of data) {
         combined.push(Object.assign({ room }, entry));
       }
     }
     return combined;
   }
 
-  async generateChart(data: any) {
+  async generateChart(data: ChartableThermometerEntries[]) {
     return {
       view: this.view,
       data,
@@ -332,18 +345,20 @@ class ThermometerApp {
     this.view.data("source", null).run();
   }
 
-  async fetchRoomData(rooms: string[]) {
+  async fetchRoomData(rooms: string[]): Promise<RoomData[]> {
     const period = this.chartParams.period;
     const date = this.chartParams.date;
     const dateMode = this.chartParams.dateMode;
 
     return await Promise.all(
       rooms.map(async (room) => {
-        let results;
+        let results: ThermometerEntry[];
         if (dateMode === "LAST_24") {
           results = await this.client.fetchLastDay(room, period);
-        } else {
+        } else if (date !== undefined) {
           results = await this.client.fetchForDate(room, date, period);
+        } else {
+          throw new Error("No date specified");
         }
 
         return {
@@ -373,7 +388,7 @@ class ThermometerApp {
       const url = new URL(window.location.href);
       url.searchParams.delete("date");
       history.replaceState(null, "", url);
-    } else {
+    } else if (this.chartParams.date !== undefined) {
       nextButton.disabled = false;
 
       const url = new URL(window.location.href);

@@ -1,7 +1,7 @@
 import { TokenStorage } from "./lib/token-storage.js";
 
 function getMiddayOfDate(date: Date) {
-  var middayOnDate = new Date(date);
+  const middayOnDate = new Date(date);
   middayOnDate.setHours(12);
   middayOnDate.setMinutes(0);
   middayOnDate.setSeconds(0);
@@ -36,21 +36,21 @@ class WeightClient {
   }
 
   async updateDay(req: UpdateEntryRequest): Promise<UpdateEntryResult> {
-    let date = req.date;
-    let period = req.period;
-    let weight = req.weight;
+    const date = req.date;
+    const period = req.period;
+    const weight = req.weight;
 
-    let url = `${apiBaseHealthUrl}/weight/log/${date}/${period}`;
-    let payload = { weight: weight };
+    const url = `${apiBaseHealthUrl}/weight/log/${date}/${period}`;
+    const payload = { weight: weight };
 
-    let authHeaderValue = "Bearer " + this.token;
+    const authHeaderValue = "Bearer " + this.token;
 
-    let headers = new Headers({
+    const headers = new Headers({
       "Content-Type": "application/json",
       Authorization: authHeaderValue,
     });
 
-    let init: RequestInit = {
+    const init: RequestInit = {
       credentials: "include",
       method: "PUT",
       headers: headers,
@@ -94,8 +94,8 @@ class WeightApp {
   }
 
   setupFormInputs() {
-    var now = new Date();
-    var middayToday = getMiddayOfDate(now);
+    const now = new Date();
+    const middayToday = getMiddayOfDate(now);
 
     (<HTMLInputElement>document.getElementById("entry-date")).value = now
       .toISOString()
@@ -109,13 +109,13 @@ class WeightApp {
   }
 
   setupFormEvents() {
-    let weightForm = <HTMLFormElement>document.getElementById("weight-form");
+    const weightForm = <HTMLFormElement>document.getElementById("weight-form");
 
     weightForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      let date = weightForm["entry-date"].value;
-      let period = weightForm["entry-period"].value;
-      let weight = weightForm["entry-value"].value;
+      const date = weightForm["entry-date"].value;
+      const period = weightForm["entry-period"].value;
+      const weight = weightForm["entry-value"].value;
 
       const resultsElement = <HTMLElement>document.getElementById("results");
       const resultsErrorElement = <HTMLElement>(
@@ -142,9 +142,12 @@ class WeightApp {
 
         resultsElement.classList.remove("error");
         resultsElement.classList.add("success");
-      } catch (e: any) {
-        resultsErrorElement.textContent = e.message;
-
+      } catch (e) {
+        if (e instanceof Error) {
+          resultsErrorElement.textContent = e.message;
+        } else {
+          resultsErrorElement.textContent = "Unexpected error occurred";
+        }
         resultsElement.classList.remove("success");
         resultsElement.classList.add("error");
       }
@@ -160,7 +163,7 @@ class WeightApp {
     weightBodyElement.innerHTML = "";
 
     const results = await this.client.fetchHistory();
-    let resultsText = results.reduce((a, r) => {
+    const resultsText = results.reduce((a, r) => {
       return (
         a +
         `

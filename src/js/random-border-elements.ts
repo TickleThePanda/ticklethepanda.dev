@@ -81,7 +81,7 @@ window.addEventListener("load", function () {
 
     const allPoints = [];
 
-    for (let corner of cornerGenerationPoints) {
+    for (const corner of cornerGenerationPoints) {
       if (Math.random() > 0.6 && cornerStyle !== "single") {
         allPoints.push(`
           calc(${corner.x} + ${corner.d1.x} * ${safeZone} + ${
@@ -118,7 +118,7 @@ window.addEventListener("load", function () {
       document.querySelectorAll(".js-random-border")
     ) as Array<HTMLElement>;
 
-    for (let randomBorderElement of randomBorderElements) {
+    for (const randomBorderElement of randomBorderElements) {
       const originalClipPath =
         generateRandomCssPolygonForElement(randomBorderElement);
       randomBorderElement.style.clipPath = originalClipPath;

@@ -9,12 +9,12 @@ async function handleResponse(response: Response) {
 const assetsBaseUrl = document.documentElement.dataset.urlAssets;
 
 export class ChartClient {
-  async fetchWeightChartSpec() {
+  async fetchWeightChartSpec(): Promise<unknown> {
     const response = await fetch(assetsBaseUrl + "/vega/weight.vg.json");
     return await handleResponse(response);
   }
 
-  async fetchDayActivityChartSpec() {
+  async fetchDayActivityChartSpec(): Promise<unknown> {
     const response = await fetch(
       assetsBaseUrl + "/vega/activity/average-day.vg.json"
     );

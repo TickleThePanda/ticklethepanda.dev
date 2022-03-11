@@ -16,16 +16,16 @@ class TokenManagerApp {
 
       const tokenBaseUrl = document.documentElement.dataset.urlApiAuth;
 
-      let url = `${tokenBaseUrl}/tokens/clients/${clientName}`;
+      const url = `${tokenBaseUrl}/tokens/clients/${clientName}`;
 
-      let authHeaderValue = "Bearer " + this.token;
+      const authHeaderValue = "Bearer " + this.token;
 
-      let headers = new Headers({
+      const headers = new Headers({
         "Content-Type": "application/json",
         Authorization: authHeaderValue,
       });
 
-      let init: RequestInit = {
+      const init: RequestInit = {
         credentials: "include",
         method: "POST",
         headers: headers,

@@ -3,8 +3,8 @@ import type { View } from "vega-typings";
 function resize(v: View) {
   const container = v.container();
   if (container !== null) {
-    let w = container.offsetWidth;
-    let h = container.offsetHeight;
+    const w = container.offsetWidth;
+    const h = container.offsetHeight;
     return v.width(w).height(h).resize().run();
   } else {
     throw new Error("No container to resize");
@@ -22,12 +22,12 @@ export class ChartSizeManager {
     });
   }
 
-  add(view: View) {
+  add(view: View): void {
     this.views.push(view);
     resize(view);
   }
 
-  resize(view: View) {
+  resize(view: View): void {
     resize(view);
   }
 }

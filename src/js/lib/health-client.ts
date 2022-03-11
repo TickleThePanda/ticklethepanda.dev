@@ -1,4 +1,4 @@
-export { HealthClient };
+export { HealthClient, BasicHistory };
 
 const baseUrl = document.documentElement.dataset.urlApiHealth;
 

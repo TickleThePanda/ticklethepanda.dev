@@ -4,14 +4,14 @@ import { TokenClient } from "./lib/token-client.js";
 const tokenStorage = new TokenStorage();
 const tokenClient = new TokenClient();
 
-window.addEventListener("load", (e) => {
-  let form = <HTMLFormElement>document.getElementById("login");
+window.addEventListener("load", () => {
+  const form = <HTMLFormElement>document.getElementById("login");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    let username = (<HTMLInputElement>document.getElementById("username"))
+    const username = (<HTMLInputElement>document.getElementById("username"))
       .value;
-    let password = (<HTMLInputElement>document.getElementById("password"))
+    const password = (<HTMLInputElement>document.getElementById("password"))
       .value;
 
     try {
@@ -20,12 +20,16 @@ window.addEventListener("load", (e) => {
       tokenStorage.save(token);
 
       window.location.href = "/admin/home/";
-    } catch (e: any) {
+    } catch (e: unknown) {
       const loginElement = <HTMLFormElement>document.getElementById("login");
       loginElement.reset();
 
       const errorElement = <HTMLElement>document.getElementById("error");
-      errorElement.textContent = e.message;
+      if (e instanceof Error) {
+        errorElement.textContent = e.message;
+      } else {
+        errorElement.textContent = "Unknown error occurred";
+      }
     }
   });
 });
