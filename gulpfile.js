@@ -12,6 +12,9 @@ const shell = require("gulp-shell");
 
 const minify = composer(uglifyjs, console);
 
+const ts = require("gulp-typescript");
+const tsProject = ts.createProject("tsconfig.json");
+
 const assetsBaseOutput = "site/assets";
 
 gulp.task("site", shell.task("eleventy"));
@@ -25,9 +28,9 @@ gulp.task("css", function () {
 });
 
 gulp.task("js", function () {
-  return gulp
-    .src("src/js/**/*.js")
-    .pipe(sourcemaps.init())
+  return tsProject
+    .src()
+    .pipe(tsProject())
     .pipe(minify())
     .on("error", (err) => console.log("uglify error", err))
     .pipe(sourcemaps.write("maps"))
@@ -50,7 +53,7 @@ let all = () =>
 gulp.task("default", all());
 
 gulp.task("watch", function () {
-  gulp.watch("src/js/**/*.js", gulp.parallel("js"));
+  gulp.watch("src/js/**/*.{js,ts}", gulp.parallel("js"));
   gulp.watch("src/css/**/*.less", gulp.parallel("css"));
   gulp.watch("src/vg/**/*.json", gulp.parallel("vega"));
   gulp.watch(".eleventy.js", gulp.parallel("site"));
