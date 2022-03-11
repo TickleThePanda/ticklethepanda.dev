@@ -88,7 +88,13 @@ permalink: /admin/weight/
   </table>
 </div>
 
+<script src="{{ urls.cdn.vega }}"></script>
 <script src="{{ urls.assets }}/scripts/health.js" type="module"></script>
+<script
+  type="module"
+  src="{{ urls.assets }}/scripts/admin--weight-app.js"
+></script>
+
 <link
   href="{{ urls.assets }}/style/health.css"
   rel="stylesheet"
@@ -99,8 +105,3 @@ permalink: /admin/weight/
   rel="stylesheet"
   type="text/css"
 />
-
-<script
-  type="module"
-  src="{{ urls.assets }}/scripts/admin--weight-app.js"
-></script>

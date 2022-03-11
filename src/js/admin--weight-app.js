@@ -25,22 +25,16 @@ class WeightClient {
     this.token = token;
   }
 
-  fetchHistory() {
-    return fetch(apiBaseHealthUrl + "/weight/log")
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw Error("unable to load data: " + response.statusText);
-        }
-      })
-      .then((results) => {
-        results.sort((b, a) => a.date.localeCompare(b.date));
-        return results.filter((e) => e.weightAm || e.weightPm);
-      });
+  async fetchHistory() {
+    const response = await fetch(apiBaseHealthUrl + "/weight/log");
+
+    const results = await response.json();
+
+    results.sort((b, a) => a.date.localeCompare(b.date));
+    return results.filter((e) => e.weightAm || e.weightPm);
   }
 
-  updateDay(req) {
+  async updateDay(req) {
     let date = req.date;
     let period = req.period;
     let weight = req.weight;
@@ -63,13 +57,12 @@ class WeightClient {
       body: JSON.stringify(payload),
     };
 
-    return fetch(url, init).then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw Error("unable submit data: " + response.statusText);
-      }
-    });
+    const response = await fetch(url, init);
+    if (response.ok) {
+      return await response.json();
+    } else {
+      throw Error("unable submit data: " + response.statusText);
+    }
   }
 }
 
@@ -101,63 +94,59 @@ class WeightApp {
   setupFormEvents() {
     let weightForm = document.getElementById("weight-form");
 
-    weightForm.addEventListener("submit", (e) => {
+    weightForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       let date = weightForm["entry-date"].value;
       let period = weightForm["entry-period"].value;
       let weight = weightForm["entry-value"].value;
 
-      this.client
-        .updateDay({
+      try {
+        const result = this.client.updateDay({
           date: date,
           period: period,
           weight: weight,
-        })
-        .then((result) => {
-          document.getElementById("result-date").textContent = result.date;
-          document.getElementById("result-period").textContent =
-            result.meridiam;
-          document.getElementById("result-value").textContent = result.weight;
-
-          let resultsElement = document.getElementById("results");
-
-          resultsElement.classList.remove("error");
-          resultsElement.classList.add("success");
-        })
-        .catch((error) => {
-          document.getElementById("result-error").textContent = error.message;
-
-          let resultsElement = document.getElementById("results");
-
-          resultsElement.classList.remove("success");
-          resultsElement.classList.add("error");
-        })
-        .then(() => {
-          this.loadWeightHistory();
         });
+
+        document.getElementById("result-date").textContent = result.date;
+        document.getElementById("result-period").textContent = result.meridiam;
+        document.getElementById("result-value").textContent = result.weight;
+
+        let resultsElement = document.getElementById("results");
+
+        resultsElement.classList.remove("error");
+        resultsElement.classList.add("success");
+      } catch (e) {
+        document.getElementById("result-error").textContent = error.message;
+
+        let resultsElement = document.getElementById("results");
+
+        resultsElement.classList.remove("success");
+        resultsElement.classList.add("error");
+      }
+
+      await this.loadWeightHistory();
     });
   }
 
-  loadWeightHistory() {
+  async loadWeightHistory() {
     document.getElementById("weight-history-table-body").innerHTML = "";
 
-    this.client.fetchHistory().then((results) => {
-      let resultsText = results.reduce((a, r) => {
-        return (
-          a +
-          `
+    const results = await this.client.fetchHistory();
+    let resultsText = results.reduce((a, r) => {
+      return (
+        a +
+        `
 <tr>
 <td>${r.date}</td>
 <td>${cleanWeightResult(r.weightAm)}</td>
 <td>${cleanWeightResult(r.weightPm)}</td>
 </tr>
 `
-        );
-      }, "");
+      );
+    }, "");
 
-      document.getElementById("weight-history-table-body").innerHTML =
-        resultsText;
-    });
+    document.getElementById("weight-history-table-body").innerHTML =
+      resultsText;
   }
 
   run() {
