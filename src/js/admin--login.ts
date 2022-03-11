@@ -20,7 +20,7 @@ window.addEventListener("load", (e) => {
       tokenStorage.save(token);
 
       window.location.href = "/admin/home/";
-    } catch (e) {
+    } catch (e: any) {
       (<HTMLFormElement>document.getElementById("login")).reset();
       document.getElementById("error").textContent = e.message;
     }

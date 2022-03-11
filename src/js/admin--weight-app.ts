@@ -127,7 +127,7 @@ class WeightApp {
 
         resultsElement.classList.remove("error");
         resultsElement.classList.add("success");
-      } catch (e) {
+      } catch (e: any) {
         document.getElementById("result-error").textContent = e.message;
 
         let resultsElement = document.getElementById("results");
