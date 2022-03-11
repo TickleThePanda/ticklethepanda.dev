@@ -27,7 +27,9 @@ function showSelectedGallery() {
   });
 
   if (selectedGalleryId && galleryElementIds.includes(selectedGalleryId)) {
-    let selectedGalleryElement = document.getElementById(selectedGalleryId);
+    let selectedGalleryElement = <HTMLElement>(
+      document.getElementById(selectedGalleryId)
+    );
 
     selectedGalleryElement.classList.add("selected");
   } else {
@@ -45,7 +47,7 @@ function makeGalleryLinksPushState() {
       "click",
       (e) => {
         e.preventDefault();
-        window.history.pushState(null, null, el.href);
+        window.history.pushState(null, "", el.href);
         showSelectedGallery();
       },
       true

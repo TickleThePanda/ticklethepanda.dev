@@ -5,7 +5,7 @@ const tokenStorage = new TokenStorage();
 const tokenClient = new TokenClient();
 
 window.addEventListener("load", (e) => {
-  let form = document.getElementById("login");
+  let form = <HTMLFormElement>document.getElementById("login");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -21,8 +21,11 @@ window.addEventListener("load", (e) => {
 
       window.location.href = "/admin/home/";
     } catch (e: any) {
-      (<HTMLFormElement>document.getElementById("login")).reset();
-      document.getElementById("error").textContent = e.message;
+      const loginElement = <HTMLFormElement>document.getElementById("login");
+      loginElement.reset();
+
+      const errorElement = <HTMLElement>document.getElementById("error");
+      errorElement.textContent = e.message;
     }
   });
 });

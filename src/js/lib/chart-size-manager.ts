@@ -2,9 +2,13 @@ import type { View } from "vega-typings";
 
 function resize(v: View) {
   const container = v.container();
-  let w = container.offsetWidth;
-  let h = container.offsetHeight;
-  return v.width(w).height(h).resize().run();
+  if (container !== null) {
+    let w = container.offsetWidth;
+    let h = container.offsetHeight;
+    return v.width(w).height(h).resize().run();
+  } else {
+    throw new Error("No container to resize");
+  }
 }
 
 export class ChartSizeManager {

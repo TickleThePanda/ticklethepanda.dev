@@ -37,8 +37,9 @@ class ChartingParams {
     const rooms = ROOMS;
 
     const params = new URLSearchParams(window.location.search);
-    const periodParam = Number.parseFloat(params.get("period"));
-    const dateParam = Date.parse(params.get("date"));
+
+    const periodParam = Number.parseFloat(params.get("period") ?? "");
+    const dateParam = Date.parse(params.get("date") ?? "");
     const roomParam = params.get("room");
 
     if (roomParam !== null) {
@@ -66,7 +67,7 @@ class ChartingParams {
   }: {
     rooms: Array<string>;
     period: number;
-    date: Date;
+    date: Date | undefined;
     dateMode: string;
   }) {
     this.rooms = rooms;
@@ -173,20 +174,75 @@ function calculateChartBounds(dateMode: string, date: Date) {
 }
 
 class ThermometerApp {
+  static async create(token: string): Promise<ThermometerApp> {
+    const chartParams = ChartingParams.fromUrl();
+    const spec = JSON.parse(await vega.loader().load(chartSpecUrl));
+
+    const chartBounds = calculateChartBounds(
+      chartParams.dateMode,
+      chartParams.date
+    );
+
+    const view = new vega.View(vega.parse(spec))
+      .renderer("svg")
+      .insert("source", data)
+      .logLevel(vega.Warn)
+      .signal("minDate", chartBounds.minDate)
+      .signal("maxDate", chartBounds.maxDate)
+      .initialize(`#thermometer-chart`);
+
+    if (view === null) {
+      throw new Error("Failed to initialise view");
+    }
+
+    let container = view.container();
+
+    if (container === null) {
+      throw new Error("Unable to find container");
+    }
+
+    let w = container.offsetWidth;
+
+    resizeView(view, w);
+
+    window.addEventListener("resize", () => {
+      if (view) {
+        let container = view.container();
+        if (container === null) {
+          throw new Error("Unable to find container");
+        }
+        let w = container.offsetWidth;
+        resizeView(view, w);
+      }
+    });
+
+    return new ThermometerApp({
+      token,
+      view,
+      chartParams: ChartingParams.fromUrl(),
+    });
+  }
+
   token: string;
   client: ThermometerClient;
   view: View;
   chartParams: ChartingParams;
-  constructor(token: string) {
+  constructor({
+    token,
+    view,
+    chartParams,
+  }: {
+    token: string;
+    view: View;
+    chartParams: ChartingParams;
+  }) {
     this.token = token;
     this.client = new ThermometerClient(token);
-    this.view = null;
-    this.chartParams = null;
+    this.view = view;
+    this.chartParams = chartParams;
   }
 
   async run() {
-    this.chartParams = ChartingParams.fromUrl();
-
     const rooms = this.chartParams.rooms;
 
     const roomData = await this.fetchRoomData(rooms);
@@ -197,33 +253,37 @@ class ThermometerApp {
 
     this.markUpdatedTime();
 
-    setInterval(() => this.updateChart(rooms, undefined), 60 * 1000);
+    setInterval(() => this.updateChart(rooms, false), 60 * 1000);
 
     window.addEventListener("visibilitychange", () => {
       if (!document.hidden) {
-        this.updateChart(rooms, undefined);
+        this.updateChart(rooms, false);
       }
     });
 
     this.updateControls();
 
-    document
-      .querySelector(".js-thermometer-prev")
-      .addEventListener("click", async () => {
-        this.chartParams.prevDay();
-        this.updateControls();
-        this.emptyChart();
-        this.updateChart(rooms, true);
-      });
+    const prevButton = <HTMLElement>(
+      document.querySelector(".js-thermometer-prev")
+    );
 
-    document
-      .querySelector(".js-thermometer-next")
-      .addEventListener("click", async () => {
-        this.chartParams.nextDay();
-        this.updateControls();
-        this.emptyChart();
-        this.updateChart(rooms, true);
-      });
+    prevButton.addEventListener("click", async () => {
+      this.chartParams.prevDay();
+      this.updateControls();
+      this.emptyChart();
+      this.updateChart(rooms, true);
+    });
+
+    const nextButton = <HTMLElement>(
+      document.querySelector(".js-thermometer-next")
+    );
+
+    nextButton.addEventListener("click", async () => {
+      this.chartParams.nextDay();
+      this.updateControls();
+      this.emptyChart();
+      this.updateChart(rooms, true);
+    });
   }
 
   combineData(roomData: any) {
@@ -237,35 +297,6 @@ class ThermometerApp {
   }
 
   async generateChart(data: any) {
-    const spec = JSON.parse(await vega.loader().load(chartSpecUrl));
-
-    const chartBounds = calculateChartBounds(
-      this.chartParams.dateMode,
-      this.chartParams.date
-    );
-
-    this.view = new vega.View(vega.parse(spec))
-      .renderer("svg")
-      .insert("source", data)
-      .logLevel(vega.Warn)
-      .signal("minDate", chartBounds.minDate)
-      .signal("maxDate", chartBounds.maxDate)
-      .initialize(`#thermometer-chart`);
-
-    let container = this.view.container();
-
-    let w = container.offsetWidth;
-
-    resizeView(this.view, w);
-
-    window.addEventListener("resize", () => {
-      if (this.view) {
-        let container = this.view.container();
-        let w = container.offsetWidth;
-        resizeView(this.view, w);
-      }
-    });
-
     return {
       view: this.view,
       data,
@@ -273,6 +304,10 @@ class ThermometerApp {
   }
 
   async updateChart(rooms: string[], forced: boolean) {
+    if (this.view === null) {
+      throw new Error("Unable to update chart as there was no view");
+    }
+
     if (this.chartParams.dateMode === "LAST_24" || forced) {
       const data = await this.fetchRoomData(rooms);
 
@@ -323,37 +358,40 @@ class ThermometerApp {
     (<HTMLInputElement>(
       document.querySelector(".js-thermometer-prev")
     )).disabled = false;
+
+    const nextButton = <HTMLInputElement>(
+      document.querySelector(".js-thermometer-next")
+    );
+    const currentDateElement = <HTMLElement>(
+      document.querySelector(".js-thermometer-current-date")
+    );
+
     if (this.chartParams.dateMode === "LAST_24") {
-      (<HTMLInputElement>(
-        document.querySelector(".js-thermometer-next")
-      )).disabled = true;
-      document.querySelector(".js-thermometer-current-date").innerHTML =
-        "Last 24 hours";
+      nextButton.disabled = true;
+      currentDateElement.innerHTML = "Last 24 hours";
 
       const url = new URL(window.location.href);
       url.searchParams.delete("date");
-      history.replaceState(null, null, url);
+      history.replaceState(null, "", url);
     } else {
-      (<HTMLInputElement>(
-        document.querySelector(".js-thermometer-next")
-      )).disabled = false;
+      nextButton.disabled = false;
 
       const url = new URL(window.location.href);
       url.searchParams.set(
         "date",
         this.chartParams.date.toISOString().slice(0, 10)
       );
-      history.replaceState(null, null, url);
+      history.replaceState(null, "", url);
 
-      document.querySelector(".js-thermometer-current-date").innerHTML =
-        formatDate(this.chartParams.date);
+      currentDateElement.innerHTML = formatDate(this.chartParams.date);
     }
   }
 
   markUpdatedTime() {
-    document.querySelector(".js-updated-time").innerHTML = formatDateTime(
-      new Date()
+    const lastUpdatedElement = <HTMLElement>(
+      document.querySelector(".js-updated-time")
     );
+    lastUpdatedElement.innerHTML = formatDateTime(new Date());
   }
 }
 
@@ -387,9 +425,13 @@ function formatDate(date: Date) {
   });
 }
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
   const tokenStorage = new TokenStorage();
-  const thermometerApp = new ThermometerApp(tokenStorage.load());
+  const token = tokenStorage.load();
+  if (token === null) {
+    throw new Error("Unable to get token");
+  }
+  const thermometerApp = await ThermometerApp.create(token);
 
   thermometerApp.run();
 });

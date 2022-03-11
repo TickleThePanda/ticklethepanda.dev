@@ -41,14 +41,21 @@ class TokenManagerApp {
 
       const token = await response.text();
 
-      document.getElementById("token-result").innerHTML = token;
+      const tokenResultElement = <HTMLElement>(
+        document.getElementById("token-result")
+      );
+      tokenResultElement.innerHTML = token;
     });
   }
 }
 
 window.addEventListener("load", () => {
   const tokenStorage = new TokenStorage();
-  const thermometerApp = new TokenManagerApp(tokenStorage.load());
+  const token = tokenStorage.load();
+  if (token === null) {
+    throw new Error("Unable to get token");
+  }
+  const thermometerApp = new TokenManagerApp(token);
 
   thermometerApp.run();
 });

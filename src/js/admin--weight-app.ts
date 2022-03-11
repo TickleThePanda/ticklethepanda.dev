@@ -117,6 +117,11 @@ class WeightApp {
       let period = weightForm["entry-period"].value;
       let weight = weightForm["entry-value"].value;
 
+      const resultsElement = <HTMLElement>document.getElementById("results");
+      const resultsErrorElement = <HTMLElement>(
+        document.getElementById("result-error")
+      );
+
       try {
         const result = await this.client.updateDay({
           date: date,
@@ -135,14 +140,10 @@ class WeightApp {
           document.getElementById("result-value")
         )).textContent = result.weight;
 
-        let resultsElement = document.getElementById("results");
-
         resultsElement.classList.remove("error");
         resultsElement.classList.add("success");
       } catch (e: any) {
-        document.getElementById("result-error").textContent = e.message;
-
-        let resultsElement = document.getElementById("results");
+        resultsErrorElement.textContent = e.message;
 
         resultsElement.classList.remove("success");
         resultsElement.classList.add("error");
@@ -153,7 +154,10 @@ class WeightApp {
   }
 
   async loadWeightHistory() {
-    document.getElementById("weight-history-table-body").innerHTML = "";
+    const weightBodyElement = <HTMLElement>(
+      document.getElementById("weight-history-table-body")
+    );
+    weightBodyElement.innerHTML = "";
 
     const results = await this.client.fetchHistory();
     let resultsText = results.reduce((a, r) => {
@@ -169,8 +173,7 @@ class WeightApp {
       );
     }, "");
 
-    document.getElementById("weight-history-table-body").innerHTML =
-      resultsText;
+    weightBodyElement.innerHTML = resultsText;
   }
 
   run() {
@@ -182,7 +185,11 @@ class WeightApp {
 
 window.addEventListener("load", () => {
   const tokenStorage = new TokenStorage();
-  const thermometerApp = new WeightApp(tokenStorage.load());
+  const token = tokenStorage.load();
+  if (token === null) {
+    throw new Error("Could not get token");
+  }
+  const thermometerApp = new WeightApp(token);
 
   thermometerApp.run();
 });

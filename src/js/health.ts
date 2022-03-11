@@ -93,9 +93,10 @@ window.addEventListener("load", async () => {
         button.classList.remove("button--selected");
       });
 
-    document
-      .querySelector("#weight-chart-" + state.facet)
-      .classList.add("button--selected");
+    const weightChartElement = <HTMLElement>(
+      document.querySelector("#weight-chart-" + state.facet)
+    );
+    weightChartElement.classList.add("button--selected");
   }
 
   function updateVegaChart(chart: View, date: Date, data: any) {

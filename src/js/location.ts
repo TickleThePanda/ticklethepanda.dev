@@ -47,15 +47,21 @@ const data: Record<string, any> = {
   "year-month": getYearMonthValues(),
 };
 
-const slideshowContainer = document.querySelector("#location-slideshow");
-const imageContainer = slideshowContainer.querySelector(".image-container");
-const slideshowController = slideshowContainer.querySelector(".play-controls");
+const slideshowContainer = <HTMLElement>(
+  document.querySelector("#location-slideshow")
+);
+const imageContainer = <HTMLElement>(
+  slideshowContainer.querySelector(".image-container")
+);
+const slideshowController = <HTMLElement>(
+  slideshowContainer.querySelector(".play-controls")
+);
 
-const infoContainer = slideshowContainer.querySelector(".info");
+const infoContainer = <HTMLElement>slideshowContainer.querySelector(".info");
 
-const playButton = slideshowController.querySelector(".play");
-const nextButton = slideshowController.querySelector(".next");
-const prevButton = slideshowController.querySelector(".prev");
+const playButton = <HTMLElement>slideshowController.querySelector(".play");
+const nextButton = <HTMLElement>slideshowController.querySelector(".next");
+const prevButton = <HTMLElement>slideshowController.querySelector(".prev");
 
 let state: {
   facet: string;
@@ -147,7 +153,7 @@ function updateView() {
   } else {
     slideshowController
       .querySelectorAll("button")
-      .forEach((button) => button.setAttribute("disabled", null));
+      .forEach((button) => button.setAttribute("disabled", ""));
     infoContainer.innerHTML = "";
   }
 
@@ -157,9 +163,11 @@ function updateView() {
       button.classList.remove("button--selected");
     });
 
-  document
-    .querySelector("#location-facet-" + state.facet)
-    .classList.add("button--selected");
+  const locationFacet = <HTMLElement>(
+    document.querySelector("#location-facet-" + state.facet)
+  );
+
+  locationFacet.classList.add("button--selected");
 
   if (state.intervalId !== null) {
     playButton.innerHTML = "Pause";
@@ -169,17 +177,20 @@ function updateView() {
 }
 
 Object.keys(data).forEach((facet) => {
-  document
-    .querySelector("#location-facet-" + facet)
-    .addEventListener("click", (event) => {
+  const locationFacetButton = <HTMLElement>(
+    document.querySelector("#location-facet-" + facet)
+  );
+  locationFacetButton.addEventListener("click", (event) => {
+    if (state.intervalId !== null) {
       clearInterval(state.intervalId);
-      state.intervalId = null;
+    }
+    state.intervalId = null;
 
-      state.facet = facet;
-      state.index = 0;
+    state.facet = facet;
+    state.index = 0;
 
-      updateView();
-    });
+    updateView();
+  });
 });
 
 playButton.addEventListener("click", (event) => {
@@ -208,4 +219,8 @@ prevButton.addEventListener("click", (event) => {
 
 updateView();
 
-document.querySelector("#location-facet-all").classList.add("selected");
+const locationFacetAll = <HTMLElement>(
+  document.querySelector("#location-facet-all")
+);
+
+locationFacetAll.classList.add("selected");

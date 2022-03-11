@@ -124,7 +124,7 @@ window.addEventListener("load", function () {
       randomBorderElement.style.clipPath = originalClipPath;
 
       if (randomBorderElement.classList.contains("js-random-border-hover")) {
-        let animation: Animation = undefined;
+        let animation: Animation | undefined = undefined;
 
         randomBorderElement.addEventListener("mouseenter", function () {
           const animationTime =
