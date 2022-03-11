@@ -21,6 +21,7 @@ function cleanWeightResult(weight) {
 const apiBaseHealthUrl = document.documentElement.dataset.urlApiHealth;
 
 class WeightClient {
+  token: any;
   constructor(token) {
     this.token = token;
   }
@@ -34,7 +35,7 @@ class WeightClient {
     return results.filter((e) => e.weightAm || e.weightPm);
   }
 
-  async updateDay(req) {
+  async updateDay(req): Promise<DayResult> {
     let date = req.date;
     let period = req.period;
     let weight = req.weight;
@@ -49,7 +50,7 @@ class WeightClient {
       Authorization: authHeaderValue,
     });
 
-    let init = {
+    let init: RequestInit = {
       credentials: "include",
       method: "PUT",
       headers: headers,
@@ -66,7 +67,15 @@ class WeightClient {
   }
 }
 
+interface DayResult {
+  date: string;
+  meridiam: string;
+  weight: string;
+}
+
 class WeightApp {
+  token: any;
+  client: WeightClient;
   constructor(token) {
     this.token = token;
     this.client = new WeightClient(token);
@@ -76,18 +85,14 @@ class WeightApp {
     var now = new Date();
     var middayToday = getMiddayOfDate(now);
 
-    document.getElementById("entry-date").value = now
+    (<HTMLInputElement>document.getElementById("entry-date")).value = now
       .toISOString()
       .substring(0, 10);
 
     if (now < middayToday) {
-      document.getElementById("entry-period").value = "AM";
+      (<HTMLInputElement>document.getElementById("entry-period")).value = "AM";
     } else {
-      document.getElementById("entry-period").value = "PM";
-    }
-    function getCookie(name) {
-      match = document.cookie.match(new RegExp(name + "=([^;]+)"));
-      if (match) return match[1];
+      (<HTMLInputElement>document.getElementById("entry-period")).value = "PM";
     }
   }
 
@@ -101,22 +106,29 @@ class WeightApp {
       let weight = weightForm["entry-value"].value;
 
       try {
-        const result = this.client.updateDay({
+        const result = await this.client.updateDay({
           date: date,
           period: period,
           weight: weight,
         });
 
-        document.getElementById("result-date").textContent = result.date;
-        document.getElementById("result-period").textContent = result.meridiam;
-        document.getElementById("result-value").textContent = result.weight;
+        (<HTMLInputElement>document.getElementById("result-date")).textContent =
+          result.date;
+
+        (<HTMLInputElement>(
+          document.getElementById("result-period")
+        )).textContent = result.meridiam;
+
+        (<HTMLInputElement>(
+          document.getElementById("result-value")
+        )).textContent = result.weight;
 
         let resultsElement = document.getElementById("results");
 
         resultsElement.classList.remove("error");
         resultsElement.classList.add("success");
       } catch (e) {
-        document.getElementById("result-error").textContent = error.message;
+        document.getElementById("result-error").textContent = e.message;
 
         let resultsElement = document.getElementById("results");
 

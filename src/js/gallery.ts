@@ -36,9 +36,11 @@ function showSelectedGallery() {
 }
 
 function makeGalleryLinksPushState() {
-  let galleryNavLinkElements = document.querySelectorAll(".gallery nav a");
+  let galleryNavLinkElements = Array.from(
+    document.querySelectorAll(".gallery nav a")
+  ) as Array<HTMLLinkElement>;
 
-  galleryNavLinkElements.forEach((el) => {
+  for (const el of galleryNavLinkElements) {
     el.addEventListener(
       "click",
       (e) => {
@@ -48,5 +50,5 @@ function makeGalleryLinksPushState() {
       },
       true
     );
-  });
+  }
 }

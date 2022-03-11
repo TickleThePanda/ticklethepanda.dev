@@ -8,8 +8,9 @@ let chartSizeManager = new ChartSizeManager();
 
 window.addEventListener("load", async () => {
   const state = {
-    facet: document.querySelector("#weight-charts .facets .button--selected")
-      .value,
+    facet: (<HTMLInputElement>(
+      document.querySelector("#weight-charts .facets .button--selected")
+    )).value,
   };
 
   const [weightResults7, weightResults30, chartSpec] = await Promise.all([
@@ -62,14 +63,18 @@ window.addEventListener("load", async () => {
 
   view.run();
 
-  document.querySelectorAll("#weight-charts button").forEach((el) => {
+  const weightChartButtons = Array.from(
+    document.querySelectorAll("#weight-charts button")
+  ) as Array<HTMLButtonElement>;
+
+  for (const el of weightChartButtons) {
     let facet = el.value;
     el.addEventListener("click", (event) => {
       state.facet = facet;
 
       updateViewToState();
     });
-  });
+  }
 
   function updateViewToState() {
     let chartType = state.facet;

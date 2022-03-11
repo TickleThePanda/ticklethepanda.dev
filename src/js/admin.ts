@@ -7,8 +7,8 @@ window.addEventListener("load", () => {
 
   let token = tokenStorage.load();
   if (!token && url !== "/admin/") {
-    window.location = "/admin/";
+    window.location.href = "/admin/";
   } else if (token && url === "/admin/") {
-    window.location = "/admin/home/";
+    window.location.href = "/admin/home/";
   }
 });

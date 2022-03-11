@@ -1,6 +1,7 @@
 import { TokenStorage } from "./lib/token-storage.js";
 
 class TokenManagerApp {
+  token: any;
   constructor(token) {
     this.token = token;
   }
@@ -24,7 +25,7 @@ class TokenManagerApp {
         Authorization: authHeaderValue,
       });
 
-      let init = {
+      let init: RequestInit = {
         credentials: "include",
         method: "POST",
         headers: headers,

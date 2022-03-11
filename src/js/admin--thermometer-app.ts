@@ -22,6 +22,11 @@ const chartSpecUrl = assetsBaseUrl + "/vega/thermometer.vg.json";
 const ROOMS = ["living-room", "office", "bedroom"];
 
 class ChartingParams {
+  rooms: any;
+  period: any;
+  date: any;
+  dateMode: any;
+
   static fromUrl() {
     const rooms = ROOMS;
 
@@ -79,6 +84,7 @@ class ChartingParams {
 }
 
 class ThermometerClient {
+  token: any;
   constructor(token) {
     this.token = token;
   }
@@ -147,6 +153,10 @@ function calculateChartBounds(dateMode, date) {
 }
 
 class ThermometerApp {
+  token: any;
+  client: ThermometerClient;
+  view: any;
+  chartParams: any;
   constructor(token) {
     this.token = token;
     this.client = new ThermometerClient(token);
@@ -167,11 +177,11 @@ class ThermometerApp {
 
     this.markUpdatedTime();
 
-    setInterval(() => this.updateChart(rooms), 60 * 1000);
+    setInterval(() => this.updateChart(rooms, undefined), 60 * 1000);
 
     window.addEventListener("visibilitychange", () => {
       if (!document.hidden) {
-        this.updateChart(rooms);
+        this.updateChart(rooms, undefined);
       }
     });
 
@@ -244,7 +254,7 @@ class ThermometerApp {
 
   async updateChart(rooms, forced) {
     if (this.chartParams.dateMode === "LAST_24" || forced) {
-      const data = await this.fetchRoomData(rooms, this.chartParams);
+      const data = await this.fetchRoomData(rooms);
 
       const chartBounds = calculateChartBounds(
         this.chartParams.dateMode,
@@ -290,9 +300,13 @@ class ThermometerApp {
   }
 
   updateControls() {
-    document.querySelector(".js-thermometer-prev").disabled = false;
+    (<HTMLInputElement>(
+      document.querySelector(".js-thermometer-prev")
+    )).disabled = false;
     if (this.chartParams.dateMode === "LAST_24") {
-      document.querySelector(".js-thermometer-next").disabled = true;
+      (<HTMLInputElement>(
+        document.querySelector(".js-thermometer-next")
+      )).disabled = true;
       document.querySelector(".js-thermometer-current-date").innerHTML =
         "Last 24 hours";
 
@@ -300,7 +314,9 @@ class ThermometerApp {
       url.searchParams.delete("date");
       history.replaceState(null, null, url);
     } else {
-      document.querySelector(".js-thermometer-next").disabled = false;
+      (<HTMLInputElement>(
+        document.querySelector(".js-thermometer-next")
+      )).disabled = false;
 
       const url = new URL(window.location.href);
       url.searchParams.set(

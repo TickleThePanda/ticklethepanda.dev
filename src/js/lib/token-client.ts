@@ -7,7 +7,7 @@ class TokenClient {
     let headers = new Headers();
     headers.append("Authorization", "Basic " + btoa(username + ":" + password));
 
-    let opts = {
+    let opts: RequestInit = {
       method: "POST",
       mode: "cors",
       headers: headers,

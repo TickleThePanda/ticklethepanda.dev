@@ -112,7 +112,9 @@ window.addEventListener("load", function () {
   }
 
   function generateRandomCardClipPath() {
-    const randomBorderElements = document.querySelectorAll(".js-random-border");
+    const randomBorderElements = Array.from(
+      document.querySelectorAll(".js-random-border")
+    ) as Array<HTMLElement>;
 
     for (let randomBorderElement of randomBorderElements) {
       const originalClipPath =
