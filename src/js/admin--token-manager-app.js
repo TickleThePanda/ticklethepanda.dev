@@ -1,4 +1,4 @@
-import { TokenStorage } from "./admin/token-storage.js";
+import { TokenStorage } from "./lib/token-storage.js";
 
 class TokenManagerApp {
   constructor(token) {

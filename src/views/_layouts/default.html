@@ -1,36 +1,60 @@
 <!DOCTYPE html>
-<html lang="en-GB"
+<html
+  lang="en-GB"
   data-url-api="{{ urls.api }}"
   data-url-api-health="{{ urls.apis.health }}"
   data-url-api-auth="{{ urls.apis.auth }}"
   data-url-api-thermometer="{{ urls.apis.thermometer }}"
   data-url-assets="{{ urls.assets }}"
-  data-url-images="{{ urls.images }}">
+  data-url-images="{{ urls.images }}"
+>
   <head>
-    <meta charset="utf-8">
-    <meta name="referrer" content="origin-when-cross-origin">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#008291" >
-    <meta name="description" content="{{ description }}" >
-    <meta name="author" content="Thomas 'Panda' Attwood (TickleThePanda)">
+    <meta charset="utf-8" />
+    <meta name="referrer" content="origin-when-cross-origin" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#008291" />
+    <meta name="description" content="{{ description }}" />
+    <meta name="author" content="Thomas 'Panda' Attwood (TickleThePanda)" />
     <title>{{ title }} - TickleThePanda</title>
-    <link rel="canonical" href="{{ permalink | url }}">
+    <link rel="canonical" href="{{ permalink | url }}" />
 
-    <link rel="preload" href="{{ urls.assets }}/style/main.css" as="style">
+    <link rel="preload" href="{{ urls.assets }}/style/main.css" as="style" />
 
-    <link href="{{ urls.assets }}/style/main.css" rel="stylesheet" type="text/css">
-    <link href="{{ urls.assets }}/style/main-print.css" rel="stylesheet" type="text/css" media="print">
+    <link
+      href="{{ urls.assets }}/style/main.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="{{ urls.assets }}/style/main-print.css"
+      rel="stylesheet"
+      type="text/css"
+      media="print"
+    />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link rel="preconnect" href="{{ urls.assets }}/" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link rel="preconnect" href="{{ urls.assets }}/" crossorigin />
 
-    <link href="https://fonts.googleapis.com/css2?family=Expletus+Sans:wght@400;600&family=Proza+Libre:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Expletus+Sans:wght@400;600&family=Proza+Libre:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
 
-    <script async src="{{ urls.assets }}/scripts/random-border-elements.js"></script>
-    <script async src="{{ urls.assets }}/scripts/nav.js"></script>
+    <script
+      type="module"
+      async
+      src="{{ urls.assets }}/scripts/random-border-elements.js"
+    ></script>
+    <script type="module" async src="{{ urls.assets }}/scripts/nav.js"></script>
 
-    <script data-host="https://microanalytics.io" data-dnt="false" src="https://microanalytics.io/js/script.js" id="ZwSg9rf6GA" async defer></script>
-
+    <script
+      data-host="https://microanalytics.io"
+      data-dnt="false"
+      src="https://microanalytics.io/js/script.js"
+      id="ZwSg9rf6GA"
+      async
+      defer
+    ></script>
   </head>
   <body class="page">
     <header class="header">
@@ -47,19 +71,21 @@
         <nav class="header-nav">
           <h1 class="header-nav__title">Main Navigation</h1>
           <ul class="header-nav__list">
-            {% for link in nav  %}
-              <li class="header-nav__list-item">
-                <a class="header-nav__link button button--inverted" href="{{ link.location | url }}">{{ link.text }}</a>
-              </li>
+            {% for link in nav %}
+            <li class="header-nav__list-item">
+              <a
+                class="header-nav__link button button--inverted"
+                href="{{ link.location | url }}"
+                >{{ link.text }}</a
+              >
+            </li>
             {% endfor %}
           </ul>
         </nav>
       </div>
     </header>
     <main>
-      <article>
-        {{ content }}
-      </article>
+      <article>{{ content }}</article>
     </main>
   </body>
 </html>

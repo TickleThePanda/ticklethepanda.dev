@@ -1,5 +1,5 @@
-import { TokenStorage } from "./admin/token-storage.js";
-import { TokenClient } from "./admin/token-client.js";
+import { TokenStorage } from "./lib/token-storage.js";
+import { TokenClient } from "./lib/token-client.js";
 
 const tokenStorage = new TokenStorage();
 const tokenClient = new TokenClient();

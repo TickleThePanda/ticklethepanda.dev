@@ -1,6 +1,6 @@
-import { HealthClient } from "./health-client.js";
-import { ChartClient } from "./chart-client.js";
-import { ChartSizeManager } from "./chart-size-manager.js";
+import { HealthClient } from "./lib/health-client.js";
+import { ChartClient } from "./lib/chart-client.js";
+import { ChartSizeManager } from "./lib/chart-size-manager.js";
 
 let healthClient = new HealthClient();
 let chartClient = new ChartClient();

@@ -6,20 +6,60 @@ permalink: /location/
 created: 2016-05-15
 updated: 2020-01-26
 
-favourite: 'yes'
+favourite: "yes"
 favouriteReason: I'm proud of the data visualisation from this.
 
 previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-location-history.jpg
 ---
-<p>Since around 2012, I've had a phone that keeps track of my location whenever it's on, using Google's Location History. When I first started writing this software, I wanted to see where I had visited in the UK and where I most frequently was. I decided that the best way to represent this was to use a heat-map. I then turned this into a web service so that I can more easily update the images.</p>
+
+<p>
+  Since around 2012, I've had a phone that keeps track of my location whenever
+  it's on, using Google's Location History. When I first started writing this
+  software, I wanted to see where I had visited in the UK and where I most
+  frequently was. I decided that the best way to represent this was to use a
+  heat-map. I then turned this into a web service so that I can more easily
+  update the images.
+</p>
 <div id="location-slideshow" class="faceted-data-container form inline">
   <div class="controls">
     <div class="control-set facets">
       <h3>Data Facets:</h3>
-      <button type="button" id="location-facet-all" class="button" name="location-facet" value="all">All</button>
-      <button type="button" id="location-facet-year-month" class="button" name="location-facet" value="year-month">Month</button>
-      <button type="button" id="location-facet-month" class="button" name="location-facet" value="month">Average month</button>
-      <button type="button" id="location-facet-weekday" class="button" name="location-facet" value="weekday">Average weekday</button>
+      <button
+        type="button"
+        id="location-facet-all"
+        class="button"
+        name="location-facet"
+        value="all"
+      >
+        All
+      </button>
+      <button
+        type="button"
+        id="location-facet-year-month"
+        class="button"
+        name="location-facet"
+        value="year-month"
+      >
+        Month
+      </button>
+      <button
+        type="button"
+        id="location-facet-month"
+        class="button"
+        name="location-facet"
+        value="month"
+      >
+        Average month
+      </button>
+      <button
+        type="button"
+        id="location-facet-weekday"
+        class="button"
+        name="location-facet"
+        value="weekday"
+      >
+        Average weekday
+      </button>
     </div>
     <div class="control-set play-controls">
       <button type="button" class="button prev">↞ Previous</button>
@@ -31,19 +71,37 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
   <div class="facet-data image-container js-random-border"></div>
 </div>
 
-<p>You can find the code in its repository on GitHub, <a href="https://github.com/TickleThePanda/location-history"><code>location-history</code></a>.
-<p>Here's a quick (relatively high level) how-to on turning your data into a heatmap:
+<p>
+  You can find the code in its repository on GitHub,
+  <a href="https://github.com/TickleThePanda/location-history"
+    ><code>location-history</code></a
+  >.
+</p>
+<p>
+  Here's a quick (relatively high level) how-to on turning your data into a
+  heatmap:
+</p>
 <ol>
   <li>Retrieve your data from Google</li>
   <li>Load the data from the file</li>
   <li>Strip out the most inaccurate points</li>
   <li>Convert the data to a more useable coordinate system</li>
-  <li>Convert the data to a more efficient data structure, like a Quadtree - <em>perhaps the most fun part of the process</em></li>
-  <li>Create a heatmap array (number of points within each (x,y) of the viewport) from a viewport (scale, center point, and dimensions of the projection) - <em>another fun part</em></li>
-  <li>Create a painter for the heatmap (defines color, pixel size and writes the data to some sort of canvas)</li>
+  <li>
+    Convert the data to a more efficient data structure, like a Quadtree -
+    <em>perhaps the most fun part of the process</em>
+  </li>
+  <li>
+    Create a heatmap array (number of points within each (x,y) of the viewport)
+    from a viewport (scale, center point, and dimensions of the projection) -
+    <em>another fun part</em>
+  </li>
+  <li>
+    Create a painter for the heatmap (defines color, pixel size and writes the
+    data to some sort of canvas)
+  </li>
   <li>Save the image to file</li>
 </ol>
 
-<script src="{{ urls.assets }}/scripts/location.js"></script>
+<script type="module" src="{{ urls.assets }}/scripts/location.js"></script>
 
-<link rel="stylesheet" href="{{ urls.assets }}/style/location.css">
+<link rel="stylesheet" href="{{ urls.assets }}/style/location.css" />
