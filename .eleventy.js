@@ -37,8 +37,6 @@ module.exports = function (config) {
       );
   });
 
-  config.addLayoutAlias("page", "page.html");
-
   config.addTransform("hyphenate", async function (content, _) {
     return await hyphenateHTML(content);
   });

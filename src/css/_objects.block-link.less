@@ -3,9 +3,11 @@
 
 .block-link--random-border {
 }
-.block-link__wrapper {}
+.block-link__wrapper {
+}
 
-.block-link__link:link, .block-link__link:visited {
+.block-link__link:link,
+.block-link__link:visited {
   background-color: @palette-primary-inverted-background;
   color: @palette-primary-inverted-stroke;
 
@@ -15,12 +17,14 @@
 }
 
 .block-link__wrapper:focus-within {
-  .block-link__link:link, .block-link__link:visited {
+  .block-link__link:link,
+  .block-link__link:visited {
     background-color: @palette-primary-stroke-highlight-reduced-contrast;
   }
 }
 
-.block-link__link:hover, .block-link__link:active {
+.block-link__link:hover,
+.block-link__link:active {
   background-color: @palette-primary-inverted-background-highlight;
   color: @palette-secondary-stroke;
 }
