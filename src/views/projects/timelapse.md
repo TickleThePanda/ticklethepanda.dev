@@ -28,6 +28,12 @@ when the photos will be taken and store them. I also wanted to deploy to the
 Raspberry Pi within a Docker image as part of a my home Kubernetes "cluster" (a
 manager node and this new Raspberry Pi).
 
+### An example
+
+<div class="responsive-iframe-container">
+  <iframe class="responsive-iframe" src="https://www.youtube.com/embed/gqKUhgiDJz4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ### Initial setup
 
 The first step, at this point, was to get the camera working with the
@@ -120,8 +126,6 @@ A quick overview of this:
 2. For each image, do some colour correction and image cleanup.
 3. Use `mencoder` to stitch them together into a video.
 4. Use `ffmpeg` to compress the video into something usable.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gqKUhgiDJz4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [open source]: https://github.com/TickleThePanda/home/tree/main/rpi-timelapse
 [raspberry pi 4]: https://thepihut.com/products/raspberry-pi-4-model-b
