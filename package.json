@@ -41,6 +41,6 @@
     "seedrandom": "^3.0.5",
     "typescript": "^4.6.2",
     "uglify-es": "^3.3.9",
-    "vega-typings": "^0.22.2"
+    "vega-typings": "^0.22.3"
   }
 }
