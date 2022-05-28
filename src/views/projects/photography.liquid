@@ -44,7 +44,7 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
         <ul class="gallery-images">
           {% assign hashGallery = gallery.name | hash %}
           {% if hashGallery > 0.5 %}
-            <div class="gallery-image-item gallery-image-item--empty" role="presentation"></div>
+            <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
           {% endif %}
           {% for image in gallery.images %}
             <li class="gallery-image-item">
@@ -62,7 +62,7 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
 
             {% assign hashImage = image.name | hash %}
             {% if hashImage > 0.66 %}
-              <div class="gallery-image-item gallery-image-item--empty" role="presentation"></div>
+              <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
             {% endif %}
           {% endfor %}
         </ul>
