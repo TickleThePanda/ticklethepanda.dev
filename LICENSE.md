@@ -1,3 +1,5 @@
+This license applies to all of the repository except the `src/fonts/` directory.
+
 MIT License
 
 Copyright (c) 2017 Thomas PG Attwood (TickleThePanda)
