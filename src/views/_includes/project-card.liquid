@@ -1,6 +1,8 @@
 <li class="card block-link block-link--random-border block-link__wrapper js-random-border js-random-border-hover">
   <a class="card__link block-link__link" href="{{ project.url }}">
-    <img class="card__image" src="{{ project.data.previewImage }}">
+    {% if project.data.previewImage %}
+      <img class="card__image" src="{{ project.data.previewImage }}" alt="Preview image for {{ project.data.title }}">
+    {% endif %}
     <h4 class="card__header">{{ project.data.title }}</h4>
     <div class="card__main">
       <p>{{ project.data.description }}</p>
