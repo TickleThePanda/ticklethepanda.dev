@@ -37,6 +37,13 @@ gulp.task("js", function () {
     .pipe(gulp.dest(assetsBaseOutput + "/scripts/"));
 });
 
+
+gulp.task("fonts", function () {
+  return gulp
+    .src("src/fonts/*")
+    .pipe(gulp.dest(assetsBaseOutput + "/fonts/"));
+});
+
 gulp.task("vega", function () {
   return gulp
     .src("src/vg/**/*.json")
@@ -48,7 +55,7 @@ gulp.task("redirect-rules", function () {
 });
 
 let all = () =>
-  gulp.series("site", gulp.parallel("css", "js", "vega", "redirect-rules"));
+  gulp.series("site", gulp.parallel("css", "js", "vega", "redirect-rules", "fonts"));
 
 gulp.task("default", all());
 
@@ -56,6 +63,7 @@ gulp.task("watch", function () {
   gulp.watch("src/js/**/*.{js,ts}", gulp.parallel("js"));
   gulp.watch("src/css/**/*.less", gulp.parallel("css"));
   gulp.watch("src/vg/**/*.json", gulp.parallel("vega"));
+  gulp.watch("src/fonts/*", gulp.parallel("fonts"));
   gulp.watch(".eleventy.js", gulp.parallel("site"));
   gulp.watch("src/views/**/*", gulp.parallel("site"));
 });

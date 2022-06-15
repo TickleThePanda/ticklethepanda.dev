@@ -1,4 +1,5 @@
 {
+  "base": "https://ticklethepanda.dev",
   "assets": "/assets",
   "images": "https://images.ticklethepanda.co.uk",
   "galleries": "https://galleries.ticklethepanda.co.uk",
