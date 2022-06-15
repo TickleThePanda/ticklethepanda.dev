@@ -6,7 +6,6 @@
 }
 
 @supports (display: grid) {
-
   .page {
     max-width: @max-page-width;
     margin: auto;
@@ -14,8 +13,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: min-content 1fr;
-    grid-template-areas: "h n"
-                         "c c";
+    grid-template-areas:
+      "h h"
+      "c c";
   }
 
   @media (max-width: @mobile-breakpoint) {
@@ -23,5 +23,4 @@
       display: block;
     }
   }
-
 }

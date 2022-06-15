@@ -9,11 +9,14 @@ permalink: /
   <div class="my-face-wrapper my-face-wrapper-1">
     <div class="my-face-wrapper my-face-wrapper-2">
       <div class="my-face-wrapper my-face-wrapper-3">
-        <img
-          class="my-face"
-          src="{{ urls.images }}/content/my-face-2020.png"
-          alt="Me, a person with long hair wearing, smiling and laughing."
-          width="500px" height="500px" >
+        <picture>
+          <source type="image/webp" srcset="{{ urls.images }}/content/my-face-2020.webp">
+          <img
+            class="my-face"
+            src="{{ urls.images }}/content/my-face-2020.jpg"
+            alt="Me, a person with long hair wearing, smiling and laughing."
+            width="500" height="500" >
+        </picture>
       </div>
     </div>
   </div>
@@ -38,6 +41,41 @@ permalink: /
   résumé</a> if you're interested in looking at my professional
   experience.
 </p>
+
+<h3>My projects</h3>
+
+<p>In my free time, I like to spend my time on projects. They cover
+  a few different areas which range from collecting and visualising
+  data to sharing my photography. Sometimes I use these projects to
+  learn new skills, like design and the latest web technologies, but
+  most of the time they are for fun. These are the ones that I want to
+  share with you as a way of expressing myself: while they might not
+  be clean and polished, I am very proud of them.
+
+{% assign projects = collections.project | concat: other-projects | sortByUpdated %}
+{% assign favProjects = projects | whereData: "favourite", "yes", %}
+{% assign notFavProjects = projects | whereData: "favourite", "yes", "!" %}
+
+<h4>Favourites</h4>
+
+<p>These are my favourite projects: the ones that I am most proud of.
+
+<ul class="cards">
+  {% for project in favProjects %}
+    {% include 'project-card', project: project %}
+  {% endfor %}
+</ul>
+
+<h4>The rest</h4>
+<p>While the other projects are my highlights, these are the ones that
+  don't stand out. Some are just functional, others are not my best and
+  the rest are just older ones that I am less interested in now.
+
+<ul class="cards">
+  {% for project in notFavProjects %}
+    {% include 'project-card', project: project %}
+  {% endfor %}
+</ul>
 
 <div id="social-media-widget">
   <div class="block-link block-link--random-border block-link__wrapper social-media-link js-random-border js-random-border-hover">

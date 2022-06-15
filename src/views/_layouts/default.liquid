@@ -45,7 +45,6 @@
       async
       src="{{ urls.assets }}/scripts/random-border-elements.js"
     ></script>
-    <script type="module" async src="{{ urls.assets }}/scripts/nav.js"></script>
 
     <script
       data-host="https://microanalytics.io"
@@ -66,22 +65,6 @@
             </h1>
           </a>
         </div>
-      </div>
-      <div class="header-nav__wrapper">
-        <nav class="header-nav">
-          <h1 class="header-nav__title">Main Navigation</h1>
-          <ul class="header-nav__list">
-            {% for link in nav %}
-            <li class="header-nav__list-item">
-              <a
-                class="header-nav__link button button--inverted"
-                href="{{ link.location | url }}"
-                >{{ link.text }}</a
-              >
-            </li>
-            {% endfor %}
-          </ul>
-        </nav>
       </div>
     </header>
     <main>
