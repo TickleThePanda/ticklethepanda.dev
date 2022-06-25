@@ -8,7 +8,7 @@
   border: unset;
 
   display: grid;
-  grid-template-columns: [full-start] ~"repeat(auto-fit, minmax(min(100%, 2.5em), 1fr))" [full-end];
+  grid-template-columns: [full-start] ~"repeat(auto-fit, minmax(min(100%, 1.5em), 1fr))" [full-end];
   grid-gap: 1em;
   grid-auto-flow: dense;
 
@@ -26,8 +26,8 @@
   @media (max-width: 35em) {
     grid-column: full;
   }
-  grid-column: span 3;
-  grid-row: span 3;
+  grid-column: span 5;
+  grid-row: span 7;
 
   --random-border--safe-padding: 0.5em;
   --random-border--animation-duration-ms: 200;
@@ -46,8 +46,8 @@
   @media (max-width: 35em) {
     grid-column: full;
   }
-  grid-column: span 5;
-  grid-row: span 5;
+  grid-column: span 7;
+  grid-row: span 11;
 }
 
 .card__link {
