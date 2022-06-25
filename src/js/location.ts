@@ -1,4 +1,4 @@
-const imagesBaseUrl = document.documentElement.dataset.urlImages;
+const locationHistoryBaseUrl = document.documentElement.dataset.urlLocationHistory;
 
 function modulo(n: number, d: number) {
   return ((n % d) + d) % d;
@@ -41,7 +41,7 @@ class SingleView implements FacetView {
   getCurrentItem(): ImageDescriptor {
     return {
       name: this.#name,
-      url: `${imagesBaseUrl}/location-history/default-${this.#name}.png`,
+      url: `${locationHistoryBaseUrl}/location-history/default-${this.#name}.png`,
       cachePattern: this.#name,
     };
   }
@@ -85,7 +85,7 @@ class MultiView implements FacetView {
     const item = this.#items[modulo(this.#index + diff, this.#items.length)];
     return {
       name: item,
-      url: `${imagesBaseUrl}/location-history/default-${item}.png`,
+      url: `${locationHistoryBaseUrl}/location-history/default-${item}.png`,
       cachePattern: `${this.#name}-${item}`,
     };
   }

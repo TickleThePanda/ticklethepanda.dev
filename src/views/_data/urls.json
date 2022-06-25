@@ -1,8 +1,9 @@
 {
   "base": "https://ticklethepanda.dev",
   "assets": "/assets",
-  "images": "https://images.ticklethepanda.co.uk",
+  "images": "/assets/images",
   "galleries": "https://galleries.ticklethepanda.co.uk",
+  "locationHistory": "https://images.ticklethepanda.co.uk",
   "api": "https://api.ticklethepanda.co.uk",
   "apis": {
     "health": "https://health-ticklethepanda.herokuapp.com",
