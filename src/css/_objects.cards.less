@@ -10,10 +10,11 @@
   display: grid;
   grid-template-columns: [full-start] ~"repeat(auto-fit, minmax(min(100%, 2.5em), 1fr))" [full-end];
   grid-gap: 1em;
+  grid-auto-flow: dense;
 
   filter: drop-shadow(@high-contrast-shadow);
 
-  max-width: 100em;
+  max-width: unset;
 
   align-items: end;
 }
@@ -26,6 +27,7 @@
     grid-column: full;
   }
   grid-column: span 3;
+  grid-row: span 3;
 
   --random-border--safe-padding: 0.5em;
   --random-border--animation-duration-ms: 200;
@@ -45,6 +47,7 @@
     grid-column: full;
   }
   grid-column: span 5;
+  grid-row: span 5;
 }
 
 .card__link {
