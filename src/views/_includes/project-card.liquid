@@ -1,4 +1,4 @@
-<li class="card {% if project.data.favourite %}card--important{% endif %} block-link {% if project.data.favourite %}block-link--important {% else %}block-link--low{% endif %} block-link--random-border block-link__wrapper js-random-border js-random-border-hover">
+<li class="card {% unless project.data.previewImage %}card--small{% endunless %}{% if project.data.favourite %}card--important{% endif %} block-link {% if project.data.favourite %}block-link--important {% else %}block-link--low{% endif %} block-link--random-border block-link__wrapper js-random-border js-random-border-hover">
   <a class="card__link block-link__link" href="{{ project.url }}">
     {% if project.data.previewImage %}
       <img class="card__image" src="{{ project.data.previewImage }}" alt="Preview image for {{ project.data.title }}" width="400" height="250">
@@ -13,9 +13,6 @@
         <div class="card__date">{{ project.data.created | date: fmt }}</div>
       {% endif %}
       <p>
-        {% if project.data.favourite %}
-          One of my favourites!
-        {% endif %}
         {{ project.data.description }}
         {% unless project.data.favouriteReason == blank %}
         <span class="card__extra-description">

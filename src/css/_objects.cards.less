@@ -37,6 +37,17 @@
 
 }
 
+.card--small {
+  --card-font-size: 0.6rem;
+  --card-font-size-small: 0.5rem;
+
+  @media (max-width: 35em) {
+    grid-column: full;
+  }
+  grid-column: span 5;
+  grid-row: span 3;
+}
+
 .card--important {
   --card-font-size: 0.9rem;
   --card-font-size-small: 0.7rem;
