@@ -6,7 +6,7 @@
       "created": "2019-08-27",
       "previewImage": "https://images.ticklethepanda.co.uk/images/project-images/project-star-realms.jpg"
     },
-    "url": "https://star-realms.ticklethepanda.co.uk/"
+    "url": "https://star-realms.ticklethepanda.co.uk"
   },
   {
     "data": {
@@ -18,7 +18,7 @@
       "favouriteReason": "I love this for its pretty visualisations.",
       "previewImage": "https://images.ticklethepanda.co.uk/images/project-images/project-tartanify.jpg"
     },
-    "url": "https://tartan-ify.ticklethepanda.co.uk/"
+    "url": "https://tartan-ify.ticklethepanda.co.uk"
   },
   {
     "data": {
@@ -28,7 +28,7 @@
       "updated": "2018-12-31",
       "previewImage": "https://images.ticklethepanda.co.uk/images/project-images/project-hitchhikers.jpg"
     },
-    "url": "https://hitchhikers.ticklethepanda.co.uk/"
+    "url": "https://hitchhikers.ticklethepanda.co.uk"
   },
   {
     "data": {
@@ -40,7 +40,7 @@
       "favouriteReason": "I'm proud of the design of the site.",
       "previewImage": "https://images.ticklethepanda.co.uk/images/project-images/project-carpe-dm.jpg"
     },
-    "url": "https://dm.dnd.ticklethepanda.co.uk"
+    "url": "https://carpe-dm.page"
   },
   {
     "data": {
@@ -57,7 +57,7 @@
       "description": "Instructions on how to look after the plants in our house.",
       "created": "2021-01-25"
     },
-    "url": "https://our-plants.ticklethepanda.dev/"
+    "url": "https://our-plants.ticklethepanda.dev"
   },
   {
     "data": {
@@ -66,6 +66,6 @@
       "created": "2021-07-31",
       "updated": "2021-08-15"
     },
-    "url": "https://dancer.ticklethepanda.dev/"
+    "url": "https://dancer.ticklethepanda.dev"
   }
 ]
