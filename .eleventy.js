@@ -1,5 +1,7 @@
 const Random = require("seedrandom");
 const { hyphenateHTML } = require("hyphen/en-gb");
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 
 function coerceToDate(date) {
   return typeof date === "string" ? Date.parse(date) : date;
@@ -38,7 +40,12 @@ module.exports = function (config) {
   });
 
   config.addTransform("hyphenate", async function (content, _) {
-    return await hyphenateHTML(content);
+    const dom = new JSDOM(content);
+    const main = dom.window.document.querySelector("main");
+    const mainHtml = main.innerHTML;
+    const newMainHtml = await hyphenateHTML(mainHtml);
+    main.innerHTML = newMainHtml;
+    return dom.serialize();
   });
 
   return {
