@@ -1,15 +1,16 @@
 .block-link {
-  --link-fill-color: @palette-primary-inverted-background-reduced-contrast;
+  --link-fill-color: @palette-primary-inverted-background;
   --link-stroke-color: @palette-primary-inverted-stroke;
   --link-rollover-fill-color: @palette-primary-inverted-background-highlight;
   --link-rollover-stroke-color: @palette-secondary-stroke;
 }
 
+.block-link--low {
+  --link-fill-color: @palette-primary-inverted-background-reduced-contrast;
+}
+
 .block-link--important {
   --link-fill-color: @palette-primary-inverted-background-increased-contrast;
-  --link-stroke-color: @palette-primary-inverted-stroke;
-  --link-rollover-fill-color: @palette-primary-inverted-background-highlight;
-  --link-rollover-stroke-color: @palette-secondary-stroke;
 }
 
 .block-link--random-border {
