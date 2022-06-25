@@ -1,4 +1,15 @@
 .block-link {
+  --link-fill-color: @palette-primary-inverted-background;
+  --link-stroke-color: @palette-primary-inverted-stroke;
+  --link-rollover-fill-color: @palette-primary-inverted-background-highlight;
+  --link-rollover-stroke-color: @palette-secondary-stroke;
+}
+
+.block-link--important {
+  --link-fill-color: @palette-primary-inverted-background-increased-contrast;
+  --link-stroke-color: @palette-primary-inverted-stroke;
+  --link-rollover-fill-color: @palette-primary-inverted-background-highlight;
+  --link-rollover-stroke-color: @palette-secondary-stroke;
 }
 
 .block-link--random-border {
@@ -8,8 +19,8 @@
 
 .block-link__link:link,
 .block-link__link:visited {
-  background-color: @palette-primary-inverted-background;
-  color: @palette-primary-inverted-stroke;
+  background-color: var(--link-fill-color);
+  color: var(--link-stroke-color);
 
   transition: @button-low-contrast-hover-transition;
 
@@ -19,12 +30,13 @@
 .block-link__wrapper:focus-within {
   .block-link__link:link,
   .block-link__link:visited {
-    background-color: @palette-primary-stroke-highlight-reduced-contrast;
+    background-color: var(--link-rollover-fill-color);
   }
 }
 
 .block-link__link:hover,
 .block-link__link:active {
-  background-color: @palette-primary-inverted-background-highlight;
-  color: @palette-secondary-stroke;
+  background-color: var(--link-rollover-fill-color);
+  color: var(--link-rollover-stroke-color);
 }
+

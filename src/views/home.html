@@ -5,42 +5,44 @@ description: A showcase of TickleThePanda's (Thomas 'Panda' Attwood) projects.
 permalink: /
 ---
 
-<div class="my-face-wrapper my-face-outer-wrapper">
-  <div class="my-face-wrapper my-face-wrapper-1">
-    <div class="my-face-wrapper my-face-wrapper-2">
-      <div class="my-face-wrapper my-face-wrapper-3">
-        <picture>
-          <source type="image/webp" srcset="{{ urls.images }}/content/my-face-2020.webp">
-          <img
-            class="my-face"
-            src="{{ urls.images }}/content/my-face-2020.jpg"
-            alt="Me, a person with long hair wearing, smiling and laughing."
-            width="500" height="500" >
-        </picture>
+<div>
+  <div class="my-face-wrapper my-face-outer-wrapper">
+    <div class="my-face-wrapper my-face-wrapper-1">
+      <div class="my-face-wrapper my-face-wrapper-2">
+        <div class="my-face-wrapper my-face-wrapper-3">
+          <picture>
+            <source type="image/webp" srcset="{{ urls.images }}/content/my-face-2020.webp">
+            <img
+              class="my-face"
+              src="{{ urls.images }}/content/my-face-2020.jpg"
+              alt="Me, a person with long hair wearing, smiling and laughing."
+              width="500" height="500" >
+          </picture>
+        </div>
       </div>
     </div>
   </div>
+  <h3 class="home-heading">
+    Hi, I'm <strong>Panda</strong>!
+  </h3>
+  <p>
+    I like building things with web technologies, playing board
+    games and Dungeons and Dragons, traveling the UK and the
+    world, taking photos on film, and hosting (usually themed)
+    dinner parties.
+  <p>
+    When I'm working, I lead a team of software engineers at <a
+    href="https://www.stfc.ac.uk">Science and Technology Facilities
+    Council (STFC)</a> (part of <a href="https://ukri.org">UK Research
+    and Inovation</a>). We develop web apps for the submission of
+    proposals and gathering information about outcomes of experiments
+    at STFC's National Laboratories.
+  <p>
+    Take a look at <a href="https://cv.ticklethepanda.co.uk" z>my
+    résumé</a> if you're interested in looking at my professional
+    experience.
+  </p>
 </div>
-<h3 class="home-heading">
-  Hi, I'm <strong>Panda</strong>!
-</h3>
-<p>
-  I like building things with web technologies, playing board
-  games and Dungeons and Dragons, traveling the UK and the
-  world, taking photos on film, and hosting (usually themed)
-  dinner parties.
-<p>
-  When I'm working, I lead a team of software engineers at <a
-  href="https://www.stfc.ac.uk">Science and Technology Facilities
-  Council (STFC)</a> (part of <a href="https://ukri.org">UK Research
-  and Inovation</a>). We develop web apps for the submission of
-  proposals and gathering information about outcomes of experiments
-  at STFC's National Laboratories.
-<p>
-  Take a look at <a href="https://cv.ticklethepanda.co.uk" z>my
-  résumé</a> if you're interested in looking at my professional
-  experience.
-</p>
 
 <h3>My projects</h3>
 
@@ -49,45 +51,18 @@ permalink: /
   data to sharing my photography. Sometimes I use these projects to
   learn new skills, like design and the latest web technologies, but
   most of the time they are for fun. These are the ones that I want to
-  share with you as a way of expressing myself: while they might not
-  be clean and polished, I am very proud of them.
+  share with you, though they might not be clean and polished.
 
 {% assign projects = collections.project | concat: other-projects | sortByUpdated %}
-{% assign favProjects = projects | whereData: "favourite", "yes", %}
-{% assign notFavProjects = projects | whereData: "favourite", "yes", "!" %}
-
-<h4>Favourites</h4>
-
-<p>These are my favourite projects: the ones that I am most proud of.
 
 <ul class="cards">
-  {% for project in favProjects %}
+  {% for project in projects %}
     {% include 'project-card', project: project %}
   {% endfor %}
 </ul>
 
-<h4>The rest</h4>
-<p>While the other projects are my highlights, these are the ones that
-  don't stand out. Some are just functional, others are not my best and
-  the rest are just older ones that I am less interested in now.
+<h3>Where to find me</h3>
 
-<ul class="cards">
-  {% for project in notFavProjects %}
-    {% include 'project-card', project: project %}
-  {% endfor %}
-</ul>
-
-<div id="social-media-widget">
-  <div class="block-link block-link--random-border block-link__wrapper social-media-link js-random-border js-random-border-hover">
-    <a class="block-link__link" href="https://twitter.com/ticklethepanda">
-      <img src="{{ urls.images }}/social/twitter.png" alt="Twitter's Logo" >
-    </a>
-  </div>
-  <div class="block-link block-link--random-border social-media-link js-random-border js-random-border-hover">
-    <a class="block-link__link" href="https://github.com/ticklethepanda">
-      <img src="{{ urls.images }}/social/github.png" alt="GitHub's Logo">
-    </a >
-  </div>
-</div>
+<p><a href="https://github.com/ticklethepanda">GitHub - TickleThePanda</a>
 
 <link href="{{ urls.assets }}/style/home.css" rel="stylesheet">

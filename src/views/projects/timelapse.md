@@ -4,7 +4,6 @@ description: A Raspberry PI timelapse camera
 permalink: /timelapse/
 
 created: 2021-04-03
-updated: 2021-04-03
 ---
 
 Recently, I've been pruning a very leggy jade plant. Hiding it in shade

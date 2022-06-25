@@ -1,31 +1,44 @@
 @card-padding: 1.2rem;
 
 .cards {
+
   margin: 0;
   margin-top: 0.5em;
   padding: 0;
   border: unset;
 
   display: grid;
-  grid-template-columns: ~"repeat(auto-fit, minmax(min(100%, 15em), 1fr))";
+  grid-template-columns: [full-start] ~"repeat(auto-fit, minmax(min(100%, 2.5em), 1fr))" [full-end];
   grid-gap: 1em;
 
   filter: drop-shadow(@high-contrast-shadow);
 
-  max-width: unset;
+  max-width: 100em;
+
+  align-items: end;
 }
 
 .card {
   margin: 0;
   padding: 0;
 
-  height: 100%;
+  @media (max-width: 35em) {
+    grid-column: full;
+  }
+  grid-column: span 3;
 
   --random-border--safe-padding: 0.5em;
   --random-border--animation-duration-ms: 200;
 
   --random-border--inner-padding: 1em;
 
+}
+
+.card--important {
+  @media (max-width: 35em) {
+    grid-column: full;
+  }
+  grid-column: span 5;
 }
 
 .card__link {

@@ -33,7 +33,7 @@ module.exports = function (config) {
     return array
       .slice()
       .sort(
-        (a, b) => coerceToDate(b.data.updated) - coerceToDate(a.data.updated)
+        (a, b) => coerceToDate(b.data.updated || b.data.created) - coerceToDate(a.data.updated || a.data.created)
       );
   });
 
