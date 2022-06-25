@@ -1,26 +1,12 @@
 .page {
-  padding: 1em;
-
-  max-width: @content-width;
+  max-width: @max-page-width;
   margin: auto;
+
+  padding: 1em;
 }
 
-@supports (display: grid) {
+@media (max-width: @mobile-breakpoint) {
   .page {
-    max-width: @max-page-width;
-    margin: auto;
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: min-content 1fr;
-    grid-template-areas:
-      "h h"
-      "c c";
-  }
-
-  @media (max-width: @mobile-breakpoint) {
-    .page {
-      display: block;
-    }
+    display: block;
   }
 }

@@ -7,10 +7,11 @@ layout: default
     {{ title }}
   </h2>
   <div class="article__date">
-    {% if project.data.created == project.data.updated %}
-      Created {{ created | date: "%b %Y"}}, last updated {{ updated | date: "%b %Y" }}
+    {% assign fmt = "%b ’%y" %}
+    {% if updated %}
+      <div class="card__date">↻ {{ updated | date: fmt }} ({{ created | date: fmt }})</div>
     {% else %}
-      Created {{ created | date: "%b %Y"}}
+      <div class="card__date">{{ created | date: fmt }}</div>
     {% endif %}
   </div>
 </header>
