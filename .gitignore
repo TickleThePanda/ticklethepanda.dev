@@ -13,3 +13,5 @@ public/style
 /vendor
 /.bundle
 
+.terraform*
+
