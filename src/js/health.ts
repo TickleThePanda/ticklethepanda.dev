@@ -1,13 +1,23 @@
 import { BasicHistory, HealthClient } from "./lib/health-client.js";
 import { ChartClient } from "./lib/chart-client.js";
 import { ChartSizeManager } from "./lib/chart-size-manager.js";
+import { TokenStorage } from "./lib/token-storage.js";
 import type { View } from "vega-typings/types";
 
-const healthClient = new HealthClient();
-const chartClient = new ChartClient();
-const chartSizeManager = new ChartSizeManager();
+const tokenStorage = new TokenStorage();
+const token = tokenStorage.load();
 
 window.addEventListener("load", async () => {
+  if (token === null) {
+    console.log("Unable to get token");
+    return;
+  }
+
+  const healthClient = new HealthClient(token);
+
+  const chartClient = new ChartClient();
+  const chartSizeManager = new ChartSizeManager();
+
   const state = {
     facet: (<HTMLInputElement>(
       document.querySelector("#weight-charts .facets .button--selected")

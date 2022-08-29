@@ -6,7 +6,7 @@
   "locationHistory": "https://images.ticklethepanda.co.uk",
   "api": "https://api.ticklethepanda.co.uk",
   "apis": {
-    "health": "https://health-ticklethepanda.herokuapp.com",
+    "health": "https://health.ticklethepanda.dev",
     "auth": "https://auth.api.ticklethepanda.dev",
     "thermometer": "https://thermometer.ticklethepanda.dev"
   },

@@ -1,4 +1,5 @@
 import { TokenStorage } from "./lib/token-storage.js";
+import { HealthClient } from "./lib/health-client.js";
 
 function getMiddayOfDate(date: Date) {
   const middayOnDate = new Date(date);
@@ -18,79 +19,13 @@ function cleanWeightResult(weight: number) {
   }
 }
 
-const apiBaseHealthUrl = document.documentElement.dataset.urlApiHealth;
-
-class WeightClient {
-  token: string;
-  constructor(token: string) {
-    this.token = token;
-  }
-
-  async fetchHistory() {
-    const response = await fetch(apiBaseHealthUrl + "/weight/log");
-
-    const results = <DayEntry[]>await response.json();
-
-    results.sort((b, a) => a.date.localeCompare(b.date));
-    return results.filter((e) => e.weightAm || e.weightPm);
-  }
-
-  async updateDay(req: UpdateEntryRequest): Promise<UpdateEntryResult> {
-    const date = req.date;
-    const period = req.period;
-    const weight = req.weight;
-
-    const url = `${apiBaseHealthUrl}/weight/log/${date}/${period}`;
-    const payload = { weight: weight };
-
-    const authHeaderValue = "Bearer " + this.token;
-
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      Authorization: authHeaderValue,
-    });
-
-    const init: RequestInit = {
-      credentials: "include",
-      method: "PUT",
-      headers: headers,
-      mode: "cors",
-      body: JSON.stringify(payload),
-    };
-
-    const response = await fetch(url, init);
-    if (response.ok) {
-      return await response.json();
-    } else {
-      throw Error("unable submit data: " + response.statusText);
-    }
-  }
-}
-
-interface UpdateEntryRequest {
-  date: string;
-  period: string;
-  weight: string;
-}
-
-interface UpdateEntryResult {
-  date: string;
-  meridiam: string;
-  weight: string;
-}
-
-interface DayEntry {
-  date: string;
-  weightAm: number;
-  weightPm: number;
-}
 
 class WeightApp {
   token: string;
-  client: WeightClient;
+  client: HealthClient;
   constructor(token: string) {
     this.token = token;
-    this.client = new WeightClient(token);
+    this.client = new HealthClient(token);
   }
 
   setupFormInputs() {
