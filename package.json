@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@11ty/eleventy": "^1.0.0",
-    "axios": "^0.26.0",
+    "axios": "^1.1.2",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-less": "^5.0.0",
