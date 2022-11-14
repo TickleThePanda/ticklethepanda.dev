@@ -35,7 +35,9 @@ module.exports = function (config) {
     return array
       .slice()
       .sort(
-        (a, b) => coerceToDate(b.data.updated || b.data.created) - coerceToDate(a.data.updated || a.data.created)
+        (a, b) =>
+          coerceToDate(b.data.updated || b.data.created) -
+          coerceToDate(a.data.updated || a.data.created)
       );
   });
 
@@ -48,6 +50,13 @@ module.exports = function (config) {
     return dom.serialize();
   });
 
+  config.addFilter("shuffle", async function (v, prop) {
+    v.sort((a, b) => {
+      return hash(a[prop]) - hash(b[prop]);
+    });
+    return v;
+  });
+
   return {
     dir: {
       input: "src/views",
@@ -57,3 +66,17 @@ module.exports = function (config) {
     },
   };
 };
+
+function hash(string) {
+  let h = 0;
+
+  if (string.length == 0) return h;
+
+  for (i = 0; i < string.length; i++) {
+    char = string.charCodeAt(i);
+    h = (h << 5) - h + char;
+    h = h & h;
+  }
+
+  return h;
+}

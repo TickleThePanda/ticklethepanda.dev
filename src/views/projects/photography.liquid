@@ -43,10 +43,11 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
         <p class="gallery-description">{{ gallery.description }}</p>
         <ul class="gallery-images">
           {% assign hashGallery = gallery.name | hash %}
-          {% if hashGallery > 0.5 %}
+          {% if hashGallery > 0.9 %}
             <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
           {% endif %}
-          {% for image in gallery.images %}
+          {% assign images = gallery.images | shuffle: 'name' %}
+          {% for image in images %}
             {% assign x = image.aspectRatio.x %}
             {% assign y = image.aspectRatio.y %}
             <li class="gallery-image-item gallery-image-item--ar-{{x}}-{{y}}">
@@ -63,7 +64,7 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
             </li>
 
             {% assign hashImage = image.name | hash %}
-            {% if hashImage > 0.66 %}
+            {% if hashImage > 0.65 %}
               <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
             {% endif %}
           {% endfor %}
