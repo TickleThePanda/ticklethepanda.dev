@@ -47,7 +47,9 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
             <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
           {% endif %}
           {% for image in gallery.images %}
-            <li class="gallery-image-item">
+            {% assign x = image.aspectRatio.x %}
+            {% assign y = image.aspectRatio.y %}
+            <li class="gallery-image-item gallery-image-item--ar-{{x}}-{{y}}">
               {% assign largest_size = image.sizes | where: "type", "jpeg" | last %}
               <a href="{{ urls.galleries }}/{{ largest_size.url }}" title="{{ image.name }}">
                 <picture>

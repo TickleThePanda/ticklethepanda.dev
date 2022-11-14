@@ -107,42 +107,89 @@
     background-color: @palette-tertiary-background;
     box-shadow: 0 0 0 @gallery-padding @palette-tertiary-background;
 
-    width: auto;
-    max-height: 80vh;
+    width: 100%;
+    height: 100%;
 
-    @media (max-width: @mobile-breakpoint) {
-      max-height: unset;
-    }
+    object-fit: cover;
   }
 
   .gallery-image-item {
     display: flex;
 
     flex: 1 1 auto;
-    width: ~"max(" 30vmin, 10em~ ")";
+    width: auto;
+  }
 
-    margin: (@gallery-padding / 2);
-
+  .gallery-image-item {
     &--empty {
       background-color: unset;
       box-shadow: unset;
 
-      margin: 0;
+      grid-column: span 10;
+      grid-row: span 10;
 
-      width: ~"max(30vmin +" @gallery-padding ~", 10em + " @gallery-padding~ ")";
+      &:nth-child(3n) {
+        grid-column: span 8;
+        grid-row: span 12;
+      }
+
+      &:nth-child(5n + 1) {
+        grid-column: span 12;
+        grid-row: span 8;
+      }
+
+      @media (max-width: @mobile-breakpoint) {
+        grid-column: span 6;
+        grid-column: span 6;
+
+        &:nth-child(3n) {
+          grid-column: span 4;
+          grid-row: span 6;
+        }
+
+        &:nth-child(5n + 1) {
+          grid-column: span 6;
+          grid-row: span 4;
+        }
+      }
+    }
+
+    &--ar-1-1 {
+      grid-column: span 10;
+      grid-row: span 10;
+    }
+    &--ar-2-3 {
+      grid-column: span 8;
+      grid-row: span 12;
+    }
+    &--ar-3-2 {
+      grid-column: span 12;
+      grid-row: span 8;
+    }
+    &--ar-3-4 {
+      grid-column: span 9;
+      grid-row: span 12;
+    }
+    &--ar-4-3 {
+      grid-column: span 12;
+      grid-row: span 9;
+    }
+    &--ar-4-5 {
+      grid-column: span 8;
+      grid-row: span 10;
+    }
+    &--ar-5-4 {
+      grid-column: span 10;
+      grid-row: span 8;
     }
   }
 
-  .gallery-image-item:nth-child(2n-1) {
-    align-self: flex-end;
-  }
-
-  .gallery-image-item:nth-child(3n + 1) {
-    align-self: flex-start;
-  }
-
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  @grid-base-size: 0.5em;
+  display: grid;
+  grid-template-columns:
+    [full-start] repeat(auto-fill, @grid-base-size)
+    [full-end];
+  grid-gap: @gallery-padding;
+  grid-auto-rows: @grid-base-size;
+  grid-auto-flow: dense;
 }
