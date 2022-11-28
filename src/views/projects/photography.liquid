@@ -48,6 +48,12 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
           {% endif %}
           {% assign images = gallery.images | shuffle: 'name' %}
           {% for image in images %}
+
+            {% assign hashImage = image.name | hash %}
+            {% if hashImage > 0.5 %}
+              <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
+            {% endif %}
+
             {% assign x = image.aspectRatio.x %}
             {% assign y = image.aspectRatio.y %}
             <li class="gallery-image-item gallery-image-item--ar-{{x}}-{{y}}">
@@ -62,11 +68,6 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
                 </picture>
               </a>
             </li>
-
-            {% assign hashImage = image.name | hash %}
-            {% if hashImage > 0.65 %}
-              <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
-            {% endif %}
           {% endfor %}
         </ul>
       </div>
