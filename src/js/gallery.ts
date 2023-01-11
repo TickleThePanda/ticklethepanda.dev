@@ -19,7 +19,7 @@ function getSelectedGalleryId() {
 function showSelectedGallery() {
   const selectedGalleryId = getSelectedGalleryId();
 
-  const galleryElements = document.querySelectorAll(".gallery");
+  const galleryElements = document.querySelectorAll(".galleries .gallery");
   const galleryElementIds = Array.from(galleryElements).map((el) => el.id);
 
   galleryElements.forEach((el) => {
@@ -39,7 +39,7 @@ function showSelectedGallery() {
 
 function makeGalleryLinksPushState() {
   const galleryNavLinkElements = Array.from(
-    document.querySelectorAll(".gallery nav a")
+    document.querySelectorAll(".galleries .gallery nav a")
   ) as Array<HTMLLinkElement>;
 
   for (const el of galleryNavLinkElements) {

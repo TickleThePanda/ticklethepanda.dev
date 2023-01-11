@@ -1,79 +1,25 @@
 ---
 title: Photography
-description: A gallery of photography taken with both digital and film cameras.
+description: A gallery of my favourite photos taken with film cameras.
 permalink: /photography/
 
 created: 2015-01-01
 updated: 2020-04-20
 
 favourite: "yes"
-favouriteReason: I'm proud my gallery's chaotic design and the photos within it.
+favouriteReason: I love the gallery's chaotic design and sharing the photos within it.
 
 previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-photography.jpg
 ---
 
 <p>
-  I like taking photos and these gallaries show my favourite photos from
-  the past few years. Although I usually prefer taking shots of
-  landscapes and plants, there are a couple of shots of people in here
-  which I really like!
-</p>
+  Photography This page contains the best photos of my collection.
 
-<div class="galleries">
-  {% assign galleries = galleries.galleries | reverse %}
-  {% for gallery in galleries %}
-    <div class="gallery" id="gallery-{{ gallery.ref }}">
-      <nav class="gallery-nav">
-        {% unless forloop.first %}
-          {% assign prev_i = forloop.index0 | minus: 1 %}
-          <a class="prev" href="?gallery={{ galleries[prev_i].ref }}">↞ Previous</a>
-        {% endunless %}
-        <span class="index">{{ forloop.index }}
-          of
-          {{ forloop.length }}
-          galleries
-        </span>
-        {% unless forloop.last %}
-          {% assign next_i = forloop.index0 | plus: 1 %}
-          <a class="next" href="?gallery={{ galleries[next_i].ref }}">Next ↠</a>
-        {% endunless %}
-      </nav>
-      <div class="gallery-content">
-        <h3 class="gallery-title">{{ gallery.name }}</h3>
-        <p class="gallery-description">{{ gallery.description }}</p>
-        <ul class="gallery-images">
-          {% assign hashGallery = gallery.name | hash %}
-          {% if hashGallery > 0.9 %}
-            <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
-          {% endif %}
-          {% assign images = gallery.images | shuffle: 'name' %}
-          {% for image in images %}
+<p>
+  You can find more of my photography on the <a href="/galleries/">galleries</a> page
 
-            {% assign hashImage = image.name | hash %}
-            {% if hashImage > 0.5 %}
-              <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
-            {% endif %}
-
-            {% assign x = image.aspectRatio.x %}
-            {% assign y = image.aspectRatio.y %}
-            <li class="gallery-image-item gallery-image-item--ar-{{x}}-{{y}}">
-              {% assign largest_size = image.sizes | where: "type", "jpeg" | last %}
-              <a href="{{ urls.galleries }}/{{ largest_size.url }}" title="{{ image.name }}">
-                <picture>
-                  {% assign webps = image.sizes | where: "type", "webp" %}
-                  <source type="image/webp" srcset="{% for size in webps %}{{ urls.galleries}}/{{ size.url }} {{ size.x }}w{% if forloop.last != true %},{% endif %} {% endfor %}"/>
-                  {% assign jpegs = image.sizes | where: "type", "webp" %}
-                  <source type="image/jpeg" srcset="{% for size in jpegs %}{{ urls.galleries}}/{{ size.url }} {{ size.x }}w{% if forloop.last != true %},{% endif %} {% endfor %}"/>
-                  <img src="{{ largest_size.url }}" loading="lazy" width="{{ largest_size.x }}" height="{{ largest_size.y }}" title="{{ image.name }}" alt="{{ image.alt }}"/>
-                </picture>
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-  {% endfor %}
+<div class="gallery gallery--single">
+  {% render 'gallery-content', gallery: galleries.favourites, urls: urls %}
 </div>
 
 <link href="{{ urls.assets }}/style/gallery.css" rel="stylesheet" type="text/css"/>
-<script type="module" async src="{{ urls.assets }}/scripts/gallery.js"></script>

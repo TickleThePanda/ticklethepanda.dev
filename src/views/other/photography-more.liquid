@@ -1,0 +1,48 @@
+---
+title: Galleries
+description: Galleries of photography taken with film cameras.
+permalink: /galleries/
+
+created: 2015-01-01
+updated: 2020-04-20
+
+previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-photography.jpg
+---
+
+<nav>
+  <p><a href="/photography/">Back to favourites</a>
+</nav>
+
+<p>
+  I like taking photos and these gallaries show my favourite photos from
+  the past few years. Although I usually prefer taking shots of
+  landscapes and plants, there are a couple of shots of people in here
+  which I really like!
+</p>
+
+<div class="galleries">
+  {% assign galleries = galleries.galleries | reverse %}
+  {% for gallery in galleries %}
+    <div class="gallery" id="gallery-{{ gallery.ref }}">
+      <nav class="gallery-nav">
+        {% unless forloop.first %}
+          {% assign prev_i = forloop.index0 | minus: 1 %}
+          <a class="prev" href="?gallery={{ galleries[prev_i].ref }}">↞ Previous</a>
+        {% endunless %}
+        <span class="index">{{ forloop.index }}
+          of
+          {{ forloop.length }}
+          galleries
+        </span>
+        {% unless forloop.last %}
+          {% assign next_i = forloop.index0 | plus: 1 %}
+          <a class="next" href="?gallery={{ galleries[next_i].ref }}">Next ↠</a>
+        {% endunless %}
+      </nav>
+      {% render 'gallery-content', gallery: gallery, urls: urls %}
+    </div>
+  {% endfor %}
+</div>
+
+<link href="{{ urls.assets }}/style/gallery.css" rel="stylesheet" type="text/css"/>
+<script type="module" async src="{{ urls.assets }}/scripts/gallery.js"></script>

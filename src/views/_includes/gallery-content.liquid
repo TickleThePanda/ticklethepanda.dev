@@ -1,0 +1,38 @@
+<div class="gallery-content">
+  {% if gallery.name %}
+    <h3 class="gallery-title">{{ gallery.name }}</h3>
+  {% endif %}
+  {% if gallery.description %}
+    <p class="gallery-description">{{ gallery.description }}</p>
+  {% endif %}
+
+  <ul class="gallery-images">
+    {% assign hashGallery = gallery.name | hash %}
+    {% if hashGallery > 0.9 %}
+      <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
+    {% endif %}
+    {% assign images = gallery.images %}
+    {% for image in images %}
+
+      {% assign hashImage = image.name | hash %}
+      {% if hashImage > 0.5 %}
+        <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
+      {% endif %}
+
+      {% assign x = image.aspectRatio.x %}
+      {% assign y = image.aspectRatio.y %}
+      <li class="gallery-image-item gallery-image-item--ar-{{x}}-{{y}}">
+        {% assign largest_size = image.sizes | where: "type", "jpeg" | last %}
+        <a href="{{ urls.galleries }}/{{ largest_size.url }}" title="{{ image.name }}">
+          <picture>
+            {% assign webps = image.sizes | where: "type", "webp" %}
+            <source type="image/webp" srcset="{% for size in webps %}{{ urls.galleries}}/{{ size.url }} {{ size.x }}w{% if forloop.last != true %},{% endif %} {% endfor %}"/>
+            {% assign jpegs = image.sizes | where: "type", "webp" %}
+            <source type="image/jpeg" srcset="{% for size in jpegs %}{{ urls.galleries}}/{{ size.url }} {{ size.x }}w{% if forloop.last != true %},{% endif %} {% endfor %}"/>
+            <img src="{{ largest_size.url }}" loading="lazy" width="{{ largest_size.x }}" height="{{ largest_size.y }}" title="{{ image.name }}" alt="{{ image.alt }}"/>
+          </picture>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

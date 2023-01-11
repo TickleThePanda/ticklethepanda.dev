@@ -12,15 +12,12 @@ module.exports = async function () {
 
   const galleriesData = galleriesResponse.data;
 
-  galleriesData.galleries.push({
-    name: "Favourites",
-    ref: "favourites",
-    description: "A collection of my favourites photographs that I've taken.",
+  galleriesData.favourites = {
     images: galleriesData.galleries
       .flatMap((g) => g.images)
       .filter((i) => i.favourite)
       .reverse(),
-  });
+  };
 
   printGalleryInfo(galleriesData);
 
