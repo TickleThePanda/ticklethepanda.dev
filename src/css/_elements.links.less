@@ -1,13 +1,15 @@
 a {
-
   text-decoration: none;
   font-weight: @font-weight__body-bold;
 
-  &:link, &:visited {
+  &:link,
+  &:visited {
     color: @palette-primary-stroke-increased-contrast;
   }
 
   &:hover {
     color: @palette-primary-stroke-reduced-contrast;
+    text-decoration: underline;
+    text-decoration-thickness: 0.1em;
   }
 }

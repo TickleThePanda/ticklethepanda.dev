@@ -4,6 +4,9 @@ layout: default
 
 <header class="article__header">
   <h2 class="article__title">
+    {% if section %}
+      <a href="{{ sectionLink }}">{{ section }}</a> <span aria-label="presentation">&gt;</span>
+    {% endif %}
     {{ title }}
   </h2>
   <div class="article__date">

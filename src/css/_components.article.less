@@ -29,11 +29,23 @@ article {
   line-height: 1;
 
   filter: drop-shadow(0.1em 0.1em 0.1em rgba(0, 0, 0, 0.15));
+
+  a {
+    &:link,
+    &:visited {
+      color: @palette-primary-stroke-extra-reduced-contrast;
+    }
+
+    &:hover {
+      color: @palette-primary-stroke-highlight;
+      text-decoration: underline;
+      text-decoration-thickness: 0.1em;
+    }
+  }
 }
 
 :where(.article__content > *) {
   max-width: @content-max-width;
-
 }
 
 .article__content > * {
@@ -75,6 +87,7 @@ article {
 
 .article__nav {
   margin-top: 1em;
+  text-align: left;
 }
 
 .content nav a {
