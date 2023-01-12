@@ -1,9 +1,11 @@
 .page {
-  max-width: var(--max-page-width);
+  max-width: @max-page-width;
   margin: auto;
+
+  padding: 1em;
 }
 
-@media (max-width: 400px) {
+@media (max-width: @mobile-breakpoint) {
   .page {
     display: block;
   }

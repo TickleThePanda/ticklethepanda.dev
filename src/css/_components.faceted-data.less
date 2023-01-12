@@ -4,7 +4,7 @@
   grid-template-columns: auto 1fr;
   grid-template-rows: repeat(3, auto);
 
-  grid-gap: 0.5em;
+  grid-gap: .5em;
 
   margin-top: 1em;
 
@@ -29,7 +29,7 @@
     justify-content: flex-end;
 
     button {
-      margin: 0.3em;
+      margin: .3em;
     }
 
     h3 {
@@ -40,8 +40,8 @@
 
     button.link {
       margin: 0;
-      padding-left: 0.3em;
-      padding-right: 0.3em;
+      padding-left: .3em;
+      padding-right: .3em;
     }
   }
 
@@ -63,13 +63,15 @@
   .facet-data--no-controls {
     grid-column: ~"1 / -1";
     grid-row: ~"1 / -1";
+
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: @mobile-breakpoint) {
     .control-set {
       button:not(.link) {
         margin: 0.3em;
       }
     }
   }
+
 }

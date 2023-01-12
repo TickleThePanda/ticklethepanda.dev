@@ -1,12 +1,10 @@
-:root {
-  --content-padding-left: 2rem;
-  --content-padding-right: 2rem;
+@content-width: 43rem;
+@max-page-width: @content-width + 20em;
 
-  --content-width: 43rem;
-  --max-page-width: calc(var(--content-width) - 2rem);
+@mobile-breakpoint: 400px;
 
-  --content-max-width: calc(
-    var(--content-width) - var(--content-padding-left) -
-      var(--content-padding-right)
-  );
-}
+@content-padding-left: 2rem;
+@content-padding-right: 2rem;
+
+@content-max-width: @content-width - @content-padding-left -
+  @content-padding-right;
