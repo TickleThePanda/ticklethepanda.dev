@@ -37,11 +37,8 @@ gulp.task("js", function () {
     .pipe(gulp.dest(assetsBaseOutput + "/scripts/"));
 });
 
-
 gulp.task("fonts", function () {
-  return gulp
-    .src("src/fonts/*")
-    .pipe(gulp.dest(assetsBaseOutput + "/fonts/"));
+  return gulp.src("src/fonts/*").pipe(gulp.dest(assetsBaseOutput + "/fonts/"));
 });
 
 gulp.task("vega", function () {
@@ -54,13 +51,17 @@ gulp.task("redirect-rules", function () {
   return gulp.src("src/_redirects").pipe(gulp.dest("site"));
 });
 
-gulp.task("images", function() {
-  return gulp.src("src/images/**/*")
+gulp.task("images", function () {
+  return gulp
+    .src("src/images/**/*")
     .pipe(gulp.dest(assetsBaseOutput + "/images/"));
 });
 
 let all = () =>
-  gulp.series("site", gulp.parallel("css", "js", "vega", "redirect-rules", "fonts", "images"));
+  gulp.series(
+    "site",
+    gulp.parallel("css", "js", "vega", "redirect-rules", "fonts", "images")
+  );
 
 gulp.task("default", all());
 

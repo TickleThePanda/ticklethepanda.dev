@@ -1,3 +1,5 @@
+@layer generic, elements, contents, objects, components;
+
 @import "_settings.typography.less";
 @import "_settings.colors.less";
 @import "_settings.borders.less";
@@ -6,24 +8,35 @@
 @import "_settings.shadows.less";
 @import "_settings.transitions.less";
 
-@import "_generic.reset.less";
-@import "_generic.box-sizing.less";
-@import "_generic.typography.less";
+@layer generic {
+  @import "_generic.reset.less";
+  @import "_generic.box-sizing.less";
+  @import "_generic.typography.less";
+}
 
-@import "_elements.body.less";
-@import "_elements.forms.less";
-@import "_elements.headings.less";
-@import "_elements.hr.less";
-@import "_elements.links.less";
-@import "_elements.phrasing.less";
-@import "_elements.images.less";
+@layer elements {
+  @import "_elements.body.less";
+  @import "_elements.forms.less";
+  @import "_elements.headings.less";
+  @import "_elements.hr.less";
+  @import "_elements.links.less";
+  @import "_elements.phrasing.less";
+  @import "_elements.images.less";
+}
 
-@import "_objects.button.less";
-@import "_objects.page.less";
-@import "_objects.header.less";
-@import "_objects.cards.less";
-@import "_objects.block-link.less";
-@import "_objects.responsive-iframe.less";
+@layer contents {
+  @import "_contents.article.less";
+}
 
-@import "_components.article.less";
-@import "_components.charts.less";
+@layer objects {
+  @import "_objects.button.less";
+  @import "_objects.page.less";
+  @import "_objects.header.less";
+  @import "_objects.cards.less";
+  @import "_objects.block-link.less";
+  @import "_objects.responsive-iframe.less";
+}
+
+@layer components {
+  @import "_components.charts.less";
+}

@@ -3,10 +3,13 @@ layout: default
 ---
 
 <header class="article__header">
-  <h2 class="article__title">
+  <div class="article__section">
+    <a href="/">Home</a>
     {% if section %}
-      <a href="{{ sectionLink }}">{{ section }}</a> <span aria-label="presentation">&gt;</span>
+      > <a href="{{ sectionLink }}">{{ section }}</a>
     {% endif %}
+  </div>
+  <h2 class="article__title">
     {{ title }}
   </h2>
   <div class="article__date">

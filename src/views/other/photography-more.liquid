@@ -22,11 +22,11 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
   which I really like!
 </p>
 
-<div class="galleries">
+<div class="galleries full-width">
   {% assign galleries = galleries.galleries | reverse %}
   {% for gallery in galleries %}
     <div class="gallery" id="gallery-{{ gallery.ref }}">
-      <nav class="gallery-nav">
+      <nav class="gallery-nav content-item">
         {% unless forloop.first %}
           {% assign prev_i = forloop.index0 | minus: 1 %}
           <a class="prev" href="?gallery={{ galleries[prev_i].ref }}">↞ Previous</a>
@@ -42,7 +42,7 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
         {% endunless %}
       </nav>
       {% render 'gallery-content', gallery: gallery, urls: urls %}
-      <nav class="gallery-nav gallery-nav--bottom">
+      <nav class="gallery-nav content-item gallery-nav--bottom">
         {% unless forloop.first %}
           {% assign prev_i = forloop.index0 | minus: 1 %}
           <a class="prev" href="?gallery={{ galleries[prev_i].ref }}">↞ Previous</a>

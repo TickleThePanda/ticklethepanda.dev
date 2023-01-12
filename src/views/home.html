@@ -56,7 +56,7 @@ permalink: /
 
 {% assign projects = collections.project | concat: other-projects | sortByUpdated %}
 
-<ul class="cards">
+<ul class="cards full-width">
   {% for project in projects %}
     {% include 'project-card', project: project %}
   {% endfor %}

@@ -8,16 +8,12 @@
   --gallery-padding: min(0.7rem);
 }
 
-.galleries {
-  display: contents;
-}
-
 .gallery {
   display: none;
 
   &.selected,
   &--single {
-    display: contents;
+    display: block;
   }
 }
 
@@ -70,6 +66,8 @@
 }
 
 .gallery-content {
+  background-color: @palette-primary-background-reduced-contrast;
+
   & > * {
     max-width: @content-max-width;
     margin-left: auto;
@@ -83,7 +81,6 @@
   clear: both;
   padding-top: 0.3rem;
   margin-top: 0;
-  border-top: @border;
 }
 
 .gallery-description {
@@ -92,10 +89,8 @@
 }
 
 .gallery-images {
-  padding: var(--gallery-padding);
-  padding-bottom: 0;
+  padding: 2em;
   margin: 0;
-  margin-top: 1em;
 
   max-width: unset;
 
