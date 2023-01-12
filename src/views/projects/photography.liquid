@@ -13,12 +13,14 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
 ---
 
 <p>
-  Photography This page contains the best photos of my collection.
+  I am a film photographer; here are my favourites.
 
-<p>
-  You can find more of my photography on the <a href="/photography/galleries/">galleries</a> page
+
 
 <div class="gallery gallery--single">
+  <nav class="gallery-nav">
+    <a class="next" href="/photography/galleries/">More ↠</a>
+  </nav>
   {% render 'gallery-content', gallery: galleries.favourites, urls: urls %}
 </div>
 

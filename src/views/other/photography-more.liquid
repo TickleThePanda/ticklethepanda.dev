@@ -42,6 +42,21 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
         {% endunless %}
       </nav>
       {% render 'gallery-content', gallery: gallery, urls: urls %}
+      <nav class="gallery-nav gallery-nav--bottom">
+        {% unless forloop.first %}
+          {% assign prev_i = forloop.index0 | minus: 1 %}
+          <a class="prev" href="?gallery={{ galleries[prev_i].ref }}">↞ Previous</a>
+        {% endunless %}
+        <span class="index">{{ forloop.index }}
+          of
+          {{ forloop.length }}
+          galleries
+        </span>
+        {% unless forloop.last %}
+          {% assign next_i = forloop.index0 | plus: 1 %}
+          <a class="next" href="?gallery={{ galleries[next_i].ref }}">Next ↠</a>
+        {% endunless %}
+      </nav>
     </div>
   {% endfor %}
 </div>
