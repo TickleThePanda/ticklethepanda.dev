@@ -9,8 +9,8 @@ article {
 .article__header {
   text-align: center;
 
-  padding-left: @content-padding-left;
-  padding-right: @content-padding-right;
+  padding-left: var(--content-padding-left);
+  padding-right: var(--content-padding-right);
 
   margin-top: 3.5em;
   margin-bottom: 2em;
@@ -45,7 +45,9 @@ article {
 }
 
 :where(.article__content > *) {
-  max-width: @content-max-width;
+  max-width: var(--content-max-width);
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .article__content > * {
@@ -67,14 +69,14 @@ article {
   margin-top: 1em;
 
   padding-top: 0;
-  padding-left: @content-padding-left;
-  padding-right: @content-padding-right;
+  padding-left: var(--content-padding-left);
+  padding-right: var(--content-padding-right);
   padding-bottom: 30vh;
 
   line-height: @line-height;
   word-wrap: break-word;
 
-  @media (max-width: @mobile-breakpoint) {
+  @media (max-width: 400px) {
     padding-left: 2.5vw;
     padding-right: 2.5vw;
   }
