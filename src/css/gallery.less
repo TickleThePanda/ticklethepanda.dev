@@ -195,27 +195,18 @@
     }
   }
 
-  --n-cols: 12;
   grid-auto-flow: row dense;
 
   display: flex;
   flex-wrap: wrap;
 
   @media (min-width: 500px) {
-    --n-cols: 24;
     grid-auto-flow: row;
+    --grid-size: 3vmin;
 
     display: grid;
-    grid-template-columns: repeat(var(--n-cols), 1fr);
+    grid-template-columns: repeat(auto-fill, var(--grid-size));
     grid-gap: var(--gallery-padding);
-    grid-auto-rows: 1fr;
-  }
-
-  @media (min-width: 800px) {
-    --n-cols: 36;
-  }
-
-  @media (min-width: 1200px) {
-    --n-cols: 48;
+    grid-auto-rows: var(--grid-size);
   }
 }
