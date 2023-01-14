@@ -9,16 +9,15 @@
 @import "_components.faceted-data.less";
 
 #location-slideshow {
-
   .info {
     position: relative;
     z-index: @zMid;
 
     line-height: 1;
 
-    color: lighten(@palette-primary-stroke, 20%, relative);
+    color: lighten(@p-1-stroke, 20%, relative);
 
-    background-color: fade(@palette-primary-background, 80%);
+    background-color: fade(@p-1-bg, 80%);
 
     margin: 2em;
     padding: 0.5em;
@@ -29,12 +28,11 @@
   }
 
   .image-container {
-
     --random-border--safe-padding: 1.5rem;
 
     .aspect-ratio(100, 85);
 
-    background-color: @palette-secondary-background;
+    background-color: @p-3-bg;
 
     img {
       padding: 2rem;
@@ -46,12 +44,10 @@
 
       width: 100%;
 
-      filter:
-        drop-shadow( 1px  1px 0 fade(@palette-primary-background, @outline-contrast))
-        drop-shadow( 1px -1px 0 fade(@palette-primary-background, @outline-contrast))
-        drop-shadow(-1px  1px 0 fade(@palette-primary-background, @outline-contrast))
-        drop-shadow(-1px -1px 0 fade(@palette-primary-background, @outline-contrast));
+      filter: drop-shadow(1px 1px 0 fade(@p-1-bg, @outline-contrast))
+        drop-shadow(1px -1px 0 fade(@p-1-bg, @outline-contrast))
+        drop-shadow(-1px 1px 0 fade(@p-1-bg, @outline-contrast))
+        drop-shadow(-1px -1px 0 fade(@p-1-bg, @outline-contrast));
     }
   }
-
 }

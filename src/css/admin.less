@@ -9,16 +9,18 @@
 
   align-self: stretch;
 
-  .success, .error {
+  .success,
+  .error {
     display: none;
   }
 
-  &.success, &.error {
+  &.success,
+  &.error {
     display: block;
   }
 
   &.error {
-    background-color: @palette-error;
+    background-color: @p-error;
   }
 
   &.success > .success {
@@ -28,20 +30,20 @@
   &.error > .error {
     display: block;
   }
-
 }
 
 #weight-history {
   table {
     margin-top: 1em;
-    width: 100%
+    width: 100%;
   }
 
   tr {
     border-bottom: @border-light;
   }
 
-  th, td {
+  th,
+  td {
     padding: 1em;
   }
 
@@ -55,23 +57,23 @@
 
     font-weight: bold;
 
-    background-color: @palette-secondary-background;
-    color: @palette-secondary-stroke;
+    background-color: @p-3-bg;
+    color: @p-3-stroke;
   }
 
   thead th::after {
-    content:'';
-    position:absolute;
+    content: "";
+    position: absolute;
     left: 0;
     bottom: 0;
-    width:100%;
+    width: 100%;
     border-bottom: @border;
   }
 }
 
 .admin-content {
   display: contents;
-  &>* {
+  & > * {
     max-width: 33em;
   }
 

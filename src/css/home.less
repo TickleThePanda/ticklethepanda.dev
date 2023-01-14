@@ -13,7 +13,7 @@
 }
 
 .my-face-outer-wrapper {
-  width: ~"min("28em, 100%, 70vw, 75vh~")";
+  width: ~"min(" 28em, 100%, 70vw, 75vh~ ")";
   max-width: 100%;
   height: auto;
 
@@ -29,12 +29,10 @@
     (@originX + 26%) (@originY + 23%),
     (@originX - 13.1%) (@originY + 53%)
   );
-
 }
 
 .my-face-wrapper-1 {
-
-  background-color: @palette-secondary-background;
+  background-color: @p-3-bg;
 
   clip-path: polygon(
     (@originX + 33%) (@originY - 22%),
@@ -43,14 +41,13 @@
     (@originX - 37%) (@originY - 23%),
     (@originX - 34%) (@originY + 23%),
     (@originX - 21%) (@originY + 46%),
-    (@originX -  6%) (@originY + 50%),
+    (@originX - 6%) (@originY + 50%),
     (@originX + 22%) (@originY + 26%)
   );
 }
 
 .my-face-wrapper-2 {
-
-  background-color: @palette-primary-inverted-background;
+  background-color: @p-2-bg;
 
   clip-path: polygon(
     (@originX + 29%) (@originY - 22%),
@@ -64,8 +61,7 @@
 }
 
 .my-face-wrapper-3 {
-
-  background-color: @palette-tertiary-background;
+  background-color: @white;
 
   clip-path: polygon(
     (@originX + 25%) (@originY - 22.3%),
@@ -79,10 +75,9 @@
 }
 
 .my-face {
-
-  display:block;
-  margin-left:auto;
-  margin-right:auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 
   width: 100%;
 

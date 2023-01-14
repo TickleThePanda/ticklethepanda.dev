@@ -2,23 +2,14 @@
   {% if gallery.name %}
     <h3 class="gallery-title content-item">{{ gallery.name }}</h3>
   {% endif %}
-  {% if gallery.description %}
-    <p class="gallery-description content-item">{{ gallery.description }}</p>
-  {% endif %}
 
   <ul class="gallery-images">
     {% assign hashGallery = gallery.name | hash %}
-    {% if hashGallery > 0.9 %}
+    {% if hashGallery > 0.6 %}
       <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
     {% endif %}
     {% assign images = gallery.images %}
     {% for image in images %}
-
-      {% assign hashImage = image.name | hash %}
-      {% if hashImage > 0.5 %}
-        <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
-      {% endif %}
-
       {% assign x = image.aspectRatio.x %}
       {% assign y = image.aspectRatio.y %}
       <li class="gallery-image-item gallery-image-item--ar-{{x}}-{{y}}">
@@ -33,6 +24,11 @@
           </picture>
         </a>
       </li>
+
+      {% assign hashImage = image.name | hash %}
+      {% if hashImage > 0.3 %}
+        <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
+      {% endif %}
     {% endfor %}
   </ul>
 </div>

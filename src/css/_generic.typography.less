@@ -1,15 +1,19 @@
 :root {
   font-size: @fallback-font-size;
   font-size: @scaling-font-size;
+
+  --link-base-color: @p-1-stroke--contrast-inc-1;
+  --link-highlight-color: @p-1-stroke--contrast-dec-1;
 }
 
-html, body {
+html,
+body {
   font-family: @font-family-main;
-  color: @palette-primary-stroke;
-  background-color: @palette-primary-background;
+  color: @p-1-stroke;
+  background-color: @p-1-bg;
 }
 
 ::selection {
-  color: @palette-secondary-stroke;
-  background-color: @palette-secondary-background;
+  color: @p-2-stroke;
+  background-color: @p-2-bg;
 }

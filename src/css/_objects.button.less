@@ -1,27 +1,26 @@
 .button {
-  --button--background-color: @palette-primary-inverted-background;
-  --button--background-color--selected: @palette-secondary-background;
-  --button--background-color--hover: @palette-primary-inverted-background-highlight;
-  --button--background-color--disabled: @palette-primary-background;
+  --button--bg-color: @p-2-bg;
+  --button--bg-color--selected: @p-3-bg;
+  --button--bg-color--hover: @p-2-bg;
+  --button--bg-color--disabled: @p-1-bg;
 
-  --button--color: @palette-primary-inverted-stroke;
-  --button--color--selected: @palette-secondary-stroke;
-  --button--color--hover: @palette-secondary-stroke;
-  --button--color--disabled: @palette-primary-stroke;
+  --button--color: @p-2-stroke;
+  --button--color--selected: @p-3-stroke;
+  --button--color--hover: @p-3-stroke;
+  --button--color--disabled: @p-1-stroke;
 
   --button--shadow: @high-contrast-shadow;
 }
 
 .button--inverted {
-  --button--background-color--hover: @palette-primary-background;
+  --button--bg-color--hover: @p-1-bg;
 
-  --button--color--hover: @palette-primary-stroke;
+  --button--color--hover: @p-1-stroke;
 
   --button--shadow: @low-contrast-shadow;
 }
 
 .button {
-
   display: block;
   appearance: none;
 
@@ -43,25 +42,30 @@
 
   box-shadow: var(--button--shadow);
 
-  &, &:link, &:visited {
-    background-color: var(--button--background-color);
+  &,
+  &:link,
+  &:visited {
+    background-color: var(--button--bg-color);
     color: var(--button--color);
   }
 
-  &:hover, &:active {
-    background-color: var(--button--background-color--hover);
+  &:hover,
+  &:active {
+    background-color: var(--button--bg-color--hover);
     color: var(--button--color--hover);
   }
 
   &--selected {
-    &, &:hover, &:active {
-      background-color: var(--button--background-color--selected);
+    &,
+    &:hover,
+    &:active {
+      background-color: var(--button--bg-color--selected);
       color: var(--button--color--selected);
     }
   }
 
   &:disabled {
-    background-color: var(--button--background-color--disabled);
+    background-color: var(--button--bg-color--disabled);
     color: var(--button--color--disabled);
 
     text-decoration: line-through;

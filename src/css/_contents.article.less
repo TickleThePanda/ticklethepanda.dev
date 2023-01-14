@@ -7,24 +7,35 @@ article {
 }
 
 .article__header {
+  display: grid;
+  grid-template-rows: max(1rem, auto) auto;
+  grid-template-areas:
+    "s"
+    "t";
   text-align: center;
 
   padding-left: @content-padding-left;
   padding-right: @content-padding-right;
 
-  margin-top: 3.5em;
-  margin-bottom: 2em;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
+  line-height: 1;
+}
+
+.article__section {
+  grid-area: s;
+  z-index: @zUpper;
 }
 
 .article__title {
-  margin-top: 0.2em;
+  grid-area: t;
 
   border-top: unset;
   font-family: @font-family-title;
   font-size: calc(1.5em + 2.5vw);
   font-weight: @font-weight__title-bold;
   letter-spacing: 0.05em;
-  color: @palette-primary-stroke-highlight;
+  color: @p-1-stroke;
 
   line-height: 1;
 
@@ -33,11 +44,11 @@ article {
   a {
     &:link,
     &:visited {
-      color: @palette-primary-stroke-extra-reduced-contrast;
+      color: @p-1-stroke--contrast-dec-2;
     }
 
     &:hover {
-      color: @palette-primary-stroke-highlight;
+      color: @p-1-stroke;
       text-decoration: underline;
       text-decoration-thickness: 0.1em;
     }

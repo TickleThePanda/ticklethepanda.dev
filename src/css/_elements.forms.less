@@ -1,5 +1,7 @@
-
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   display: block;
 
   border: none;
@@ -7,25 +9,30 @@ button, input, select, textarea {
 
   font-size: 1rem;
   font-family: @font-family-main;
-
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   border-bottom: @border;
 }
 
 .toggle-button.selected {
-  background-color: @palette-secondary-background;
-  color: @palette-secondary-stroke;
-  box-shadow: 0 0 0 1px @palette-primary-stroke;
+  background-color: @p-3-bg;
+  color: @p-3-stroke;
+  box-shadow: 0 0 0 1px @p-1-stroke;
 }
 
-form.inline, .form.inline {
+form.inline,
+.form.inline {
   button:not(.link) {
     border: none;
   }
 
-  button, input, select, textarea {
+  button,
+  input,
+  select,
+  textarea {
     &:not(.link) {
       display: inline;
       height: auto;
@@ -34,13 +41,15 @@ form.inline, .form.inline {
   }
 }
 
-select:focus, input:focus {
+select:focus,
+input:focus {
   position: relative;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   outline: none;
-  box-shadow: 0 4px 0 0 @palette-tertiary-stroke;
+  box-shadow: 0 4px 0 0 @p-4-stroke;
 }
 
 button.link {
@@ -51,16 +60,17 @@ button.link {
 
   border: none;
 
-  background-color: @palette-primary-background;
-  color: @palette-primary-stroke;
+  background-color: @p-1-bg;
+  color: @p-1-stroke;
 
   cursor: pointer;
 
-  text-decoration:underline;
+  text-decoration: underline;
   text-decoration-skip: ink;
 
-  &:hover, &:active {
-    color: @palette-primary-stroke-reduced-contrast;
+  &:hover,
+  &:active {
+    color: @p-1-stroke--contrast-dec-1;
   }
 
   &:hover {
@@ -68,7 +78,7 @@ button.link {
   }
 
   &:disabled {
-    color: @palette-primary-stroke-extra-reduced-contrast;
+    color: @p-1-stroke--contrast-dec-2;
     text-decoration: line-through;
     cursor: not-allowed;
   }

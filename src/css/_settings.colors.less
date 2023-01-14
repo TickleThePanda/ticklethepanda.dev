@@ -3,64 +3,31 @@
 @color-2: hsl(174, 94%, 26%);
 @white: hsl(hue(@color-3), 100%, 98%);
 
-@palette-primary-stroke: @color-3;
-@palette-primary-stroke-highlight: @color-3;
-@palette-primary-stroke-highlight-reduced-contrast: lighten(
-  saturate(@palette-primary-stroke-highlight, -10%),
-  10%
-);
-@palette-primary-stroke-increased-contrast: lighten(
-  @palette-primary-stroke,
-  10%,
-  relative
-);
-@palette-primary-stroke-reduced-contrast: darken(
-  @palette-primary-stroke,
-  10%,
-  relative
-);
-@palette-primary-stroke-extra-reduced-contrast: darken(
-  @palette-primary-stroke,
-  25%,
-  relative
-);
-@palette-primary-background: @color-1;
-@palette-primary-background-reduced-contrast: lighten(
-  saturate(@palette-primary-background, -40%),
-  10%
-);
+@p-1-stroke: @color-3;
+@p-1-stroke--contrast-inc-1: lighten(@p-1-stroke, 10%, relative);
+@p-1-stroke--contrast-dec-1: darken(@p-1-stroke, 10%, relative);
+@p-1-stroke--contrast-dec-2: darken(@p-1-stroke, 25%, relative);
+@p-1-bg: @color-1;
+@p-1-bg--contrast-dec-1: lighten(saturate(@p-1-bg, -40%), 10%);
 
-@palette-primary-inverted-stroke: darken(@color-1, 15%);
-@palette-primary-inverted-stroke--bold-correction: lighten(
-  @palette-primary-inverted-stroke,
-  4%
-);
-@palette-primary-inverted-stroke-reduced-contrast: lighten(
-  @palette-primary-inverted-stroke,
-  7.5%
-);
-@palette-primary-inverted-background: @color-3;
-@palette-primary-inverted-background-reduced-contrast: lighten(
-  @palette-primary-inverted-background,
-  10%,
-  relative
-);
-@palette-primary-inverted-background-increased-contrast: darken(
-  @palette-primary-inverted-background,
-  10%,
-  relative
-);
-@palette-primary-inverted-background-highlight: @color-2;
+@p-2-stroke: darken(@color-1, 15%);
+@p-2-stroke--bold-correction: lighten(@p-2-stroke, 4%);
+@p-2-stroke--contrast-dec-1: lighten(@p-2-stroke, 7.5%);
+@p-2-bg: @color-3;
+@p-2-bg--contrast-dec-1: lighten(@p-2-bg, 10%, relative);
+@p-2-bg--contrast-dec-2: lighten(@p-2-bg, 20%, relative);
+@p-2-bg--contrast-inc-1: darken(@p-2-bg, 10%, relative);
+@p-2-bg-highlight: @color-2;
 
-@palette-secondary-stroke: darken(@color-1, 15%);
-@palette-secondary-stroke-reduced-contrast: darken(
-  @palette-secondary-stroke,
-  5%
-);
-@palette-secondary-background: @color-2;
+@p-3-stroke: darken(@color-1, 15%);
+@p-3-stroke--contrast-dec-1: darken(@p-3-stroke, 5%);
+@p-3-bg: @color-2;
 
-@palette-tertiary-stroke: @palette-primary-background;
-@palette-tertiary-background: @white;
-@palette-background-low-contrast: @palette-tertiary-background;
+@p-4-stroke: @color-1;
+@p-4-stroke--contrast-inc-1: lighten(@p-4-stroke, 10%, relative);
+@p-4-stroke--contrast-dec-1: darken(@p-4-stroke, 10%, relative);
+@p-4-stroke--contrast-dec-2: darken(@p-4-stroke, 25%, relative);
+@p-4-bg: @color-3;
+@p-bg-low-contrast: @p-4-bg;
 
-@palette-error: #d73733;
+@p-error: #d73733;
