@@ -2,18 +2,18 @@
   font-size: @fallback-font-size;
   font-size: @scaling-font-size;
 
-  --link-base-color: @p-1-stroke--contrast-inc-1;
-  --link-highlight-color: @p-1-stroke--contrast-dec-1;
+  --link-base-color: var(--p-stroke--inc-1);
+  --link-highlight-color: var(--p-stroke--dec-1);
 }
 
 html,
 body {
   font-family: @font-family-main;
-  color: @p-1-stroke;
-  background-color: @p-1-bg;
+  color: var(--p-stroke);
+  background-color: var(--p-bg);
 }
 
 ::selection {
-  color: @p-2-stroke;
-  background-color: @p-2-bg;
+  color: var(--p-stroke);
+  background-color: var(--p-bg);
 }

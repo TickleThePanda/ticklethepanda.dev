@@ -1,21 +1,21 @@
 .button {
-  --button--bg-color: @p-2-bg;
-  --button--bg-color--selected: @p-3-bg;
-  --button--bg-color--hover: @p-2-bg;
-  --button--bg-color--disabled: @p-1-bg;
+  --button--bg-color: var(--p-accent-bg);
+  --button--bg-color--selected: var(--p-accent-bg--inc-1);
+  --button--bg-color--hover: var(--p-accent-bg--dec-1);
+  --button--bg-color--disabled: var(--p-bg);
 
-  --button--color: @p-2-stroke;
-  --button--color--selected: @p-3-stroke;
-  --button--color--hover: @p-3-stroke;
-  --button--color--disabled: @p-1-stroke;
+  --button--color: var(--p-stroke);
+  --button--color--selected: var(--p-stroke);
+  --button--color--hover: var(--p-stroke);
+  --button--color--disabled: var(--p-stroke);
 
   --button--shadow: @high-contrast-shadow;
 }
 
 .button--inverted {
-  --button--bg-color--hover: @p-1-bg;
+  --button--bg-color--hover: var(--p-bg);
 
-  --button--color--hover: @p-1-stroke;
+  --button--color--hover: var(--p-stroke);
 
   --button--shadow: @low-contrast-shadow;
 }

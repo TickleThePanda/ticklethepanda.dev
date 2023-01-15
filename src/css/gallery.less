@@ -1,6 +1,5 @@
 @import "_tools.aspect-ratio.less";
 @import "_settings.borders.less";
-@import "_settings.colors.less";
 @import "_settings.sizes.less";
 @import "_settings.typography.less";
 
@@ -11,10 +10,10 @@
 
   display: none;
 
-  background-color: @p-4-bg;
-  color: @p-4-stroke;
-  --link-base-color: @p-4-stroke--contrast-inc-1;
-  --link-highlight-color: @p-4-stroke--contrast-dec-1;
+  background-color: var(--p-accent-bg);
+  color: var(--p-accent-stroke);
+  --link-base-color: var(--p-accent-stroke--inc-1);
+  --link-highlight-color: var(--p-accent-stroke--dec-1);
 
   &.selected,
   &--single {
@@ -73,8 +72,8 @@
 }
 
 .gallery-content {
-  background-color: @p-1-bg--contrast-dec-1;
-  color: @p-1-stroke;
+  background-color: var(--p-bg);
+  color: var(--p-stroke);
 
   & > * {
     max-width: @content-max-width;
@@ -116,8 +115,8 @@
     margin: 0;
     border: unset;
 
-    background-color: @white;
-    box-shadow: 0 0 0 var(--gallery-padding) @white;
+    background-color: var(--white);
+    box-shadow: 0 0 0 var(--gallery-padding) var(--white);
 
     border: 1px solid #e7e7e7;
 

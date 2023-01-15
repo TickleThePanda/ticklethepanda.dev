@@ -1,17 +1,15 @@
 .block-link {
-  --link-bg-color: @p-2-bg;
-  --link-stroke-color: @p-2-stroke;
-  --link-rollover-bg-color: @p-2-bg--contrast-dec-1;
-  --link-rollover-stroke-color: @p-3-stroke;
-}
-
-.block-link--low {
-  --link-bg-color: @p-2-bg--contrast-dec-1;
-  --link-rollover-bg-color: @p-2-bg--contrast-dec-2;
+  --link-bg-color: var(--p-bg--inc-1);
+  --link-stroke-color: var(--p-stroke);
+  --link-rollover-bg-color: var(--p-bg);
+  --link-rollover-stroke-color: var(--p-stroke);
 }
 
 .block-link--important {
-  --link-bg-color: @p-2-bg--contrast-inc-1;
+  --link-bg-color: var(--p-accent-bg);
+  --link-stroke-color: var(--p-accent-stroke);
+  --link-rollover-bg-color: var(--p-accent-bg--dec-1);
+  --link-rollover-stroke-color: var(--p-accent-stroke);
 }
 
 .block-link--random-border {

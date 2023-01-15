@@ -1,5 +1,4 @@
 @import "_settings.typography.less";
-@import "_settings.colors.less";
 @import "_settings.z-index.less";
 @import "_settings.sizes.less";
 @import "_settings.borders.less";
@@ -15,9 +14,9 @@
 
     line-height: 1;
 
-    color: lighten(@p-1-stroke, 20%, relative);
+    color: var(--p-stroke--dec-1);
 
-    background-color: fade(@p-1-bg, 80%);
+    background-color: var(--p-bg--alpha-80);
 
     margin: 2em;
     padding: 0.5em;
@@ -32,7 +31,7 @@
 
     .aspect-ratio(100, 85);
 
-    background-color: @p-3-bg;
+    background-color: var(--p-bg);
 
     img {
       padding: 2rem;
@@ -40,14 +39,12 @@
       background-color: unset;
       border: unset;
 
-      @outline-contrast: 15%;
-
       width: 100%;
 
-      filter: drop-shadow(1px 1px 0 fade(@p-1-bg, @outline-contrast))
-        drop-shadow(1px -1px 0 fade(@p-1-bg, @outline-contrast))
-        drop-shadow(-1px 1px 0 fade(@p-1-bg, @outline-contrast))
-        drop-shadow(-1px -1px 0 fade(@p-1-bg, @outline-contrast));
+      filter: drop-shadow(1px 1px 0 var(--p-bg--alpha-15))
+        drop-shadow(1px -1px 0 var(--p-bg--alpha-15))
+        drop-shadow(-1px 1px 0 var(--p-bg--alpha-15))
+        drop-shadow(-1px -1px 0 var(--p-bg--alpha-15));
     }
   }
 }

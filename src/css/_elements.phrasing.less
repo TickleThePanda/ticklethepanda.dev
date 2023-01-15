@@ -16,10 +16,10 @@ code {
   padding: 0.25em;
   padding-bottom: 0.15em;
 
-  color: @p-3-stroke;
-  background-color: @p-3-bg;
+  color: var(--p-stroke);
+  background-color: var(--p-bg);
   border-radius: 2px;
-  box-shadow: 0 1px 2px fade(@p-1-stroke, 50%);
+  box-shadow: 0 1px 2px color-mod(var(--p-stroke) ~"alpha(50%)");
 }
 
 strong {

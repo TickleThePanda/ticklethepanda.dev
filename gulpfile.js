@@ -67,7 +67,7 @@ gulp.task("default", all());
 
 gulp.task("watch", function () {
   gulp.watch("src/js/**/*.{js,ts}", gulp.parallel("js"));
-  gulp.watch("src/css/**/*.less", gulp.parallel("css"));
+  gulp.watch("src/css/**/*.{js,less}", gulp.parallel("css"));
   gulp.watch("src/vg/**/*.json", gulp.parallel("vega"));
   gulp.watch("src/fonts/*", gulp.parallel("fonts"));
   gulp.watch(".eleventy.js", gulp.parallel("site"));
