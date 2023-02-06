@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@11ty/eleventy": "^1.0.0",
-    "axios": "^0.26.0",
+    "axios": "^1.3.2",
     "clean-css": "git+https://github.com/clean-css/clean-css.git",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
