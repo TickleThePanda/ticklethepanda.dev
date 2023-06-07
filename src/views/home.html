@@ -69,7 +69,7 @@ their state, and I've highlighted the ones I like the most.
 
 {% assign projects = collections.project | concat: other-projects | sortByUpdated %}
 
-<ul class="cards palette--inverted full-width">
+<ul class="cards full-width">
   {% for project in projects %}
     {% include 'project-card', project: project %}
   {% endfor %}

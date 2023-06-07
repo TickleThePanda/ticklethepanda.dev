@@ -10,10 +10,8 @@
 
   display: none;
 
-  background-color: var(--p-accent-bg);
-  color: var(--p-accent-stroke);
-  --link-base-color: var(--p-accent-stroke--inc-1);
-  --link-highlight-color: var(--p-accent-stroke--dec-1);
+  background-color: var(--c2-30);
+  color: var(--g-90);
 
   &.selected,
   &--single {
@@ -65,6 +63,10 @@
     font-weight: @font-weight__body-bold;
   }
 
+  a:link, a:visited {
+    color: var(--g-90);
+  }
+
   a:hover,
   a:active {
     text-decoration: underline;
@@ -72,8 +74,8 @@
 }
 
 .gallery-content {
-  background-color: var(--p-bg);
-  color: var(--p-stroke);
+  background-color: var(--c2-70);
+  color: var(--g-20);
 
   & > * {
     max-width: @content-max-width;
@@ -115,8 +117,8 @@
     margin: 0;
     border: unset;
 
-    background-color: var(--white);
-    box-shadow: 0 0 0 var(--gallery-padding) var(--white);
+    background-color: var(--g-90);
+    box-shadow: 0 0 0 var(--gallery-padding) var(--g-90);
 
     border: 1px solid #e7e7e7;
 
@@ -124,6 +126,7 @@
     height: 100%;
 
     object-fit: cover;
+  
   }
 
   .gallery-image-item {

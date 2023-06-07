@@ -14,13 +14,9 @@ textarea {
 input,
 select,
 textarea {
-  border-bottom: @border;
 }
 
 .toggle-button.selected {
-  background-color: var(--p-bg);
-  color: var(--p-stroke);
-  box-shadow: 0 0 0 1px var(--p-stroke);
 }
 
 form.inline,
@@ -49,7 +45,6 @@ input:focus {
 input:focus,
 select:focus {
   outline: none;
-  box-shadow: 0 4px 0 0 var(--p-stroke);
 }
 
 button.link {
@@ -60,9 +55,6 @@ button.link {
 
   border: none;
 
-  background-color: var(--p-bg);
-  color: var(--p-stroke);
-
   cursor: pointer;
 
   text-decoration: underline;
@@ -70,7 +62,6 @@ button.link {
 
   &:hover,
   &:active {
-    color: var(--p-stroke--dec-1);
   }
 
   &:hover {
@@ -78,7 +69,6 @@ button.link {
   }
 
   &:disabled {
-    color: var(--p-stroke--dec-1);
     text-decoration: line-through;
     cursor: not-allowed;
   }

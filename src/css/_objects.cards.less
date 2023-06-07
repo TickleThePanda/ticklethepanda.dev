@@ -5,7 +5,7 @@
   margin: 0;
   margin-top: 1em;
   padding: 4vmin;
-  background-color: var(--p-bg--dec-1);
+  background-color: var(--c1-30);
   border: unset;
 
   display: grid;
@@ -16,6 +16,8 @@
   filter: drop-shadow(@high-contrast-shadow);
 
   max-width: unset;
+
+  list-style: none;
 }
 
 .card {
@@ -35,6 +37,16 @@
 
   --card-font-size: 0.6rem;
   --card-font-size-small: 0.5rem;
+
+}
+
+.card__wrapper {
+  filter: drop-shadow(@high-contrast-shadow);
+}
+
+.card__inner {
+  background-color: var(--p-70);
+
 }
 
 .card--small {
@@ -52,11 +64,16 @@
   --card-font-size: 0.9rem;
   --card-font-size-small: 0.7rem;
 
+
   @media (max-width: @mobile-width) {
     grid-column: full;
   }
   grid-column: span 7;
   grid-row: span 11;
+
+  .card__inner {
+    background-color: var(--c2-70);
+  }
 }
 
 .card__link {
@@ -125,7 +142,8 @@
 
   line-height: 1;
 
-  color: var(--p-stroke--dec-1);
+  color: var(--g-30);
+
 }
 
 .card__url {

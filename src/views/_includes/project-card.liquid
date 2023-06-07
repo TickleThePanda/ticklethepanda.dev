@@ -1,27 +1,29 @@
-<li class="card {% unless project.data.previewImage %}card--small{% endunless %}{% if project.data.favourite %}card--important{% endif %} block-link {% if project.data.favourite %}block-link--important {% else %}block-link--low{% endif %} block-link--random-border block-link__wrapper js-random-border js-random-border-hover">
-  <a class="card__link block-link__link" href="{{ project.url }}">
-    {% if project.data.previewImage %}
-      <img class="card__image" src="{{ project.data.previewImage }}" alt="Preview image for {{ project.data.title }}" width="400" height="250">
-    {% endif %}
-    <h4 class="card__header">{{ project.data.title }}</h4>
-
-    <div class="card__main">
-      {% assign fmt = "%b ’%y" %}
-      {% if project.data.updated %}
-        <div class="card__date">↻ {{ project.data.updated | date: fmt }} ({{ project.data.created | date: fmt }})</div>
-      {% else %}
-        <div class="card__date">{{ project.data.created | date: fmt }}</div>
+<li class="card card__wrapper {% unless project.data.previewImage %}card--small{% endunless %}{% if project.data.favourite %}card--important{% endif %} block-link {% if project.data.favourite %}block-link--important {% else %}block-link--low{% endif %} block-link--random-border ">
+  <div class="card__inner block-link__wrapper js-random-border js-random-border-hover">
+    <a class="card__link block-link__link" href="{{ project.url }}">
+      {% if project.data.previewImage %}
+        <img class="card__image" src="{{ project.data.previewImage }}" alt="Preview image for {{ project.data.title }}" width="400" height="250">
       {% endif %}
-      <p>
-        {{ project.data.description }}
-        {% unless project.data.favouriteReason == blank %}
-          <span class="card__extra-description">
-            {{ project.data.favouriteReason }}
-          </span>
-        {% endunless %}
-    </div>
-    <div class="card__footer">
-      <div class="card__url">{{ project.url }}</div>
-    </div>
-  </a>
+      <h4 class="card__header">{{ project.data.title }}</h4>
+
+      <div class="card__main">
+        {% assign fmt = "%b ’%y" %}
+        {% if project.data.updated %}
+          <div class="card__date">↻ {{ project.data.updated | date: fmt }} ({{ project.data.created | date: fmt }})</div>
+        {% else %}
+          <div class="card__date">{{ project.data.created | date: fmt }}</div>
+        {% endif %}
+        <p>
+          {{ project.data.description }}
+          {% unless project.data.favouriteReason == blank %}
+            <span class="card__extra-description">
+              {{ project.data.favouriteReason }}
+            </span>
+          {% endunless %}
+      </div>
+      <div class="card__footer">
+        <div class="card__url">{{ project.url }}</div>
+      </div>
+    </a>
+  </div>
 </li>

@@ -18,7 +18,7 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
 <div class="galleries full-width">
   {% assign galleries = galleries.galleries | reverse %}
   {% for gallery in galleries %}
-    <div class="gallery palette--light" id="gallery-{{ gallery.ref }}">
+    <div class="gallery" id="gallery-{{ gallery.ref }}">
       <nav class="gallery-nav content-item">
         {% unless forloop.first %}
           {% assign prev_i = forloop.index0 | minus: 1 %}
