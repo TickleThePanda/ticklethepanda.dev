@@ -11,15 +11,15 @@ permalink: /contact-me/
   If you want to chat (I hope you feel you can do), you can find me at
   <a rel="me" href="https://tech.lgbt/@panda">@panda@tech.lgbt on Mastodon</a>.
 
-<form name="contact" method="POST" netlify>
+<form name="contact" action="/contact-me/success/" method="POST" netlify>
   <p>
-    <label>Your Name <input type="text" name="name" /></label>
+    <label>Your Name <input required type="text" name="name" /></label>
   </p>
   <p>
-    <label>Your Email <input type="email" name="email" /></label>
+    <label>Your Email <input required type="email" name="email" /></label>
   </p>
   <p>
-    <label>Message <textarea name="message"></textarea></label>
+    <label>Message <textarea required name="message"></textarea></label>
   </p>
   <p>
     <button type="submit">Send</button>
