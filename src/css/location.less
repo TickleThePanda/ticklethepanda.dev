@@ -25,15 +25,20 @@
   .image-container {
     --random-border--safe-padding: 1.5rem;
 
-    .aspect-ratio(100, 85);
+    display: grid;
+    justify-content: center;
 
     img {
-      padding: 2rem;
+      max-width: 100%;
+
+      width: auto;
+      height: 90vh;
+
+      margin: auto;
+      padding: 1rem;
 
       background-color: unset;
       border: unset;
-
-      width: 100%;
 
       filter: hue-rotate(7deg - 349deg + 240deg) saturate(40%);
 
