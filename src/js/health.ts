@@ -24,14 +24,14 @@ window.addEventListener("load", async () => {
     )).value,
   };
 
-  const [weightResults7, weightResults30, chartSpec] = await Promise.all([
-    healthClient.fetchWeightHistoryWithPeriod(7),
-    healthClient.fetchWeightHistoryWithPeriod(30),
+  const [weight1, weight7, weight30, chartSpec] = await Promise.all([
+    healthClient.fetchWeightHistoryWithPeriod(1, 28),
+    healthClient.fetchWeightHistoryWithPeriod(1, 30),
+    healthClient.fetchWeightHistoryWithPeriod(1, 30 * 3),
     chartClient.fetchWeightChartSpec(),
   ]);
 
-  const weight7 = weightResults7;
-  const weight30 = weightResults30;
+  console.log(weight1)
 
   const dataMinDate = new Date(weight7[0].date.getTime());
   dataMinDate.setDate(dataMinDate.getDate() - 30);
@@ -49,7 +49,7 @@ window.addEventListener("load", async () => {
     },
     recent: {
       date: sixMonthsAgo,
-      data: weight7,
+      data: weight1,
     },
   };
 

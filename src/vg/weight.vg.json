@@ -51,12 +51,6 @@
       "domain": {"data": "source", "field": "weight", "sort": true},
       "clamp": true,
       "range": "height"
-    },
-    {
-      "name": "shape",
-      "type": "ordinal",
-      "range": ["triangle-down", "triangle-up"],
-      "domain": { "data": "source", "field": "period" }
     }
   ],
 
@@ -109,34 +103,17 @@
       }
     }
   ],
-  "legends": [
-    {
-      "title": "Period",
-      "type": "symbol",
-      "shape": "shape",
-      "symbolStrokeColor": "#232946",
-      "symbolFillColor": "#f39bab",
-      "fillColor": "#ffffff88",
-      "padding": 10,
-      "offset": 10,
-      "orient": "top-left",
-      "direction": "horizontal"
-    }
-  ],
   "marks": [
     {
       "name": "marks",
-      "type": "symbol",
+      "type": "line",
       "from": {"data": "source"},
       "encode": {
         "update": {
           "x": {"scale": "x", "field": "date"},
           "y": {"scale": "y", "field": "weight"},
-          "size": {"signal": "pointSize"},
-          "shape": { "scale": "shape", "field": "period" },
-          "opacity": {"value": 1},
           "stroke": {"value": "#232946"},
-          "fill": {"value": "#f39bab"}
+          "strokeWidth": {"value": 2}
         }
       }
     }

@@ -11,19 +11,10 @@ async function handleResponse(response: Response): Promise<HealthResult[]> {
 }
 
 function convertToBasicHistory(results: HealthResult[]): BasicHistory[] {
-  const am = results.map((r) => ({
+  return results.map(r => ({
     date: new Date(r.start),
-    weight: r.averageAm,
-    period: "AM",
-  }));
-
-  const pm = results.map((r) => ({
-    date: new Date(r.start),
-    weight: r.averagePm,
-    period: "PM",
-  }));
-
-  return am.concat(pm).filter((r) => r.weight !== null);
+    weight: r.averagePresumed
+  })).filter(({weight}) => weight !== null);
 }
 
 class HealthClient {
@@ -84,7 +75,7 @@ class HealthClient {
     return history;
   }
 
-  async fetchWeightHistoryWithPeriod(period: number): Promise<BasicHistory[]> {
+  async fetchWeightHistoryWithPeriod(period: number, interval: number): Promise<BasicHistory[]> {
     const response = await fetch(
       baseUrl + "/weight?period=" + period,
       this.init
@@ -92,7 +83,7 @@ class HealthClient {
     const data = await handleResponse(response);
     const history = await convertToBasicHistory(data);
     history.sort((a, b) => a.date.getTime() - b.date.getTime());
-    return history;
+    return  (period === 1 && interval === 1) ? history : simpleMovingAverage(history, period, interval);
   }
 }
 
@@ -100,10 +91,12 @@ interface HealthResult {
   start: string;
   averageAm: number;
   averagePm: number;
+  averagePresumed: number;
 }
 
 interface BasicHistory {
   date: Date;
+  weight: number;
 }
 
 interface UpdateEntryRequest {
@@ -122,4 +115,47 @@ interface DayEntry {
   date: string;
   weightAm: number;
   weightPm: number;
+}
+
+function simpleMovingAverage(entries: BasicHistory[], period: number, interval: number): BasicHistory[] {
+  let results: BasicHistory[] = [];
+
+  const daysInWindow = period * interval;
+  const earliestDate = entries[0].date;
+  const latestDate = entries[entries.length - 1].date;
+
+  const daysBetween = (latestDate.valueOf() - earliestDate.valueOf()) / (1000 * 60 * 60 * 24);
+  const nWindows = Math.ceil(daysBetween / daysInWindow);
+
+  const windows = [...Array(daysBetween).keys()]
+    .map(d => ({
+      start: addDays(earliestDate, d),
+      end: addDays(earliestDate, d + daysInWindow - 1)
+    }))
+  
+  for (const window of windows) {
+    const entriesInWindow = entries.filter(
+      e => window.start <= e.date && e.date < window.end
+    );
+
+    if (entriesInWindow.length < interval / 10) {
+      continue
+    }
+
+    const sum = entriesInWindow.reduce((prev, curr) => prev + curr.weight, 0);
+    const average = sum / entriesInWindow.length;
+    
+    results.push({
+      date: addDays(window.start, Math.ceil(interval / 2)),
+      weight: average
+    })
+  }
+
+  return results.filter(r => !isNaN(r.weight));
+}
+
+function addDays(date: Date, days: number) {
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + days);
+  return newDate;
 }
