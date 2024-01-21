@@ -14,6 +14,9 @@
     },
     {
       "name": "maxY"
+    },
+    {
+      "name": "paddingScale"
     }
   ],
 
@@ -58,11 +61,17 @@
       "titleColor": "#232946",
       "orient": "bottom",
       "title": "Date",
-      "titlePadding": 10,
+      "titlePadding": {
+        "signal": "paddingScale"
+      },
       "format": "%Y %b",
       "labelOverlap": "parity",
-      "labelPadding": 8,
-      "labelSeparation": 20
+      "labelPadding": {
+        "signal": "paddingScale"
+      },
+      "labelSeparation": {
+        "signal": "paddingScale * 2"
+      }
     },
     {
       "scale": "y",
@@ -73,10 +82,16 @@
       "titleColor": "#232946",
       "orient": "left",
       "title": "Weight",
-      "titlePadding": 10,
-      "labelPadding": 8,
+      "titlePadding": {
+        "signal": "paddingScale"
+      },
+      "labelPadding": {
+        "signal": "paddingScale"
+      },
       "labelOverlap": "parity",
-      "labelSeparation": 10,
+      "labelSeparation": {
+        "signal": "paddingScale"
+      },
       "tickCount": 4
     }
   ],

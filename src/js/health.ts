@@ -35,18 +35,20 @@ export class WeightChartManager {
 
     console.log(this.chartSpec);
 
-    const font = this.getChartFont()
+    const font = this.getChartFont();
+    const fontSize = this.getChartFontSize() ?? 12;
 
     this.chart = new vega.View(
       vega.parse(this.chartSpec, {
         axis: {
           labelFont: font,
-          labelFontSize: 18,
+          labelFontSize: fontSize,
           titleFont: font,
-          titleFontSize: 22,
-        },
+          titleFontSize: fontSize,
+        }
       })
-    ).renderer("svg");
+    ).renderer("svg")
+      .signal("paddingScale", fontSize / 2);
 
     this.switchToChart(this.currentChart, true);
 
@@ -125,7 +127,7 @@ export class WeightChartManager {
     this.chartOptions = options;
   }
 
-  getChartFont() {
+  private getChartFont() {
     const chartElement = document.querySelector(this.chartContainer);
     if (chartElement === null) {
       return undefined;
@@ -133,6 +135,17 @@ export class WeightChartManager {
       const fontFamily = window.getComputedStyle(chartElement, null).getPropertyValue("font-family");
       const firstFont = fontFamily.split(",")[0];
       return firstFont;
+    }
+  }
+
+  private getChartFontSize() {
+    const chartElement = document.querySelector(this.chartContainer);
+    if (chartElement === null) {
+      return undefined;
+    } else {
+      const fontSizeText = window.getComputedStyle(chartElement, null).getPropertyValue("font-size");
+      const fontSizePx = Math.round(Number.parseFloat(fontSizeText.replace("px", "")));
+      return fontSizePx;
     }
   }
 }
