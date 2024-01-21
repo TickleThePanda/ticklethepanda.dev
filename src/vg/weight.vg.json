@@ -69,6 +69,7 @@
       "domainColor": {
         "signal": "decorColor"
       },
+      "domainOpacity": 0,
       "titleColor": {
         "signal": "decorColor"
       },
@@ -95,14 +96,15 @@
       "domainColor": {
         "signal": "decorColor"
       },
+      "domainOpacity": 0,
       "titleColor": {
         "signal": "decorColor"
       },
       "orient": "left",
-      "title": "Weight",
+      "title": "Weight (kg)",
       "titleFontWeight": "400",
       "titlePadding": {
-        "signal": "paddingScale / 2"
+        "signal": "paddingScale"
       },
       "labelPadding": {
         "signal": "paddingScale / 2"
