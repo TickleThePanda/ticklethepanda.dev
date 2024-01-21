@@ -4,9 +4,6 @@ import { ChartSizeManager } from "./lib/chart-size-manager.js";
 import { TokenStorage } from "./lib/token-storage.js";
 import type { View } from "vega-typings/types";
 
-const tokenStorage = new TokenStorage();
-const token = tokenStorage.load();
-
 
 type WeightChartOptions = {
   minDate: Date,
@@ -60,6 +57,7 @@ export class WeightChartManager {
   }
 
   switchToChart(chart: string, initialize: boolean = false) {
+    this.currentChart = chart;
     if (this.chartOptions !== undefined) {
       const options = this.chartOptions[chart];
       this.chart
