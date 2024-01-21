@@ -20,7 +20,7 @@
     },
     {
       "name": "decorColor",
-      "value": "#6b718f"
+      "value": "#8a6763"
     }
   ],
 
@@ -66,6 +66,9 @@
       "labelColor": {
         "signal": "decorColor"
       },
+      "domainColor": {
+        "signal": "decorColor"
+      },
       "titleColor": {
         "signal": "decorColor"
       },
@@ -82,11 +85,14 @@
     {
       "scale": "y",
       "grid": true,
-      "gridColor": "#fddfdc",
+      "gridColor": "#deaaa4",
       "tickColor": {
         "signal": "decorColor"
       },
       "labelColor": {
+        "signal": "decorColor"
+      },
+      "domainColor": {
         "signal": "decorColor"
       },
       "titleColor": {
@@ -117,7 +123,7 @@
         "update": {
           "x": {"scale": "x", "field": "date"},
           "y": {"scale": "y", "field": "weight"},
-          "stroke": {"value": "#5a6241"},
+          "stroke": {"value": "#405068"},
           "strokeWidth": {
             "value": 3
           },
