@@ -127,7 +127,7 @@
           "y": {"scale": "y", "field": "weight"},
           "stroke": {"value": "#405068"},
           "strokeWidth": {
-            "value": 3
+            "value": 2
           },
           "interpolate": {
             "value": "linear"
