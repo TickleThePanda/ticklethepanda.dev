@@ -17,6 +17,10 @@
     },
     {
       "name": "paddingScale"
+    },
+    {
+      "name": "decorColor",
+      "value": "#6b718f"
     }
   ],
 
@@ -33,7 +37,7 @@
     {
       "name": "x",
       "type": "utc",
-      "nice": true,
+      "nice": false,
       "domain": [{"signal": "minDate"}, {"signal": "now()"}],
       "range": "width"
     },
@@ -56,18 +60,20 @@
   "axes": [
     {
       "scale": "x",
-      "tickColor": "#232946",
-      "labelColor": "#232946",
-      "titleColor": "#232946",
-      "orient": "bottom",
-      "title": "Date",
-      "titlePadding": {
-        "signal": "paddingScale"
+      "tickColor": {
+        "signal": "decorColor"
       },
+      "labelColor": {
+        "signal": "decorColor"
+      },
+      "titleColor": {
+        "signal": "decorColor"
+      },
+      "orient": "bottom",
       "format": "%Y %b",
       "labelOverlap": "parity",
       "labelPadding": {
-        "signal": "paddingScale"
+        "signal": "paddingScale / 2"
       },
       "labelSeparation": {
         "signal": "paddingScale * 2"
@@ -77,16 +83,23 @@
       "scale": "y",
       "grid": true,
       "gridColor": "#fddfdc",
-      "tickColor": "#232946",
-      "labelColor": "#232946",
-      "titleColor": "#232946",
+      "tickColor": {
+        "signal": "decorColor"
+      },
+      "labelColor": {
+        "signal": "decorColor"
+      },
+      "titleColor": {
+        "signal": "decorColor"
+      },
       "orient": "left",
       "title": "Weight",
+      "titleFontWeight": "400",
       "titlePadding": {
-        "signal": "paddingScale"
+        "signal": "paddingScale / 2"
       },
       "labelPadding": {
-        "signal": "paddingScale"
+        "signal": "paddingScale / 2"
       },
       "labelOverlap": "parity",
       "labelSeparation": {
@@ -104,8 +117,10 @@
         "update": {
           "x": {"scale": "x", "field": "date"},
           "y": {"scale": "y", "field": "weight"},
-          "stroke": {"value": "#405068"},
-          "strokeWidth": {"value": 2},
+          "stroke": {"value": "#5a6241"},
+          "strokeWidth": {
+            "value": 3
+          },
           "interpolate": {
             "value": "linear"
           }

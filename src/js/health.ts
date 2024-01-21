@@ -42,13 +42,13 @@ export class WeightChartManager {
       vega.parse(this.chartSpec, {
         axis: {
           labelFont: font,
-          labelFontSize: fontSize,
+          labelFontSize: fontSize / 1.4,
           titleFont: font,
-          titleFontSize: fontSize,
+          titleFontSize: fontSize / 1.3,
         }
       })
     ).renderer("svg")
-      .signal("paddingScale", fontSize / 2);
+      .signal("paddingScale", fontSize / 2.4);
 
     this.switchToChart(this.currentChart, true);
 
@@ -85,11 +85,10 @@ export class WeightChartManager {
 
   private async loadData() {
 
-    const [weightWeek, weightMonth, weightQuarterlyMa, weightYearly] = await Promise.all([
+    const [weightWeek, weightMonth, weightQuarterlyMa] = await Promise.all([
       this.healthClient.fetchWeightHistoryWithPeriod(4, 4),
-      this.healthClient.fetchWeightHistoryWithPeriod(7, 4),
-      this.healthClient.fetchWeightHistoryWithPeriod(7 * 2 /* 14 days */, 2 * 3 /* 3 months */),
-      this.healthClient.fetchWeightHistoryWithPeriod(365, 1)
+      this.healthClient.fetchWeightHistoryWithPeriod(3, 10),
+      this.healthClient.fetchWeightHistoryWithPeriod(30, Math.floor(365 / 4 / 30))
     ]);
   
     const dataMinDate = new Date(weightWeek[0].date.getTime());
@@ -99,12 +98,6 @@ export class WeightChartManager {
   
   
     const options: Record<string, WeightChartOptions> = {
-      yearly: {
-        minDate: dataMinDate,
-        source: weightYearly,
-        minY: 75,
-        maxY: 125
-      },
       all: {
         minDate: dataMinDate,
         source: weightQuarterlyMa,
@@ -120,8 +113,8 @@ export class WeightChartManager {
       recent: {
         minDate: sixMonthsAgo,
         source: weightWeek,
-        minY: weightWeek.filter((d) => d.date > sixMonthsAgo).reduce((prev, curr) => Math.min(prev, curr.weight), Number.MAX_VALUE) - 2,
-        maxY: weightWeek.filter((d) => d.date > sixMonthsAgo).reduce((prev, curr) => Math.max(prev, curr.weight), Number.MIN_VALUE) + 2
+        minY: weightWeek.filter((d) => d.date > sixMonthsAgo).reduce((prev, curr) => Math.min(prev, curr.weight), Number.MAX_VALUE) - 1,
+        maxY: weightWeek.filter((d) => d.date > sixMonthsAgo).reduce((prev, curr) => Math.max(prev, curr.weight), Number.MIN_VALUE) + 1
       },
     };
     this.chartOptions = options;
