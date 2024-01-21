@@ -24,50 +24,76 @@ window.addEventListener("load", async () => {
     )).value,
   };
 
-  const [weight1, weight7, weight30, chartSpec] = await Promise.all([
-    healthClient.fetchWeightHistoryWithPeriod(1, 28),
-    healthClient.fetchWeightHistoryWithPeriod(1, 30),
-    healthClient.fetchWeightHistoryWithPeriod(1, 30 * 3),
+  const [weightWeek, weightMonth, weightQuarterlyMa, weightYearly, chartSpec] = await Promise.all([
+    healthClient.fetchWeightHistoryWithPeriod(4, 4),
+    healthClient.fetchWeightHistoryWithPeriod(7, 4),
+    healthClient.fetchWeightHistoryWithPeriod(7 * 2 /* 14 days */, 2 * 3 /* 3 months */),
+    healthClient.fetchWeightHistoryWithPeriod(365, 1),
     chartClient.fetchWeightChartSpec(),
   ]);
 
-  console.log(weight1)
-
-  const dataMinDate = new Date(weight7[0].date.getTime());
+  const dataMinDate = new Date(weightWeek[0].date.getTime());
   dataMinDate.setDate(dataMinDate.getDate() - 30);
   const sixMonthsAgo = new Date();
   sixMonthsAgo.setDate(sixMonthsAgo.getDate() - 30 * 6);
 
-  const options: Record<string, { date: Date; data: BasicHistory[] }> = {
+  type WeightChartSettings = { minDate: Date; source: BasicHistory[], minY: number, maxY: number }
+
+  const options: Record<string, WeightChartSettings> = {
+    yearly: {
+      minDate: dataMinDate,
+      source: weightYearly,
+      minY: 75,
+      maxY: 125
+    },
     all: {
-      date: dataMinDate,
-      data: weight30,
+      minDate: dataMinDate,
+      source: weightQuarterlyMa,
+      minY: 75,
+      maxY: 125
     },
     "trying-again": {
-      date: new Date(2022, 5, 1),
-      data: weight7,
+      minDate: new Date(2022, 5, 1),
+      source: weightMonth,
+      minY: 75,
+      maxY: 125
     },
     recent: {
-      date: sixMonthsAgo,
-      data: weight1,
+      minDate: sixMonthsAgo,
+      source: weightWeek,
+      minY: weightWeek.filter((d) => d.date > sixMonthsAgo).reduce((prev, curr) => Math.min(prev, curr.weight), Number.MAX_VALUE) - 2,
+      maxY: weightWeek.filter((d) => d.date > sixMonthsAgo).reduce((prev, curr) => Math.max(prev, curr.weight), Number.MIN_VALUE) + 2
     },
   };
+
+
+  function getCurrentFont() {
+    const chartElement = document.querySelector("#weight-chart");
+    if (chartElement === null) {
+      return undefined;
+    } else {
+      const fontFamily = window.getComputedStyle(chartElement, null).getPropertyValue("font-family");
+      const firstFont = fontFamily.split(",")[0];
+      return firstFont;
+    }
+  }
+
+  const font = getCurrentFont();
 
   const view = new vega.View(
     vega.parse(chartSpec, {
       axis: {
-        labelFont: "Alegreya Sans SC",
-        labelFontSize: 12,
-        titleFont: "Alegreya Sans SC",
-        titleFontSize: 16,
+        labelFont: font,
+        labelFontSize: 18,
+        titleFont: font,
+        titleFontSize: 22,
       },
     })
   ).renderer("svg");
 
   updateVegaChart(
     view,
-    options[state.facet].date,
-    options[state.facet].data
+    options[state.facet]
   ).initialize("#weight-chart");
 
   chartSizeManager.add(view);
@@ -95,7 +121,7 @@ window.addEventListener("load", async () => {
   function updateViewTo(chartType: string) {
     const option = options[chartType];
 
-    updateVegaChart(view, option.date, option.data).run();
+    updateVegaChart(view, option).run();
 
     document
       .querySelectorAll("#weight-charts .facets button")
@@ -109,7 +135,12 @@ window.addEventListener("load", async () => {
     weightChartElement.classList.add("button--selected");
   }
 
-  function updateVegaChart(chart: View, date: Date, data: BasicHistory[]) {
-    return chart.signal("minDate", date).data("source", data);
+  function updateVegaChart(chart: View, settings: WeightChartSettings) {
+    console.log(settings);
+    return chart
+      .signal("minDate", settings.minDate)
+      .data("source", settings.source)
+      .signal("minY", settings.minY)
+      .signal("maxY", settings.maxY);
   }
 });

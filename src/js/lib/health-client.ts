@@ -83,7 +83,7 @@ class HealthClient {
     const data = await handleResponse(response);
     const history = await convertToBasicHistory(data);
     history.sort((a, b) => a.date.getTime() - b.date.getTime());
-    return  (period === 1 && interval === 1) ? history : simpleMovingAverage(history, period, interval);
+    return  (interval === 1) ? history : simpleMovingAverage(history, period, interval);
   }
 }
 
@@ -125,18 +125,39 @@ function simpleMovingAverage(entries: BasicHistory[], period: number, interval: 
   const latestDate = entries[entries.length - 1].date;
 
   const daysBetween = (latestDate.valueOf() - earliestDate.valueOf()) / (1000 * 60 * 60 * 24);
-  const nWindows = Math.ceil(daysBetween / daysInWindow);
 
   const windows = [...Array(daysBetween).keys()]
-    .map(d => ({
-      start: addDays(earliestDate, d),
-      end: addDays(earliestDate, d + daysInWindow - 1)
-    }))
+    .map(d => {
+      const start = addDays(earliestDate, d);
+      const end = addDays(earliestDate, d + daysInWindow - 1);
+      const datesInWindow = [...Array(interval).keys()]
+        .map(din => addDays(start, din * period))
+      return {
+        start,
+        datesInWindow,
+        end
+      };
+    })
   
-  for (const window of windows) {
-    const entriesInWindow = entries.filter(
-      e => window.start <= e.date && e.date < window.end
-    );
+  function convertDateToKey(date: Date) {
+    return date.toISOString().split("T")[0];
+  }
+  
+  const dateMap = entries.reduce((prev, curr) => {
+    const date: string = convertDateToKey(curr.date);
+    prev[date] = curr;
+    return prev;
+  }, {} as Record<string, BasicHistory>);
+  
+  for (const {
+    start,
+    datesInWindow
+  } of windows) {
+
+    const entriesInWindow = datesInWindow
+      .map(d => dateMap[convertDateToKey(d)])
+      .filter(e => e !== undefined)
+      .sort((a, b) => a.date.getTime() - b.date.getTime());
 
     if (entriesInWindow.length < interval / 10) {
       continue
@@ -146,7 +167,7 @@ function simpleMovingAverage(entries: BasicHistory[], period: number, interval: 
     const average = sum / entriesInWindow.length;
     
     results.push({
-      date: addDays(window.start, Math.ceil(interval / 2)),
+      date: addDays(start, Math.ceil(interval / 2)),
       weight: average
     })
   }

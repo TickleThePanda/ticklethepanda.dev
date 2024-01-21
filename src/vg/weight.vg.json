@@ -4,25 +4,16 @@
     "type": "fit",
     "contains": "padding"
   },
+  "padding": 15,
   "signals": [
-    {
-      "name": "minimumPointSize",
-      "update": "15 * PI"
-    },
-    {
-      "name": "basePointSize",
-      "update": "width / data('source').length * PI"
-    },
-    {
-      "name": "pointSize",
-      "update": "basePointSize > minimumPointSize ? basePointSize : minimumPointSize"
-    },
     {
       "name": "minDate"
     },
     {
-      "name": "fontSize",
-      "update": "14"
+      "name": "minY"
+    },
+    {
+      "name": "maxY"
     }
   ],
 
@@ -46,9 +37,14 @@
     {
       "name": "y",
       "type": "linear",
-      "nice": true,
       "zero": false,
       "domain": {"data": "source", "field": "weight", "sort": true},
+      "domainMin": {
+        "signal": "minY"
+      },
+      "domainMax": {
+        "signal": "maxY"
+      },
       "clamp": true,
       "range": "height"
     }
@@ -57,63 +53,47 @@
   "axes": [
     {
       "scale": "x",
-      "grid": true,
-      "gridColor": "#fce6e9",
       "tickColor": "#232946",
       "labelColor": "#232946",
       "titleColor": "#232946",
       "orient": "bottom",
       "title": "Date",
+      "titlePadding": 10,
       "format": "%Y %b",
-      "labelOverlap": true,
-      "encode": {
-        "labels": {
-          "update": {
-            "fontSize": {"signal": "fontSize"}
-          }
-        },
-        "title": {
-          "update": {
-            "fontSize": {"signal": "fontSize"}
-          }
-        }
-      }
+      "labelOverlap": "parity",
+      "labelPadding": 8,
+      "labelSeparation": 20
     },
     {
       "scale": "y",
       "grid": true,
-      "gridColor": "#fce6e9",
+      "gridColor": "#fddfdc",
       "tickColor": "#232946",
       "labelColor": "#232946",
       "titleColor": "#232946",
       "orient": "left",
       "title": "Weight",
-      "labelOverlap": true,
-      "encode": {
-        "labels": {
-          "update": {
-            "fontSize": {"signal": "fontSize"}
-          }
-        },
-        "title": {
-          "update": {
-            "fontSize": {"signal": "fontSize"}
-          }
-        }
-      }
+      "titlePadding": 10,
+      "labelPadding": 8,
+      "labelOverlap": "parity",
+      "labelSeparation": 10,
+      "tickCount": 4
     }
   ],
   "marks": [
     {
-      "name": "marks",
+      "name": "line",
       "type": "line",
       "from": {"data": "source"},
       "encode": {
         "update": {
           "x": {"scale": "x", "field": "date"},
           "y": {"scale": "y", "field": "weight"},
-          "stroke": {"value": "#232946"},
-          "strokeWidth": {"value": 2}
+          "stroke": {"value": "#405068"},
+          "strokeWidth": {"value": 2},
+          "interpolate": {
+            "value": "linear"
+          }
         }
       }
     }
