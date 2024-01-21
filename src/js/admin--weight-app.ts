@@ -1,5 +1,7 @@
 import { TokenStorage } from "./lib/token-storage.js";
 import { HealthClient } from "./lib/health-client.js";
+import { WeightChartManager } from "./health.js";
+import { ChartClient } from "./lib/chart-client.js";
 
 function getMiddayOfDate(date: Date) {
   const middayOnDate = new Date(date);
@@ -121,13 +123,62 @@ class WeightApp {
   }
 }
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
   const tokenStorage = new TokenStorage();
   const token = tokenStorage.load();
   if (token === null) {
     throw new Error("Could not get token");
   }
-  const thermometerApp = new WeightApp(token);
+  const weightApp = new WeightApp(token);
 
-  thermometerApp.run();
+  weightApp.run();
+
+  const state = {
+    facet: (<HTMLInputElement>(
+      document.querySelector("#weight-charts .facets .button--selected")
+    )).value,
+  };
+
+  const weightChartManager = new WeightChartManager(
+    new HealthClient(token),
+    new ChartClient(),
+    state.facet,
+    "#weight-chart"
+  )
+
+  await weightChartManager.load();
+
+  const weightChartButtons = Array.from(
+    document.querySelectorAll("#weight-charts button")
+  ) as Array<HTMLButtonElement>;
+
+  for (const el of weightChartButtons) {
+    const facet = el.value;
+    el.addEventListener("click", () => {
+      state.facet = facet;
+
+      updateViewToState();
+    });
+  }
+
+  function updateViewToState() {
+    const chartType = state.facet;
+    updateViewTo(chartType);
+  }
+
+  function updateViewTo(chartType: string) {
+    weightChartManager.switchToChart(chartType);
+
+    document
+      .querySelectorAll("#weight-charts .facets button")
+      .forEach((button) => {
+        button.classList.remove("button--selected");
+      });
+
+    const weightChartElement = <HTMLElement>(
+      document.querySelector("#weight-chart-" + state.facet)
+    );
+    weightChartElement.classList.add("button--selected");
+  }
+
 });

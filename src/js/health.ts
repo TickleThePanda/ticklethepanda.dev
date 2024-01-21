@@ -7,68 +7,128 @@ import type { View } from "vega-typings/types";
 const tokenStorage = new TokenStorage();
 const token = tokenStorage.load();
 
-window.addEventListener("load", async () => {
-  if (token === null) {
-    console.log("Unable to get token");
-    return;
+
+type WeightChartOptions = {
+  minDate: Date,
+  source: BasicHistory[],
+  minY: number,
+  maxY: number
+}
+export class WeightChartManager {
+  private chart: View | undefined;
+
+  private healthClient: HealthClient;
+  private chartClient: ChartClient;
+
+  private chartOptions: Record<string, WeightChartOptions>| undefined;
+  private currentChart: string;
+  private chartSpec: unknown | undefined;
+  private chartContainer: string;
+
+  constructor(healthClient: HealthClient, chartClient: ChartClient, currentChart: string, chartContainer: string) {
+    this.healthClient = healthClient;
+    this.chartClient = chartClient;
+    this.currentChart = currentChart;
+    this.chartContainer = chartContainer;
   }
 
-  const healthClient = new HealthClient(token);
+  async load() {
+    await this.loadChartSpec();
+    await this.loadData();
 
-  const chartClient = new ChartClient();
-  const chartSizeManager = new ChartSizeManager();
+    console.log(this.chartSpec);
 
-  const state = {
-    facet: (<HTMLInputElement>(
-      document.querySelector("#weight-charts .facets .button--selected")
-    )).value,
-  };
+    const font = this.getChartFont()
 
-  const [weightWeek, weightMonth, weightQuarterlyMa, weightYearly, chartSpec] = await Promise.all([
-    healthClient.fetchWeightHistoryWithPeriod(4, 4),
-    healthClient.fetchWeightHistoryWithPeriod(7, 4),
-    healthClient.fetchWeightHistoryWithPeriod(7 * 2 /* 14 days */, 2 * 3 /* 3 months */),
-    healthClient.fetchWeightHistoryWithPeriod(365, 1),
-    chartClient.fetchWeightChartSpec(),
-  ]);
+    this.chart = new vega.View(
+      vega.parse(this.chartSpec, {
+        axis: {
+          labelFont: font,
+          labelFontSize: 18,
+          titleFont: font,
+          titleFontSize: 22,
+        },
+      })
+    ).renderer("svg");
 
-  const dataMinDate = new Date(weightWeek[0].date.getTime());
-  dataMinDate.setDate(dataMinDate.getDate() - 30);
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setDate(sixMonthsAgo.getDate() - 30 * 6);
+    this.switchToChart(this.currentChart, true);
 
-  type WeightChartSettings = { minDate: Date; source: BasicHistory[], minY: number, maxY: number }
+    if (this.chart !== undefined) {
+      new ChartSizeManager().add(this.chart);
+    }
 
-  const options: Record<string, WeightChartSettings> = {
-    yearly: {
-      minDate: dataMinDate,
-      source: weightYearly,
-      minY: 75,
-      maxY: 125
-    },
-    all: {
-      minDate: dataMinDate,
-      source: weightQuarterlyMa,
-      minY: 75,
-      maxY: 125
-    },
-    "trying-again": {
-      minDate: new Date(2022, 5, 1),
-      source: weightMonth,
-      minY: 75,
-      maxY: 125
-    },
-    recent: {
-      minDate: sixMonthsAgo,
-      source: weightWeek,
-      minY: weightWeek.filter((d) => d.date > sixMonthsAgo).reduce((prev, curr) => Math.min(prev, curr.weight), Number.MAX_VALUE) - 2,
-      maxY: weightWeek.filter((d) => d.date > sixMonthsAgo).reduce((prev, curr) => Math.max(prev, curr.weight), Number.MIN_VALUE) + 2
-    },
-  };
+  }
 
+  switchToChart(chart: string, initialize: boolean = false) {
+    if (this.chartOptions !== undefined) {
+      const options = this.chartOptions[chart];
+      this.chart
+        ?.signal("minDate", options.minDate)
+        .data("source", options.source)
+        .signal("minY", options.minY)
+        .signal("maxY", options.maxY);
+      if (initialize) {
+        this.chart?.initialize(this.chartContainer);
+      }
+      this.chart?.run()
+    }
+  }
 
-  function getCurrentFont() {
-    const chartElement = document.querySelector("#weight-chart");
+  async reloadData() {
+    await this.loadData()
+    this.switchToChart(this.currentChart);
+  }
+
+  private async loadChartSpec() {
+    this.chartSpec = await this.chartClient.fetchWeightChartSpec();
+  }
+
+  private async loadData() {
+
+    const [weightWeek, weightMonth, weightQuarterlyMa, weightYearly] = await Promise.all([
+      this.healthClient.fetchWeightHistoryWithPeriod(4, 4),
+      this.healthClient.fetchWeightHistoryWithPeriod(7, 4),
+      this.healthClient.fetchWeightHistoryWithPeriod(7 * 2 /* 14 days */, 2 * 3 /* 3 months */),
+      this.healthClient.fetchWeightHistoryWithPeriod(365, 1)
+    ]);
+  
+    const dataMinDate = new Date(weightWeek[0].date.getTime());
+    dataMinDate.setDate(dataMinDate.getDate() - 30);
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setDate(sixMonthsAgo.getDate() - 30 * 6);
+  
+  
+    const options: Record<string, WeightChartOptions> = {
+      yearly: {
+        minDate: dataMinDate,
+        source: weightYearly,
+        minY: 75,
+        maxY: 125
+      },
+      all: {
+        minDate: dataMinDate,
+        source: weightQuarterlyMa,
+        minY: 75,
+        maxY: 125
+      },
+      "trying-again": {
+        minDate: new Date(2022, 5, 1),
+        source: weightMonth,
+        minY: 75,
+        maxY: 125
+      },
+      recent: {
+        minDate: sixMonthsAgo,
+        source: weightWeek,
+        minY: weightWeek.filter((d) => d.date > sixMonthsAgo).reduce((prev, curr) => Math.min(prev, curr.weight), Number.MAX_VALUE) - 2,
+        maxY: weightWeek.filter((d) => d.date > sixMonthsAgo).reduce((prev, curr) => Math.max(prev, curr.weight), Number.MIN_VALUE) + 2
+      },
+    };
+    this.chartOptions = options;
+  }
+
+  getChartFont() {
+    const chartElement = document.querySelector(this.chartContainer);
     if (chartElement === null) {
       return undefined;
     } else {
@@ -77,70 +137,4 @@ window.addEventListener("load", async () => {
       return firstFont;
     }
   }
-
-  const font = getCurrentFont();
-
-  const view = new vega.View(
-    vega.parse(chartSpec, {
-      axis: {
-        labelFont: font,
-        labelFontSize: 18,
-        titleFont: font,
-        titleFontSize: 22,
-      },
-    })
-  ).renderer("svg");
-
-  updateVegaChart(
-    view,
-    options[state.facet]
-  ).initialize("#weight-chart");
-
-  chartSizeManager.add(view);
-
-  view.run();
-
-  const weightChartButtons = Array.from(
-    document.querySelectorAll("#weight-charts button")
-  ) as Array<HTMLButtonElement>;
-
-  for (const el of weightChartButtons) {
-    const facet = el.value;
-    el.addEventListener("click", () => {
-      state.facet = facet;
-
-      updateViewToState();
-    });
-  }
-
-  function updateViewToState() {
-    const chartType = state.facet;
-    updateViewTo(chartType);
-  }
-
-  function updateViewTo(chartType: string) {
-    const option = options[chartType];
-
-    updateVegaChart(view, option).run();
-
-    document
-      .querySelectorAll("#weight-charts .facets button")
-      .forEach((button) => {
-        button.classList.remove("button--selected");
-      });
-
-    const weightChartElement = <HTMLElement>(
-      document.querySelector("#weight-chart-" + state.facet)
-    );
-    weightChartElement.classList.add("button--selected");
-  }
-
-  function updateVegaChart(chart: View, settings: WeightChartSettings) {
-    console.log(settings);
-    return chart
-      .signal("minDate", settings.minDate)
-      .data("source", settings.source)
-      .signal("minY", settings.minY)
-      .signal("maxY", settings.maxY);
-  }
-});
+}
