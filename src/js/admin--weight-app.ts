@@ -23,11 +23,11 @@ function cleanWeightResult(weight: number) {
 
 
 class WeightApp {
-  token: string;
   client: HealthClient;
-  constructor(token: string) {
-    this.token = token;
-    this.client = new HealthClient(token);
+  chartManager: WeightChartManager;
+  constructor(healthClient: HealthClient, chartManager: WeightChartManager) {
+    this.client = healthClient;
+    this.chartManager = chartManager;
   }
 
   setupFormInputs() {
@@ -79,6 +79,8 @@ class WeightApp {
 
         resultsElement.classList.remove("error");
         resultsElement.classList.add("success");
+
+        await this.chartManager.reloadData();
       } catch (e) {
         if (e instanceof Error) {
           resultsErrorElement.textContent = e.message;
@@ -129,9 +131,6 @@ window.addEventListener("load", async () => {
   if (token === null) {
     throw new Error("Could not get token");
   }
-  const weightApp = new WeightApp(token);
-
-  weightApp.run();
 
   const state = {
     facet: (<HTMLInputElement>(
@@ -139,12 +138,17 @@ window.addEventListener("load", async () => {
     )).value,
   };
 
+
+  const healthClient = new HealthClient(token);
   const weightChartManager = new WeightChartManager(
     new HealthClient(token),
     new ChartClient(),
     state.facet,
     "#weight-chart"
-  )
+  );
+  const weightApp = new WeightApp(healthClient, weightChartManager);
+
+  weightApp.run();
 
   await weightChartManager.load();
 
