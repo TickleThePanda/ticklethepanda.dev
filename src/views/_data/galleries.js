@@ -12,12 +12,37 @@ module.exports = async function () {
 
   const galleriesData = galleriesResponse.data;
 
-  galleriesData.favourites = {
-    images: galleriesData.galleries
-      .flatMap((g) => g.images)
-      .filter((i) => i.favourite)
-      .reverse(),
-  };
+  const favouriteGalleryToImages = galleriesData.galleries
+    .flatMap((g) => g.images)
+    .filter((i) => i.favourite)
+    .reduce((p, i) => {
+      if (p[i.favouriteGallery] === undefined) {
+        p[i.favouriteGallery] = [];
+      }
+      p[i.favouriteGallery].push(i);
+      return p;
+    }, {});
+  
+  const favouriteGalleries = Object.entries(favouriteGalleryToImages)
+    .map(([ gallery, images ]) => ({
+      name: gallery,
+      images: images.reverse()
+    }));
+  
+  const order = [
+    "Architecture",
+    "Infrastructure",
+    "Nature",
+    "People"
+  ]
+
+  favouriteGalleries.sort((a, b) => {
+    const ai = order.includes(a.name) ? order.indexOf(a.name) : order.length;
+    const bi = order.includes(b.name) ? order.indexOf(b.name) : order.length;
+    return ai - bi;
+  })
+  
+  galleriesData.favourites = favouriteGalleries
 
   printGalleryInfo(galleriesData);
 

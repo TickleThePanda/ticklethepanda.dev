@@ -16,7 +16,9 @@ previewImage: https://images.ticklethepanda.co.uk/images/project-images/project-
   <nav class="gallery-nav content-item">
     <a class="next" href="/photography/galleries/">More ↠</a>
   </nav>
-  {% render 'gallery-content', gallery: galleries.favourites, urls: urls %}
+  {% for gallery in galleries.favourites %}
+    {% render 'gallery-content', gallery: gallery, urls: urls %}
+  {% endfor %}
   <nav class="gallery-nav content-item">
     <a class="next" href="/photography/galleries/">More ↠</a>
   </nav>

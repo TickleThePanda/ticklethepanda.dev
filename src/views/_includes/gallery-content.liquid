@@ -5,9 +5,8 @@
 
   <ul class="gallery-images">
     {% assign hashGallery = gallery.name | hash %}
-    {% if hashGallery > 0.6 %}
-      <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
-    {% endif %}
+    {% assign size = 1 | minus: hashGallery | times: 10 | round %}
+    <li class="gallery-image-item gallery-image-item--empty gallery-image-item--empty-{{size}}" role="presentation"></li>
     {% assign images = gallery.images %}
     {% for image in images %}
       {% assign x = image.aspectRatio.x %}
@@ -26,9 +25,10 @@
       </li>
 
       {% assign hashImage = image.name | hash %}
-      {% if hashImage > 0.3 %}
-        <li class="gallery-image-item gallery-image-item--empty" role="presentation"></li>
-      {% endif %}
+      {% unless forloop.last %}
+        {% assign size = 1 | minus: hashImage | times: 10 | round %}
+        <li class="gallery-image-item gallery-image-item--empty gallery-image-item--empty-{{size}}" role="presentation"></li>
+      {% endunless %}
     {% endfor %}
   </ul>
 </div>

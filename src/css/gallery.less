@@ -1,6 +1,7 @@
 @import "_tools.aspect-ratio.less";
 @import "_settings.borders.less";
 @import "_settings.sizes.less";
+@import "_settings.shadows.less";
 @import "_settings.typography.less";
 
 .gallery {
@@ -86,11 +87,24 @@
 
 .gallery-title {
   clear: both;
-  padding-top: calc(1rem - var(--gallery-padding) / 2);
-  padding-left: calc(2rem - var(--gallery-padding) / 2);
-  padding-right: calc(2rem - var(--gallery-padding) / 2);
+
+  padding-left: calc(1rem - var(--gallery-padding) / 2);
+  padding-right: calc(1rem - var(--gallery-padding) / 2);
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+
+
+  background-color: var(--c1-30);
+  color: var(--g-90);
   margin-top: 0;
+  max-width: none;
+  width: none;
+  margin: 0;
   text-align: center;
+
+  border-top: 0.2em var(--c1-20) solid;
+
+  font-size: 1em;
 }
 .gallery-images {
   padding: 2rem;
@@ -99,6 +113,7 @@
     padding-top: 2rem;
   }
   margin: 0;
+  margin-top: var(--gallery-padding);
 
   max-width: unset;
 
@@ -153,26 +168,50 @@
 
       @media (min-width: 500px) {
         display: block;
-        grid-column: span 5;
-        grid-row: span 5;
 
-        &:first-child {
-          grid-column: span 3;
-          grid-row: span 3;
-        }
-
-        &:nth-child(2n) {
+        /* Generated using random number */
+        &-0 {
           grid-column: span 4;
-          grid-row: span 4;
+          grid-row: span 2;
         }
-
-        &:nth-child(3n) {
-          grid-column: span 8;
+        &-1 {
+          grid-column: span 1;
+          grid-row: span 6;
+        }
+        &-2 {
+          grid-column: span 3;
+          grid-row: span 7;
+        }
+        &-3 {
+          grid-column: span 2;
           grid-row: span 8;
         }
-
-        &:nth-child(5n + 2) {
+        &-4 {
+          grid-column: span 4;
+          grid-row: span 5;
+        }
+        &-5 {
+          grid-column: span 1;
+          grid-row: span 2;
+        }
+        &-6 {
           grid-column: span 6;
+          grid-row: span 5;
+        }
+        &-7 {
+          grid-column: span 6;
+          grid-row: span 1;
+        }
+        &-8  {
+          grid-column: span 6;
+          grid-row: span 7;
+        }
+        &-9 {
+          grid-column: span 3;
+          grid-row: span 4;
+        }
+        &-10 {
+          grid-column: span 4;
           grid-row: span 4;
         }
       }
@@ -219,4 +258,12 @@
     grid-gap: var(--gallery-padding);
     grid-auto-rows: var(--grid-size);
   }
+}
+
+.gallery-content + .gallery-content {
+  padding-top: 5em;
+}
+
+.gallery-content:last-of-type {
+  padding-bottom: 5em;
 }
