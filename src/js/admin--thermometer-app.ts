@@ -1,9 +1,9 @@
-import type { View } from "vega-typings/types";
-import { TokenStorage } from "./lib/token-storage.js";
-
+import { View, loader, parse, Warn } from "vega";
+import { TokenStorage } from "./lib/token-storage";
+ 
 function handleResponse(response: Response) {
   if (response.ok) {
-    return response.json();
+    return response.json(); 
   } else {
     throw Error("unable to load data: " + response.statusText);
   }
@@ -189,17 +189,17 @@ function calculateChartBounds(dateMode: string, date: Date | undefined) {
 class ThermometerApp {
   static async create(token: string): Promise<ThermometerApp> {
     const chartParams = ChartingParams.fromUrl();
-    const spec = JSON.parse(await vega.loader().load(chartSpecUrl));
+    const spec = JSON.parse(await loader().load(chartSpecUrl));
 
     const chartBounds = calculateChartBounds(
       chartParams.dateMode,
       chartParams.date
     );
 
-    const view = new vega.View(vega.parse(spec))
+    const view = new View(parse(spec))
       .renderer("svg")
       .insert("source", data)
-      .logLevel(vega.Warn)
+      .logLevel(Warn)
       .signal("minDate", chartBounds.minDate)
       .signal("maxDate", chartBounds.maxDate)
       .initialize(`#thermometer-chart`);

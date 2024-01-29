@@ -1,4 +1,4 @@
-import type { View } from "vega-typings";
+import { View } from "vega";
 
 function resize(v: View) {
   const container = v.container();

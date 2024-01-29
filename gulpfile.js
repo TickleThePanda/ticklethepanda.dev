@@ -3,17 +3,16 @@ const gulp = require("gulp");
 const less = require("gulp-less");
 const cleanCss = require("gulp-clean-css");
 
-const uglifyjs = require("uglify-es");
-const composer = require("gulp-uglify/composer");
-
-const sourcemaps = require("gulp-sourcemaps");
-const gulpUtil = require("gulp-util");
 const shell = require("gulp-shell");
 
-const minify = composer(uglifyjs, console);
+const ts = require("typescript");
+const tsify = require("tsify");
+const esbuild = require("esbuild");
 
-const ts = require("gulp-typescript");
-const tsProject = ts.createProject("tsconfig.json");
+const rename = require("gulp-rename");
+const { glob } = require("glob");
+const source = require("vinyl-source-stream");
+const es = require("event-stream");
 
 const assetsBaseOutput = "site/assets";
 
@@ -27,14 +26,21 @@ gulp.task("css", function () {
     .pipe(gulp.dest(assetsBaseOutput + "/style/"));
 });
 
-gulp.task("js", function () {
-  return tsProject
-    .src()
-    .pipe(tsProject())
-    .pipe(minify())
-    .on("error", (err) => console.log("uglify error", err))
-    .pipe(sourcemaps.write("maps"))
-    .pipe(gulp.dest(assetsBaseOutput + "/scripts/"));
+gulp.task("js", async function () {
+
+  return await esbuild.build({
+    entryPoints: await glob("src/js/*.ts"),
+    format: "esm",
+    loader: {
+      '.ts': 'ts'
+    },
+    bundle: true,
+    splitting: true,
+    treeShaking: true,
+    minify: true,
+    sourcemap: true,
+    outdir: assetsBaseOutput + "/scripts"
+  });
 });
 
 gulp.task("fonts", function () {

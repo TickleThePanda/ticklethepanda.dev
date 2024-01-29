@@ -153,7 +153,7 @@ const prevButton = <HTMLElement>slideshowController.querySelector(".prev");
 
 const state: {
   facet: FacetView;
-  intervalId: number | null;
+  intervalId: ReturnType<typeof setTimeout> | null;
 } = {
   facet: data["all"],
   intervalId: null,

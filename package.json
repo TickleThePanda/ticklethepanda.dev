@@ -22,9 +22,18 @@
     "@typescript-eslint/eslint-plugin": "^5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
     "concurrently": "^7.0.0",
+    "esbuild": "^0.20.0",
     "eslint": "^8.10.0",
+    "event-stream": "^4.0.1",
+    "glob": "^10.3.10",
+    "gulp-esbuild": "^0.12.0",
+    "gulp-rename": "^2.0.0",
     "live-server": "^1.1.0",
-    "local-web-server": "^5.1.1"
+    "local-web-server": "^5.1.1",
+    "tsify": "^5.0.4",
+    "vega": "^5.27.0",
+    "vega-tooltip": "^0.34.0",
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
     "@11ty/eleventy": "^1.0.0",

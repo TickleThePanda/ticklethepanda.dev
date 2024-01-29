@@ -1,7 +1,7 @@
-import { TokenStorage } from "./lib/token-storage.js";
-import { HealthClient } from "./lib/health-client.js";
-import { WeightChartManager } from "./health.js";
-import { ChartClient } from "./lib/chart-client.js";
+import { TokenStorage } from "./lib/token-storage";
+import { HealthClient } from "./lib/health-client";
+import { WeightChartManager } from "./health";
+import { ChartClient } from "./lib/chart-client";
 
 function getMiddayOfDate(date: Date) {
   const middayOnDate = new Date(date);

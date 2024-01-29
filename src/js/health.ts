@@ -1,14 +1,14 @@
-import { BasicHistory, HealthClient } from "./lib/health-client.js";
-import { ChartClient } from "./lib/chart-client.js";
-import { ChartSizeManager } from "./lib/chart-size-manager.js";
-import { TokenStorage } from "./lib/token-storage.js";
-import type { View } from "vega-typings/types";
+import { BasicHistory, HealthClient } from "./lib/health-client";
+import { ChartClient } from "./lib/chart-client";
+import { ChartSizeManager } from "./lib/chart-size-manager";
+import { View, parse, Spec } from "vega";
+import { Handler } from "vega-tooltip";
 
 
 type WeightChartOptions = {
   minDate: Date,
   source: BasicHistory[],
-  minY: number,
+  minY: number, 
   maxY: number
 }
 export class WeightChartManager {
@@ -19,14 +19,17 @@ export class WeightChartManager {
 
   private chartOptions: Record<string, WeightChartOptions>| undefined;
   private currentChart: string;
-  private chartSpec: unknown | undefined;
+  private chartSpec: Spec | undefined;
   private chartContainer: string;
+
+  private tooltipHandler: Handler;
 
   constructor(healthClient: HealthClient, chartClient: ChartClient, currentChart: string, chartContainer: string) {
     this.healthClient = healthClient;
     this.chartClient = chartClient;
     this.currentChart = currentChart;
     this.chartContainer = chartContainer;
+    this.tooltipHandler = new Handler()
   }
 
   async load() {
@@ -35,11 +38,15 @@ export class WeightChartManager {
 
     console.log(this.chartSpec);
 
+    if (this.chartSpec === undefined) {
+      throw new Error("Can't generate chart because spec is undefined");
+    }
+
     const font = this.getChartFont();
     const fontSize = this.getChartFontSize() ?? 12;
 
-    this.chart = new vega.View(
-      vega.parse(this.chartSpec, {
+    this.chart = new View(
+      parse(this.chartSpec, {
         axis: {
           labelFont: font,
           labelFontSize: fontSize / 1.4,
@@ -104,7 +111,7 @@ export class WeightChartManager {
         minY: 75,
         maxY: 125
       },
-      "trying-again": {
+      "trying-again": { 
         minDate: new Date(2022, 5, 1),
         source: weightMonth,
         minY: 75,

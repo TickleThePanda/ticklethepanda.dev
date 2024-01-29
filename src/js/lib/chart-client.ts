@@ -1,3 +1,5 @@
+import type { Spec } from "vega";
+
 async function handleResponse(response: Response) {
   if (response.ok) {
     return await response.json();
@@ -9,12 +11,12 @@ async function handleResponse(response: Response) {
 const assetsBaseUrl = document.documentElement.dataset.urlAssets;
 
 export class ChartClient {
-  async fetchWeightChartSpec(): Promise<unknown> {
+  async fetchWeightChartSpec(): Promise<Spec> {
     const response = await fetch(assetsBaseUrl + "/vega/weight.vg.json");
     return await handleResponse(response);
   }
 
-  async fetchDayActivityChartSpec(): Promise<unknown> {
+  async fetchDayActivityChartSpec(): Promise<Spec> {
     const response = await fetch(
       assetsBaseUrl + "/vega/activity/average-day.vg.json"
     );

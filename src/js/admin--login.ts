@@ -1,8 +1,8 @@
-import { TokenStorage } from "./lib/token-storage.js";
-import { TokenClient } from "./lib/token-client.js";
+import { TokenStorage } from "./lib/token-storage";
+import { TokenClient } from "./lib/token-client";
 
 const tokenStorage = new TokenStorage();
-const tokenClient = new TokenClient();
+const tokenClient = new TokenClient(); 
 
 window.addEventListener("load", () => {
   const form = <HTMLFormElement>document.getElementById("login");

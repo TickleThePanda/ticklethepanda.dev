@@ -11,6 +11,7 @@
     "thermometer": "https://thermometer.ticklethepanda.dev"
   },
   "cdn": {
-    "vega": "https://cdn.jsdelivr.net/npm/vega@5"
+    "vega": "https://cdn.jsdelivr.net/npm/vega@5",
+    "vegaTooltip": "https://cdn.jsdelivr.net/npm/vega-tooltip@0.34.0"
   }
 }
