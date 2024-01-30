@@ -32,6 +32,7 @@
     "local-web-server": "^5.1.1",
     "tsify": "^5.0.4",
     "vega": "^5.27.0",
+    "vega-embed": "^6.24.0",
     "vega-tooltip": "^0.34.0",
     "vinyl-source-stream": "^2.0.0"
   },

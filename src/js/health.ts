@@ -19,26 +19,23 @@ export class WeightChartManager {
 
   private chartOptions: Record<string, WeightChartOptions>| undefined;
   private currentChart: string;
-  private chartSpec: Spec | undefined;
   private chartContainer: string;
-
-  private tooltipHandler: Handler;
 
   constructor(healthClient: HealthClient, chartClient: ChartClient, currentChart: string, chartContainer: string) {
     this.healthClient = healthClient;
     this.chartClient = chartClient;
     this.currentChart = currentChart;
     this.chartContainer = chartContainer;
-    this.tooltipHandler = new Handler()
   }
 
   async load() {
-    await this.loadChartSpec();
+    const chartSpec = await this.chartClient.fetchWeightChartSpec();
+    const chartHandler = new Handler();
     await this.loadData();
 
-    console.log(this.chartSpec);
+    console.log(chartSpec);
 
-    if (this.chartSpec === undefined) {
+    if (chartSpec === undefined) {
       throw new Error("Can't generate chart because spec is undefined");
     }
 
@@ -46,7 +43,7 @@ export class WeightChartManager {
     const fontSize = this.getChartFontSize() ?? 12;
 
     this.chart = new View(
-      parse(this.chartSpec, {
+      parse(chartSpec, {
         axis: {
           labelFont: font,
           labelFontSize: fontSize / 1.4,
@@ -54,10 +51,13 @@ export class WeightChartManager {
           titleFontSize: fontSize / 1.3,
         }
       })
-    ).renderer("svg")
-      .signal("paddingScale", fontSize / 2.4);
+    )
+      .signal("paddingScale", fontSize / 2.4)
+      .tooltip(chartHandler.call)
+      .initialize(this.chartContainer)
+      .run()
 
-    this.switchToChart(this.currentChart, true);
+    this.switchToChart(this.currentChart);
 
     if (this.chart !== undefined) {
       new ChartSizeManager().add(this.chart);
@@ -65,29 +65,23 @@ export class WeightChartManager {
 
   }
 
-  switchToChart(chart: string, initialize: boolean = false) {
+  switchToChart(chart: string) {
     this.currentChart = chart;
+
     if (this.chartOptions !== undefined) {
       const options = this.chartOptions[chart];
       this.chart
-        ?.signal("minDate", options.minDate)
-        .data("source", options.source)
+        ?.data("source", options.source)
+        .signal("minDate", options.minDate)
         .signal("minY", options.minY)
-        .signal("maxY", options.maxY);
-      if (initialize) {
-        this.chart?.initialize(this.chartContainer);
-      }
-      this.chart?.run()
+        .signal("maxY", options.maxY)
+        .run();
     }
   }
 
   async reloadData() {
     await this.loadData()
     this.switchToChart(this.currentChart);
-  }
-
-  private async loadChartSpec() {
-    this.chartSpec = await this.chartClient.fetchWeightChartSpec();
   }
 
   private async loadData() {

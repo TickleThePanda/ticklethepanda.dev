@@ -36,7 +36,6 @@ gulp.task("js", async function () {
     },
     bundle: true,
     splitting: true,
-    treeShaking: true,
     minify: true,
     sourcemap: true,
     outdir: assetsBaseOutput + "/scripts"

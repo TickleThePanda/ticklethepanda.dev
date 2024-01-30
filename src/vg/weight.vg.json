@@ -21,6 +21,14 @@
     {
       "name": "decorColor",
       "value": "#8a6763"
+    },
+    {
+      "name": "hover",
+      "value": null,
+      "on": [
+        {"events": "@points_voronoi:mouseover", "update": "datum"},
+        {"events": "@points_voronoi:mouseout", "update": "null"}
+      ]
     }
   ],
 
@@ -29,6 +37,16 @@
       "name": "source",
       "transform": [
         { "type": "filter", "expr": "datum.date > minDate" }
+      ]
+    },
+    {
+      "name": "highlightedPoint",
+      "source": "source",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "hover && hover.datum.date === datum.date"
+        }
       ]
     }
   ],
@@ -132,6 +150,44 @@
           "interpolate": {
             "value": "linear"
           }
+        }
+      }
+    },
+    {
+      "name": "points_voronoi",
+      "type": "path",
+      "from": {"data": "line"},
+      "encode": {
+        "update": {
+          "fill": {"value": "transparent"},
+          "strokeWidth": {"value": 0.35},
+          "stroke": {"value": "transparent"},
+          "strokeOpacity": {"value": 0.2},
+          "isVoronoi": {"value": true},
+          "tooltip": {
+            "signal": "{ title: utcFormat(datum.datum.date, '%Y-%m-%d'), weight: format(datum.datum.weight, ',.1f') }"
+          }
+        }
+      },
+      "transform": [
+        {
+          "type": "voronoi",
+          "x": "datum.x",
+          "y": "datum.y",
+          "size": [{"signal": "width"}, {"signal": "height"}]
+        }
+      ]
+    },
+    {
+      "from": {"data": "highlightedPoint"},
+      "type": "symbol",
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "date"},
+          "y": {"scale": "y", "field": "weight"},
+          "fill": {"value": "#405068"},
+          "size": {"value": 100}
         }
       }
     }
