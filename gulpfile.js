@@ -5,14 +5,9 @@ const cleanCss = require("gulp-clean-css");
 
 const shell = require("gulp-shell");
 
-const ts = require("typescript");
-const tsify = require("tsify");
 const esbuild = require("esbuild");
 
-const rename = require("gulp-rename");
 const { glob } = require("glob");
-const source = require("vinyl-source-stream");
-const es = require("event-stream");
 
 const assetsBaseOutput = "site/assets";
 
