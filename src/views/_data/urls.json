@@ -2,9 +2,8 @@
   "base": "https://ticklethepanda.dev",
   "assets": "/assets",
   "images": "/assets/images",
-  "galleries": "https://galleries.ticklethepanda.co.uk",
+  "galleries": "https://galleries.ticklethepanda.dev",
   "locationHistory": "https://storage.googleapis.com/ttp-location-history-gallery",
-  "api": "https://api.ticklethepanda.co.uk",
   "apis": {
     "health": "https://health.ticklethepanda.dev",
     "auth": "https://auth.api.ticklethepanda.dev",

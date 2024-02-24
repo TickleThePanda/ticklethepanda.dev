@@ -2,7 +2,7 @@ const axios = require("axios");
 
 module.exports = async function () {
   const galleriesResponse = await axios.get(
-    "https://galleries.ticklethepanda.co.uk/",
+    "https://galleries.ticklethepanda.dev/",
     {
       headers: {
         "Cache-Control": "no-store",
