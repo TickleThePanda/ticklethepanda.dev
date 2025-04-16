@@ -135,10 +135,12 @@ export class WeightChartManager {
           startWeight,
           endWeight
         } = info;
+        const total = startWeight - endWeight;
         return `
           <div class="weight-loss-average">
             <h4>${title}</h4>
-            <p>${avgLoss} <span class="unit">kg / week</span><span class="initial-weight">(From ${startWeight.toFixed(0)} kg)</span>
+            <p class="total">${total.toFixed(1)}kg
+            <p><span class="unit">${avgLoss} kg / week</span><span class="initial-weight">(From ${startWeight.toFixed(0)} kg)</span>
           </div>
         `
       }
