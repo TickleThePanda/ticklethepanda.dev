@@ -8,3 +8,43 @@
   padding: 1em;
   margin: 1em 0;
 }
+
+.weight-loss-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7em, 1fr));
+  justify-items: space-around;
+  gap: 0.5em;
+  margin-top: 0.5em;
+}
+
+.weight-loss-average {
+  display: block;
+  padding: 0.5em;
+  background-color: var(--p-90);
+  justify-content: center;
+  text-align: center;
+
+  h4 {
+    margin-top: 0;
+    font-weight: 700;
+    font-size: 70%;
+  }
+
+  p {
+    margin-top: 0em;
+
+  }
+
+  .unit {
+    display: block;
+    font-size: 60%;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--p-30)
+  }
+
+  .initial-weight {
+    font-size: 60%;
+    margin-top: 0.1em;
+  }
+}
