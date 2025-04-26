@@ -6,13 +6,16 @@
 @originY: 50%;
 
 .my-face-wrapper {
-  filter: drop-shadow(@low-contrast-shadow);
   width: 100%;
   pointer-events: none;
 }
 
+.my-face-shadow-wrapper {
+  filter: drop-shadow(@high-contrast-shadow);
+}
+
 .my-face-outer-wrapper {
-  width: ~"min(" 28em, 100%, 70vw, 75vh~ ")";
+  width: ~"min(" 24em, 100%, 70vw, 75vh~ ")";
   max-width: 100%;
   height: auto;
 
